@@ -1,0 +1,7 @@
+bool motion_finish
+bool init_finish
+bool pull_finish
+bool push_finish
+bool rough_pos_finish
+bool auto_pos_finish
+bool system_error
