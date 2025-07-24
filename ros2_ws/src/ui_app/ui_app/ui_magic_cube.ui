@@ -2814,8 +2814,8 @@ Control</string>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="MenuButtonGroup"/>
-  <buttongroup name="AutoAndManualButtonGroup"/>
   <buttongroup name="ComponentControlMenuButtonGroup"/>
+  <buttongroup name="AutoAndManualButtonGroup"/>
+  <buttongroup name="MenuButtonGroup"/>
  </buttongroups>
 </ui>

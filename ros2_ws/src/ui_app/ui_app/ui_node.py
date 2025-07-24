@@ -1,8 +1,8 @@
 import sys
 from PySide6.QtCore import Qt, QEvent, QTimer, Signal
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton
-from ui_app.ui_magic_cube_columns_timeline import Ui_MainWindow
-# import resources_rc  # this includes the images
+from ui_app.ui_magic_cube import Ui_MainWindow
+import ui_app.resources_rc  # this includes the images
 
 # for ROS2
 import threading
@@ -22,13 +22,6 @@ class ROSNode(Node):
         # Publisher using custom StateCmd message
         self.publisher = self.create_publisher(StateCmd, '/state_cmd', 10)
 
-
-
-        self._ui_callback = None
-
-    def set_ui_callback(self, callback):
-        self._ui_callback = callback
-
     # def ros_message_callback(self, msg):
     #     text = f"init: {msg.init_button}, run: {msg.run_button}, pause: {msg.pause_button}"
     #     print(f"ROSNode received: {text}")
@@ -47,14 +40,8 @@ class MainWindow(QMainWindow):
 
         self.ros_node = ros_node
 
-        # Connect ROSNode callback to UI slot
-        self.ros_node.set_ui_callback(self.on_ros_message)
         # Connect Qt signal to UI handler
         self.ros_msg_received.connect(self.handle_ros_message)
-
-        # Start ROS spinning in a separate thread
-        self._ros_thread = threading.Thread(target=rclpy.spin, args=(self.ros_node,), daemon=True)
-        self._ros_thread.start()
 
         # Move window to 2nd screen if available or maximize
         screens = QApplication.screens()
