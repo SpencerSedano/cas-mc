@@ -39,8 +39,10 @@ class DataNode(Node):
         self.state_cmd_subscriber = self.create_subscription(StateCmd, "/state_cmd", self.state_cmd_callback, 10)
 
         #publisher
-        self.state_info_publisher = self.create_publisher(StateCmd, '/state_cmd', 10)
+        self.state_info_publisher = self.create_publisher(StateCmd, '/state_info', 10)
+        
         self.motion_state_publisher = self.create_publisher(MotionState, '/motion_state', 10)
+        
         self.motion_cmd_publisher = self.create_publisher(MotionCmd, '/motion_cmd', 10)
 
     def state_cmd_callback(self, msg:StateCmd):
@@ -50,6 +52,7 @@ class DataNode(Node):
             'run_button': msg.run_button,   
             'pause_button': msg.pause_button,
         }
+        self.publish_state_info()
     
     def motion_state_callback(self, msg=MotionState):
         print(f"接收到運動狀態: {msg}")
@@ -116,6 +119,15 @@ class DataNode(Node):
             print(f"未知的運動命令: {command}")
             return
         print(f"發佈運動命令: {command}")
+
+    def publish_state_info(self):
+        msg = StateCmd()
+        msg.init_button = self.state_cmd['init_button']
+        msg.run_button = self.state_cmd['run_button']
+        msg.pause_button = self.state_cmd['pause_button']
+        
+        # print("[Publish] Sending state info:", msg)
+        # self.state_info_publisher.publish(msg)
 
 
 class FSMState(Enum):
