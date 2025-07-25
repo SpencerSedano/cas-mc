@@ -7,6 +7,8 @@
     <file>controlArrows/cartesian/up.png</file>
     <file>controlArrows/cartesian/yawMinus.png</file>
     <file>controlArrows/cartesian/yawPlus.png</file>
+    <file>controlArrows/lift.svg</file>
+    <file>controlArrows/lower.svg</file>
     <file>icons/white/dimmer-switch.svg</file>
     <file>icons/white/home-simple-door.svg</file>
     <file>icons/white/multiple-pages.svg</file>

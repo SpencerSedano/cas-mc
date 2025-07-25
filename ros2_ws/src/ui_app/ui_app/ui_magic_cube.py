@@ -17,8 +17,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QButtonGroup, QFrame, QGridLayout,
     QHBoxLayout, QLabel, QMainWindow, QPushButton,
-    QSizePolicy, QSlider, QStackedWidget, QVBoxLayout,
-    QWidget)
+    QSizePolicy, QSlider, QStackedWidget, QTabWidget,
+    QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -80,7 +80,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         icon = QIcon()
-        icon.addFile(u":/icons/white/settings.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon.addFile(u"icons/white/settings.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.SystemSettingsButton.setIcon(icon)
         self.SystemSettingsButton.setCheckable(True)
         self.SignalLightsWidget = QWidget(self.BackgroundWidget)
@@ -259,7 +259,7 @@ class Ui_MainWindow(object):
 
         self.ActionButtons = QStackedWidget(self.MainPagePage)
         self.ActionButtons.setObjectName(u"ActionButtons")
-        self.ActionButtons.setGeometry(QRect(710, 110, 291, 491))
+        self.ActionButtons.setGeometry(QRect(710, 110, 291, 581))
         self.ActionButtons.setStyleSheet(u"")
         self.ActionButtonsPage = QWidget()
         self.ActionButtonsPage.setObjectName(u"ActionButtonsPage")
@@ -376,16 +376,141 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_12.addWidget(self.StopButton)
 
+        self.AutoResetButton = QPushButton(self.ActionButtonsPage)
+        self.AutoResetButton.setObjectName(u"AutoResetButton")
+        sizePolicy.setHeightForWidth(self.AutoResetButton.sizePolicy().hasHeightForWidth())
+        self.AutoResetButton.setSizePolicy(sizePolicy)
+        self.AutoResetButton.setFont(font)
+        self.AutoResetButton.setStyleSheet(u"QPushButton {\n"
+"    padding: 6px 12px;\n"
+"    background-color: qlineargradient(\n"
+"        x1:0, y1:0, x2:0, y2:1,\n"
+"        stop:0 #1a1a1a, stop:1 #000000\n"
+"    );\n"
+"    color: white;\n"
+"    border: 1px solid #444;\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: qlineargradient(\n"
+"        x1:0, y1:0, x2:0, y2:1,\n"
+"        stop:0 #2a2a2a, stop:1 #111111\n"
+"    );\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: qlineargradient(\n"
+"        x1:0, y1:0, x2:0, y2:1,\n"
+"        stop:0 #0f0f0f, stop:1 #000000\n"
+"    );\n"
+"    border-style: inset;\n"
+"	background-color: #0B76A0;\n"
+"}\n"
+"\n"
+"")
+
+        self.verticalLayout_12.addWidget(self.AutoResetButton)
+
         self.ActionButtons.addWidget(self.ActionButtonsPage)
         self.ControlsPage = QWidget()
         self.ControlsPage.setObjectName(u"ControlsPage")
         self.ControlsPage.setStyleSheet(u"")
-        self.ControlUp = QPushButton(self.ControlsPage)
-        self.ControlUp.setObjectName(u"ControlUp")
-        self.ControlUp.setGeometry(QRect(100, 50, 101, 91))
+        self.ManualOptionsWidget = QTabWidget(self.ControlsPage)
+        self.ManualOptionsWidget.setObjectName(u"ManualOptionsWidget")
+        self.ManualOptionsWidget.setGeometry(QRect(0, 0, 291, 581))
+        self.ManualOptionsWidget.setStyleSheet(u"QTabWidget::pane {\n"
+"    border: 1px solid #CCCCCC;\n"
+"    background: white;\n"
+"}\n"
+"\n"
+"QTabBar::tab {\n"
+"    background: #E0E0E0;\n"
+"    border: 1px solid #CCCCCC;\n"
+"    padding: 12px 24px;       /* bigger padding for touch */\n"
+"    border-bottom-left-radius: 15px;\n"
+"    border-bottom-right-radius: 15px;\n"
+"    /* Remove min-width to allow expanding */\n"
+"    min-width: 0;\n"
+"    /* Allow tabs to expand equally */\n"
+"    width: 125%;\n"
+"	height: 42px;\n"
+"    font-size: 18px;    /* bigger font */\n"
+"}\n"
+"\n"
+"QTabBar::tab:selected {\n"
+"    background: #FFFFFF;\n"
+"    border-top-color: white;\n"
+"    font-weight: bold;\n"
+"}\n"
+"\n"
+"QTabBar::tab:hover {\n"
+"    background: #F5F5F5;\n"
+"}\n"
+"\n"
+"QTabBar::scroller {\n"
+"	width: 100px;\n"
+"}\n"
+"\n"
+"")
+        self.ManualOptionsWidget.setTabPosition(QTabWidget.TabPosition.South)
+        self.ManualOptionsWidget.setElideMode(Qt.TextElideMode.ElideNone)
+        self.ManualOptionsWidget.setDocumentMode(True)
+        self.ManualOptionsWidget.setTabsClosable(False)
+        self.ManualOptionsWidget.setMovable(False)
+        self.ManualAlignTab = QWidget()
+        self.ManualAlignTab.setObjectName(u"ManualAlignTab")
+        self.ManualOptionsWidget.addTab(self.ManualAlignTab, "")
+        self.AutoAlignTab = QWidget()
+        self.AutoAlignTab.setObjectName(u"AutoAlignTab")
+        self.ManualOptionsWidget.addTab(self.AutoAlignTab, "")
+        self.AutoPickTab = QWidget()
+        self.AutoPickTab.setObjectName(u"AutoPickTab")
+        self.ManualOptionsWidget.addTab(self.AutoPickTab, "")
+        self.AutoAssemblyTab = QWidget()
+        self.AutoAssemblyTab.setObjectName(u"AutoAssemblyTab")
+        self.ManualOptionsWidget.addTab(self.AutoAssemblyTab, "")
+        self.ControlTab = QWidget()
+        self.ControlTab.setObjectName(u"ControlTab")
+        self.YawMinus = QPushButton(self.ControlTab)
+        self.YawMinus.setObjectName(u"YawMinus")
+        self.YawMinus.setGeometry(QRect(0, 190, 101, 91))
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.YawMinus.sizePolicy().hasHeightForWidth())
+        self.YawMinus.setSizePolicy(sizePolicy1)
+        self.YawMinus.setStyleSheet(u"QPushButton {\n"
+"	background-color:none;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #0B76A0;  /* when button is being pressed */\n"
+"}\n"
+"")
+        icon1 = QIcon()
+        icon1.addFile(u"controlArrows/yaw-.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.YawMinus.setIcon(icon1)
+        self.YawMinus.setIconSize(QSize(80, 80))
+        self.YawMinus.setCheckable(False)
+        self.ControlRight = QPushButton(self.ControlTab)
+        self.ControlRight.setObjectName(u"ControlRight")
+        self.ControlRight.setGeometry(QRect(200, 100, 101, 91))
+        self.ControlRight.setStyleSheet(u"QPushButton {\n"
+"	background-color:none;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #0B76A0;  /* when button is being pressed */\n"
+"}\n"
+"")
+        icon2 = QIcon()
+        icon2.addFile(u"controlArrows/cartesian/right.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.ControlRight.setIcon(icon2)
+        self.ControlRight.setIconSize(QSize(80, 80))
+        self.ControlUp = QPushButton(self.ControlTab)
+        self.ControlUp.setObjectName(u"ControlUp")
+        self.ControlUp.setGeometry(QRect(100, 10, 101, 91))
         sizePolicy1.setHeightForWidth(self.ControlUp.sizePolicy().hasHeightForWidth())
         self.ControlUp.setSizePolicy(sizePolicy1)
         self.ControlUp.setStyleSheet(u"QPushButton {\n"
@@ -396,43 +521,13 @@ class Ui_MainWindow(object):
 "    background-color: #0B76A0;  /* when button is being pressed */\n"
 "}\n"
 "")
-        icon1 = QIcon()
-        icon1.addFile(u"controlArrows/cartesian/up.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.ControlUp.setIcon(icon1)
-        self.ControlUp.setIconSize(QSize(80, 80))
-        self.ControlLeft = QPushButton(self.ControlsPage)
-        self.ControlLeft.setObjectName(u"ControlLeft")
-        self.ControlLeft.setGeometry(QRect(0, 140, 101, 91))
-        self.ControlLeft.setStyleSheet(u"QPushButton {\n"
-"	background-color:none;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #0B76A0;  /* when button is being pressed */\n"
-"}\n"
-"")
-        icon2 = QIcon()
-        icon2.addFile(u"controlArrows/cartesian/left.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.ControlLeft.setIcon(icon2)
-        self.ControlLeft.setIconSize(QSize(80, 80))
-        self.ControlRight = QPushButton(self.ControlsPage)
-        self.ControlRight.setObjectName(u"ControlRight")
-        self.ControlRight.setGeometry(QRect(200, 140, 101, 91))
-        self.ControlRight.setStyleSheet(u"QPushButton {\n"
-"	background-color:none;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #0B76A0;  /* when button is being pressed */\n"
-"}\n"
-"")
         icon3 = QIcon()
-        icon3.addFile(u"controlArrows/cartesian/right.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.ControlRight.setIcon(icon3)
-        self.ControlRight.setIconSize(QSize(80, 80))
-        self.ControlDown = QPushButton(self.ControlsPage)
+        icon3.addFile(u"controlArrows/cartesian/up.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.ControlUp.setIcon(icon3)
+        self.ControlUp.setIconSize(QSize(80, 80))
+        self.ControlDown = QPushButton(self.ControlTab)
         self.ControlDown.setObjectName(u"ControlDown")
-        self.ControlDown.setGeometry(QRect(100, 230, 101, 91))
+        self.ControlDown.setGeometry(QRect(100, 190, 101, 91))
         self.ControlDown.setStyleSheet(u"QPushButton {\n"
 "	background-color:none;\n"
 "}\n"
@@ -445,9 +540,9 @@ class Ui_MainWindow(object):
         icon4.addFile(u"controlArrows/cartesian/down.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.ControlDown.setIcon(icon4)
         self.ControlDown.setIconSize(QSize(80, 80))
-        self.YawPlus = QPushButton(self.ControlsPage)
+        self.YawPlus = QPushButton(self.ControlTab)
         self.YawPlus.setObjectName(u"YawPlus")
-        self.YawPlus.setGeometry(QRect(200, 40, 101, 91))
+        self.YawPlus.setGeometry(QRect(200, 10, 101, 91))
         sizePolicy1.setHeightForWidth(self.YawPlus.sizePolicy().hasHeightForWidth())
         self.YawPlus.setSizePolicy(sizePolicy1)
         self.YawPlus.setStyleSheet(u"QPushButton {\n"
@@ -462,12 +557,10 @@ class Ui_MainWindow(object):
         icon5.addFile(u"controlArrows/yaw+.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.YawPlus.setIcon(icon5)
         self.YawPlus.setIconSize(QSize(80, 80))
-        self.YawMinus = QPushButton(self.ControlsPage)
-        self.YawMinus.setObjectName(u"YawMinus")
-        self.YawMinus.setGeometry(QRect(0, 240, 101, 91))
-        sizePolicy1.setHeightForWidth(self.YawMinus.sizePolicy().hasHeightForWidth())
-        self.YawMinus.setSizePolicy(sizePolicy1)
-        self.YawMinus.setStyleSheet(u"QPushButton {\n"
+        self.ControlLeft = QPushButton(self.ControlTab)
+        self.ControlLeft.setObjectName(u"ControlLeft")
+        self.ControlLeft.setGeometry(QRect(0, 100, 101, 91))
+        self.ControlLeft.setStyleSheet(u"QPushButton {\n"
 "	background-color:none;\n"
 "}\n"
 "\n"
@@ -476,14 +569,53 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         icon6 = QIcon()
-        icon6.addFile(u"controlArrows/yaw-.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.YawMinus.setIcon(icon6)
-        self.YawMinus.setIconSize(QSize(80, 80))
-        self.YawMinus.setCheckable(False)
-        self.ClipperButton = QPushButton(self.ControlsPage)
+        icon6.addFile(u"controlArrows/cartesian/left.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.ControlLeft.setIcon(icon6)
+        self.ControlLeft.setIconSize(QSize(80, 80))
+        self.ClipperAndResetWidget = QWidget(self.ControlTab)
+        self.ClipperAndResetWidget.setObjectName(u"ClipperAndResetWidget")
+        self.ClipperAndResetWidget.setGeometry(QRect(0, 430, 291, 71))
+        self.horizontalLayout_19 = QHBoxLayout(self.ClipperAndResetWidget)
+        self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
+        self.ManualResetButton = QPushButton(self.ClipperAndResetWidget)
+        self.ManualResetButton.setObjectName(u"ManualResetButton")
+        sizePolicy.setHeightForWidth(self.ManualResetButton.sizePolicy().hasHeightForWidth())
+        self.ManualResetButton.setSizePolicy(sizePolicy)
+        self.ManualResetButton.setFont(font)
+        self.ManualResetButton.setStyleSheet(u"QPushButton {\n"
+"    padding: 6px 12px;\n"
+"    background-color: qlineargradient(\n"
+"        x1:0, y1:0, x2:0, y2:1,\n"
+"        stop:0 #1a1a1a, stop:1 #000000\n"
+"    );\n"
+"    color: white;\n"
+"    border: 1px solid #444;\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: qlineargradient(\n"
+"        x1:0, y1:0, x2:0, y2:1,\n"
+"        stop:0 #2a2a2a, stop:1 #111111\n"
+"    );\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: qlineargradient(\n"
+"        x1:0, y1:0, x2:0, y2:1,\n"
+"        stop:0 #0f0f0f, stop:1 #000000\n"
+"    );\n"
+"    border-style: inset;\n"
+"	background-color: #0B76A0;\n"
+"}\n"
+"\n"
+"")
+
+        self.horizontalLayout_19.addWidget(self.ManualResetButton)
+
+        self.ClipperButton = QPushButton(self.ClipperAndResetWidget)
         self.ClipperButton.setObjectName(u"ClipperButton")
         self.ClipperButton.setEnabled(True)
-        self.ClipperButton.setGeometry(QRect(10, 430, 281, 61))
         sizePolicy.setHeightForWidth(self.ClipperButton.sizePolicy().hasHeightForWidth())
         self.ClipperButton.setSizePolicy(sizePolicy)
         self.ClipperButton.setFont(font)
@@ -512,6 +644,44 @@ class Ui_MainWindow(object):
 "\n"
 "")
         self.ClipperButton.setCheckable(True)
+
+        self.horizontalLayout_19.addWidget(self.ClipperButton)
+
+        self.Lift = QPushButton(self.ControlTab)
+        self.Lift.setObjectName(u"Lift")
+        self.Lift.setGeometry(QRect(10, 320, 101, 91))
+        sizePolicy1.setHeightForWidth(self.Lift.sizePolicy().hasHeightForWidth())
+        self.Lift.setSizePolicy(sizePolicy1)
+        self.Lift.setStyleSheet(u"QPushButton {\n"
+"	background-color:none;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #0B76A0;  /* when button is being pressed */\n"
+"}\n"
+"")
+        icon7 = QIcon()
+        icon7.addFile(u"controlArrows/lift.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.Lift.setIcon(icon7)
+        self.Lift.setIconSize(QSize(80, 80))
+        self.Lower = QPushButton(self.ControlTab)
+        self.Lower.setObjectName(u"Lower")
+        self.Lower.setGeometry(QRect(190, 320, 101, 91))
+        sizePolicy1.setHeightForWidth(self.Lower.sizePolicy().hasHeightForWidth())
+        self.Lower.setSizePolicy(sizePolicy1)
+        self.Lower.setStyleSheet(u"QPushButton {\n"
+"	background-color:none;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #0B76A0;  /* when button is being pressed */\n"
+"}\n"
+"")
+        icon8 = QIcon()
+        icon8.addFile(u"controlArrows/lower.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.Lower.setIcon(icon8)
+        self.Lower.setIconSize(QSize(80, 80))
+        self.ManualOptionsWidget.addTab(self.ControlTab, "")
         self.ActionButtons.addWidget(self.ControlsPage)
         self.ProcessAndInfoStackedWidget = QStackedWidget(self.MainPagePage)
         self.ProcessAndInfoStackedWidget.setObjectName(u"ProcessAndInfoStackedWidget")
@@ -538,24 +708,24 @@ class Ui_MainWindow(object):
         self.StartWidget.setObjectName(u"StartWidget")
         self.verticalLayout_2 = QVBoxLayout(self.StartWidget)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.StartText = QLabel(self.StartWidget)
+        self.StartText.setObjectName(u"StartText")
+        self.StartText.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout_2.addWidget(self.StartText)
+
         self.StartCircle = QLabel(self.StartWidget)
         self.StartCircle.setObjectName(u"StartCircle")
-        self.StartCircle.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.verticalLayout_2.addWidget(self.StartCircle)
-
-        self.Start = QLabel(self.StartWidget)
-        self.Start.setObjectName(u"Start")
         sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy3.setHorizontalStretch(0)
         sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.Start.sizePolicy().hasHeightForWidth())
-        self.Start.setSizePolicy(sizePolicy3)
-        self.Start.setPixmap(QPixmap(u"icons/white/timeline-circle.svg"))
-        self.Start.setScaledContents(True)
-        self.Start.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        sizePolicy3.setHeightForWidth(self.StartCircle.sizePolicy().hasHeightForWidth())
+        self.StartCircle.setSizePolicy(sizePolicy3)
+        self.StartCircle.setPixmap(QPixmap(u"icons/white/timeline-circle.svg"))
+        self.StartCircle.setScaledContents(True)
+        self.StartCircle.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_2.addWidget(self.Start, 0, Qt.AlignmentFlag.AlignHCenter)
+        self.verticalLayout_2.addWidget(self.StartCircle, 0, Qt.AlignmentFlag.AlignHCenter)
 
 
         self.horizontalLayout_3.addWidget(self.StartWidget, 0, Qt.AlignmentFlag.AlignVCenter)
@@ -564,11 +734,11 @@ class Ui_MainWindow(object):
         self.ConnectWidget.setObjectName(u"ConnectWidget")
         self.verticalLayout = QVBoxLayout(self.ConnectWidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.Connect = QLabel(self.ConnectWidget)
-        self.Connect.setObjectName(u"Connect")
-        self.Connect.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.ConnectText = QLabel(self.ConnectWidget)
+        self.ConnectText.setObjectName(u"ConnectText")
+        self.ConnectText.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout.addWidget(self.Connect)
+        self.verticalLayout.addWidget(self.ConnectText)
 
         self.ConnectCircle = QLabel(self.ConnectWidget)
         self.ConnectCircle.setObjectName(u"ConnectCircle")
@@ -587,11 +757,11 @@ class Ui_MainWindow(object):
         self.INITWidget.setObjectName(u"INITWidget")
         self.verticalLayout_3 = QVBoxLayout(self.INITWidget)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.INIT = QLabel(self.INITWidget)
-        self.INIT.setObjectName(u"INIT")
-        self.INIT.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.INITText = QLabel(self.INITWidget)
+        self.INITText.setObjectName(u"INITText")
+        self.INITText.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_3.addWidget(self.INIT)
+        self.verticalLayout_3.addWidget(self.INITText)
 
         self.INITCircle = QLabel(self.INITWidget)
         self.INITCircle.setObjectName(u"INITCircle")
@@ -606,107 +776,107 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_3.addWidget(self.INITWidget, 0, Qt.AlignmentFlag.AlignVCenter)
 
-        self.VisionWidget = QWidget(self.Timeline)
-        self.VisionWidget.setObjectName(u"VisionWidget")
-        self.verticalLayout_6 = QVBoxLayout(self.VisionWidget)
+        self.IdleWidget = QWidget(self.Timeline)
+        self.IdleWidget.setObjectName(u"IdleWidget")
+        self.verticalLayout_6 = QVBoxLayout(self.IdleWidget)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
-        self.Vision = QLabel(self.VisionWidget)
-        self.Vision.setObjectName(u"Vision")
-        self.Vision.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.IdleText = QLabel(self.IdleWidget)
+        self.IdleText.setObjectName(u"IdleText")
+        self.IdleText.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_6.addWidget(self.Vision)
+        self.verticalLayout_6.addWidget(self.IdleText)
 
-        self.VisionCircle = QLabel(self.VisionWidget)
-        self.VisionCircle.setObjectName(u"VisionCircle")
-        sizePolicy3.setHeightForWidth(self.VisionCircle.sizePolicy().hasHeightForWidth())
-        self.VisionCircle.setSizePolicy(sizePolicy3)
-        self.VisionCircle.setPixmap(QPixmap(u"icons/white/timeline-circle.svg"))
-        self.VisionCircle.setScaledContents(True)
-        self.VisionCircle.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.IdleCircle = QLabel(self.IdleWidget)
+        self.IdleCircle.setObjectName(u"IdleCircle")
+        sizePolicy3.setHeightForWidth(self.IdleCircle.sizePolicy().hasHeightForWidth())
+        self.IdleCircle.setSizePolicy(sizePolicy3)
+        self.IdleCircle.setPixmap(QPixmap(u"icons/white/timeline-circle.svg"))
+        self.IdleCircle.setScaledContents(True)
+        self.IdleCircle.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_6.addWidget(self.VisionCircle, 0, Qt.AlignmentFlag.AlignHCenter)
+        self.verticalLayout_6.addWidget(self.IdleCircle, 0, Qt.AlignmentFlag.AlignHCenter)
 
 
-        self.horizontalLayout_3.addWidget(self.VisionWidget, 0, Qt.AlignmentFlag.AlignVCenter)
+        self.horizontalLayout_3.addWidget(self.IdleWidget, 0, Qt.AlignmentFlag.AlignVCenter)
 
-        self.LiftingWidget = QWidget(self.Timeline)
-        self.LiftingWidget.setObjectName(u"LiftingWidget")
-        self.verticalLayout_7 = QVBoxLayout(self.LiftingWidget)
+        self.ManualAlignWidget = QWidget(self.Timeline)
+        self.ManualAlignWidget.setObjectName(u"ManualAlignWidget")
+        self.verticalLayout_7 = QVBoxLayout(self.ManualAlignWidget)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
-        self.Lifting = QLabel(self.LiftingWidget)
-        self.Lifting.setObjectName(u"Lifting")
-        self.Lifting.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.ManualAlignText = QLabel(self.ManualAlignWidget)
+        self.ManualAlignText.setObjectName(u"ManualAlignText")
+        self.ManualAlignText.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_7.addWidget(self.Lifting)
+        self.verticalLayout_7.addWidget(self.ManualAlignText)
 
-        self.LiftCircle = QLabel(self.LiftingWidget)
-        self.LiftCircle.setObjectName(u"LiftCircle")
-        sizePolicy3.setHeightForWidth(self.LiftCircle.sizePolicy().hasHeightForWidth())
-        self.LiftCircle.setSizePolicy(sizePolicy3)
-        self.LiftCircle.setPixmap(QPixmap(u"icons/white/timeline-circle.svg"))
-        self.LiftCircle.setScaledContents(True)
-        self.LiftCircle.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.ManualAlignCircle = QLabel(self.ManualAlignWidget)
+        self.ManualAlignCircle.setObjectName(u"ManualAlignCircle")
+        sizePolicy3.setHeightForWidth(self.ManualAlignCircle.sizePolicy().hasHeightForWidth())
+        self.ManualAlignCircle.setSizePolicy(sizePolicy3)
+        self.ManualAlignCircle.setPixmap(QPixmap(u"icons/white/timeline-circle.svg"))
+        self.ManualAlignCircle.setScaledContents(True)
+        self.ManualAlignCircle.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_7.addWidget(self.LiftCircle, 0, Qt.AlignmentFlag.AlignHCenter)
+        self.verticalLayout_7.addWidget(self.ManualAlignCircle, 0, Qt.AlignmentFlag.AlignHCenter)
 
 
-        self.horizontalLayout_3.addWidget(self.LiftingWidget, 0, Qt.AlignmentFlag.AlignVCenter)
+        self.horizontalLayout_3.addWidget(self.ManualAlignWidget, 0, Qt.AlignmentFlag.AlignVCenter)
 
-        self.FineWidget = QWidget(self.Timeline)
-        self.FineWidget.setObjectName(u"FineWidget")
-        self.verticalLayout_8 = QVBoxLayout(self.FineWidget)
+        self.AutoAlignWidget = QWidget(self.Timeline)
+        self.AutoAlignWidget.setObjectName(u"AutoAlignWidget")
+        self.verticalLayout_8 = QVBoxLayout(self.AutoAlignWidget)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
-        self.Fine = QLabel(self.FineWidget)
-        self.Fine.setObjectName(u"Fine")
-        self.Fine.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.AutoAlignText = QLabel(self.AutoAlignWidget)
+        self.AutoAlignText.setObjectName(u"AutoAlignText")
+        self.AutoAlignText.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_8.addWidget(self.Fine)
+        self.verticalLayout_8.addWidget(self.AutoAlignText)
 
-        self.FineCircle = QLabel(self.FineWidget)
-        self.FineCircle.setObjectName(u"FineCircle")
-        sizePolicy3.setHeightForWidth(self.FineCircle.sizePolicy().hasHeightForWidth())
-        self.FineCircle.setSizePolicy(sizePolicy3)
-        self.FineCircle.setPixmap(QPixmap(u"icons/white/timeline-circle.svg"))
-        self.FineCircle.setScaledContents(True)
-        self.FineCircle.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.AutoAlignCircle = QLabel(self.AutoAlignWidget)
+        self.AutoAlignCircle.setObjectName(u"AutoAlignCircle")
+        sizePolicy3.setHeightForWidth(self.AutoAlignCircle.sizePolicy().hasHeightForWidth())
+        self.AutoAlignCircle.setSizePolicy(sizePolicy3)
+        self.AutoAlignCircle.setPixmap(QPixmap(u"icons/white/timeline-circle.svg"))
+        self.AutoAlignCircle.setScaledContents(True)
+        self.AutoAlignCircle.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_8.addWidget(self.FineCircle, 0, Qt.AlignmentFlag.AlignHCenter)
+        self.verticalLayout_8.addWidget(self.AutoAlignCircle, 0, Qt.AlignmentFlag.AlignHCenter)
 
 
-        self.horizontalLayout_3.addWidget(self.FineWidget, 0, Qt.AlignmentFlag.AlignVCenter)
+        self.horizontalLayout_3.addWidget(self.AutoAlignWidget, 0, Qt.AlignmentFlag.AlignVCenter)
 
-        self.CompensationWidget = QWidget(self.Timeline)
-        self.CompensationWidget.setObjectName(u"CompensationWidget")
-        self.verticalLayout_9 = QVBoxLayout(self.CompensationWidget)
+        self.AutoPickWidget = QWidget(self.Timeline)
+        self.AutoPickWidget.setObjectName(u"AutoPickWidget")
+        self.verticalLayout_9 = QVBoxLayout(self.AutoPickWidget)
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
-        self.Compensation = QLabel(self.CompensationWidget)
-        self.Compensation.setObjectName(u"Compensation")
-        self.Compensation.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.AutoPickText = QLabel(self.AutoPickWidget)
+        self.AutoPickText.setObjectName(u"AutoPickText")
+        self.AutoPickText.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_9.addWidget(self.Compensation)
+        self.verticalLayout_9.addWidget(self.AutoPickText)
 
-        self.CompensationCircle = QLabel(self.CompensationWidget)
-        self.CompensationCircle.setObjectName(u"CompensationCircle")
-        sizePolicy3.setHeightForWidth(self.CompensationCircle.sizePolicy().hasHeightForWidth())
-        self.CompensationCircle.setSizePolicy(sizePolicy3)
-        self.CompensationCircle.setPixmap(QPixmap(u"icons/white/timeline-circle.svg"))
-        self.CompensationCircle.setScaledContents(True)
-        self.CompensationCircle.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.AutoPickCircle = QLabel(self.AutoPickWidget)
+        self.AutoPickCircle.setObjectName(u"AutoPickCircle")
+        sizePolicy3.setHeightForWidth(self.AutoPickCircle.sizePolicy().hasHeightForWidth())
+        self.AutoPickCircle.setSizePolicy(sizePolicy3)
+        self.AutoPickCircle.setPixmap(QPixmap(u"icons/white/timeline-circle.svg"))
+        self.AutoPickCircle.setScaledContents(True)
+        self.AutoPickCircle.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_9.addWidget(self.CompensationCircle, 0, Qt.AlignmentFlag.AlignHCenter)
+        self.verticalLayout_9.addWidget(self.AutoPickCircle, 0, Qt.AlignmentFlag.AlignHCenter)
 
 
-        self.horizontalLayout_3.addWidget(self.CompensationWidget, 0, Qt.AlignmentFlag.AlignVCenter)
+        self.horizontalLayout_3.addWidget(self.AutoPickWidget, 0, Qt.AlignmentFlag.AlignVCenter)
 
         self.AssemblyWidget = QWidget(self.Timeline)
         self.AssemblyWidget.setObjectName(u"AssemblyWidget")
         self.verticalLayout_4 = QVBoxLayout(self.AssemblyWidget)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.Assembly = QLabel(self.AssemblyWidget)
-        self.Assembly.setObjectName(u"Assembly")
-        self.Assembly.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.AssemblyText = QLabel(self.AssemblyWidget)
+        self.AssemblyText.setObjectName(u"AssemblyText")
+        self.AssemblyText.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_4.addWidget(self.Assembly, 0, Qt.AlignmentFlag.AlignTop)
+        self.verticalLayout_4.addWidget(self.AssemblyText, 0, Qt.AlignmentFlag.AlignTop)
 
         self.AssemblyCircle = QLabel(self.AssemblyWidget)
         self.AssemblyCircle.setObjectName(u"AssemblyCircle")
@@ -1013,40 +1183,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout_7.addWidget(self.Info)
 
         self.ProcessAndInfoStackedWidget.addWidget(self.InformationPage)
-        self.ResetButton = QPushButton(self.MainPagePage)
-        self.ResetButton.setObjectName(u"ResetButton")
-        self.ResetButton.setGeometry(QRect(720, 610, 281, 71))
-        sizePolicy.setHeightForWidth(self.ResetButton.sizePolicy().hasHeightForWidth())
-        self.ResetButton.setSizePolicy(sizePolicy)
-        self.ResetButton.setFont(font)
-        self.ResetButton.setStyleSheet(u"QPushButton {\n"
-"    padding: 6px 12px;\n"
-"    background-color: qlineargradient(\n"
-"        x1:0, y1:0, x2:0, y2:1,\n"
-"        stop:0 #1a1a1a, stop:1 #000000\n"
-"    );\n"
-"    color: white;\n"
-"    border: 1px solid #444;\n"
-"    border-radius: 4px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: qlineargradient(\n"
-"        x1:0, y1:0, x2:0, y2:1,\n"
-"        stop:0 #2a2a2a, stop:1 #111111\n"
-"    );\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: qlineargradient(\n"
-"        x1:0, y1:0, x2:0, y2:1,\n"
-"        stop:0 #0f0f0f, stop:1 #000000\n"
-"    );\n"
-"    border-style: inset;\n"
-"	background-color: #0B76A0;\n"
-"}\n"
-"\n"
-"")
         self.ParentStackedWidgetToChangeMenuOptions.addWidget(self.MainPagePage)
         self.ProductionRecordPage = QWidget()
         self.ProductionRecordPage.setObjectName(u"ProductionRecordPage")
@@ -1542,21 +1678,24 @@ class Ui_MainWindow(object):
         self.verticalLayout_20.addWidget(self.label_4)
 
         self.ParentStackedWidgetToChangeMenuOptions.addWidget(self.SystemSettingsPage)
-        self.widget = QWidget(self.BackgroundWidget)
-        self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(250, 20, 611, 41))
-        self.widget.setStyleSheet(u"color: white;")
-        self.horizontalLayout_17 = QHBoxLayout(self.widget)
+        self.WorkOrderWidget = QWidget(self.BackgroundWidget)
+        self.WorkOrderWidget.setObjectName(u"WorkOrderWidget")
+        self.WorkOrderWidget.setGeometry(QRect(530, 0, 141, 41))
+        self.WorkOrderWidget.setStyleSheet(u"color: white;")
+        self.horizontalLayout_17 = QHBoxLayout(self.WorkOrderWidget)
         self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
-        self.label_5 = QLabel(self.widget)
-        self.label_5.setObjectName(u"label_5")
+        self.WorkOrderText = QLabel(self.WorkOrderWidget)
+        self.WorkOrderText.setObjectName(u"WorkOrderText")
+        font3 = QFont()
+        font3.setBold(True)
+        self.WorkOrderText.setFont(font3)
 
-        self.horizontalLayout_17.addWidget(self.label_5)
+        self.horizontalLayout_17.addWidget(self.WorkOrderText)
 
-        self.label_7 = QLabel(self.widget)
-        self.label_7.setObjectName(u"label_7")
+        self.WorkOrderNumberInput = QLabel(self.WorkOrderWidget)
+        self.WorkOrderNumberInput.setObjectName(u"WorkOrderNumberInput")
 
-        self.horizontalLayout_17.addWidget(self.label_7)
+        self.horizontalLayout_17.addWidget(self.WorkOrderNumberInput)
 
         self.MainPageButton = QPushButton(self.BackgroundWidget)
         self.MenuButtonGroup.addButton(self.MainPageButton)
@@ -1597,9 +1736,9 @@ class Ui_MainWindow(object):
 "    border: 1px solid #0B76A0;\n"
 "}\n"
 "")
-        icon7 = QIcon()
-        icon7.addFile(u"icons/white/home-simple-door.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.MainPageButton.setIcon(icon7)
+        icon9 = QIcon()
+        icon9.addFile(u"icons/white/home-simple-door.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.MainPageButton.setIcon(icon9)
         self.MainPageButton.setCheckable(True)
         self.MainPageButton.setChecked(True)
         self.LogsButton = QPushButton(self.BackgroundWidget)
@@ -1640,9 +1779,9 @@ class Ui_MainWindow(object):
 "    border: 1px solid #0B76A0;\n"
 "}\n"
 "")
-        icon8 = QIcon()
-        icon8.addFile(u"icons/white/multiple-pages.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.LogsButton.setIcon(icon8)
+        icon10 = QIcon()
+        icon10.addFile(u"icons/white/multiple-pages.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.LogsButton.setIcon(icon10)
         self.LogsButton.setCheckable(True)
         self.ProductionRecordButton = QPushButton(self.BackgroundWidget)
         self.MenuButtonGroup.addButton(self.ProductionRecordButton)
@@ -1682,9 +1821,9 @@ class Ui_MainWindow(object):
 "    border: 1px solid #0B76A0;\n"
 "}\n"
 "")
-        icon9 = QIcon()
-        icon9.addFile(u"icons/white/page.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.ProductionRecordButton.setIcon(icon9)
+        icon11 = QIcon()
+        icon11.addFile(u"icons/white/page.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.ProductionRecordButton.setIcon(icon11)
         self.ProductionRecordButton.setCheckable(True)
         self.ComponentControlButton = QPushButton(self.BackgroundWidget)
         self.MenuButtonGroup.addButton(self.ComponentControlButton)
@@ -1724,21 +1863,129 @@ class Ui_MainWindow(object):
 "    border: 1px solid #0B76A0;\n"
 "}\n"
 "")
-        icon10 = QIcon()
-        icon10.addFile(u"icons/white/dimmer-switch.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.ComponentControlButton.setIcon(icon10)
+        icon12 = QIcon()
+        icon12.addFile(u"icons/white/dimmer-switch.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.ComponentControlButton.setIcon(icon12)
         self.ComponentControlButton.setCheckable(True)
+        self.RecipeWidget = QWidget(self.BackgroundWidget)
+        self.RecipeWidget.setObjectName(u"RecipeWidget")
+        self.RecipeWidget.setGeometry(QRect(530, 30, 171, 41))
+        self.RecipeWidget.setStyleSheet(u"color: white;")
+        self.horizontalLayout_18 = QHBoxLayout(self.RecipeWidget)
+        self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
+        self.RecipeText = QLabel(self.RecipeWidget)
+        self.RecipeText.setObjectName(u"RecipeText")
+        self.RecipeText.setFont(font3)
+
+        self.horizontalLayout_18.addWidget(self.RecipeText)
+
+        self.RecipeNameInput = QLabel(self.RecipeWidget)
+        self.RecipeNameInput.setObjectName(u"RecipeNameInput")
+
+        self.horizontalLayout_18.addWidget(self.RecipeNameInput)
+
+        self.QuantityWidget = QWidget(self.BackgroundWidget)
+        self.QuantityWidget.setObjectName(u"QuantityWidget")
+        self.QuantityWidget.setGeometry(QRect(800, 0, 181, 41))
+        self.QuantityWidget.setStyleSheet(u"color: white;")
+        self.horizontalLayout_20 = QHBoxLayout(self.QuantityWidget)
+        self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
+        self.QuantityText = QLabel(self.QuantityWidget)
+        self.QuantityText.setObjectName(u"QuantityText")
+        self.QuantityText.setFont(font3)
+
+        self.horizontalLayout_20.addWidget(self.QuantityText)
+
+        self.QuantityNumberInput = QLabel(self.QuantityWidget)
+        self.QuantityNumberInput.setObjectName(u"QuantityNumberInput")
+
+        self.horizontalLayout_20.addWidget(self.QuantityNumberInput)
+
+        self.WorkerNameWidget = QWidget(self.BackgroundWidget)
+        self.WorkerNameWidget.setObjectName(u"WorkerNameWidget")
+        self.WorkerNameWidget.setGeometry(QRect(800, 30, 171, 41))
+        self.WorkerNameWidget.setStyleSheet(u"color: white;")
+        self.horizontalLayout_21 = QHBoxLayout(self.WorkerNameWidget)
+        self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
+        self.WorkerNameText = QLabel(self.WorkerNameWidget)
+        self.WorkerNameText.setObjectName(u"WorkerNameText")
+        self.WorkerNameText.setFont(font3)
+
+        self.horizontalLayout_21.addWidget(self.WorkerNameText)
+
+        self.WorkerNameInput = QLabel(self.WorkerNameWidget)
+        self.WorkerNameInput.setObjectName(u"WorkerNameInput")
+
+        self.horizontalLayout_21.addWidget(self.WorkerNameInput)
+
+        self.CartHeightWidget = QWidget(self.BackgroundWidget)
+        self.CartHeightWidget.setObjectName(u"CartHeightWidget")
+        self.CartHeightWidget.setGeometry(QRect(250, 30, 221, 41))
+        self.CartHeightWidget.setStyleSheet(u"color: white;")
+        self.horizontalLayout_23 = QHBoxLayout(self.CartHeightWidget)
+        self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
+        self.CartHeightText = QLabel(self.CartHeightWidget)
+        self.CartHeightText.setObjectName(u"CartHeightText")
+        self.CartHeightText.setFont(font3)
+
+        self.horizontalLayout_23.addWidget(self.CartHeightText)
+
+        self.CartHeightInput = QLabel(self.CartHeightWidget)
+        self.CartHeightInput.setObjectName(u"CartHeightInput")
+
+        self.horizontalLayout_23.addWidget(self.CartHeightInput)
+
+        self.CartDepthWidget = QWidget(self.BackgroundWidget)
+        self.CartDepthWidget.setObjectName(u"CartDepthWidget")
+        self.CartDepthWidget.setGeometry(QRect(250, 0, 221, 41))
+        self.CartDepthWidget.setStyleSheet(u"color: white;")
+        self.horizontalLayout_24 = QHBoxLayout(self.CartDepthWidget)
+        self.horizontalLayout_24.setObjectName(u"horizontalLayout_24")
+        self.CartDepthText = QLabel(self.CartDepthWidget)
+        self.CartDepthText.setObjectName(u"CartDepthText")
+        self.CartDepthText.setFont(font3)
+
+        self.horizontalLayout_24.addWidget(self.CartDepthText)
+
+        self.CartDepthInput = QLabel(self.CartDepthWidget)
+        self.CartDepthInput.setObjectName(u"CartDepthInput")
+
+        self.horizontalLayout_24.addWidget(self.CartDepthInput)
+
+        self.DateWidget = QWidget(self.BackgroundWidget)
+        self.DateWidget.setObjectName(u"DateWidget")
+        self.DateWidget.setGeometry(QRect(1050, 10, 151, 41))
+        self.DateWidget.setStyleSheet(u"color: white;")
+        self.horizontalLayout_26 = QHBoxLayout(self.DateWidget)
+        self.horizontalLayout_26.setObjectName(u"horizontalLayout_26")
+        self.DateText = QLabel(self.DateWidget)
+        self.DateText.setObjectName(u"DateText")
+        self.DateText.setFont(font3)
+
+        self.horizontalLayout_26.addWidget(self.DateText)
+
+        self.DateInput = QLabel(self.DateWidget)
+        self.DateInput.setObjectName(u"DateInput")
+
+        self.horizontalLayout_26.addWidget(self.DateInput)
+
+        self.ParentStackedWidgetToChangeMenuOptions.raise_()
         self.Line.raise_()
         self.SystemSettingsButton.raise_()
         self.SignalLightsWidget.raise_()
         self.DeltaLogo.raise_()
         self.MenuButtons.raise_()
-        self.ParentStackedWidgetToChangeMenuOptions.raise_()
-        self.widget.raise_()
+        self.WorkOrderWidget.raise_()
         self.MainPageButton.raise_()
         self.LogsButton.raise_()
         self.ProductionRecordButton.raise_()
         self.ComponentControlButton.raise_()
+        self.RecipeWidget.raise_()
+        self.QuantityWidget.raise_()
+        self.WorkerNameWidget.raise_()
+        self.CartHeightWidget.raise_()
+        self.CartDepthWidget.raise_()
+        self.DateWidget.raise_()
 
         self.horizontalLayout_4.addWidget(self.BackgroundWidget)
 
@@ -1747,10 +1994,11 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(0)
-        self.ActionButtons.setCurrentIndex(0)
+        self.ActionButtons.setCurrentIndex(1)
+        self.ManualOptionsWidget.setCurrentIndex(4)
         self.ProcessAndInfoStackedWidget.setCurrentIndex(0)
-        self.ComponentControlStackedWidget.setCurrentIndex(1)
-        self.VisionSettingsStackedWidget.setCurrentIndex(0)
+        self.ComponentControlStackedWidget.setCurrentIndex(0)
+        self.VisionSettingsStackedWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1770,28 +2018,37 @@ class Ui_MainWindow(object):
         self.InitButton.setText(QCoreApplication.translate("MainWindow", u"INIT", None))
         self.RunButton.setText(QCoreApplication.translate("MainWindow", u"RUN", None))
         self.StopButton.setText(QCoreApplication.translate("MainWindow", u"STOP", None))
-        self.ControlUp.setText("")
-        self.ControlLeft.setText("")
+        self.AutoResetButton.setText(QCoreApplication.translate("MainWindow", u"RESET", None))
+        self.ManualOptionsWidget.setTabText(self.ManualOptionsWidget.indexOf(self.ManualAlignTab), QCoreApplication.translate("MainWindow", u"Manual Align", None))
+        self.ManualOptionsWidget.setTabText(self.ManualOptionsWidget.indexOf(self.AutoAlignTab), QCoreApplication.translate("MainWindow", u"Auto Align", None))
+        self.ManualOptionsWidget.setTabText(self.ManualOptionsWidget.indexOf(self.AutoPickTab), QCoreApplication.translate("MainWindow", u"Auto Pick", None))
+        self.ManualOptionsWidget.setTabText(self.ManualOptionsWidget.indexOf(self.AutoAssemblyTab), QCoreApplication.translate("MainWindow", u"Auto Assembly", None))
+        self.YawMinus.setText("")
         self.ControlRight.setText("")
+        self.ControlUp.setText("")
         self.ControlDown.setText("")
         self.YawPlus.setText("")
-        self.YawMinus.setText("")
+        self.ControlLeft.setText("")
+        self.ManualResetButton.setText(QCoreApplication.translate("MainWindow", u"RESET", None))
         self.ClipperButton.setText(QCoreApplication.translate("MainWindow", u"Clipper  Off", None))
-        self.StartCircle.setText(QCoreApplication.translate("MainWindow", u"Start", None))
-        self.Start.setText("")
-        self.Connect.setText(QCoreApplication.translate("MainWindow", u"Connect", None))
+        self.Lift.setText("")
+        self.Lower.setText("")
+        self.ManualOptionsWidget.setTabText(self.ManualOptionsWidget.indexOf(self.ControlTab), QCoreApplication.translate("MainWindow", u"Control", None))
+        self.StartText.setText(QCoreApplication.translate("MainWindow", u"Start", None))
+        self.StartCircle.setText("")
+        self.ConnectText.setText(QCoreApplication.translate("MainWindow", u"Connect", None))
         self.ConnectCircle.setText("")
-        self.INIT.setText(QCoreApplication.translate("MainWindow", u"INIT", None))
+        self.INITText.setText(QCoreApplication.translate("MainWindow", u"INIT", None))
         self.INITCircle.setText("")
-        self.Vision.setText(QCoreApplication.translate("MainWindow", u"Idle", None))
-        self.VisionCircle.setText("")
-        self.Lifting.setText(QCoreApplication.translate("MainWindow", u"Manual Alignment", None))
-        self.LiftCircle.setText("")
-        self.Fine.setText(QCoreApplication.translate("MainWindow", u"Auto Alignment", None))
-        self.FineCircle.setText("")
-        self.Compensation.setText(QCoreApplication.translate("MainWindow", u"Auto Pick", None))
-        self.CompensationCircle.setText("")
-        self.Assembly.setText(QCoreApplication.translate("MainWindow", u"Auto Assembly", None))
+        self.IdleText.setText(QCoreApplication.translate("MainWindow", u"Idle", None))
+        self.IdleCircle.setText("")
+        self.ManualAlignText.setText(QCoreApplication.translate("MainWindow", u"Manual Align", None))
+        self.ManualAlignCircle.setText("")
+        self.AutoAlignText.setText(QCoreApplication.translate("MainWindow", u"Auto Align", None))
+        self.AutoAlignCircle.setText("")
+        self.AutoPickText.setText(QCoreApplication.translate("MainWindow", u"Auto Pick", None))
+        self.AutoPickCircle.setText("")
+        self.AssemblyText.setText(QCoreApplication.translate("MainWindow", u"Auto ASSY", None))
         self.AssemblyCircle.setText("")
         self.y.setText(QCoreApplication.translate("MainWindow", u"y:", None))
         self.yText.setText(QCoreApplication.translate("MainWindow", u"pos", None))
@@ -1812,7 +2069,6 @@ class Ui_MainWindow(object):
         self.d2.setText(QCoreApplication.translate("MainWindow", u"D2: ", None))
         self.h1.setText(QCoreApplication.translate("MainWindow", u"H1: ", None))
         self.RecordDataButton.setText(QCoreApplication.translate("MainWindow", u"Record Data", None))
-        self.ResetButton.setText(QCoreApplication.translate("MainWindow", u"RESET", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Production Record", None))
         self.MotorPageButton.setText(QCoreApplication.translate("MainWindow", u"Motor", None))
         self.VisionPageButton.setText(QCoreApplication.translate("MainWindow", u"Vision", None))
@@ -1829,13 +2085,25 @@ class Ui_MainWindow(object):
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"Clipper", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Logs", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"System Settings", None))
-        self.label_5.setText(QCoreApplication.translate("MainWindow", u"\u5de5\u55ae", None))
-        self.label_7.setText(QCoreApplication.translate("MainWindow", u"\uff1a 12345676", None))
+        self.WorkOrderText.setText(QCoreApplication.translate("MainWindow", u"\u5de5\u55ae:", None))
+        self.WorkOrderNumberInput.setText(QCoreApplication.translate("MainWindow", u"12345678", None))
         self.MainPageButton.setText(QCoreApplication.translate("MainWindow", u"Main Page", None))
         self.LogsButton.setText(QCoreApplication.translate("MainWindow", u"Logs", None))
         self.ProductionRecordButton.setText(QCoreApplication.translate("MainWindow", u"Production\n"
 "Record", None))
         self.ComponentControlButton.setText(QCoreApplication.translate("MainWindow", u"Component\n"
 "Control", None))
+        self.RecipeText.setText(QCoreApplication.translate("MainWindow", u"Recipe:", None))
+        self.RecipeNameInput.setText(QCoreApplication.translate("MainWindow", u"Battery ASSY", None))
+        self.QuantityText.setText(QCoreApplication.translate("MainWindow", u"Quantity:", None))
+        self.QuantityNumberInput.setText(QCoreApplication.translate("MainWindow", u"200", None))
+        self.WorkerNameText.setText(QCoreApplication.translate("MainWindow", u"\u7d44\u88dd\u4eba\u54e1:", None))
+        self.WorkerNameInput.setText(QCoreApplication.translate("MainWindow", u"Carlos", None))
+        self.CartHeightText.setText(QCoreApplication.translate("MainWindow", u"Cart Height:", None))
+        self.CartHeightInput.setText(QCoreApplication.translate("MainWindow", u"153.3 mm", None))
+        self.CartDepthText.setText(QCoreApplication.translate("MainWindow", u"Cart Depth:", None))
+        self.CartDepthInput.setText(QCoreApplication.translate("MainWindow", u"200.1 mm", None))
+        self.DateText.setText(QCoreApplication.translate("MainWindow", u"Date:", None))
+        self.DateInput.setText(QCoreApplication.translate("MainWindow", u"7/25/2025", None))
     # retranslateUi
 

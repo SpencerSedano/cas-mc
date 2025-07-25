@@ -43,16 +43,9 @@ class MainWindow(QMainWindow):
         # Connect Qt signal to UI handler
         self.ros_msg_received.connect(self.handle_ros_message)
 
-        # Move window to 2nd screen if available or maximize
-        screens = QApplication.screens()
-        if len(screens) > 1:
-            second_screen = screens[1]
-            self.move(second_screen.geometry().topLeft())
-            self.showFullScreen()
-            print("full screen")
-        else:
-            self.showMaximized()
-            print("screen maximized")
+        self.setWindowFlags(Qt.FramelessWindowHint)
+
+        # QTimer.singleShot(100, self.move_to_second_screen_and_fullscreen)
 
         # Connect buttons to send_flag
         self.ui.InitButton.clicked.connect(lambda: self.send_flag("init"))
@@ -63,7 +56,7 @@ class MainWindow(QMainWindow):
         self.ui.InitButton.clicked.connect(lambda: self.on_menu_buttons_clicked(self.ui.InitButton))
         self.ui.RunButton.clicked.connect(lambda: self.on_menu_buttons_clicked(self.ui.RunButton))
         self.ui.StopButton.clicked.connect(lambda: self.on_menu_buttons_clicked(self.ui.StopButton))
-        self.ui.ResetButton.clicked.connect(lambda: self.on_menu_buttons_clicked(self.ui.ResetButton))
+        self.ui.AutoResetButton.clicked.connect(lambda: self.on_menu_buttons_clicked(self.ui.AutoResetButton))
 
         self.ui.ControlUp.clicked.connect(lambda: self.on_control_arrows_clicked(self.ui.ControlUp))
         self.ui.ControlLeft.clicked.connect(lambda: self.on_control_arrows_clicked(self.ui.ControlLeft))
@@ -201,6 +194,18 @@ class MainWindow(QMainWindow):
         rclpy.shutdown()
         event.accept()
 
+    def move_to_second_screen_and_fullscreen(self):
+        screens = QApplication.screens()
+        if len(screens) > 1:
+            second_screen = screens[0]  # Use the actual second screen
+            second_geom = second_screen.geometry()
+            self.setGeometry(second_geom)  # Move and resize in one step
+            self.showFullScreen()
+            print("Moved to second screen and fullscreen")
+        else:
+            self.showMaximized()
+            print("Only one screen, maximized")
+
 
 def ros_spin(node):
     rclpy.spin(node)
@@ -212,6 +217,11 @@ def main():
 
     app = QApplication(sys.argv)
     window = MainWindow(ros_node)
+
+    window.show()  # Show window first
+
+    # Delay moving and fullscreen until after show()
+    QTimer.singleShot(100, window.move_to_second_screen_and_fullscreen)
 
     threading.Thread(target=ros_spin, args=(ros_node,), daemon=True).start()
 
