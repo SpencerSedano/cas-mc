@@ -22,6 +22,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
     "msg/SingleM.msg"
     "msg/StateInfo.msg"
     "msg/ForkCmd.msg"
+    "msg/JogCmd.msg"
 )
 
 if(BUILD_TESTING)

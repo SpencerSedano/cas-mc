@@ -369,7 +369,7 @@ Record</string>
         <string notr="true"/>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="MainPagePage">
         <widget class="QWidget" name="CameraWidget" native="true">
@@ -400,247 +400,6 @@ Record</string>
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="AutoManualButtons" native="true">
-         <property name="geometry">
-          <rect>
-           <x>720</x>
-           <y>0</y>
-           <width>291</width>
-           <height>101</height>
-          </rect>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
-          <property name="spacing">
-           <number>25</number>
-          </property>
-          <item>
-           <widget class="QPushButton" name="AutoButton">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="text">
-             <string>Auto</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-            <attribute name="buttonGroup">
-             <string notr="true">AutoAndManualButtonGroup</string>
-            </attribute>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="HamburgerMenuMainPage">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>icons/white/menu.svg</normaloff>icons/white/menu.svg</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>30</width>
-              <height>30</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QStackedWidget" name="ActionButtons">
-         <property name="geometry">
-          <rect>
-           <x>710</x>
-           <y>100</y>
-           <width>301</width>
-           <height>591</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="currentIndex">
-          <number>0</number>
-         </property>
-         <widget class="QWidget" name="ActionButtonsPage">
-          <layout class="QVBoxLayout" name="verticalLayout_12">
-           <item>
-            <widget class="QPushButton" name="InitButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string>INIT</string>
-             </property>
-             <property name="checkable">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="RunButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string>RUN</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="StopButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string>STOP</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="AutoResetButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string>RESET</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="RoughAlignPage">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <widget class="QLabel" name="label_9">
-           <property name="geometry">
-            <rect>
-             <x>120</x>
-             <y>140</y>
-             <width>67</width>
-             <height>17</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Rough Align Page</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="PreciseAlignPage">
-          <widget class="QLabel" name="label_8">
-           <property name="geometry">
-            <rect>
-             <x>130</x>
-             <y>140</y>
-             <width>67</width>
-             <height>17</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>PreciseAlignPage</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="PickPage">
-          <widget class="QLabel" name="label_10">
-           <property name="geometry">
-            <rect>
-             <x>120</x>
-             <y>140</y>
-             <width>67</width>
-             <height>17</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Pick Page</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="page">
-          <widget class="QLabel" name="label_11">
-           <property name="geometry">
-            <rect>
-             <x>120</x>
-             <y>130</y>
-             <width>67</width>
-             <height>17</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Assembly Page</string>
-           </property>
-          </widget>
-         </widget>
-        </widget>
         <widget class="QStackedWidget" name="ProcessAndInfoStackedWidget">
          <property name="geometry">
           <rect>
@@ -654,7 +413,7 @@ Record</string>
           <string notr="true"> background-color: #000000; color: white;</string>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="AutoProcessPage">
           <property name="styleSheet">
@@ -1448,200 +1207,504 @@ QPushButton:pressed {
           </layout>
          </widget>
         </widget>
-        <widget class="QWidget" name="HamburgerMenuInMainPageOptions" native="true">
+        <widget class="QStackedWidget" name="AutoAndManualStackedWidget">
          <property name="geometry">
           <rect>
-           <x>740</x>
-           <y>110</y>
-           <width>251</width>
-           <height>481</height>
+           <x>720</x>
+           <y>10</y>
+           <width>291</width>
+           <height>681</height>
           </rect>
          </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
          </property>
-         <layout class="QGridLayout" name="gridLayout_7">
-          <item row="0" column="0">
-           <widget class="QPushButton" name="AutoButtonOption">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>200</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="text">
-             <string>Auto</string>
-            </property>
-            <property name="checkable">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QPushButton" name="ManualButton">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>200</width>
-              <height>80</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="text">
-             <string>Manual</string>
-            </property>
-            <property name="checkable">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QWidget" name="ManualOptionsWidget" native="true">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">padding: 20px;</string>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_24">
-             <property name="leftMargin">
-              <number>9</number>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <property name="currentIndex">
+          <number>2</number>
+         </property>
+         <widget class="QWidget" name="BeforeAutoAndManualPage">
+          <layout class="QVBoxLayout" name="verticalLayout_25">
+           <item>
+            <widget class="QPushButton" name="INITBefore">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-             <item>
-              <widget class="QPushButton" name="RoughAlignButton">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true"/>
-               </property>
-               <property name="text">
-                <string>Rough Align</string>
-               </property>
-               <property name="checkable">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="PreciseAlignButton">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true"/>
-               </property>
-               <property name="text">
-                <string>Precise Align</string>
-               </property>
-               <property name="checkable">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="PickButton">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true"/>
-               </property>
-               <property name="text">
-                <string>Pick</string>
-               </property>
-               <property name="checkable">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="AssemblyButton">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true"/>
-               </property>
-               <property name="text">
-                <string>Assembly</string>
-               </property>
-               <property name="checkable">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>271</width>
+               <height>150</height>
+              </size>
+             </property>
+             <property name="sizeIncrement">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="baseSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string>INIT</string>
+             </property>
+             <property name="checkable">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="StopBefore">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>271</width>
+               <height>150</height>
+              </size>
+             </property>
+             <property name="sizeIncrement">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="baseSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string>STOP</string>
+             </property>
+             <property name="checkable">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="ChooseAutoOrManualPage">
+          <layout class="QVBoxLayout" name="verticalLayout_26">
+           <item>
+            <widget class="QPushButton" name="ChooseAutoButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>271</width>
+               <height>150</height>
+              </size>
+             </property>
+             <property name="sizeIncrement">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="baseSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string>Auto</string>
+             </property>
+             <property name="checkable">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="ChooseManualButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>271</width>
+               <height>150</height>
+              </size>
+             </property>
+             <property name="sizeIncrement">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="baseSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string>Manual</string>
+             </property>
+             <property name="checkable">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="ActionButtonsMainPage">
+          <layout class="QVBoxLayout" name="verticalLayout_24">
+           <item>
+            <widget class="QWidget" name="AutoManualButtons" native="true">
+             <layout class="QHBoxLayout" name="horizontalLayout_5">
+              <property name="spacing">
+               <number>25</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="AutoButton">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>74</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>Auto</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
+                <attribute name="buttonGroup">
+                 <string notr="true">AutoAndManualButtonGroup</string>
+                </attribute>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="ManualButton">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>74</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>Manual</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
+                <attribute name="buttonGroup">
+                 <string notr="true">AutoAndManualButtonGroup</string>
+                </attribute>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QStackedWidget" name="ActionButtons">
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="currentIndex">
+              <number>1</number>
+             </property>
+             <widget class="QWidget" name="ActionButtonsPage">
+              <layout class="QVBoxLayout" name="verticalLayout_12">
+               <item>
+                <widget class="QPushButton" name="InitButton">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <property name="text">
+                  <string>INIT</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="RunButton">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <property name="text">
+                  <string>RUN</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="StopButton">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <property name="text">
+                  <string>STOP</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="AutoResetButton">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <property name="text">
+                  <string>RESET</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="ManualButtonsPage">
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_20">
+               <item>
+                <widget class="QPushButton" name="RoughAlignButton">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <property name="text">
+                  <string>Rough Align</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="PreciseAlignButton">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <property name="text">
+                  <string>Precise Align</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="PickButton">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <property name="text">
+                  <string>Pick</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="AssemblyButton">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <property name="text">
+                  <string>Assembly</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </widget>
        <widget class="QWidget" name="ComponentControlPage">
@@ -1668,667 +1731,6 @@ QPushButton:pressed {
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="ComponentControlOptionsWidget" native="true">
-         <property name="geometry">
-          <rect>
-           <x>720</x>
-           <y>0</y>
-           <width>291</width>
-           <height>101</height>
-          </rect>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_16">
-          <property name="spacing">
-           <number>25</number>
-          </property>
-          <item>
-           <widget class="QPushButton" name="MotorStartedButton">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="text">
-             <string>Motor</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="HamburgerMenu">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>icons/white/menu.svg</normaloff>icons/white/menu.svg</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>30</width>
-              <height>30</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QStackedWidget" name="ChangeComponentControlStackedWidget">
-         <property name="geometry">
-          <rect>
-           <x>710</x>
-           <y>100</y>
-           <width>311</width>
-           <height>591</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="currentIndex">
-          <number>3</number>
-         </property>
-         <widget class="QWidget" name="MotorPage">
-          <widget class="QPushButton" name="ControlUpCP">
-           <property name="geometry">
-            <rect>
-             <x>120</x>
-             <y>40</y>
-             <width>101</width>
-             <height>91</height>
-            </rect>
-           </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: transparent;
-border: none;</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>controlArrows/cartesian/up.png</normaloff>controlArrows/cartesian/up.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>80</width>
-             <height>80</height>
-            </size>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="ControlLeftCP">
-           <property name="geometry">
-            <rect>
-             <x>20</x>
-             <y>130</y>
-             <width>101</width>
-             <height>91</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: transparent;
-border: none;</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>controlArrows/cartesian/left.png</normaloff>controlArrows/cartesian/left.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>80</width>
-             <height>80</height>
-            </size>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="ControlDownCP">
-           <property name="geometry">
-            <rect>
-             <x>120</x>
-             <y>220</y>
-             <width>101</width>
-             <height>91</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: transparent;
-border: none;</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>controlArrows/cartesian/down.png</normaloff>controlArrows/cartesian/down.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>80</width>
-             <height>80</height>
-            </size>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="ControlRightCP">
-           <property name="geometry">
-            <rect>
-             <x>220</x>
-             <y>130</y>
-             <width>101</width>
-             <height>91</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: transparent;
-border: none;</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>controlArrows/cartesian/right.png</normaloff>controlArrows/cartesian/right.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>80</width>
-             <height>80</height>
-            </size>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="YawPlusCP">
-           <property name="geometry">
-            <rect>
-             <x>220</x>
-             <y>20</y>
-             <width>101</width>
-             <height>91</height>
-            </rect>
-           </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: transparent;
-border: none;</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>controlArrows/cartesian/yawPlus.png</normaloff>controlArrows/cartesian/yawPlus.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>80</width>
-             <height>80</height>
-            </size>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="YawMinusCP">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>240</y>
-             <width>101</width>
-             <height>91</height>
-            </rect>
-           </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: transparent;
-border: none;</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>controlArrows/cartesian/yawMinus.png</normaloff>controlArrows/cartesian/yawMinus.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>80</width>
-             <height>80</height>
-            </size>
-           </property>
-           <property name="checkable">
-            <bool>false</bool>
-           </property>
-          </widget>
-          <widget class="QWidget" name="ClipperAndResetWidget_3" native="true">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>440</y>
-             <width>311</width>
-             <height>151</height>
-            </rect>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_10">
-            <item>
-             <widget class="QPushButton" name="ClipperButtonOnOff">
-              <property name="enabled">
-               <bool>true</bool>
-              </property>
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QPushButton {
-    padding: 6px 12px;
-    background-color: qlineargradient(
-        x1:0, y1:0, x2:0, y2:1,
-        stop:0 #1a1a1a, stop:1 #000000
-    );
-    color: white;
-    border: 1px solid #444;
-    border-radius: 4px;
-}
-
-QPushButton:hover {
-    background-color: qlineargradient(
-        x1:0, y1:0, x2:0, y2:1,
-        stop:0 #2a2a2a, stop:1 #111111
-    );
-}
-
-QPushButton:checked {
-    background-color: #0B76A0;
-    border: 1px solid #0B76A0;
-}
-
-</string>
-              </property>
-              <property name="text">
-               <string>Clipper  Off</string>
-              </property>
-              <property name="checkable">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="MotorResetButton">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QPushButton {
-    padding: 6px 12px;
-    background-color: qlineargradient(
-        x1:0, y1:0, x2:0, y2:1,
-        stop:0 #1a1a1a, stop:1 #000000
-    );
-    color: white;
-    border: 1px solid #444;
-    border-radius: 4px;
-}
-
-QPushButton:hover {
-    background-color: qlineargradient(
-        x1:0, y1:0, x2:0, y2:1,
-        stop:0 #2a2a2a, stop:1 #111111
-    );
-}
-
-QPushButton:pressed {
-    background-color: qlineargradient(
-        x1:0, y1:0, x2:0, y2:1,
-        stop:0 #0f0f0f, stop:1 #000000
-    );
-    border-style: inset;
-	background-color: #0B76A0;
-}
-
-</string>
-              </property>
-              <property name="text">
-               <string>RESET</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="VisionPage">
-          <widget class="QLabel" name="label_5">
-           <property name="geometry">
-            <rect>
-             <x>120</x>
-             <y>270</y>
-             <width>67</width>
-             <height>17</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Viison Page</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="ClipperPage">
-          <widget class="QLabel" name="label_6">
-           <property name="geometry">
-            <rect>
-             <x>130</x>
-             <y>320</y>
-             <width>67</width>
-             <height>17</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Clipper Page</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="ForkLiftPage">
-          <widget class="QPushButton" name="LiftUp">
-           <property name="geometry">
-            <rect>
-             <x>20</x>
-             <y>480</y>
-             <width>101</width>
-             <height>91</height>
-            </rect>
-           </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: transparent;
-border: none;</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>controlArrows/lift.svg</normaloff>controlArrows/lift.svg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>80</width>
-             <height>80</height>
-            </size>
-           </property>
-           <property name="checkable">
-            <bool>false</bool>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="LowerDown">
-           <property name="geometry">
-            <rect>
-             <x>190</x>
-             <y>480</y>
-             <width>101</width>
-             <height>91</height>
-            </rect>
-           </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: transparent;
-border: none;</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>controlArrows/lower.svg</normaloff>controlArrows/lower.svg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>80</width>
-             <height>80</height>
-            </size>
-           </property>
-           <property name="checkable">
-            <bool>false</bool>
-           </property>
-          </widget>
-          <widget class="QSlider" name="SliderLift">
-           <property name="geometry">
-            <rect>
-             <x>60</x>
-             <y>400</y>
-             <width>201</width>
-             <height>61</height>
-            </rect>
-           </property>
-           <property name="minimum">
-            <number>80</number>
-           </property>
-           <property name="maximum">
-            <number>200</number>
-           </property>
-           <property name="value">
-            <number>80</number>
-           </property>
-           <property name="sliderPosition">
-            <number>80</number>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Orientation::Horizontal</enum>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="FastForktLiftButton">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>300</y>
-             <width>111</width>
-             <height>71</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Fast</string>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-          <widget class="QPushButton" name="SlowLiftButton">
-           <property name="geometry">
-            <rect>
-             <x>170</x>
-             <y>300</y>
-             <width>111</width>
-             <height>71</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Slow</string>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-          <widget class="QPushButton" name="RunForkLiftButton">
-           <property name="geometry">
-            <rect>
-             <x>20</x>
-             <y>130</y>
-             <width>111</width>
-             <height>71</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Run</string>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup_2</string>
-           </attribute>
-          </widget>
-          <widget class="QPushButton" name="StopForkLiftButton">
-           <property name="geometry">
-            <rect>
-             <x>170</x>
-             <y>130</y>
-             <width>111</width>
-             <height>71</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Stop</string>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup_2</string>
-           </attribute>
-          </widget>
-         </widget>
-        </widget>
-        <widget class="QWidget" name="ListOptionsWidget" native="true">
-         <property name="geometry">
-          <rect>
-           <x>740</x>
-           <y>110</y>
-           <width>251</width>
-           <height>301</height>
-          </rect>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_5">
-          <item>
-           <widget class="QPushButton" name="MotorOption">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="text">
-             <string>Motor</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="VisionOption">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: #000000;</string>
-            </property>
-            <property name="text">
-             <string>Vision</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="ClipperOption">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="text">
-             <string>Clipper</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="ForkLiftOption">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="text">
-             <string>Fork Lift</string>
             </property>
            </widget>
           </item>
@@ -2768,11 +2170,768 @@ border-radius: 6px;</string>
           </item>
          </layout>
         </widget>
-        <zorder>ChangeComponentControlStackedWidget</zorder>
-        <zorder>CameraWidgetInComponentControl</zorder>
-        <zorder>ComponentControlOptionsWidget</zorder>
-        <zorder>Info_2</zorder>
-        <zorder>ListOptionsWidget</zorder>
+        <widget class="QStackedWidget" name="ComponentControlStackedWidget">
+         <property name="geometry">
+          <rect>
+           <x>720</x>
+           <y>10</y>
+           <width>291</width>
+           <height>681</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <property name="currentIndex">
+          <number>1</number>
+         </property>
+         <widget class="QWidget" name="BeforeComponentControl">
+          <layout class="QVBoxLayout" name="verticalLayout_28">
+           <item>
+            <widget class="QWidget" name="ChooseListOptionsWidget" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_27">
+              <item>
+               <widget class="QPushButton" name="ChooseMotor">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>Motor</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="ChooseVision">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: #000000;</string>
+                </property>
+                <property name="text">
+                 <string>Vision</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="ChooseClipper">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>Clipper</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="ChooseForklift">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>Forklift</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="ComponentControlMain">
+          <widget class="QWidget" name="ComponentControlOptionsWidget" native="true">
+           <property name="geometry">
+            <rect>
+             <x>-10</x>
+             <y>-10</y>
+             <width>291</width>
+             <height>101</height>
+            </rect>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_16">
+            <property name="spacing">
+             <number>25</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="MotorStartedButton">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>Motor</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="HamburgerMenu">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>icons/white/menu.svg</normaloff>icons/white/menu.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QStackedWidget" name="ChangeComponentControlStackedWidget">
+           <property name="geometry">
+            <rect>
+             <x>-20</x>
+             <y>90</y>
+             <width>311</width>
+             <height>581</height>
+            </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="currentIndex">
+            <number>1</number>
+           </property>
+           <widget class="QWidget" name="MotorPage">
+            <widget class="QPushButton" name="ControlUpCP">
+             <property name="geometry">
+              <rect>
+               <x>120</x>
+               <y>40</y>
+               <width>101</width>
+               <height>91</height>
+              </rect>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: transparent;
+border: none;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>controlArrows/cartesian/up.png</normaloff>controlArrows/cartesian/up.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>80</width>
+               <height>80</height>
+              </size>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="ControlLeftCP">
+             <property name="geometry">
+              <rect>
+               <x>20</x>
+               <y>130</y>
+               <width>101</width>
+               <height>91</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: transparent;
+border: none;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>controlArrows/cartesian/left.png</normaloff>controlArrows/cartesian/left.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>80</width>
+               <height>80</height>
+              </size>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="ControlDownCP">
+             <property name="geometry">
+              <rect>
+               <x>120</x>
+               <y>220</y>
+               <width>101</width>
+               <height>91</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: transparent;
+border: none;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>controlArrows/cartesian/down.png</normaloff>controlArrows/cartesian/down.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>80</width>
+               <height>80</height>
+              </size>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="ControlRightCP">
+             <property name="geometry">
+              <rect>
+               <x>220</x>
+               <y>130</y>
+               <width>101</width>
+               <height>91</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: transparent;
+border: none;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>controlArrows/cartesian/right.png</normaloff>controlArrows/cartesian/right.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>80</width>
+               <height>80</height>
+              </size>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="YawPlusCP">
+             <property name="geometry">
+              <rect>
+               <x>220</x>
+               <y>20</y>
+               <width>101</width>
+               <height>91</height>
+              </rect>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: transparent;
+border: none;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>controlArrows/cartesian/yawPlus.png</normaloff>controlArrows/cartesian/yawPlus.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>80</width>
+               <height>80</height>
+              </size>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="YawMinusCP">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>240</y>
+               <width>101</width>
+               <height>91</height>
+              </rect>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: transparent;
+border: none;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>controlArrows/cartesian/yawMinus.png</normaloff>controlArrows/cartesian/yawMinus.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>80</width>
+               <height>80</height>
+              </size>
+             </property>
+             <property name="checkable">
+              <bool>false</bool>
+             </property>
+            </widget>
+            <widget class="QWidget" name="ClipperAndResetWidget_3" native="true">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>440</y>
+               <width>311</width>
+               <height>151</height>
+              </rect>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_10">
+              <item>
+               <widget class="QPushButton" name="ClipperButtonOnOff">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+    padding: 6px 12px;
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #1a1a1a, stop:1 #000000
+    );
+    color: white;
+    border: 1px solid #444;
+    border-radius: 4px;
+}
+
+QPushButton:hover {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #2a2a2a, stop:1 #111111
+    );
+}
+
+QPushButton:checked {
+    background-color: #0B76A0;
+    border: 1px solid #0B76A0;
+}
+
+</string>
+                </property>
+                <property name="text">
+                 <string>Clipper  Off</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="MotorResetButton">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+    padding: 6px 12px;
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #1a1a1a, stop:1 #000000
+    );
+    color: white;
+    border: 1px solid #444;
+    border-radius: 4px;
+}
+
+QPushButton:hover {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #2a2a2a, stop:1 #111111
+    );
+}
+
+QPushButton:pressed {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #0f0f0f, stop:1 #000000
+    );
+    border-style: inset;
+	background-color: #0B76A0;
+}
+
+</string>
+                </property>
+                <property name="text">
+                 <string>RESET</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="VisionPage">
+            <widget class="QLabel" name="label_5">
+             <property name="geometry">
+              <rect>
+               <x>120</x>
+               <y>270</y>
+               <width>67</width>
+               <height>17</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Viison Page</string>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="ClipperPage">
+            <widget class="QLabel" name="label_6">
+             <property name="geometry">
+              <rect>
+               <x>130</x>
+               <y>320</y>
+               <width>67</width>
+               <height>17</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Clipper Page</string>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="ForkliftPage">
+            <widget class="QPushButton" name="LiftUp">
+             <property name="geometry">
+              <rect>
+               <x>20</x>
+               <y>480</y>
+               <width>101</width>
+               <height>91</height>
+              </rect>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: transparent;
+border: none;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>controlArrows/lift.svg</normaloff>controlArrows/lift.svg</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>80</width>
+               <height>80</height>
+              </size>
+             </property>
+             <property name="checkable">
+              <bool>false</bool>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="LowerDown">
+             <property name="geometry">
+              <rect>
+               <x>190</x>
+               <y>480</y>
+               <width>101</width>
+               <height>91</height>
+              </rect>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: transparent;
+border: none;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>controlArrows/lower.svg</normaloff>controlArrows/lower.svg</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>80</width>
+               <height>80</height>
+              </size>
+             </property>
+             <property name="checkable">
+              <bool>false</bool>
+             </property>
+            </widget>
+            <widget class="QSlider" name="SliderLift">
+             <property name="geometry">
+              <rect>
+               <x>60</x>
+               <y>400</y>
+               <width>201</width>
+               <height>61</height>
+              </rect>
+             </property>
+             <property name="minimum">
+              <number>80</number>
+             </property>
+             <property name="maximum">
+              <number>200</number>
+             </property>
+             <property name="value">
+              <number>80</number>
+             </property>
+             <property name="sliderPosition">
+              <number>80</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="FastForktLiftButton">
+             <property name="geometry">
+              <rect>
+               <x>30</x>
+               <y>300</y>
+               <width>111</width>
+               <height>71</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Fast</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">buttonGroup</string>
+             </attribute>
+            </widget>
+            <widget class="QPushButton" name="SlowLiftButton">
+             <property name="geometry">
+              <rect>
+               <x>170</x>
+               <y>300</y>
+               <width>111</width>
+               <height>71</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Slow</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">buttonGroup</string>
+             </attribute>
+            </widget>
+            <widget class="QPushButton" name="RunForkliftButton">
+             <property name="geometry">
+              <rect>
+               <x>20</x>
+               <y>130</y>
+               <width>111</width>
+               <height>71</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Run</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">buttonGroup_2</string>
+             </attribute>
+            </widget>
+            <widget class="QPushButton" name="StopForkliftButton">
+             <property name="geometry">
+              <rect>
+               <x>170</x>
+               <y>130</y>
+               <width>111</width>
+               <height>71</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Stop</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">buttonGroup_2</string>
+             </attribute>
+            </widget>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="ListOptionsWidget" native="true">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>100</y>
+             <width>251</width>
+             <height>281</height>
+            </rect>
+           </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QPushButton" name="MotorOption">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>Motor</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="VisionOption">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: #000000;</string>
+              </property>
+              <property name="text">
+               <string>Vision</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="ClipperOption">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>Clipper</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="ForkliftOption">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>Forklift</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </widget>
        </widget>
        <widget class="QWidget" name="ProductionRecordPage">
         <widget class="QFrame" name="frame">
@@ -3342,12 +3501,12 @@ border-radius: 6px;</string>
  <resources/>
  <connections/>
  <buttongroups>
+  <buttongroup name="buttonGroup"/>
   <buttongroup name="ThemeButtonGroup"/>
+  <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="FontSizeButtonGroup"/>
   <buttongroup name="AutoAndManualButtonGroup"/>
   <buttongroup name="MenuButtonGroup"/>
   <buttongroup name="LanguageButtonGroup"/>
-  <buttongroup name="FontSizeButtonGroup"/>
-  <buttongroup name="buttonGroup"/>
-  <buttongroup name="buttonGroup_2"/>
  </buttongroups>
 </ui>

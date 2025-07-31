@@ -1,4 +1,5 @@
 import sys
+from datetime import date
 from PySide6.QtCore import Qt, QEvent, QTimer, Signal
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QMainWindow
@@ -6,16 +7,16 @@ from PySide6.QtWidgets import QApplication, QMainWindow
 from ui_app.ui_magic_cube import Ui_MainWindow # Import my design made in Qt Designer (already in .py)
 import ui_app.resources_rc  # this includes the images and icons
 
+#ui components
+from ui_app.ui_components.ui_forklift import ForkliftController
+from ui_app.ui_components.ui_motor import MotorController
+
 # for ROS2
 import threading
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
-from common_msgs.msg import StateCmd, ForkCmd
-
-#other imports
-from datetime import date
-
+from common_msgs.msg import StateCmd, ForkCmd, JogCmd
 
 class ROSNode(Node):
     def __init__(self):
@@ -50,17 +51,8 @@ class ROSNode(Node):
         #fork lift
         self.fork_cmd_publisher = self.create_publisher(ForkCmd, '/fork_cmd', 10)
 
-
-    def publish_fork_cmd(self, mode, speed, direction, distance):
-        msg = ForkCmd()
-        msg.mode = mode
-        msg.speed = speed
-        msg.direction = direction
-        msg.distance = distance
-        self.fork_cmd_publisher.publish(msg)
-        self.get_logger().info(f"Published ForkCmd: mode={mode}, speed={speed}, direction={direction}, distance={distance}")
-
-
+        #jog control
+        self.jog_cmd_publisher = self.create_publisher(JogCmd, '/jog_cmd', 10)
 
 
 class MainWindow(QMainWindow):
@@ -74,6 +66,13 @@ class MainWindow(QMainWindow):
         #Start ROS2 Node
         self.ros_node = ros_node
 
+        #motor ui
+        self.motor_controller = MotorController(self.ui, self.ros_node)
+
+        #forklift ui
+        self.forklift_controller = ForkliftController(self.ui, self.ros_node)
+
+
         # Connect Qt signal to UI handler
         self.ros_msg_received.connect(self.handle_ros_message)
 
@@ -83,16 +82,13 @@ class MainWindow(QMainWindow):
         self.ui.StopButton.clicked.connect(lambda: self.send_state_cmd("stop"))
         self.ui.AutoResetButton.clicked.connect(lambda: self.send_state_cmd("reset"))
 
-        self.ui.AutoButtonOption.clicked.connect(lambda: self.send_mode_cmd("auto"))
+        self.ui.AutoButton.clicked.connect(lambda: self.send_mode_cmd("auto"))
         self.ui.ManualButton.clicked.connect(lambda: self.send_mode_cmd("manual"))
 
         self.ui.RoughAlignButton.clicked.connect(lambda: self.send_task_cmd("rough align"))
         self.ui.PreciseAlignButton.clicked.connect(lambda: self.send_task_cmd("precise align"))
         self.ui.PickButton.clicked.connect(lambda: self.send_task_cmd("pick"))
         self.ui.AssemblyButton.clicked.connect(lambda: self.send_task_cmd("assembly"))
-
-        self.ui.LiftUp.clicked.connect(lambda: self.send_fork_cmd("up"))
-        self.ui.LowerDown.clicked.connect(lambda: self.send_fork_cmd("down"))
 
         # Get Today's date
         today = date.today()
@@ -101,8 +97,6 @@ class MainWindow(QMainWindow):
 
         #By Default
         self.ui.ListOptionsWidget.setVisible(False)
-        self.ui.HamburgerMenuInMainPageOptions.setVisible(False)
-        self.ui.ManualOptionsWidget.setVisible(False)
 
         # Touchscreen style handlers in Main Page - Auto
         self.ui.InitButton.clicked.connect(lambda: self.on_touch_buttons(self.ui.InitButton))
@@ -110,21 +104,21 @@ class MainWindow(QMainWindow):
         self.ui.StopButton.clicked.connect(lambda: self.on_touch_buttons(self.ui.StopButton))
         self.ui.AutoResetButton.clicked.connect(lambda: self.on_touch_buttons(self.ui.AutoResetButton))
 
-        #Touchscreen style handlers in Motor
-        self.ui.MotorResetButton.clicked.connect(lambda: self.on_touch_buttons(self.ui.MotorResetButton))
-
-        self.ui.ControlUpCP.clicked.connect(lambda: self.on_touch_controls(self.ui.ControlUpCP))
-        self.ui.ControlLeftCP.clicked.connect(lambda: self.on_touch_controls(self.ui.ControlLeftCP))
-        self.ui.ControlDownCP.clicked.connect(lambda: self.on_touch_controls(self.ui.ControlDownCP))
-        self.ui.ControlRightCP.clicked.connect(lambda: self.on_touch_controls(self.ui.ControlRightCP))
-        self.ui.YawPlusCP.clicked.connect(lambda: self.on_touch_controls(self.ui.YawPlusCP))
-        self.ui.YawMinusCP.clicked.connect(lambda: self.on_touch_controls(self.ui.YawMinusCP))
-
-        self.ui.LiftUp.clicked.connect(lambda: self.on_touch_buttons(self.ui.LiftUp))
-        self.ui.LowerDown.clicked.connect(lambda: self.on_touch_buttons(self.ui.LowerDown))
-
         # self.ui.RecordDataButton.clicked.connect(lambda: self.on_record_data_clicked(self.ui.RecordDataButton))
         self.ui.ClipperButtonOnOff.toggled.connect(lambda: self.update_clipper_state(self.ui.ClipperButtonOnOff))
+
+        #INIT or Stop
+        self.ui.INITBefore.clicked.connect(self.change_to_action_buttons)
+
+        #Auto or Manual
+        self.ui.ChooseAutoButton.clicked.connect(lambda: self.choose_auto_or_manual(0))
+        self.ui.ChooseManualButton.clicked.connect(lambda: self.choose_auto_or_manual(1))
+
+        #choose your component control
+        self.ui.ChooseMotor.clicked.connect(self.choose_motor)
+        self.ui.ChooseVision.clicked.connect(self.choose_vision)
+        self.ui.ChooseClipper.clicked.connect(self.choose_clipper)
+        self.ui.ChooseForklift.clicked.connect(self.choose_forklift)
 
         #Main Page, go to other pages
         self.ui.MainPageButton.clicked.connect(self.change_to_main_page)
@@ -134,25 +128,16 @@ class MainWindow(QMainWindow):
         self.ui.SystemSettingsButton.clicked.connect(self.change_to_system_settings_page)
 
         # Main Page, Auto and Manual options
-        self.ui.HamburgerMenuMainPage.clicked.connect(self.toggle_manual_menu)
-
-        self.ui.AutoButtonOption.clicked.connect(lambda: self.main_page_manual_switch_page("Auto", 0))
-        self.ui.ManualButton.clicked.connect(self.toggle_manual_button_menu)  # show submenu
-
-        self.ui.RoughAlignButton.clicked.connect(lambda: self.main_page_manual_switch_page("Manual", 1))
-        self.ui.PreciseAlignButton.clicked.connect(lambda: self.main_page_manual_switch_page("Manual", 2))
-        self.ui.PickButton.clicked.connect(lambda: self.main_page_manual_switch_page("Manual", 3))
-        self.ui.AssemblyButton.clicked.connect(lambda: self.main_page_manual_switch_page("Manual", 4))
-
+        self.ui.AutoButton.clicked.connect(self.change_to_auto_page)
+        self.ui.ManualButton.clicked.connect(self.change_to_manual_page)
 
         #Component Control, List Menu
         self.ui.HamburgerMenu.clicked.connect(self.toggle_menu)
- 
 
         self.ui.MotorOption.clicked.connect(lambda: self.component_control_switch_page("Motor", 0))
         self.ui.VisionOption.clicked.connect(lambda: self.component_control_switch_page("Vision", 1))
         self.ui.ClipperOption.clicked.connect(lambda: self.component_control_switch_page("Clipper", 2))
-        self.ui.ForkLiftOption.clicked.connect(lambda: self.component_control_switch_page("Fork Lift", 3))
+        self.ui.ForkliftOption.clicked.connect(lambda: self.component_control_switch_page("Forklift", 3))
 
 
 
@@ -181,45 +166,27 @@ class MainWindow(QMainWindow):
 
     def send_mode_cmd(self, flag):
         msg = String()
-
         msg.data = flag
-        
-        if flag == "auto":
-            msg.data = "auto"
-        elif flag == "manual":
-            msg.data = "manual"
 
         self.ros_node.mode_cmd_publisher.publish(msg)
         print(f"[UI] Sent ModeCmd: {msg.data}")
 
+
     def send_task_cmd(self, flag):
         msg = String()
-
         msg.data = flag
-
-        if flag == "rough align":
-            msg.data = "rough align"
-        elif flag == "precise align":
-            msg.data = "precise align"
-        elif flag == "pick":
-            msg.data = "pick"
-        elif flag == "assembly":
-            msg.data = "assembly"
         
         self.ros_node.task_cmd_publisher.publish(msg)
         print(f"[UI] Sent TaskCmd: {msg.data}")
 
-    def send_fork_cmd(self, direction):
-        mode_button = self.ui.buttonGroup_2.checkedButton()
-        speed_button = self.ui.buttonGroup.checkedButton()
-
-        mode = mode_button.text().lower() if mode_button else "run"
-        speed = speed_button.text().lower() if speed_button else "slow"
-        distance = float(self.ui.SliderLift.value())
-
-        self.ros_node.publish_fork_cmd(mode, speed, direction, distance)
-        print(f"[UI] Sent ForkCmd: {mode}, {speed}, {direction}, {distance}")
-
+    def send_jog_cmd(self, axis, direction):
+        msg = JogCmd()
+        msg.target = axis
+        msg.direction = direction  # 1.0 for + direction, -1.0 for - direction
+        msg.distance = 5.0         # fixed distance
+        msg.speed = 50.0           # fixed speed
+        self.ros_node.jog_cmd_publisher.publish(msg)
+        print(f"[UI] Sent JogCmd: axis={axis}, direction={direction}")
 
 
 
@@ -245,50 +212,55 @@ class MainWindow(QMainWindow):
     def change_to_system_settings_page(self):
         self.ui.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(4)
 
+    #INIT or Stop
+    def change_to_action_buttons(self):
+        self.ui.AutoAndManualStackedWidget.setCurrentIndex(1)
+
+    #choose Auto or Manual
+    def choose_auto_or_manual(self, autoOrManualIndex):
+        self.ui.AutoAndManualStackedWidget.setCurrentIndex(2)
+        self.ui.ActionButtons.setCurrentIndex(autoOrManualIndex)
+
+        if autoOrManualIndex == 0:
+            self.ui.AutoButton.setChecked(True)
+            self.send_mode_cmd("auto")  
+
+        elif autoOrManualIndex == 1:
+            self.ui.ManualButton.setChecked(True)
+            self.send_mode_cmd("manual")
     
-    #Main Page - Manual
-    def toggle_manual_menu(self):
-        is_visible = self.ui.HamburgerMenuInMainPageOptions.isVisible()
-        
-        if is_visible:
-            # Hide everything
-            self.ui.HamburgerMenuInMainPageOptions.setVisible(False)
-            self.ui.ManualOptionsWidget.setVisible(False)
-        else:
-            # Show hamburger menu
-            self.ui.HamburgerMenuInMainPageOptions.setVisible(True)
+    #choose your component control
+    def choose_motor(self):
+        self.ui.ComponentControlStackedWidget.setCurrentIndex(1)
+        self.ui.ChangeComponentControlStackedWidget.setCurrentIndex(0)
+        self.ui.MotorStartedButton.setText("Motor")
 
-            # Always show Auto & Manual buttons initially
-            self.ui.AutoButtonOption.setVisible(True)
-            self.ui.ManualButton.setVisible(True)
-
-            # Hide manual submenu
-            self.ui.ManualOptionsWidget.setVisible(False)
+    def choose_vision(self):
+        self.ui.ComponentControlStackedWidget.setCurrentIndex(1)
+        self.ui.ChangeComponentControlStackedWidget.setCurrentIndex(1)
+        self.ui.MotorStartedButton.setText("Vision")
 
 
-    def toggle_manual_button_menu(self):
-        # Hide the top-level hamburger options
-        self.ui.AutoButtonOption.setVisible(False)
-        self.ui.ManualButton.setVisible(False)
-
-        self.ui.AutoButton.setText("Manual")
-
-        # Show the manual submenu
-        self.ui.ManualOptionsWidget.setVisible(True)
+    def choose_clipper(self):
+        self.ui.ComponentControlStackedWidget.setCurrentIndex(1)
+        self.ui.ChangeComponentControlStackedWidget.setCurrentIndex(2)
+        self.ui.MotorStartedButton.setText("Clipper")
 
 
-    def main_page_manual_switch_page(self, name, index):
-        self.ui.AutoButton.setText(name)
-        self.ui.ActionButtons.setCurrentIndex(index)
+    def choose_forklift(self):
+        self.ui.ComponentControlStackedWidget.setCurrentIndex(1)
+        self.ui.ChangeComponentControlStackedWidget.setCurrentIndex(3)
+        self.ui.MotorStartedButton.setText("Forklift")
 
-        if name == "Auto":
-            self.ui.ProcessAndInfoStackedWidget.setCurrentIndex(0)  # switch to Auto page
-        elif name == "Manual":
-            self.ui.ProcessAndInfoStackedWidget.setCurrentIndex(1)  # switch to Manual page
 
-        # Close dropdowns
-        self.ui.HamburgerMenuInMainPageOptions.setVisible(False)
-        self.ui.ManualOptionsWidget.setVisible(False)
+
+    # Auto or Manual Buttons
+    def change_to_auto_page(self):
+        self.ui.ActionButtons.setCurrentIndex(0)
+    
+    def change_to_manual_page(self):
+        self.ui.ActionButtons.setCurrentIndex(1)
+
 
 
     #Component Control - Motor
@@ -370,8 +342,6 @@ def ros_spin(node):
 def main():
     rclpy.init()
     ros_node = ROSNode()
-
-
 
     app = QApplication(sys.argv)
 
