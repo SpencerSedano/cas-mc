@@ -77,13 +77,13 @@ class MainWindow(QMainWindow):
         self.ros_msg_received.connect(self.handle_ros_message)
 
         # connect buttons to send data to another node (ROS2)
-        self.ui.InitButton.clicked.connect(lambda: self.send_state_cmd("init"))
         self.ui.RunButton.clicked.connect(lambda: self.send_state_cmd("run"))
         self.ui.StopButton.clicked.connect(lambda: self.send_state_cmd("stop"))
         self.ui.AutoResetButton.clicked.connect(lambda: self.send_state_cmd("reset"))
 
-        self.ui.AutoButton.clicked.connect(lambda: self.send_mode_cmd("auto"))
-        self.ui.ManualButton.clicked.connect(lambda: self.send_mode_cmd("manual"))
+        self.ui.AutoButton.toggled.connect(self.on_auto_toggled)
+        self.ui.ManualButton.toggled.connect(self.on_manual_toggled)
+
 
         self.ui.RoughAlignButton.clicked.connect(lambda: self.send_task_cmd("rough align"))
         self.ui.PreciseAlignButton.clicked.connect(lambda: self.send_task_cmd("precise align"))
@@ -99,7 +99,6 @@ class MainWindow(QMainWindow):
         self.ui.ListOptionsWidget.setVisible(False)
 
         # Touchscreen style handlers in Main Page - Auto
-        self.ui.InitButton.clicked.connect(lambda: self.on_touch_buttons(self.ui.InitButton))
         self.ui.RunButton.clicked.connect(lambda: self.on_touch_buttons(self.ui.RunButton))
         self.ui.StopButton.clicked.connect(lambda: self.on_touch_buttons(self.ui.StopButton))
         self.ui.AutoResetButton.clicked.connect(lambda: self.on_touch_buttons(self.ui.AutoResetButton))
@@ -223,11 +222,9 @@ class MainWindow(QMainWindow):
 
         if autoOrManualIndex == 0:
             self.ui.AutoButton.setChecked(True)
-            self.send_mode_cmd("auto")  
 
         elif autoOrManualIndex == 1:
             self.ui.ManualButton.setChecked(True)
-            self.send_mode_cmd("manual")
     
     #choose your component control
     def choose_motor(self):
@@ -260,7 +257,16 @@ class MainWindow(QMainWindow):
     
     def change_to_manual_page(self):
         self.ui.ActionButtons.setCurrentIndex(1)
+        
 
+    #
+    def on_auto_toggled(self, checked):
+        if checked:
+            self.send_mode_cmd("auto")
+
+    def on_manual_toggled(self, checked):
+        if checked:
+            self.send_mode_cmd("manual")
 
 
     #Component Control - Motor

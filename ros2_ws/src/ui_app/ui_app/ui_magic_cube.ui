@@ -1223,7 +1223,7 @@ QPushButton:pressed {
           <enum>QFrame::Shadow::Raised</enum>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="BeforeAutoAndManualPage">
           <layout class="QVBoxLayout" name="verticalLayout_25">
@@ -1514,34 +1514,10 @@ QPushButton:pressed {
               <string notr="true"/>
              </property>
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="ActionButtonsPage">
               <layout class="QVBoxLayout" name="verticalLayout_12">
-               <item>
-                <widget class="QPushButton" name="InitButton">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true"/>
-                 </property>
-                 <property name="text">
-                  <string>INIT</string>
-                 </property>
-                 <property name="checkable">
-                  <bool>false</bool>
-                 </property>
-                </widget>
-               </item>
                <item>
                 <widget class="QPushButton" name="RunButton">
                  <property name="sizePolicy">
@@ -2186,7 +2162,7 @@ border-radius: 6px;</string>
           <enum>QFrame::Shadow::Raised</enum>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="BeforeComponentControl">
           <layout class="QVBoxLayout" name="verticalLayout_28">
@@ -2291,16 +2267,16 @@ border-radius: 6px;</string>
                </sizepolicy>
               </property>
               <property name="styleSheet">
-               <string notr="true"/>
+               <string notr="true">background-color: #0B76A0;</string>
               </property>
               <property name="text">
                <string>Motor</string>
               </property>
               <property name="checkable">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
               <property name="checked">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
              </widget>
             </item>
@@ -2854,7 +2830,7 @@ border: none;</string>
              <x>20</x>
              <y>100</y>
              <width>251</width>
-             <height>281</height>
+             <height>351</height>
             </rect>
            </property>
            <property name="sizePolicy">

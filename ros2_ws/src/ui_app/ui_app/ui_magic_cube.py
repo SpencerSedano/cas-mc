@@ -820,16 +820,6 @@ class Ui_MainWindow(object):
         self.ActionButtonsPage.setObjectName(u"ActionButtonsPage")
         self.verticalLayout_12 = QVBoxLayout(self.ActionButtonsPage)
         self.verticalLayout_12.setObjectName(u"verticalLayout_12")
-        self.InitButton = QPushButton(self.ActionButtonsPage)
-        self.InitButton.setObjectName(u"InitButton")
-        sizePolicy.setHeightForWidth(self.InitButton.sizePolicy().hasHeightForWidth())
-        self.InitButton.setSizePolicy(sizePolicy)
-        self.InitButton.setFont(font)
-        self.InitButton.setStyleSheet(u"")
-        self.InitButton.setCheckable(False)
-
-        self.verticalLayout_12.addWidget(self.InitButton)
-
         self.RunButton = QPushButton(self.ActionButtonsPage)
         self.RunButton.setObjectName(u"RunButton")
         sizePolicy.setHeightForWidth(self.RunButton.sizePolicy().hasHeightForWidth())
@@ -1236,9 +1226,9 @@ class Ui_MainWindow(object):
         self.MotorStartedButton.setObjectName(u"MotorStartedButton")
         sizePolicy1.setHeightForWidth(self.MotorStartedButton.sizePolicy().hasHeightForWidth())
         self.MotorStartedButton.setSizePolicy(sizePolicy1)
-        self.MotorStartedButton.setStyleSheet(u"")
-        self.MotorStartedButton.setCheckable(True)
-        self.MotorStartedButton.setChecked(True)
+        self.MotorStartedButton.setStyleSheet(u"background-color: #0B76A0;")
+        self.MotorStartedButton.setCheckable(False)
+        self.MotorStartedButton.setChecked(False)
 
         self.horizontalLayout_16.addWidget(self.MotorStartedButton)
 
@@ -1473,7 +1463,7 @@ class Ui_MainWindow(object):
         self.ChangeComponentControlStackedWidget.addWidget(self.ForkliftPage)
         self.ListOptionsWidget = QWidget(self.ComponentControlMain)
         self.ListOptionsWidget.setObjectName(u"ListOptionsWidget")
-        self.ListOptionsWidget.setGeometry(QRect(20, 90, 251, 291))
+        self.ListOptionsWidget.setGeometry(QRect(20, 100, 251, 351))
         sizePolicy1.setHeightForWidth(self.ListOptionsWidget.sizePolicy().hasHeightForWidth())
         self.ListOptionsWidget.setSizePolicy(sizePolicy1)
         self.verticalLayout_5 = QVBoxLayout(self.ListOptionsWidget)
@@ -1763,7 +1753,7 @@ class Ui_MainWindow(object):
         self.AutoAndManualStackedWidget.setCurrentIndex(0)
         self.ActionButtons.setCurrentIndex(0)
         self.ComponentControlStackedWidget.setCurrentIndex(0)
-        self.ChangeComponentControlStackedWidget.setCurrentIndex(3)
+        self.ChangeComponentControlStackedWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1825,7 +1815,6 @@ class Ui_MainWindow(object):
         self.ChooseManualButton.setText(QCoreApplication.translate("MainWindow", u"Manual", None))
         self.AutoButton.setText(QCoreApplication.translate("MainWindow", u"Auto", None))
         self.ManualButton.setText(QCoreApplication.translate("MainWindow", u"Manual", None))
-        self.InitButton.setText(QCoreApplication.translate("MainWindow", u"INIT", None))
         self.RunButton.setText(QCoreApplication.translate("MainWindow", u"RUN", None))
         self.StopButton.setText(QCoreApplication.translate("MainWindow", u"STOP", None))
         self.AutoResetButton.setText(QCoreApplication.translate("MainWindow", u"RESET", None))
