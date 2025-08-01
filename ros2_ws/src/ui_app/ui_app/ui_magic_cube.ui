@@ -54,7 +54,10 @@ QPushButton:checked {
     background-color: #0B76A0;
     border: 1px solid #0B76A0;
 }
-</string>
+
+QLabel {
+	color:white;
+}</string>
       </property>
       <widget class="QPushButton" name="SystemSettingsButton">
        <property name="geometry">
@@ -1223,7 +1226,7 @@ QPushButton:pressed {
           <enum>QFrame::Shadow::Raised</enum>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="BeforeAutoAndManualPage">
           <layout class="QVBoxLayout" name="verticalLayout_25">
@@ -2056,7 +2059,7 @@ border-radius: 6px;</string>
                <property name="frameShadow">
                 <enum>QFrame::Shadow::Raised</enum>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_23">
+               <layout class="QHBoxLayout" name="horizontalLayout_32">
                 <property name="leftMargin">
                  <number>9</number>
                 </property>
@@ -2066,7 +2069,14 @@ border-radius: 6px;</string>
                 <item>
                  <widget class="QLabel" name="d2_2">
                   <property name="text">
-                   <string>D2: </string>
+                   <string>Current Height: </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="currentHeight">
+                  <property name="text">
+                   <string>0</string>
                   </property>
                  </widget>
                 </item>
@@ -2091,14 +2101,14 @@ border-radius: 6px;</string>
                 <item>
                  <widget class="QLabel" name="h1_2">
                   <property name="text">
-                   <string>H1: </string>
+                   <string>Height Cmd: </string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="heightText">
+                 <widget class="QLabel" name="HeightCommand">
                   <property name="text">
-                   <string>TextLabel</string>
+                   <string>0</string>
                   </property>
                  </widget>
                 </item>
@@ -2156,9 +2166,9 @@ border-radius: 6px;</string>
         <widget class="QStackedWidget" name="ComponentControlStackedWidget">
          <property name="geometry">
           <rect>
-           <x>720</x>
+           <x>710</x>
            <y>10</y>
-           <width>291</width>
+           <width>311</width>
            <height>681</height>
           </rect>
          </property>
@@ -2318,9 +2328,9 @@ border-radius: 6px;</string>
           <widget class="QStackedWidget" name="ChangeComponentControlStackedWidget">
            <property name="geometry">
             <rect>
-             <x>-20</x>
+             <x>-10</x>
              <y>90</y>
-             <width>311</width>
+             <width>321</width>
              <height>581</height>
             </rect>
            </property>
@@ -2328,7 +2338,7 @@ border-radius: 6px;</string>
             <string notr="true"/>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>3</number>
            </property>
            <widget class="QWidget" name="MotorPage">
             <widget class="QPushButton" name="ControlUpCP">
@@ -2725,8 +2735,8 @@ QPushButton:pressed {
             <widget class="QPushButton" name="LiftUp">
              <property name="geometry">
               <rect>
-               <x>20</x>
-               <y>480</y>
+               <x>30</x>
+               <y>490</y>
                <width>101</width>
                <height>91</height>
               </rect>
@@ -2755,14 +2765,17 @@ border: none;</string>
               </size>
              </property>
              <property name="checkable">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
+             <attribute name="buttonGroup">
+              <string notr="true">buttonGroup_2</string>
+             </attribute>
             </widget>
             <widget class="QPushButton" name="LowerDown">
              <property name="geometry">
               <rect>
                <x>190</x>
-               <y>480</y>
+               <y>490</y>
                <width>101</width>
                <height>91</height>
               </rect>
@@ -2791,29 +2804,49 @@ border: none;</string>
               </size>
              </property>
              <property name="checkable">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
+             <attribute name="buttonGroup">
+              <string notr="true">buttonGroup_2</string>
+             </attribute>
             </widget>
             <widget class="QSlider" name="SliderLift">
              <property name="geometry">
               <rect>
-               <x>60</x>
-               <y>400</y>
-               <width>201</width>
-               <height>61</height>
+               <x>50</x>
+               <y>320</y>
+               <width>231</width>
+               <height>41</height>
               </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QSlider::groove:horizontal {
+    height: 20px;
+    background: #ccc;
+    border-radius: 10px;
+}
+QSlider::handle:horizontal {
+    background: #000000;
+    border: 2px solid white;
+    width: 40px;
+    margin: -10px 0; /* center handle */
+    border-radius: 10px;
+}</string>
              </property>
              <property name="minimum">
               <number>80</number>
              </property>
              <property name="maximum">
-              <number>200</number>
+              <number>1500</number>
+             </property>
+             <property name="singleStep">
+              <number>10</number>
              </property>
              <property name="value">
-              <number>80</number>
+              <number>123</number>
              </property>
              <property name="sliderPosition">
-              <number>80</number>
+              <number>123</number>
              </property>
              <property name="orientation">
               <enum>Qt::Orientation::Horizontal</enum>
@@ -2822,9 +2855,9 @@ border: none;</string>
             <widget class="QPushButton" name="FastForktLiftButton">
              <property name="geometry">
               <rect>
-               <x>30</x>
-               <y>300</y>
-               <width>111</width>
+               <x>20</x>
+               <y>190</y>
+               <width>88</width>
                <height>71</height>
               </rect>
              </property>
@@ -2841,9 +2874,9 @@ border: none;</string>
             <widget class="QPushButton" name="SlowLiftButton">
              <property name="geometry">
               <rect>
-               <x>170</x>
-               <y>300</y>
-               <width>111</width>
+               <x>220</x>
+               <y>190</y>
+               <width>88</width>
                <height>71</height>
               </rect>
              </property>
@@ -2860,8 +2893,8 @@ border: none;</string>
             <widget class="QPushButton" name="RunForkliftButton">
              <property name="geometry">
               <rect>
-               <x>20</x>
-               <y>130</y>
+               <x>30</x>
+               <y>60</y>
                <width>111</width>
                <height>71</height>
               </rect>
@@ -2872,28 +2905,105 @@ border: none;</string>
              <property name="checkable">
               <bool>true</bool>
              </property>
-             <attribute name="buttonGroup">
-              <string notr="true">buttonGroup_2</string>
-             </attribute>
             </widget>
             <widget class="QPushButton" name="StopForkliftButton">
              <property name="geometry">
               <rect>
                <x>170</x>
-               <y>130</y>
-               <width>111</width>
-               <height>71</height>
+               <y>60</y>
+               <width>121</width>
+               <height>81</height>
               </rect>
              </property>
              <property name="text">
               <string>Stop</string>
              </property>
              <property name="checkable">
+              <bool>false</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_2">
+             <property name="geometry">
+              <rect>
+               <x>130</x>
+               <y>30</y>
+               <width>67</width>
+               <height>17</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Mode</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignCenter</set>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_4">
+             <property name="geometry">
+              <rect>
+               <x>130</x>
+               <y>150</y>
+               <width>67</width>
+               <height>17</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Speed</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignCenter</set>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="SendForkliftCommand">
+             <property name="geometry">
+              <rect>
+               <x>40</x>
+               <y>380</y>
+               <width>241</width>
+               <height>81</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Send Cmd</string>
+             </property>
+             <property name="checkable">
+              <bool>false</bool>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="MediumLiftButton">
+             <property name="geometry">
+              <rect>
+               <x>120</x>
+               <y>190</y>
+               <width>88</width>
+               <height>71</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Medium</string>
+             </property>
+             <property name="checkable">
               <bool>true</bool>
              </property>
              <attribute name="buttonGroup">
-              <string notr="true">buttonGroup_2</string>
+              <string notr="true">buttonGroup</string>
              </attribute>
+            </widget>
+            <widget class="QLabel" name="label_7">
+             <property name="geometry">
+              <rect>
+               <x>90</x>
+               <y>280</y>
+               <width>141</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Distance (manual)</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignCenter</set>
+             </property>
             </widget>
            </widget>
           </widget>
@@ -2903,7 +3013,7 @@ border: none;</string>
              <x>20</x>
              <y>100</y>
              <width>251</width>
-             <height>351</height>
+             <height>341</height>
             </rect>
            </property>
            <property name="sizePolicy">
@@ -3551,11 +3661,11 @@ border: none;</string>
  <connections/>
  <buttongroups>
   <buttongroup name="MenuButtonGroup"/>
-  <buttongroup name="FontSizeButtonGroup"/>
-  <buttongroup name="AutoAndManualButtonGroup"/>
-  <buttongroup name="ThemeButtonGroup"/>
-  <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="LanguageButtonGroup"/>
   <buttongroup name="buttonGroup"/>
+  <buttongroup name="ThemeButtonGroup"/>
+  <buttongroup name="AutoAndManualButtonGroup"/>
+  <buttongroup name="LanguageButtonGroup"/>
+  <buttongroup name="FontSizeButtonGroup"/>
+  <buttongroup name="buttonGroup_2"/>
  </buttongroups>
 </ui>

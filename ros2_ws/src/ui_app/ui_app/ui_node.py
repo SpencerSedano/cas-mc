@@ -79,7 +79,7 @@ class ROSNode(Node):
         self.vision_control_publisher = self.create_publisher(String, '/detection_task', 10)
 
         self.bridge = CvBridge()
-        
+
         self.color_image_subscriber = self.create_subscription(
         Image,
         '/color_image',
@@ -129,6 +129,7 @@ class MainWindow(QMainWindow):
         #forklift ui
         self.forklift_controller = ForkliftController(self.ui, self.ros_node)
         self.ros_node.forklift_controller = self.forklift_controller
+        
         
 
         # Connect Qt signal to UI handler
@@ -189,8 +190,6 @@ class MainWindow(QMainWindow):
         self.ui.ChooseClipper.clicked.connect(self.choose_clipper)
         self.ui.ChooseForklift.clicked.connect(self.choose_forklift)
 
-        self.ui.h1_2.setText("Current height")
-
         #Vision
         self.ui.VisionTextInComponentControl.setFixedSize(640, 480)
 
@@ -213,6 +212,8 @@ class MainWindow(QMainWindow):
         self.ui.VisionOption.clicked.connect(self.activate_vision_view)
         self.ui.ClipperOption.clicked.connect(lambda: self.component_control_switch_page("Clipper", 2))
         self.ui.ForkliftOption.clicked.connect(lambda: self.component_control_switch_page("Forklift", 3))
+
+        
 
     def update_image(self, cv_img):
         qt_img = convert_cv_to_qt(cv_img)
