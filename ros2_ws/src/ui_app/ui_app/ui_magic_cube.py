@@ -1126,13 +1126,18 @@ class Ui_MainWindow(object):
         self.frame_8.setObjectName(u"frame_8")
         self.frame_8.setFrameShape(QFrame.Shape.StyledPanel)
         self.frame_8.setFrameShadow(QFrame.Shadow.Raised)
-        self.verticalLayout_17 = QVBoxLayout(self.frame_8)
-        self.verticalLayout_17.setObjectName(u"verticalLayout_17")
-        self.verticalLayout_17.setContentsMargins(9, -1, -1, 0)
+        self.horizontalLayout_25 = QHBoxLayout(self.frame_8)
+        self.horizontalLayout_25.setObjectName(u"horizontalLayout_25")
+        self.horizontalLayout_25.setContentsMargins(9, -1, -1, 0)
         self.h1_2 = QLabel(self.frame_8)
         self.h1_2.setObjectName(u"h1_2")
 
-        self.verticalLayout_17.addWidget(self.h1_2)
+        self.horizontalLayout_25.addWidget(self.h1_2)
+
+        self.heightText = QLabel(self.frame_8)
+        self.heightText.setObjectName(u"heightText")
+
+        self.horizontalLayout_25.addWidget(self.heightText)
 
 
         self.gridLayout_6.addWidget(self.frame_8, 4, 0, 1, 1)
@@ -1748,11 +1753,11 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(0)
+        self.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(1)
         self.ProcessAndInfoStackedWidget.setCurrentIndex(0)
         self.AutoAndManualStackedWidget.setCurrentIndex(0)
         self.ActionButtons.setCurrentIndex(0)
-        self.ComponentControlStackedWidget.setCurrentIndex(0)
+        self.ComponentControlStackedWidget.setCurrentIndex(1)
         self.ChangeComponentControlStackedWidget.setCurrentIndex(1)
 
 
@@ -1841,6 +1846,7 @@ class Ui_MainWindow(object):
         self.LaserInfoText_2.setText(QCoreApplication.translate("MainWindow", u"Laser Info", None))
         self.d2_2.setText(QCoreApplication.translate("MainWindow", u"D2: ", None))
         self.h1_2.setText(QCoreApplication.translate("MainWindow", u"H1: ", None))
+        self.heightText.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.RecordDataButton_2.setText(QCoreApplication.translate("MainWindow", u"Record Data", None))
         self.ChooseMotor.setText(QCoreApplication.translate("MainWindow", u"Motor", None))
         self.ChooseVision.setText(QCoreApplication.translate("MainWindow", u"Vision", None))

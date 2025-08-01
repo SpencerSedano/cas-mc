@@ -15,7 +15,7 @@ from ui_app.ui_components.ui_motor import MotorController
 import threading
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String
+from std_msgs.msg import String, Int32
 from common_msgs.msg import StateCmd, ForkCmd, JogCmd
 
 class ROSNode(Node):
@@ -36,6 +36,12 @@ class ROSNode(Node):
             'assem': False,
         }
 
+        self.menu_cmd = {
+            'main_page': True,
+            'component_control': False
+        }
+        self.forklift_controller = None
+
         # Subscriber to the same topic
         # self.subscription = self.create_subscription(StateCmd, '/state_cmd', self.ros_message_callback, 10)
 
@@ -51,8 +57,30 @@ class ROSNode(Node):
         #fork lift
         self.fork_cmd_publisher = self.create_publisher(ForkCmd, '/fork_cmd', 10)
 
+        self.height_info_subscriber = self.create_subscription(
+            Int32,
+            'lr_distance',
+            self.height_info_callback,
+            10
+        )
+
         #jog control
         self.jog_cmd_publisher = self.create_publisher(JogCmd, '/jog_cmd', 10)
+
+        #menu publishers
+        self.component_control_publisher = self.create_publisher(String, '/run_cmd', 10)
+
+        #vision publish
+        self.vision_control_publisher = self.create_publisher()
+
+    def height_info_callback(self, msg: Int32):
+        self.get_logger().info(f"Received height info: {msg.data} mm")
+
+        if self.forklift_controller:
+            self.forklift_controller.update_height_display(msg.data)
+
+
+
 
 
 class MainWindow(QMainWindow):
@@ -71,7 +99,8 @@ class MainWindow(QMainWindow):
 
         #forklift ui
         self.forklift_controller = ForkliftController(self.ui, self.ros_node)
-
+        self.ros_node.forklift_controller = self.forklift_controller
+        
 
         # Connect Qt signal to UI handler
         self.ros_msg_received.connect(self.handle_ros_message)
@@ -89,6 +118,15 @@ class MainWindow(QMainWindow):
         self.ui.PreciseAlignButton.clicked.connect(lambda: self.send_task_cmd("precise align"))
         self.ui.PickButton.clicked.connect(lambda: self.send_task_cmd("pick"))
         self.ui.AssemblyButton.clicked.connect(lambda: self.send_task_cmd("assembly"))
+
+
+        '''menu buttons'''
+
+        #main page - publisher
+
+
+        #component control - publisher
+        self.ui.ComponentControlButton.clicked.connect(lambda: self.send_menu_cmd("component_control"))
 
         # Get Today's date
         today = date.today()
@@ -119,6 +157,8 @@ class MainWindow(QMainWindow):
         self.ui.ChooseClipper.clicked.connect(self.choose_clipper)
         self.ui.ChooseForklift.clicked.connect(self.choose_forklift)
 
+        self.ui.h1_2.setText("Current height")
+
         #Main Page, go to other pages
         self.ui.MainPageButton.clicked.connect(self.change_to_main_page)
         self.ui.ProductionRecordButton.clicked.connect(self.change_to_production_record_page)
@@ -138,6 +178,16 @@ class MainWindow(QMainWindow):
         self.ui.ClipperOption.clicked.connect(lambda: self.component_control_switch_page("Clipper", 2))
         self.ui.ForkliftOption.clicked.connect(lambda: self.component_control_switch_page("Forklift", 3))
 
+    #ROS2 Menu
+    def send_menu_cmd(self, flag):
+        msg = String()
+
+        # msg.main_page = False
+        msg.data = flag
+        
+        print(f"[DEBUG] Publishing MenuCmd: {msg}")
+        self.ros_node.component_control_publisher.publish(msg)
+        print(f"[UI] Sent MenuCmd: {flag}")
 
 
     #ROS2 Flag
@@ -186,8 +236,6 @@ class MainWindow(QMainWindow):
         msg.speed = 50.0           # fixed speed
         self.ros_node.jog_cmd_publisher.publish(msg)
         print(f"[UI] Sent JogCmd: axis={axis}, direction={direction}")
-
-
 
     def update_clipper_state(self, button):
         if button.isChecked():

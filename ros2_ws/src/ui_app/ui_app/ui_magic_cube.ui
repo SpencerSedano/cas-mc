@@ -369,7 +369,7 @@ Record</string>
         <string notr="true"/>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="MainPagePage">
         <widget class="QWidget" name="CameraWidget" native="true">
@@ -2081,7 +2081,7 @@ border-radius: 6px;</string>
                <property name="frameShadow">
                 <enum>QFrame::Shadow::Raised</enum>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_17">
+               <layout class="QHBoxLayout" name="horizontalLayout_25">
                 <property name="leftMargin">
                  <number>9</number>
                 </property>
@@ -2092,6 +2092,13 @@ border-radius: 6px;</string>
                  <widget class="QLabel" name="h1_2">
                   <property name="text">
                    <string>H1: </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="heightText">
+                  <property name="text">
+                   <string>TextLabel</string>
                   </property>
                  </widget>
                 </item>
@@ -2162,7 +2169,7 @@ border-radius: 6px;</string>
           <enum>QFrame::Shadow::Raised</enum>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="BeforeComponentControl">
           <layout class="QVBoxLayout" name="verticalLayout_28">
@@ -2630,6 +2637,72 @@ QPushButton:pressed {
              </property>
              <property name="text">
               <string>Viison Page</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="VisionOne">
+             <property name="geometry">
+              <rect>
+               <x>40</x>
+               <y>20</y>
+               <width>233</width>
+               <height>79</height>
+              </rect>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string>1</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="VisionTwo">
+             <property name="geometry">
+              <rect>
+               <x>40</x>
+               <y>100</y>
+               <width>233</width>
+               <height>79</height>
+              </rect>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string>2</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="VisionThree">
+             <property name="geometry">
+              <rect>
+               <x>40</x>
+               <y>180</y>
+               <width>233</width>
+               <height>79</height>
+              </rect>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string>3</string>
              </property>
             </widget>
            </widget>
@@ -3477,12 +3550,12 @@ border: none;</string>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup"/>
-  <buttongroup name="ThemeButtonGroup"/>
-  <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="MenuButtonGroup"/>
   <buttongroup name="FontSizeButtonGroup"/>
   <buttongroup name="AutoAndManualButtonGroup"/>
-  <buttongroup name="MenuButtonGroup"/>
+  <buttongroup name="ThemeButtonGroup"/>
+  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="LanguageButtonGroup"/>
+  <buttongroup name="buttonGroup"/>
  </buttongroups>
 </ui>

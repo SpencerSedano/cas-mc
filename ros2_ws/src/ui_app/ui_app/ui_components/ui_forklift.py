@@ -2,11 +2,14 @@
 from PySide6.QtWidgets import QWidget
 from PySide6.QtCore import QTimer
 from common_msgs.msg import ForkCmd
+from std_msgs.msg import Int32
 
 class ForkliftController:
     def __init__(self, ui, ros_node):
         self.ui = ui
         self.ros_node = ros_node
+
+        self.current_height = 0 
 
         # Connect UI buttons
         self.ui.LiftUp.clicked.connect(lambda: self.send_fork_cmd("up"))
@@ -14,6 +17,8 @@ class ForkliftController:
 
         self.ui.LiftUp.clicked.connect(lambda: self.on_touch_buttons(self.ui.LiftUp))
         self.ui.LowerDown.clicked.connect(lambda: self.on_touch_buttons(self.ui.LowerDown))
+    
+
 
     def send_fork_cmd(self, direction):
         mode_button = self.ui.buttonGroup_2.checkedButton()
@@ -24,6 +29,11 @@ class ForkliftController:
         distance = float(self.ui.SliderLift.value())
 
         self.publish_fork_cmd(mode, speed, direction, distance)
+
+    def update_height_display(self, height):
+        self.current_height = height
+        self.ui.heightText.setText(f"{height} mm")
+
 
     def publish_fork_cmd(self, mode, speed, direction, distance):
         msg = ForkCmd()
