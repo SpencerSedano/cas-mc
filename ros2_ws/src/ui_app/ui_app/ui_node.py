@@ -156,7 +156,7 @@ class MainWindow(QMainWindow):
         # connect buttons to send data to another node (ROS2)
         self.ui.RunButton.clicked.connect(lambda: self.send_state_cmd("run"))
         self.ui.StopButton.clicked.connect(lambda: self.send_state_cmd("stop"))
-        self.ui.AutoResetButton.clicked.connect(lambda: self.send_state_cmd("reset"))
+        # self.ui.AutoResetButton.clicked.connect(lambda: self.send_state_cmd("reset"))
 
         self.ui.AutoButton.toggled.connect(self.on_auto_toggled)
         self.ui.ManualButton.toggled.connect(self.on_manual_toggled)
@@ -194,7 +194,7 @@ class MainWindow(QMainWindow):
         # Touchscreen style handlers in Main Page - Auto
         self.ui.RunButton.clicked.connect(lambda: self.on_touch_buttons(self.ui.RunButton))
         self.ui.StopButton.clicked.connect(lambda: self.on_touch_buttons(self.ui.StopButton))
-        self.ui.AutoResetButton.clicked.connect(lambda: self.on_touch_buttons(self.ui.AutoResetButton))
+        # self.ui.AutoResetButton.clicked.connect(lambda: self.on_touch_buttons(self.ui.AutoResetButton))
 
         # self.ui.RecordDataButton.clicked.connect(lambda: self.on_record_data_clicked(self.ui.RecordDataButton))
         self.ui.ClipperButtonOnOff.toggled.connect(lambda: self.update_clipper_state(self.ui.ClipperButtonOnOff))
@@ -238,6 +238,7 @@ class MainWindow(QMainWindow):
 
         # self.ui.ToggleSwitch.toggled.connect(self.update_toggle_style)
 
+
         self.ui.CircleOff.clicked.connect(self.update_circle_off_style)
         self.ui.CircleOn.clicked.connect(self.update_circle_on_style)
 
@@ -267,7 +268,7 @@ class MainWindow(QMainWindow):
             }
         """)
 
-        self.ui.widget.setStyleSheet("""
+        self.ui.y0.setStyleSheet("""
             QWidget {
                 background-color: #0B76A0;
                 border: none;
@@ -300,7 +301,7 @@ class MainWindow(QMainWindow):
             }
         """)
 
-        self.ui.widget.setStyleSheet("""
+        self.ui.y0.setStyleSheet("""
             QWidget {
                 background-color: #000000;
                 border: none;
@@ -313,7 +314,21 @@ class MainWindow(QMainWindow):
     def update_image(self, cv_img):
         qt_img = convert_cv_to_qt(cv_img)
         pixmap = QPixmap.fromImage(qt_img)
-        self.ui.VisionTextInComponentControl.setPixmap(pixmap)  # Replace with your QLabel name
+
+
+        current_index = self.ui.ParentStackedWidgetToChangeMenuOptions.currentIndex()
+
+
+        if current_index == 0:  # Main Page
+            self.ui.VisionText.setPixmap(pixmap)
+            self.ui.VisionTextInComponentControl.clear()
+        elif current_index == 1:  # Component Control
+            self.ui.VisionTextInComponentControl.setPixmap(pixmap)
+            self.ui.VisionText.clear()
+        else:
+            self.ui.VisionText.clear()
+            self.ui.VisionTextInComponentControl.clear()
+            
 
     def update_detection_mode(self, mode):
         print(f"[UI] Detection mode is now: {mode}")
