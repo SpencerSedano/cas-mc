@@ -151,6 +151,10 @@ class MainWindow(QMainWindow):
 
         #VISION
         # self.ui.VisionOption.clicked.connect(lambda: self.send_detection_task(""))
+        self.ui.VisionOne.toggled.connect(lambda checked: checked and self.send_vision_cmd("screw"))
+        self.ui.VisionTwo.toggled.connect(lambda checked: checked and self.send_vision_cmd("l_shape"))
+        self.ui.VisionThree.toggled.connect(lambda checked: checked and self.send_vision_cmd("icp_fit"))
+
 
 
         '''menu buttons'''
@@ -285,6 +289,18 @@ class MainWindow(QMainWindow):
             button.setText("Clipper ON")
         else:
             button.setText("Clipper OFF")
+
+    def send_vision_cmd(self, mode):
+        print(f"[DEBUG] Trying to publish: {mode}")  
+
+        if hasattr(self, 'last_vision_mode') and self.last_vision_mode == mode:
+            return
+        self.last_vision_mode = mode
+        msg = String()
+        msg.data = mode
+        self.ros_node.vision_control_publisher.publish(msg)
+        print(f"[UI] Sent VisionCmd: {mode}")
+
     
     #Principal Menu - StackedWidget
     def change_to_main_page(self):
