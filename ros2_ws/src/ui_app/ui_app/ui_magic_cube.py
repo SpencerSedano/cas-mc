@@ -901,281 +901,6 @@ class Ui_MainWindow(object):
         self.ParentStackedWidgetToChangeMenuOptions.addWidget(self.MainPagePage)
         self.ComponentControlPage = QWidget()
         self.ComponentControlPage.setObjectName(u"ComponentControlPage")
-        self.CameraWidgetInComponentControl = QWidget(self.ComponentControlPage)
-        self.CameraWidgetInComponentControl.setObjectName(u"CameraWidgetInComponentControl")
-        self.CameraWidgetInComponentControl.setGeometry(QRect(0, 10, 701, 481))
-        self.CameraWidgetInComponentControl.setStyleSheet(u"background-color: #000000;")
-        self.horizontalLayout_15 = QHBoxLayout(self.CameraWidgetInComponentControl)
-        self.horizontalLayout_15.setObjectName(u"horizontalLayout_15")
-        self.VisionTextInComponentControl = QLabel(self.CameraWidgetInComponentControl)
-        self.VisionTextInComponentControl.setObjectName(u"VisionTextInComponentControl")
-        self.VisionTextInComponentControl.setStyleSheet(u"color:white;")
-        self.VisionTextInComponentControl.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.horizontalLayout_15.addWidget(self.VisionTextInComponentControl, 0, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
-
-        self.Info_2 = QFrame(self.ComponentControlPage)
-        self.Info_2.setObjectName(u"Info_2")
-        self.Info_2.setGeometry(QRect(0, 500, 701, 191))
-        self.Info_2.setStyleSheet(u" background-color: #000000; color: white;")
-        self.Info_2.setFrameShape(QFrame.Shape.StyledPanel)
-        self.Info_2.setFrameShadow(QFrame.Shadow.Raised)
-        self.horizontalLayout_19 = QHBoxLayout(self.Info_2)
-        self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
-        self.horizontalLayout_19.setContentsMargins(-1, 0, -1, 9)
-        self.CartesianPoseWidget_2 = QWidget(self.Info_2)
-        self.CartesianPoseWidget_2.setObjectName(u"CartesianPoseWidget_2")
-        sizePolicy1.setHeightForWidth(self.CartesianPoseWidget_2.sizePolicy().hasHeightForWidth())
-        self.CartesianPoseWidget_2.setSizePolicy(sizePolicy1)
-        self.CartesianPoseWidget_2.setMinimumSize(QSize(0, 0))
-        self.gridLayout_4 = QGridLayout(self.CartesianPoseWidget_2)
-        self.gridLayout_4.setObjectName(u"gridLayout_4")
-        self.gridLayout_4.setContentsMargins(-1, 6, -1, -1)
-        self.yPosFrame_2 = QFrame(self.CartesianPoseWidget_2)
-        self.yPosFrame_2.setObjectName(u"yPosFrame_2")
-        self.yPosFrame_2.setFrameShape(QFrame.Shape.StyledPanel)
-        self.yPosFrame_2.setFrameShadow(QFrame.Shadow.Raised)
-        self.horizontalLayout_22 = QHBoxLayout(self.yPosFrame_2)
-        self.horizontalLayout_22.setObjectName(u"horizontalLayout_22")
-        self.horizontalLayout_22.setContentsMargins(-1, -1, -1, 3)
-        self.y_2 = QLabel(self.yPosFrame_2)
-        self.y_2.setObjectName(u"y_2")
-        self.y_2.setFont(font2)
-
-        self.horizontalLayout_22.addWidget(self.y_2, 0, Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
-
-        self.yText_2 = QLabel(self.yPosFrame_2)
-        self.yText_2.setObjectName(u"yText_2")
-
-        self.horizontalLayout_22.addWidget(self.yText_2, 0, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
-
-
-        self.gridLayout_4.addWidget(self.yPosFrame_2, 1, 1, 1, 1)
-
-        self.zPosFrame_2 = QFrame(self.CartesianPoseWidget_2)
-        self.zPosFrame_2.setObjectName(u"zPosFrame_2")
-        self.zPosFrame_2.setFrameShape(QFrame.Shape.StyledPanel)
-        self.zPosFrame_2.setFrameShadow(QFrame.Shadow.Raised)
-        self.horizontalLayout_27 = QHBoxLayout(self.zPosFrame_2)
-        self.horizontalLayout_27.setObjectName(u"horizontalLayout_27")
-        self.horizontalLayout_27.setContentsMargins(-1, -1, -1, 14)
-        self.z_2 = QLabel(self.zPosFrame_2)
-        self.z_2.setObjectName(u"z_2")
-        self.z_2.setFont(font2)
-
-        self.horizontalLayout_27.addWidget(self.z_2, 0, Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
-
-        self.zText_2 = QLabel(self.zPosFrame_2)
-        self.zText_2.setObjectName(u"zText_2")
-
-        self.horizontalLayout_27.addWidget(self.zText_2, 0, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
-
-
-        self.gridLayout_4.addWidget(self.zPosFrame_2, 2, 0, 1, 1)
-
-        self.yawPosFrame_2 = QFrame(self.CartesianPoseWidget_2)
-        self.yawPosFrame_2.setObjectName(u"yawPosFrame_2")
-        self.yawPosFrame_2.setFrameShape(QFrame.Shape.StyledPanel)
-        self.yawPosFrame_2.setFrameShadow(QFrame.Shadow.Raised)
-        self.horizontalLayout_28 = QHBoxLayout(self.yawPosFrame_2)
-        self.horizontalLayout_28.setObjectName(u"horizontalLayout_28")
-        self.horizontalLayout_28.setContentsMargins(-1, -1, -1, 14)
-        self.yaw_2 = QLabel(self.yawPosFrame_2)
-        self.yaw_2.setObjectName(u"yaw_2")
-        self.yaw_2.setFont(font2)
-
-        self.horizontalLayout_28.addWidget(self.yaw_2, 0, Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
-
-        self.yawText_2 = QLabel(self.yawPosFrame_2)
-        self.yawText_2.setObjectName(u"yawText_2")
-
-        self.horizontalLayout_28.addWidget(self.yawText_2, 0, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
-
-
-        self.gridLayout_4.addWidget(self.yawPosFrame_2, 2, 1, 1, 1)
-
-        self.CartesianPoseText_2 = QLabel(self.CartesianPoseWidget_2)
-        self.CartesianPoseText_2.setObjectName(u"CartesianPoseText_2")
-        self.CartesianPoseText_2.setFont(font3)
-        self.CartesianPoseText_2.setStyleSheet(u"border: 2px solid #FFFFFF;  /* white solid border */\n"
-"border-radius: 6px;")
-
-        self.gridLayout_4.addWidget(self.CartesianPoseText_2, 0, 0, 1, 2, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
-
-        self.xPosFrame_2 = QFrame(self.CartesianPoseWidget_2)
-        self.xPosFrame_2.setObjectName(u"xPosFrame_2")
-        self.xPosFrame_2.setFont(font2)
-        self.xPosFrame_2.setFrameShape(QFrame.Shape.StyledPanel)
-        self.xPosFrame_2.setFrameShadow(QFrame.Shadow.Raised)
-        self.horizontalLayout_29 = QHBoxLayout(self.xPosFrame_2)
-        self.horizontalLayout_29.setObjectName(u"horizontalLayout_29")
-        self.horizontalLayout_29.setContentsMargins(9, -1, -1, 3)
-        self.x_2 = QLabel(self.xPosFrame_2)
-        self.x_2.setObjectName(u"x_2")
-        self.x_2.setFont(font2)
-
-        self.horizontalLayout_29.addWidget(self.x_2, 0, Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
-
-        self.xText_2 = QLabel(self.xPosFrame_2)
-        self.xText_2.setObjectName(u"xText_2")
-
-        self.horizontalLayout_29.addWidget(self.xText_2, 0, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
-
-
-        self.gridLayout_4.addWidget(self.xPosFrame_2, 1, 0, 1, 1)
-
-
-        self.horizontalLayout_19.addWidget(self.CartesianPoseWidget_2)
-
-        self.MotorInfoWidget_2 = QWidget(self.Info_2)
-        self.MotorInfoWidget_2.setObjectName(u"MotorInfoWidget_2")
-        self.MotorInfoWidget_2.setStyleSheet(u"")
-        self.gridLayout_5 = QGridLayout(self.MotorInfoWidget_2)
-        self.gridLayout_5.setObjectName(u"gridLayout_5")
-        self.gridLayout_5.setContentsMargins(-1, 6, -1, -1)
-        self.PositionFrame_2 = QFrame(self.MotorInfoWidget_2)
-        self.PositionFrame_2.setObjectName(u"PositionFrame_2")
-        self.PositionFrame_2.setFrameShape(QFrame.Shape.StyledPanel)
-        self.PositionFrame_2.setFrameShadow(QFrame.Shadow.Raised)
-        self.horizontalLayout_30 = QHBoxLayout(self.PositionFrame_2)
-        self.horizontalLayout_30.setObjectName(u"horizontalLayout_30")
-        self.Position_2 = QLabel(self.PositionFrame_2)
-        self.Position_2.setObjectName(u"Position_2")
-
-        self.horizontalLayout_30.addWidget(self.Position_2)
-
-        self.PositionText_2 = QLabel(self.PositionFrame_2)
-        self.PositionText_2.setObjectName(u"PositionText_2")
-
-        self.horizontalLayout_30.addWidget(self.PositionText_2)
-
-
-        self.gridLayout_5.addWidget(self.PositionFrame_2, 2, 0, 1, 1)
-
-        self.MotorInfoText_2 = QLabel(self.MotorInfoWidget_2)
-        self.MotorInfoText_2.setObjectName(u"MotorInfoText_2")
-        self.MotorInfoText_2.setFont(font3)
-        self.MotorInfoText_2.setStyleSheet(u"border: 2px solid #FFFFFF;  /* white solid border */\n"
-"border-radius: 6px;")
-
-        self.gridLayout_5.addWidget(self.MotorInfoText_2, 0, 0, 1, 1, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
-
-        self.CurrentFrame_2 = QFrame(self.MotorInfoWidget_2)
-        self.CurrentFrame_2.setObjectName(u"CurrentFrame_2")
-        self.CurrentFrame_2.setFrameShape(QFrame.Shape.StyledPanel)
-        self.CurrentFrame_2.setFrameShadow(QFrame.Shadow.Raised)
-        self.horizontalLayout_31 = QHBoxLayout(self.CurrentFrame_2)
-        self.horizontalLayout_31.setObjectName(u"horizontalLayout_31")
-        self.Current_2 = QLabel(self.CurrentFrame_2)
-        self.Current_2.setObjectName(u"Current_2")
-
-        self.horizontalLayout_31.addWidget(self.Current_2)
-
-        self.CurrentText_2 = QLabel(self.CurrentFrame_2)
-        self.CurrentText_2.setObjectName(u"CurrentText_2")
-
-        self.horizontalLayout_31.addWidget(self.CurrentText_2)
-
-
-        self.gridLayout_5.addWidget(self.CurrentFrame_2, 3, 0, 1, 1)
-
-
-        self.horizontalLayout_19.addWidget(self.MotorInfoWidget_2)
-
-        self.RecordData_2 = QWidget(self.Info_2)
-        self.RecordData_2.setObjectName(u"RecordData_2")
-        self.gridLayout_6 = QGridLayout(self.RecordData_2)
-        self.gridLayout_6.setObjectName(u"gridLayout_6")
-        self.gridLayout_6.setContentsMargins(-1, 6, -1, -1)
-        self.frame_12 = QFrame(self.RecordData_2)
-        self.frame_12.setObjectName(u"frame_12")
-        self.frame_12.setFrameShape(QFrame.Shape.StyledPanel)
-        self.frame_12.setFrameShadow(QFrame.Shadow.Raised)
-        self.verticalLayout_15 = QVBoxLayout(self.frame_12)
-        self.verticalLayout_15.setObjectName(u"verticalLayout_15")
-        self.verticalLayout_15.setContentsMargins(9, 9, -1, 0)
-        self.d1_2 = QLabel(self.frame_12)
-        self.d1_2.setObjectName(u"d1_2")
-
-        self.verticalLayout_15.addWidget(self.d1_2)
-
-
-        self.gridLayout_6.addWidget(self.frame_12, 1, 0, 1, 1)
-
-        self.LaserInfoText_2 = QLabel(self.RecordData_2)
-        self.LaserInfoText_2.setObjectName(u"LaserInfoText_2")
-        self.LaserInfoText_2.setFont(font3)
-        self.LaserInfoText_2.setStyleSheet(u"border: 2px solid #FFFFFF;  /* white solid border */\n"
-"border-radius: 6px;")
-
-        self.gridLayout_6.addWidget(self.LaserInfoText_2, 0, 0, 1, 1, Qt.AlignmentFlag.AlignHCenter)
-
-        self.frame_7 = QFrame(self.RecordData_2)
-        self.frame_7.setObjectName(u"frame_7")
-        self.frame_7.setFrameShape(QFrame.Shape.StyledPanel)
-        self.frame_7.setFrameShadow(QFrame.Shadow.Raised)
-        self.horizontalLayout_32 = QHBoxLayout(self.frame_7)
-        self.horizontalLayout_32.setObjectName(u"horizontalLayout_32")
-        self.horizontalLayout_32.setContentsMargins(9, -1, -1, 0)
-        self.d2_2 = QLabel(self.frame_7)
-        self.d2_2.setObjectName(u"d2_2")
-
-        self.horizontalLayout_32.addWidget(self.d2_2)
-
-        self.currentHeight = QLabel(self.frame_7)
-        self.currentHeight.setObjectName(u"currentHeight")
-
-        self.horizontalLayout_32.addWidget(self.currentHeight)
-
-
-        self.gridLayout_6.addWidget(self.frame_7, 3, 0, 1, 1)
-
-        self.frame_8 = QFrame(self.RecordData_2)
-        self.frame_8.setObjectName(u"frame_8")
-        self.frame_8.setFrameShape(QFrame.Shape.StyledPanel)
-        self.frame_8.setFrameShadow(QFrame.Shadow.Raised)
-        self.horizontalLayout_25 = QHBoxLayout(self.frame_8)
-        self.horizontalLayout_25.setObjectName(u"horizontalLayout_25")
-        self.horizontalLayout_25.setContentsMargins(9, -1, -1, 0)
-        self.h1_2 = QLabel(self.frame_8)
-        self.h1_2.setObjectName(u"h1_2")
-
-        self.horizontalLayout_25.addWidget(self.h1_2)
-
-        self.HeightCommand = QLabel(self.frame_8)
-        self.HeightCommand.setObjectName(u"HeightCommand")
-
-        self.horizontalLayout_25.addWidget(self.HeightCommand)
-
-
-        self.gridLayout_6.addWidget(self.frame_8, 4, 0, 1, 1)
-
-
-        self.horizontalLayout_19.addWidget(self.RecordData_2)
-
-        self.RecordDataButtonContainer_2 = QWidget(self.Info_2)
-        self.RecordDataButtonContainer_2.setObjectName(u"RecordDataButtonContainer_2")
-        sizePolicy1.setHeightForWidth(self.RecordDataButtonContainer_2.sizePolicy().hasHeightForWidth())
-        self.RecordDataButtonContainer_2.setSizePolicy(sizePolicy1)
-        self.verticalLayout_21 = QVBoxLayout(self.RecordDataButtonContainer_2)
-        self.verticalLayout_21.setObjectName(u"verticalLayout_21")
-        self.verticalLayout_21.setContentsMargins(9, 9, -1, -1)
-        self.RecordDataButton_2 = QPushButton(self.RecordDataButtonContainer_2)
-        self.RecordDataButton_2.setObjectName(u"RecordDataButton_2")
-        sizePolicy1.setHeightForWidth(self.RecordDataButton_2.sizePolicy().hasHeightForWidth())
-        self.RecordDataButton_2.setSizePolicy(sizePolicy1)
-        self.RecordDataButton_2.setFont(font)
-        self.RecordDataButton_2.setStyleSheet(u"QPushButton {\n"
-"    padding: 16px 24px;\n"
-"}\n"
-"\n"
-"")
-
-        self.verticalLayout_21.addWidget(self.RecordDataButton_2, 0, Qt.AlignmentFlag.AlignVCenter)
-
-
-        self.horizontalLayout_19.addWidget(self.RecordDataButtonContainer_2)
-
         self.ComponentControlStackedWidget = QStackedWidget(self.ComponentControlPage)
         self.ComponentControlStackedWidget.setObjectName(u"ComponentControlStackedWidget")
         self.ComponentControlStackedWidget.setGeometry(QRect(710, 10, 311, 681))
@@ -1531,9 +1256,12 @@ class Ui_MainWindow(object):
         self.label_7.setGeometry(QRect(90, 280, 141, 20))
         self.label_7.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.ChangeComponentControlStackedWidget.addWidget(self.ForkliftPage)
+        self.DIDOPage = QWidget()
+        self.DIDOPage.setObjectName(u"DIDOPage")
+        self.ChangeComponentControlStackedWidget.addWidget(self.DIDOPage)
         self.ListOptionsWidget = QWidget(self.ComponentControlMain)
         self.ListOptionsWidget.setObjectName(u"ListOptionsWidget")
-        self.ListOptionsWidget.setGeometry(QRect(20, 100, 251, 331))
+        self.ListOptionsWidget.setGeometry(QRect(20, 100, 251, 281))
         sizePolicy1.setHeightForWidth(self.ListOptionsWidget.sizePolicy().hasHeightForWidth())
         self.ListOptionsWidget.setSizePolicy(sizePolicy1)
         self.verticalLayout_5 = QVBoxLayout(self.ListOptionsWidget)
@@ -1570,7 +1298,1054 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_5.addWidget(self.ForkliftOption)
 
+        self.DIDOOption = QPushButton(self.ListOptionsWidget)
+        self.DIDOOption.setObjectName(u"DIDOOption")
+        sizePolicy.setHeightForWidth(self.DIDOOption.sizePolicy().hasHeightForWidth())
+        self.DIDOOption.setSizePolicy(sizePolicy)
+        self.DIDOOption.setStyleSheet(u"")
+
+        self.verticalLayout_5.addWidget(self.DIDOOption)
+
         self.ComponentControlStackedWidget.addWidget(self.ComponentControlMain)
+        self.MiddleStackedWidget = QStackedWidget(self.ComponentControlPage)
+        self.MiddleStackedWidget.setObjectName(u"MiddleStackedWidget")
+        self.MiddleStackedWidget.setGeometry(QRect(0, 10, 701, 681))
+        self.VisionAndInfoPage = QWidget()
+        self.VisionAndInfoPage.setObjectName(u"VisionAndInfoPage")
+        self.CameraWidgetInComponentControl = QWidget(self.VisionAndInfoPage)
+        self.CameraWidgetInComponentControl.setObjectName(u"CameraWidgetInComponentControl")
+        self.CameraWidgetInComponentControl.setGeometry(QRect(0, 10, 701, 481))
+        self.CameraWidgetInComponentControl.setStyleSheet(u"background-color: #000000;")
+        self.horizontalLayout_15 = QHBoxLayout(self.CameraWidgetInComponentControl)
+        self.horizontalLayout_15.setObjectName(u"horizontalLayout_15")
+        self.VisionTextInComponentControl = QLabel(self.CameraWidgetInComponentControl)
+        self.VisionTextInComponentControl.setObjectName(u"VisionTextInComponentControl")
+        self.VisionTextInComponentControl.setStyleSheet(u"color:white;")
+        self.VisionTextInComponentControl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.horizontalLayout_15.addWidget(self.VisionTextInComponentControl)
+
+        self.Info_2 = QFrame(self.VisionAndInfoPage)
+        self.Info_2.setObjectName(u"Info_2")
+        self.Info_2.setGeometry(QRect(0, 500, 701, 191))
+        self.Info_2.setStyleSheet(u" background-color: #000000; color: white;")
+        self.Info_2.setFrameShape(QFrame.Shape.StyledPanel)
+        self.Info_2.setFrameShadow(QFrame.Shadow.Raised)
+        self.horizontalLayout_19 = QHBoxLayout(self.Info_2)
+        self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
+        self.horizontalLayout_19.setContentsMargins(-1, 0, -1, 9)
+        self.CartesianPoseWidget_2 = QWidget(self.Info_2)
+        self.CartesianPoseWidget_2.setObjectName(u"CartesianPoseWidget_2")
+        sizePolicy1.setHeightForWidth(self.CartesianPoseWidget_2.sizePolicy().hasHeightForWidth())
+        self.CartesianPoseWidget_2.setSizePolicy(sizePolicy1)
+        self.CartesianPoseWidget_2.setMinimumSize(QSize(0, 0))
+        self.gridLayout_4 = QGridLayout(self.CartesianPoseWidget_2)
+        self.gridLayout_4.setObjectName(u"gridLayout_4")
+        self.gridLayout_4.setContentsMargins(-1, 6, -1, -1)
+        self.yPosFrame_2 = QFrame(self.CartesianPoseWidget_2)
+        self.yPosFrame_2.setObjectName(u"yPosFrame_2")
+        self.yPosFrame_2.setFrameShape(QFrame.Shape.StyledPanel)
+        self.yPosFrame_2.setFrameShadow(QFrame.Shadow.Raised)
+        self.horizontalLayout_22 = QHBoxLayout(self.yPosFrame_2)
+        self.horizontalLayout_22.setObjectName(u"horizontalLayout_22")
+        self.horizontalLayout_22.setContentsMargins(-1, -1, -1, 3)
+        self.y_2 = QLabel(self.yPosFrame_2)
+        self.y_2.setObjectName(u"y_2")
+        self.y_2.setFont(font2)
+
+        self.horizontalLayout_22.addWidget(self.y_2, 0, Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
+
+        self.yText_2 = QLabel(self.yPosFrame_2)
+        self.yText_2.setObjectName(u"yText_2")
+
+        self.horizontalLayout_22.addWidget(self.yText_2, 0, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
+
+
+        self.gridLayout_4.addWidget(self.yPosFrame_2, 1, 1, 1, 1)
+
+        self.zPosFrame_2 = QFrame(self.CartesianPoseWidget_2)
+        self.zPosFrame_2.setObjectName(u"zPosFrame_2")
+        self.zPosFrame_2.setFrameShape(QFrame.Shape.StyledPanel)
+        self.zPosFrame_2.setFrameShadow(QFrame.Shadow.Raised)
+        self.horizontalLayout_27 = QHBoxLayout(self.zPosFrame_2)
+        self.horizontalLayout_27.setObjectName(u"horizontalLayout_27")
+        self.horizontalLayout_27.setContentsMargins(-1, -1, -1, 14)
+        self.z_2 = QLabel(self.zPosFrame_2)
+        self.z_2.setObjectName(u"z_2")
+        self.z_2.setFont(font2)
+
+        self.horizontalLayout_27.addWidget(self.z_2, 0, Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
+
+        self.zText_2 = QLabel(self.zPosFrame_2)
+        self.zText_2.setObjectName(u"zText_2")
+
+        self.horizontalLayout_27.addWidget(self.zText_2, 0, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
+
+
+        self.gridLayout_4.addWidget(self.zPosFrame_2, 2, 0, 1, 1)
+
+        self.yawPosFrame_2 = QFrame(self.CartesianPoseWidget_2)
+        self.yawPosFrame_2.setObjectName(u"yawPosFrame_2")
+        self.yawPosFrame_2.setFrameShape(QFrame.Shape.StyledPanel)
+        self.yawPosFrame_2.setFrameShadow(QFrame.Shadow.Raised)
+        self.horizontalLayout_28 = QHBoxLayout(self.yawPosFrame_2)
+        self.horizontalLayout_28.setObjectName(u"horizontalLayout_28")
+        self.horizontalLayout_28.setContentsMargins(-1, -1, -1, 14)
+        self.yaw_2 = QLabel(self.yawPosFrame_2)
+        self.yaw_2.setObjectName(u"yaw_2")
+        self.yaw_2.setFont(font2)
+
+        self.horizontalLayout_28.addWidget(self.yaw_2, 0, Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
+
+        self.yawText_2 = QLabel(self.yawPosFrame_2)
+        self.yawText_2.setObjectName(u"yawText_2")
+
+        self.horizontalLayout_28.addWidget(self.yawText_2, 0, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
+
+
+        self.gridLayout_4.addWidget(self.yawPosFrame_2, 2, 1, 1, 1)
+
+        self.CartesianPoseText_2 = QLabel(self.CartesianPoseWidget_2)
+        self.CartesianPoseText_2.setObjectName(u"CartesianPoseText_2")
+        self.CartesianPoseText_2.setFont(font3)
+        self.CartesianPoseText_2.setStyleSheet(u"border: 2px solid #FFFFFF;  /* white solid border */\n"
+"border-radius: 6px;")
+
+        self.gridLayout_4.addWidget(self.CartesianPoseText_2, 0, 0, 1, 2, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
+
+        self.xPosFrame_2 = QFrame(self.CartesianPoseWidget_2)
+        self.xPosFrame_2.setObjectName(u"xPosFrame_2")
+        self.xPosFrame_2.setFont(font2)
+        self.xPosFrame_2.setFrameShape(QFrame.Shape.StyledPanel)
+        self.xPosFrame_2.setFrameShadow(QFrame.Shadow.Raised)
+        self.horizontalLayout_29 = QHBoxLayout(self.xPosFrame_2)
+        self.horizontalLayout_29.setObjectName(u"horizontalLayout_29")
+        self.horizontalLayout_29.setContentsMargins(9, -1, -1, 3)
+        self.x_2 = QLabel(self.xPosFrame_2)
+        self.x_2.setObjectName(u"x_2")
+        self.x_2.setFont(font2)
+
+        self.horizontalLayout_29.addWidget(self.x_2, 0, Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
+
+        self.xText_2 = QLabel(self.xPosFrame_2)
+        self.xText_2.setObjectName(u"xText_2")
+
+        self.horizontalLayout_29.addWidget(self.xText_2, 0, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
+
+
+        self.gridLayout_4.addWidget(self.xPosFrame_2, 1, 0, 1, 1)
+
+
+        self.horizontalLayout_19.addWidget(self.CartesianPoseWidget_2)
+
+        self.MotorInfoWidget_2 = QWidget(self.Info_2)
+        self.MotorInfoWidget_2.setObjectName(u"MotorInfoWidget_2")
+        self.MotorInfoWidget_2.setStyleSheet(u"")
+        self.gridLayout_5 = QGridLayout(self.MotorInfoWidget_2)
+        self.gridLayout_5.setObjectName(u"gridLayout_5")
+        self.gridLayout_5.setContentsMargins(-1, 6, -1, -1)
+        self.PositionFrame_2 = QFrame(self.MotorInfoWidget_2)
+        self.PositionFrame_2.setObjectName(u"PositionFrame_2")
+        self.PositionFrame_2.setFrameShape(QFrame.Shape.StyledPanel)
+        self.PositionFrame_2.setFrameShadow(QFrame.Shadow.Raised)
+        self.horizontalLayout_30 = QHBoxLayout(self.PositionFrame_2)
+        self.horizontalLayout_30.setObjectName(u"horizontalLayout_30")
+        self.Position_2 = QLabel(self.PositionFrame_2)
+        self.Position_2.setObjectName(u"Position_2")
+
+        self.horizontalLayout_30.addWidget(self.Position_2)
+
+        self.PositionText_2 = QLabel(self.PositionFrame_2)
+        self.PositionText_2.setObjectName(u"PositionText_2")
+
+        self.horizontalLayout_30.addWidget(self.PositionText_2)
+
+
+        self.gridLayout_5.addWidget(self.PositionFrame_2, 2, 0, 1, 1)
+
+        self.MotorInfoText_2 = QLabel(self.MotorInfoWidget_2)
+        self.MotorInfoText_2.setObjectName(u"MotorInfoText_2")
+        self.MotorInfoText_2.setFont(font3)
+        self.MotorInfoText_2.setStyleSheet(u"border: 2px solid #FFFFFF;  /* white solid border */\n"
+"border-radius: 6px;")
+
+        self.gridLayout_5.addWidget(self.MotorInfoText_2, 0, 0, 1, 1, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
+
+        self.CurrentFrame_2 = QFrame(self.MotorInfoWidget_2)
+        self.CurrentFrame_2.setObjectName(u"CurrentFrame_2")
+        self.CurrentFrame_2.setFrameShape(QFrame.Shape.StyledPanel)
+        self.CurrentFrame_2.setFrameShadow(QFrame.Shadow.Raised)
+        self.horizontalLayout_31 = QHBoxLayout(self.CurrentFrame_2)
+        self.horizontalLayout_31.setObjectName(u"horizontalLayout_31")
+        self.Current_2 = QLabel(self.CurrentFrame_2)
+        self.Current_2.setObjectName(u"Current_2")
+
+        self.horizontalLayout_31.addWidget(self.Current_2)
+
+        self.CurrentText_2 = QLabel(self.CurrentFrame_2)
+        self.CurrentText_2.setObjectName(u"CurrentText_2")
+
+        self.horizontalLayout_31.addWidget(self.CurrentText_2)
+
+
+        self.gridLayout_5.addWidget(self.CurrentFrame_2, 3, 0, 1, 1)
+
+
+        self.horizontalLayout_19.addWidget(self.MotorInfoWidget_2)
+
+        self.RecordData_2 = QWidget(self.Info_2)
+        self.RecordData_2.setObjectName(u"RecordData_2")
+        self.gridLayout_6 = QGridLayout(self.RecordData_2)
+        self.gridLayout_6.setObjectName(u"gridLayout_6")
+        self.gridLayout_6.setContentsMargins(-1, 6, -1, -1)
+        self.frame_12 = QFrame(self.RecordData_2)
+        self.frame_12.setObjectName(u"frame_12")
+        self.frame_12.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame_12.setFrameShadow(QFrame.Shadow.Raised)
+        self.verticalLayout_15 = QVBoxLayout(self.frame_12)
+        self.verticalLayout_15.setObjectName(u"verticalLayout_15")
+        self.verticalLayout_15.setContentsMargins(9, 9, -1, 0)
+        self.d1_2 = QLabel(self.frame_12)
+        self.d1_2.setObjectName(u"d1_2")
+
+        self.verticalLayout_15.addWidget(self.d1_2)
+
+
+        self.gridLayout_6.addWidget(self.frame_12, 1, 0, 1, 1)
+
+        self.LaserInfoText_2 = QLabel(self.RecordData_2)
+        self.LaserInfoText_2.setObjectName(u"LaserInfoText_2")
+        self.LaserInfoText_2.setFont(font3)
+        self.LaserInfoText_2.setStyleSheet(u"border: 2px solid #FFFFFF;  /* white solid border */\n"
+"border-radius: 6px;")
+
+        self.gridLayout_6.addWidget(self.LaserInfoText_2, 0, 0, 1, 1, Qt.AlignmentFlag.AlignHCenter)
+
+        self.frame_7 = QFrame(self.RecordData_2)
+        self.frame_7.setObjectName(u"frame_7")
+        self.frame_7.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame_7.setFrameShadow(QFrame.Shadow.Raised)
+        self.horizontalLayout_32 = QHBoxLayout(self.frame_7)
+        self.horizontalLayout_32.setObjectName(u"horizontalLayout_32")
+        self.horizontalLayout_32.setContentsMargins(9, -1, -1, 0)
+        self.d2_2 = QLabel(self.frame_7)
+        self.d2_2.setObjectName(u"d2_2")
+
+        self.horizontalLayout_32.addWidget(self.d2_2)
+
+        self.currentHeight = QLabel(self.frame_7)
+        self.currentHeight.setObjectName(u"currentHeight")
+
+        self.horizontalLayout_32.addWidget(self.currentHeight)
+
+
+        self.gridLayout_6.addWidget(self.frame_7, 3, 0, 1, 1)
+
+        self.frame_8 = QFrame(self.RecordData_2)
+        self.frame_8.setObjectName(u"frame_8")
+        self.frame_8.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame_8.setFrameShadow(QFrame.Shadow.Raised)
+        self.horizontalLayout_25 = QHBoxLayout(self.frame_8)
+        self.horizontalLayout_25.setObjectName(u"horizontalLayout_25")
+        self.horizontalLayout_25.setContentsMargins(9, -1, -1, 0)
+        self.h1_2 = QLabel(self.frame_8)
+        self.h1_2.setObjectName(u"h1_2")
+
+        self.horizontalLayout_25.addWidget(self.h1_2)
+
+        self.HeightCommand = QLabel(self.frame_8)
+        self.HeightCommand.setObjectName(u"HeightCommand")
+
+        self.horizontalLayout_25.addWidget(self.HeightCommand)
+
+
+        self.gridLayout_6.addWidget(self.frame_8, 4, 0, 1, 1)
+
+
+        self.horizontalLayout_19.addWidget(self.RecordData_2)
+
+        self.RecordDataButtonContainer_2 = QWidget(self.Info_2)
+        self.RecordDataButtonContainer_2.setObjectName(u"RecordDataButtonContainer_2")
+        sizePolicy1.setHeightForWidth(self.RecordDataButtonContainer_2.sizePolicy().hasHeightForWidth())
+        self.RecordDataButtonContainer_2.setSizePolicy(sizePolicy1)
+        self.verticalLayout_21 = QVBoxLayout(self.RecordDataButtonContainer_2)
+        self.verticalLayout_21.setObjectName(u"verticalLayout_21")
+        self.verticalLayout_21.setContentsMargins(9, 9, -1, -1)
+        self.RecordDataButton_2 = QPushButton(self.RecordDataButtonContainer_2)
+        self.RecordDataButton_2.setObjectName(u"RecordDataButton_2")
+        sizePolicy1.setHeightForWidth(self.RecordDataButton_2.sizePolicy().hasHeightForWidth())
+        self.RecordDataButton_2.setSizePolicy(sizePolicy1)
+        self.RecordDataButton_2.setFont(font)
+        self.RecordDataButton_2.setStyleSheet(u"QPushButton {\n"
+"    padding: 16px 24px;\n"
+"}\n"
+"\n"
+"")
+
+        self.verticalLayout_21.addWidget(self.RecordDataButton_2, 0, Qt.AlignmentFlag.AlignVCenter)
+
+
+        self.horizontalLayout_19.addWidget(self.RecordDataButtonContainer_2)
+
+        self.MiddleStackedWidget.addWidget(self.VisionAndInfoPage)
+        self.DIDOContainerPage = QWidget()
+        self.DIDOContainerPage.setObjectName(u"DIDOContainerPage")
+        self.widget_2 = QWidget(self.DIDOContainerPage)
+        self.widget_2.setObjectName(u"widget_2")
+        self.widget_2.setGeometry(QRect(20, 0, 336, 671))
+        self.gridLayout_7 = QGridLayout(self.widget_2)
+        self.gridLayout_7.setObjectName(u"gridLayout_7")
+        self.widget_17 = QWidget(self.widget_2)
+        self.widget_17.setObjectName(u"widget_17")
+        self.label_24 = QLabel(self.widget_17)
+        self.label_24.setObjectName(u"label_24")
+        self.label_24.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_7.addWidget(self.widget_17, 6, 2, 1, 1)
+
+        self.widget_10 = QWidget(self.widget_2)
+        self.widget_10.setObjectName(u"widget_10")
+        self.label_15 = QLabel(self.widget_10)
+        self.label_15.setObjectName(u"label_15")
+        self.label_15.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_7.addWidget(self.widget_10, 7, 0, 1, 1)
+
+        self.widget_12 = QWidget(self.widget_2)
+        self.widget_12.setObjectName(u"widget_12")
+        self.verticalLayout_31 = QVBoxLayout(self.widget_12)
+        self.verticalLayout_31.setObjectName(u"verticalLayout_31")
+        self.label_17 = QLabel(self.widget_12)
+        self.label_17.setObjectName(u"label_17")
+
+        self.verticalLayout_31.addWidget(self.label_17)
+
+        self.y0_3 = QWidget(self.widget_12)
+        self.y0_3.setObjectName(u"y0_3")
+        self.y0_3.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_37 = QHBoxLayout(self.y0_3)
+        self.horizontalLayout_37.setObjectName(u"horizontalLayout_37")
+        self.CircleOff_5 = QPushButton(self.y0_3)
+        self.CircleOff_5.setObjectName(u"CircleOff_5")
+        self.CircleOff_5.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOff_5.setCheckable(True)
+
+        self.horizontalLayout_37.addWidget(self.CircleOff_5)
+
+        self.CircleOn_5 = QPushButton(self.y0_3)
+        self.CircleOn_5.setObjectName(u"CircleOn_5")
+        self.CircleOn_5.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_5.setCheckable(True)
+
+        self.horizontalLayout_37.addWidget(self.CircleOn_5, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop)
+
+
+        self.verticalLayout_31.addWidget(self.y0_3)
+
+
+        self.gridLayout_7.addWidget(self.widget_12, 1, 2, 1, 1)
+
+        self.label_8 = QLabel(self.widget_2)
+        self.label_8.setObjectName(u"label_8")
+        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.label_8.sizePolicy().hasHeightForWidth())
+        self.label_8.setSizePolicy(sizePolicy5)
+        self.label_8.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.gridLayout_7.addWidget(self.label_8, 0, 0, 1, 3)
+
+        self.widget_14 = QWidget(self.widget_2)
+        self.widget_14.setObjectName(u"widget_14")
+        self.verticalLayout_32 = QVBoxLayout(self.widget_14)
+        self.verticalLayout_32.setObjectName(u"verticalLayout_32")
+        self.label_21 = QLabel(self.widget_14)
+        self.label_21.setObjectName(u"label_21")
+
+        self.verticalLayout_32.addWidget(self.label_21)
+
+        self.y1Widget_3 = QWidget(self.widget_14)
+        self.y1Widget_3.setObjectName(u"y1Widget_3")
+        self.y1Widget_3.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_40 = QHBoxLayout(self.y1Widget_3)
+        self.horizontalLayout_40.setObjectName(u"horizontalLayout_40")
+        self.pushButton_4 = QPushButton(self.y1Widget_3)
+        self.pushButton_4.setObjectName(u"pushButton_4")
+        self.pushButton_4.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.pushButton_4.setCheckable(True)
+
+        self.horizontalLayout_40.addWidget(self.pushButton_4)
+
+        self.CircleOn_8 = QPushButton(self.y1Widget_3)
+        self.CircleOn_8.setObjectName(u"CircleOn_8")
+        self.CircleOn_8.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_8.setCheckable(True)
+
+        self.horizontalLayout_40.addWidget(self.CircleOn_8, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop)
+
+
+        self.verticalLayout_32.addWidget(self.y1Widget_3)
+
+
+        self.gridLayout_7.addWidget(self.widget_14, 3, 2, 1, 1)
+
+        self.widget_18 = QWidget(self.widget_2)
+        self.widget_18.setObjectName(u"widget_18")
+        self.label_25 = QLabel(self.widget_18)
+        self.label_25.setObjectName(u"label_25")
+        self.label_25.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_7.addWidget(self.widget_18, 7, 2, 1, 1)
+
+        self.widget_16 = QWidget(self.widget_2)
+        self.widget_16.setObjectName(u"widget_16")
+        self.label_23 = QLabel(self.widget_16)
+        self.label_23.setObjectName(u"label_23")
+        self.label_23.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_7.addWidget(self.widget_16, 5, 2, 1, 1)
+
+        self.widget_11 = QWidget(self.widget_2)
+        self.widget_11.setObjectName(u"widget_11")
+        self.label_16 = QLabel(self.widget_11)
+        self.label_16.setObjectName(u"label_16")
+        self.label_16.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_7.addWidget(self.widget_11, 8, 0, 1, 1)
+
+        self.widget_19 = QWidget(self.widget_2)
+        self.widget_19.setObjectName(u"widget_19")
+        self.label_26 = QLabel(self.widget_19)
+        self.label_26.setObjectName(u"label_26")
+        self.label_26.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_7.addWidget(self.widget_19, 8, 2, 1, 1)
+
+        self.widget_4 = QWidget(self.widget_2)
+        self.widget_4.setObjectName(u"widget_4")
+        self.verticalLayout_17 = QVBoxLayout(self.widget_4)
+        self.verticalLayout_17.setObjectName(u"verticalLayout_17")
+        self.label_9 = QLabel(self.widget_4)
+        self.label_9.setObjectName(u"label_9")
+
+        self.verticalLayout_17.addWidget(self.label_9)
+
+        self.y0 = QWidget(self.widget_4)
+        self.y0.setObjectName(u"y0")
+        self.y0.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_33 = QHBoxLayout(self.y0)
+        self.horizontalLayout_33.setObjectName(u"horizontalLayout_33")
+        self.CircleOff = QPushButton(self.y0)
+        self.CircleOff.setObjectName(u"CircleOff")
+        self.CircleOff.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOff.setCheckable(True)
+
+        self.horizontalLayout_33.addWidget(self.CircleOff)
+
+        self.CircleOn = QPushButton(self.y0)
+        self.CircleOn.setObjectName(u"CircleOn")
+        self.CircleOn.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn.setCheckable(True)
+
+        self.horizontalLayout_33.addWidget(self.CircleOn, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop)
+
+
+        self.verticalLayout_17.addWidget(self.y0)
+
+
+        self.gridLayout_7.addWidget(self.widget_4, 1, 0, 1, 1)
+
+        self.widget_13 = QWidget(self.widget_2)
+        self.widget_13.setObjectName(u"widget_13")
+        self.verticalLayout_29 = QVBoxLayout(self.widget_13)
+        self.verticalLayout_29.setObjectName(u"verticalLayout_29")
+        self.label_20 = QLabel(self.widget_13)
+        self.label_20.setObjectName(u"label_20")
+
+        self.verticalLayout_29.addWidget(self.label_20)
+
+        self.y0_4 = QWidget(self.widget_13)
+        self.y0_4.setObjectName(u"y0_4")
+        self.y0_4.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_35 = QHBoxLayout(self.y0_4)
+        self.horizontalLayout_35.setObjectName(u"horizontalLayout_35")
+        self.CircleOff_3 = QPushButton(self.y0_4)
+        self.CircleOff_3.setObjectName(u"CircleOff_3")
+        self.CircleOff_3.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOff_3.setCheckable(True)
+
+        self.horizontalLayout_35.addWidget(self.CircleOff_3)
+
+        self.CircleOn_3 = QPushButton(self.y0_4)
+        self.CircleOn_3.setObjectName(u"CircleOn_3")
+        self.CircleOn_3.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_3.setCheckable(True)
+
+        self.horizontalLayout_35.addWidget(self.CircleOn_3, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop)
+
+
+        self.verticalLayout_29.addWidget(self.y0_4)
+
+
+        self.gridLayout_7.addWidget(self.widget_13, 2, 2, 1, 1)
+
+        self.Y1Container = QWidget(self.widget_2)
+        self.Y1Container.setObjectName(u"Y1Container")
+        self.verticalLayout_23 = QVBoxLayout(self.Y1Container)
+        self.verticalLayout_23.setObjectName(u"verticalLayout_23")
+        self.label_10 = QLabel(self.Y1Container)
+        self.label_10.setObjectName(u"label_10")
+
+        self.verticalLayout_23.addWidget(self.label_10)
+
+        self.y1Widget = QWidget(self.Y1Container)
+        self.y1Widget.setObjectName(u"y1Widget")
+        self.y1Widget.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_34 = QHBoxLayout(self.y1Widget)
+        self.horizontalLayout_34.setObjectName(u"horizontalLayout_34")
+        self.pushButton = QPushButton(self.y1Widget)
+        self.pushButton.setObjectName(u"pushButton")
+        self.pushButton.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.pushButton.setCheckable(True)
+
+        self.horizontalLayout_34.addWidget(self.pushButton)
+
+        self.CircleOn_2 = QPushButton(self.y1Widget)
+        self.CircleOn_2.setObjectName(u"CircleOn_2")
+        self.CircleOn_2.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_2.setCheckable(True)
+
+        self.horizontalLayout_34.addWidget(self.CircleOn_2, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop)
+
+
+        self.verticalLayout_23.addWidget(self.y1Widget)
+
+
+        self.gridLayout_7.addWidget(self.Y1Container, 1, 1, 1, 1)
+
+        self.widget_6 = QWidget(self.widget_2)
+        self.widget_6.setObjectName(u"widget_6")
+        self.verticalLayout_30 = QVBoxLayout(self.widget_6)
+        self.verticalLayout_30.setObjectName(u"verticalLayout_30")
+        self.label_11 = QLabel(self.widget_6)
+        self.label_11.setObjectName(u"label_11")
+
+        self.verticalLayout_30.addWidget(self.label_11)
+
+        self.y1Widget_2 = QWidget(self.widget_6)
+        self.y1Widget_2.setObjectName(u"y1Widget_2")
+        self.y1Widget_2.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_36 = QHBoxLayout(self.y1Widget_2)
+        self.horizontalLayout_36.setObjectName(u"horizontalLayout_36")
+        self.pushButton_2 = QPushButton(self.y1Widget_2)
+        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.pushButton_2.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.pushButton_2.setCheckable(True)
+
+        self.horizontalLayout_36.addWidget(self.pushButton_2)
+
+        self.CircleOn_4 = QPushButton(self.y1Widget_2)
+        self.CircleOn_4.setObjectName(u"CircleOn_4")
+        self.CircleOn_4.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_4.setCheckable(True)
+
+        self.horizontalLayout_36.addWidget(self.CircleOn_4, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop)
+
+
+        self.verticalLayout_30.addWidget(self.y1Widget_2)
+
+
+        self.gridLayout_7.addWidget(self.widget_6, 2, 0, 1, 1)
+
+        self.widget_7 = QWidget(self.widget_2)
+        self.widget_7.setObjectName(u"widget_7")
+        self.verticalLayout_33 = QVBoxLayout(self.widget_7)
+        self.verticalLayout_33.setObjectName(u"verticalLayout_33")
+        self.label_12 = QLabel(self.widget_7)
+        self.label_12.setObjectName(u"label_12")
+
+        self.verticalLayout_33.addWidget(self.label_12)
+
+        self.y1Widget_4 = QWidget(self.widget_7)
+        self.y1Widget_4.setObjectName(u"y1Widget_4")
+        self.y1Widget_4.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_42 = QHBoxLayout(self.y1Widget_4)
+        self.horizontalLayout_42.setObjectName(u"horizontalLayout_42")
+        self.pushButton_6 = QPushButton(self.y1Widget_4)
+        self.pushButton_6.setObjectName(u"pushButton_6")
+        self.pushButton_6.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.pushButton_6.setCheckable(True)
+
+        self.horizontalLayout_42.addWidget(self.pushButton_6)
+
+        self.CircleOn_10 = QPushButton(self.y1Widget_4)
+        self.CircleOn_10.setObjectName(u"CircleOn_10")
+        self.CircleOn_10.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_10.setCheckable(True)
+
+        self.horizontalLayout_42.addWidget(self.CircleOn_10, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop)
+
+
+        self.verticalLayout_33.addWidget(self.y1Widget_4)
+
+
+        self.gridLayout_7.addWidget(self.widget_7, 2, 1, 1, 1)
+
+        self.widget_8 = QWidget(self.widget_2)
+        self.widget_8.setObjectName(u"widget_8")
+        self.verticalLayout_35 = QVBoxLayout(self.widget_8)
+        self.verticalLayout_35.setObjectName(u"verticalLayout_35")
+        self.label_13 = QLabel(self.widget_8)
+        self.label_13.setObjectName(u"label_13")
+
+        self.verticalLayout_35.addWidget(self.label_13)
+
+        self.y1Widget_6 = QWidget(self.widget_8)
+        self.y1Widget_6.setObjectName(u"y1Widget_6")
+        self.y1Widget_6.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_45 = QHBoxLayout(self.y1Widget_6)
+        self.horizontalLayout_45.setObjectName(u"horizontalLayout_45")
+        self.pushButton_9 = QPushButton(self.y1Widget_6)
+        self.pushButton_9.setObjectName(u"pushButton_9")
+        self.pushButton_9.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.pushButton_9.setCheckable(True)
+
+        self.horizontalLayout_45.addWidget(self.pushButton_9)
+
+        self.CircleOn_13 = QPushButton(self.y1Widget_6)
+        self.CircleOn_13.setObjectName(u"CircleOn_13")
+        self.CircleOn_13.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_13.setCheckable(True)
+
+        self.horizontalLayout_45.addWidget(self.CircleOn_13, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop)
+
+
+        self.verticalLayout_35.addWidget(self.y1Widget_6)
+
+
+        self.gridLayout_7.addWidget(self.widget_8, 3, 0, 1, 1)
+
+        self.widget_15 = QWidget(self.widget_2)
+        self.widget_15.setObjectName(u"widget_15")
+        self.verticalLayout_34 = QVBoxLayout(self.widget_15)
+        self.verticalLayout_34.setObjectName(u"verticalLayout_34")
+        self.label_22 = QLabel(self.widget_15)
+        self.label_22.setObjectName(u"label_22")
+
+        self.verticalLayout_34.addWidget(self.label_22)
+
+        self.y1Widget_5 = QWidget(self.widget_15)
+        self.y1Widget_5.setObjectName(u"y1Widget_5")
+        self.y1Widget_5.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_44 = QHBoxLayout(self.y1Widget_5)
+        self.horizontalLayout_44.setObjectName(u"horizontalLayout_44")
+        self.pushButton_8 = QPushButton(self.y1Widget_5)
+        self.pushButton_8.setObjectName(u"pushButton_8")
+        self.pushButton_8.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.pushButton_8.setCheckable(True)
+
+        self.horizontalLayout_44.addWidget(self.pushButton_8)
+
+        self.CircleOn_12 = QPushButton(self.y1Widget_5)
+        self.CircleOn_12.setObjectName(u"CircleOn_12")
+        self.CircleOn_12.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_12.setCheckable(True)
+
+        self.horizontalLayout_44.addWidget(self.CircleOn_12, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop)
+
+
+        self.verticalLayout_34.addWidget(self.y1Widget_5)
+
+
+        self.gridLayout_7.addWidget(self.widget_15, 3, 1, 1, 1)
+
+        self.widget_9 = QWidget(self.widget_2)
+        self.widget_9.setObjectName(u"widget_9")
+        self.verticalLayout_47 = QVBoxLayout(self.widget_9)
+        self.verticalLayout_47.setObjectName(u"verticalLayout_47")
+        self.label_14 = QLabel(self.widget_9)
+        self.label_14.setObjectName(u"label_14")
+
+        self.verticalLayout_47.addWidget(self.label_14)
+
+        self.y1Widget_13 = QWidget(self.widget_9)
+        self.y1Widget_13.setObjectName(u"y1Widget_13")
+        self.y1Widget_13.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_65 = QHBoxLayout(self.y1Widget_13)
+        self.horizontalLayout_65.setObjectName(u"horizontalLayout_65")
+        self.pushButton_16 = QPushButton(self.y1Widget_13)
+        self.pushButton_16.setObjectName(u"pushButton_16")
+        self.pushButton_16.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.pushButton_16.setCheckable(True)
+
+        self.horizontalLayout_65.addWidget(self.pushButton_16)
+
+        self.CircleOn_23 = QPushButton(self.y1Widget_13)
+        self.CircleOn_23.setObjectName(u"CircleOn_23")
+        self.CircleOn_23.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_23.setCheckable(True)
+
+        self.horizontalLayout_65.addWidget(self.CircleOn_23, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop)
+
+
+        self.verticalLayout_47.addWidget(self.y1Widget_13)
+
+
+        self.gridLayout_7.addWidget(self.widget_9, 5, 0, 1, 1)
+
+        self.widget_3 = QWidget(self.DIDOContainerPage)
+        self.widget_3.setObjectName(u"widget_3")
+        self.widget_3.setGeometry(QRect(660, 530, 49, 163))
+        self.gridLayout_8 = QGridLayout(self.widget_3)
+        self.gridLayout_8.setObjectName(u"gridLayout_8")
+        self.widget_38 = QWidget(self.widget_3)
+        self.widget_38.setObjectName(u"widget_38")
+        self.label_46 = QLabel(self.widget_38)
+        self.label_46.setObjectName(u"label_46")
+        self.label_46.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_8.addWidget(self.widget_38, 2, 0, 1, 1)
+
+        self.widget_48 = QWidget(self.widget_3)
+        self.widget_48.setObjectName(u"widget_48")
+        self.label_56 = QLabel(self.widget_48)
+        self.label_56.setObjectName(u"label_56")
+        self.label_56.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_8.addWidget(self.widget_48, 7, 0, 1, 1)
+
+        self.widget_40 = QWidget(self.widget_3)
+        self.widget_40.setObjectName(u"widget_40")
+        self.label_48 = QLabel(self.widget_40)
+        self.label_48.setObjectName(u"label_48")
+        self.label_48.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_8.addWidget(self.widget_40, 3, 0, 1, 1)
+
+        self.widget_39 = QWidget(self.widget_3)
+        self.widget_39.setObjectName(u"widget_39")
+        self.label_47 = QLabel(self.widget_39)
+        self.label_47.setObjectName(u"label_47")
+        self.label_47.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_8.addWidget(self.widget_39, 2, 1, 1, 1)
+
+        self.widget_41 = QWidget(self.widget_3)
+        self.widget_41.setObjectName(u"widget_41")
+        self.label_49 = QLabel(self.widget_41)
+        self.label_49.setObjectName(u"label_49")
+        self.label_49.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_8.addWidget(self.widget_41, 3, 1, 1, 1)
+
+        self.widget_44 = QWidget(self.widget_3)
+        self.widget_44.setObjectName(u"widget_44")
+        self.label_52 = QLabel(self.widget_44)
+        self.label_52.setObjectName(u"label_52")
+        self.label_52.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_8.addWidget(self.widget_44, 5, 0, 1, 1)
+
+        self.widget_50 = QWidget(self.widget_3)
+        self.widget_50.setObjectName(u"widget_50")
+        self.label_58 = QLabel(self.widget_50)
+        self.label_58.setObjectName(u"label_58")
+        self.label_58.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_8.addWidget(self.widget_50, 8, 0, 1, 1)
+
+        self.widget_42 = QWidget(self.widget_3)
+        self.widget_42.setObjectName(u"widget_42")
+        self.label_50 = QLabel(self.widget_42)
+        self.label_50.setObjectName(u"label_50")
+        self.label_50.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_8.addWidget(self.widget_42, 4, 0, 1, 1)
+
+        self.widget_45 = QWidget(self.widget_3)
+        self.widget_45.setObjectName(u"widget_45")
+        self.label_53 = QLabel(self.widget_45)
+        self.label_53.setObjectName(u"label_53")
+        self.label_53.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_8.addWidget(self.widget_45, 5, 1, 1, 1)
+
+        self.widget_43 = QWidget(self.widget_3)
+        self.widget_43.setObjectName(u"widget_43")
+        self.label_51 = QLabel(self.widget_43)
+        self.label_51.setObjectName(u"label_51")
+        self.label_51.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_8.addWidget(self.widget_43, 4, 1, 1, 1)
+
+        self.label_60 = QLabel(self.widget_3)
+        self.label_60.setObjectName(u"label_60")
+        sizePolicy5.setHeightForWidth(self.label_60.sizePolicy().hasHeightForWidth())
+        self.label_60.setSizePolicy(sizePolicy5)
+        self.label_60.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.gridLayout_8.addWidget(self.label_60, 0, 0, 1, 2)
+
+        self.widget_36 = QWidget(self.widget_3)
+        self.widget_36.setObjectName(u"widget_36")
+        self.label_44 = QLabel(self.widget_36)
+        self.label_44.setObjectName(u"label_44")
+        self.label_44.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_8.addWidget(self.widget_36, 1, 0, 1, 1)
+
+        self.widget_49 = QWidget(self.widget_3)
+        self.widget_49.setObjectName(u"widget_49")
+        self.label_57 = QLabel(self.widget_49)
+        self.label_57.setObjectName(u"label_57")
+        self.label_57.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_8.addWidget(self.widget_49, 7, 1, 1, 1)
+
+        self.widget_46 = QWidget(self.widget_3)
+        self.widget_46.setObjectName(u"widget_46")
+        self.label_54 = QLabel(self.widget_46)
+        self.label_54.setObjectName(u"label_54")
+        self.label_54.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_8.addWidget(self.widget_46, 6, 0, 1, 1)
+
+        self.widget_47 = QWidget(self.widget_3)
+        self.widget_47.setObjectName(u"widget_47")
+        self.label_55 = QLabel(self.widget_47)
+        self.label_55.setObjectName(u"label_55")
+        self.label_55.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_8.addWidget(self.widget_47, 6, 1, 1, 1)
+
+        self.widget_51 = QWidget(self.widget_3)
+        self.widget_51.setObjectName(u"widget_51")
+        self.label_59 = QLabel(self.widget_51)
+        self.label_59.setObjectName(u"label_59")
+        self.label_59.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_8.addWidget(self.widget_51, 8, 1, 1, 1)
+
+        self.widget_37 = QWidget(self.widget_3)
+        self.widget_37.setObjectName(u"widget_37")
+        self.label_45 = QLabel(self.widget_37)
+        self.label_45.setObjectName(u"label_45")
+        self.label_45.setGeometry(QRect(10, 10, 67, 17))
+
+        self.gridLayout_8.addWidget(self.widget_37, 1, 1, 1, 1)
+
+        self.MiddleStackedWidget.addWidget(self.DIDOContainerPage)
         self.ParentStackedWidgetToChangeMenuOptions.addWidget(self.ComponentControlPage)
         self.ProductionRecordPage = QWidget()
         self.ProductionRecordPage.setObjectName(u"ProductionRecordPage")
@@ -1823,7 +2598,8 @@ class Ui_MainWindow(object):
         self.AutoAndManualStackedWidget.setCurrentIndex(0)
         self.ActionButtons.setCurrentIndex(0)
         self.ComponentControlStackedWidget.setCurrentIndex(0)
-        self.ChangeComponentControlStackedWidget.setCurrentIndex(0)
+        self.ChangeComponentControlStackedWidget.setCurrentIndex(3)
+        self.MiddleStackedWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1892,28 +2668,6 @@ class Ui_MainWindow(object):
         self.PreciseAlignButton.setText(QCoreApplication.translate("MainWindow", u"Precise Align", None))
         self.PickButton.setText(QCoreApplication.translate("MainWindow", u"Pick", None))
         self.AssemblyButton.setText(QCoreApplication.translate("MainWindow", u"Assembly", None))
-        self.VisionTextInComponentControl.setText(QCoreApplication.translate("MainWindow", u"Vision", None))
-        self.y_2.setText(QCoreApplication.translate("MainWindow", u"y:", None))
-        self.yText_2.setText(QCoreApplication.translate("MainWindow", u"pos", None))
-        self.z_2.setText(QCoreApplication.translate("MainWindow", u"z:", None))
-        self.zText_2.setText(QCoreApplication.translate("MainWindow", u"pos", None))
-        self.yaw_2.setText(QCoreApplication.translate("MainWindow", u"yaw:", None))
-        self.yawText_2.setText(QCoreApplication.translate("MainWindow", u"pos", None))
-        self.CartesianPoseText_2.setText(QCoreApplication.translate("MainWindow", u"Cartesian Pose", None))
-        self.x_2.setText(QCoreApplication.translate("MainWindow", u"x:", None))
-        self.xText_2.setText(QCoreApplication.translate("MainWindow", u"pos", None))
-        self.Position_2.setText(QCoreApplication.translate("MainWindow", u"Position:", None))
-        self.PositionText_2.setText(QCoreApplication.translate("MainWindow", u"pos", None))
-        self.MotorInfoText_2.setText(QCoreApplication.translate("MainWindow", u"Motor Info", None))
-        self.Current_2.setText(QCoreApplication.translate("MainWindow", u"Current: ", None))
-        self.CurrentText_2.setText(QCoreApplication.translate("MainWindow", u"pos", None))
-        self.d1_2.setText(QCoreApplication.translate("MainWindow", u"D1: ", None))
-        self.LaserInfoText_2.setText(QCoreApplication.translate("MainWindow", u"Laser Info", None))
-        self.d2_2.setText(QCoreApplication.translate("MainWindow", u"Current Height: ", None))
-        self.currentHeight.setText(QCoreApplication.translate("MainWindow", u"0", None))
-        self.h1_2.setText(QCoreApplication.translate("MainWindow", u"Height Cmd: ", None))
-        self.HeightCommand.setText(QCoreApplication.translate("MainWindow", u"0", None))
-        self.RecordDataButton_2.setText(QCoreApplication.translate("MainWindow", u"Record Data", None))
         self.ChooseMotor.setText(QCoreApplication.translate("MainWindow", u"Motor", None))
         self.ChooseVision.setText(QCoreApplication.translate("MainWindow", u"Vision", None))
         self.ChooseClipper.setText(QCoreApplication.translate("MainWindow", u"Clipper", None))
@@ -1947,6 +2701,83 @@ class Ui_MainWindow(object):
         self.VisionOption.setText(QCoreApplication.translate("MainWindow", u"Vision", None))
         self.ClipperOption.setText(QCoreApplication.translate("MainWindow", u"Clipper", None))
         self.ForkliftOption.setText(QCoreApplication.translate("MainWindow", u"Forklift", None))
+        self.DIDOOption.setText(QCoreApplication.translate("MainWindow", u"DI/DO", None))
+        self.VisionTextInComponentControl.setText(QCoreApplication.translate("MainWindow", u"Vision", None))
+        self.y_2.setText(QCoreApplication.translate("MainWindow", u"y:", None))
+        self.yText_2.setText(QCoreApplication.translate("MainWindow", u"pos", None))
+        self.z_2.setText(QCoreApplication.translate("MainWindow", u"z:", None))
+        self.zText_2.setText(QCoreApplication.translate("MainWindow", u"pos", None))
+        self.yaw_2.setText(QCoreApplication.translate("MainWindow", u"yaw:", None))
+        self.yawText_2.setText(QCoreApplication.translate("MainWindow", u"pos", None))
+        self.CartesianPoseText_2.setText(QCoreApplication.translate("MainWindow", u"Cartesian Pose", None))
+        self.x_2.setText(QCoreApplication.translate("MainWindow", u"x:", None))
+        self.xText_2.setText(QCoreApplication.translate("MainWindow", u"pos", None))
+        self.Position_2.setText(QCoreApplication.translate("MainWindow", u"Position:", None))
+        self.PositionText_2.setText(QCoreApplication.translate("MainWindow", u"pos", None))
+        self.MotorInfoText_2.setText(QCoreApplication.translate("MainWindow", u"Motor Info", None))
+        self.Current_2.setText(QCoreApplication.translate("MainWindow", u"Current: ", None))
+        self.CurrentText_2.setText(QCoreApplication.translate("MainWindow", u"pos", None))
+        self.d1_2.setText(QCoreApplication.translate("MainWindow", u"D1: ", None))
+        self.LaserInfoText_2.setText(QCoreApplication.translate("MainWindow", u"Laser Info", None))
+        self.d2_2.setText(QCoreApplication.translate("MainWindow", u"Current Height: ", None))
+        self.currentHeight.setText(QCoreApplication.translate("MainWindow", u"0", None))
+        self.h1_2.setText(QCoreApplication.translate("MainWindow", u"Height Cmd: ", None))
+        self.HeightCommand.setText(QCoreApplication.translate("MainWindow", u"0", None))
+        self.RecordDataButton_2.setText(QCoreApplication.translate("MainWindow", u"Record Data", None))
+        self.label_24.setText(QCoreApplication.translate("MainWindow", u"Y13", None))
+        self.label_15.setText(QCoreApplication.translate("MainWindow", u"Y6", None))
+        self.label_17.setText(QCoreApplication.translate("MainWindow", u"Y8", None))
+        self.CircleOff_5.setText("")
+        self.CircleOn_5.setText("")
+        self.label_8.setText(QCoreApplication.translate("MainWindow", u"DO", None))
+        self.label_21.setText(QCoreApplication.translate("MainWindow", u"Y10", None))
+        self.pushButton_4.setText("")
+        self.CircleOn_8.setText("")
+        self.label_25.setText(QCoreApplication.translate("MainWindow", u"Y14", None))
+        self.label_23.setText(QCoreApplication.translate("MainWindow", u"Y12", None))
+        self.label_16.setText(QCoreApplication.translate("MainWindow", u"Y7", None))
+        self.label_26.setText(QCoreApplication.translate("MainWindow", u"Y15", None))
+        self.label_9.setText(QCoreApplication.translate("MainWindow", u"Y0", None))
+        self.CircleOff.setText("")
+        self.CircleOn.setText("")
+        self.label_20.setText(QCoreApplication.translate("MainWindow", u"Y9", None))
+        self.CircleOff_3.setText("")
+        self.CircleOn_3.setText("")
+        self.label_10.setText(QCoreApplication.translate("MainWindow", u"Y1", None))
+        self.pushButton.setText("")
+        self.CircleOn_2.setText("")
+        self.label_11.setText(QCoreApplication.translate("MainWindow", u"Y2", None))
+        self.pushButton_2.setText("")
+        self.CircleOn_4.setText("")
+        self.label_12.setText(QCoreApplication.translate("MainWindow", u"Y3", None))
+        self.pushButton_6.setText("")
+        self.CircleOn_10.setText("")
+        self.label_13.setText(QCoreApplication.translate("MainWindow", u"Y4", None))
+        self.pushButton_9.setText("")
+        self.CircleOn_13.setText("")
+        self.label_22.setText(QCoreApplication.translate("MainWindow", u"Y11", None))
+        self.pushButton_8.setText("")
+        self.CircleOn_12.setText("")
+        self.label_14.setText(QCoreApplication.translate("MainWindow", u"Y5", None))
+        self.pushButton_16.setText("")
+        self.CircleOn_23.setText("")
+        self.label_46.setText(QCoreApplication.translate("MainWindow", u"Y1", None))
+        self.label_56.setText(QCoreApplication.translate("MainWindow", u"Y6", None))
+        self.label_48.setText(QCoreApplication.translate("MainWindow", u"Y2", None))
+        self.label_47.setText(QCoreApplication.translate("MainWindow", u"Y9", None))
+        self.label_49.setText(QCoreApplication.translate("MainWindow", u"Y10", None))
+        self.label_52.setText(QCoreApplication.translate("MainWindow", u"Y4", None))
+        self.label_58.setText(QCoreApplication.translate("MainWindow", u"Y7", None))
+        self.label_50.setText(QCoreApplication.translate("MainWindow", u"Y3", None))
+        self.label_53.setText(QCoreApplication.translate("MainWindow", u"Y12", None))
+        self.label_51.setText(QCoreApplication.translate("MainWindow", u"Y11", None))
+        self.label_60.setText(QCoreApplication.translate("MainWindow", u"DI", None))
+        self.label_44.setText(QCoreApplication.translate("MainWindow", u"Y0", None))
+        self.label_57.setText(QCoreApplication.translate("MainWindow", u"Y14", None))
+        self.label_54.setText(QCoreApplication.translate("MainWindow", u"Y5", None))
+        self.label_55.setText(QCoreApplication.translate("MainWindow", u"Y13", None))
+        self.label_59.setText(QCoreApplication.translate("MainWindow", u"Y15", None))
+        self.label_45.setText(QCoreApplication.translate("MainWindow", u"Y8", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Production Record", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Logs", None))
         self.ChangeLanguageText.setText(QCoreApplication.translate("MainWindow", u"Change Language", None))

@@ -30,6 +30,8 @@ class ROSNode(Node):
         self.mode_cmd = {
             'auto': True,
             'manual': False,
+            'component_control': False,
+            
         }
 
         self.task_cmd = {
@@ -45,6 +47,7 @@ class ROSNode(Node):
             'main_page': True,
             'component_control': False
         }
+
         self.forklift_controller = None
 
         # Subscriber to the same topic
@@ -178,7 +181,7 @@ class MainWindow(QMainWindow):
 
 
         #component control - publisher
-        self.ui.ComponentControlButton.clicked.connect(lambda: self.send_menu_cmd("component_control"))
+        self.ui.ComponentControlButton.toggled.connect(self.on_component_control_toggled)
 
         # Get Today's date
         today = date.today()
@@ -231,6 +234,79 @@ class MainWindow(QMainWindow):
         self.ui.VisionOption.clicked.connect(lambda: self.component_control_switch_page("Vision", 1))
         self.ui.ClipperOption.clicked.connect(lambda: self.component_control_switch_page("Clipper", 2))
         self.ui.ForkliftOption.clicked.connect(lambda: self.component_control_switch_page("Forklift", 3))
+        self.ui.DIDOOption.clicked.connect(lambda: self.component_control_switch_page("DI/DO", 4))
+
+        # self.ui.ToggleSwitch.toggled.connect(self.update_toggle_style)
+
+        self.ui.CircleOff.clicked.connect(self.update_circle_off_style)
+        self.ui.CircleOn.clicked.connect(self.update_circle_on_style)
+
+
+    def update_circle_off_style(self):
+        self.ui.CircleOff.setStyleSheet("""
+            QPushButton {
+                background-color: #0B76A0;
+                border: none;
+                border-radius: 15px;
+                max-width: 30px;
+                min-height: 30px;
+                max-height: 30px;
+                padding: 0;
+            }
+        """)
+
+        self.ui.CircleOn.setStyleSheet("""
+            QPushButton {
+                background-color: white;
+                border: none;
+                border-radius: 15px;
+                max-width: 30px;
+                min-height: 30px;
+                max-height: 30px;
+                padding: 0;
+            }
+        """)
+
+        self.ui.widget.setStyleSheet("""
+            QWidget {
+                background-color: #0B76A0;
+                border: none;
+                border-radius: 24px;
+            }
+        """)
+
+    def update_circle_on_style(self):
+        self.ui.CircleOff.setStyleSheet("""
+            QPushButton {
+                background-color: white;
+                border: none;
+                border-radius: 15px;
+                max-width: 30px;
+                min-height: 30px;
+                max-height: 30px;
+                padding: 0;
+            }
+        """)
+
+        self.ui.CircleOn.setStyleSheet("""
+            QPushButton {
+                background-color: #000000;
+                border: none;
+                border-radius: 15px;
+                max-width: 30px;
+                min-height: 30px;
+                max-height: 30px;
+                padding: 0;
+            }
+        """)
+
+        self.ui.widget.setStyleSheet("""
+            QWidget {
+                background-color: #000000;
+                border: none;
+                border-radius: 24px;
+            }
+        """)
 
         
 
@@ -394,6 +470,10 @@ class MainWindow(QMainWindow):
         if checked:
             self.send_mode_cmd("manual")
 
+    def on_component_control_toggled(self, checked):
+        if checked:
+            self.send_mode_cmd("component_control")
+
 
     #Component Control - Motor
     def toggle_menu(self):
@@ -403,6 +483,17 @@ class MainWindow(QMainWindow):
         self.ui.MotorStartedButton.setText(name)
         self.ui.ChangeComponentControlStackedWidget.setCurrentIndex(index)
         self.ui.ListOptionsWidget.setVisible(False)
+
+        if name == "DI/DO":
+            self.ui.MiddleStackedWidget.setCurrentIndex(1)
+        elif name == "Motor":
+            self.ui.MiddleStackedWidget.setCurrentIndex(0)
+        elif name == "Vision":
+            self.ui.MiddleStackedWidget.setCurrentIndex(0)
+        elif name == "Clipper":
+            self.ui.MiddleStackedWidget.setCurrentIndex(0)
+        elif name == "Forklift":
+            self.ui.MiddleStackedWidget.setCurrentIndex(0)
 
 
     #Vision
