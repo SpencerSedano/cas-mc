@@ -87,6 +87,15 @@ class ROSNode(Node):
         10
         )
 
+        # self.detection_task_subscriber = self.create_subscription(
+        #     String,
+        #     '/detection_task',
+        #     self.detection_task_callback,
+        #     10
+        # )
+
+
+        self.detection_task_callback_ui = None
         self.image_update_callback = None
 
 
@@ -107,6 +116,11 @@ class ROSNode(Node):
         if self.image_update_callback:
             self.image_update_callback(cv_img)
 
+    def detection_task_callback(self, msg: String):
+        if self.detection_task_callback_ui:
+            self.detection_task_callback_ui(msg.data)
+
+
 
 
 class MainWindow(QMainWindow):
@@ -121,6 +135,7 @@ class MainWindow(QMainWindow):
         self.ros_node = ros_node
 
         self.ros_node.image_update_callback = self.update_image
+        self.ros_node.detection_task_callback_ui = self.update_detection_mode
 
 
         #motor ui
@@ -213,7 +228,7 @@ class MainWindow(QMainWindow):
 
         self.ui.MotorOption.clicked.connect(lambda: self.component_control_switch_page("Motor", 0))
         # self.ui.VisionOption.clicked.connect(lambda: self.component_control_switch_page("Vision", 1))
-        self.ui.VisionOption.clicked.connect(self.activate_vision_view)
+        self.ui.VisionOption.clicked.connect(lambda: self.component_control_switch_page("Vision", 1))
         self.ui.ClipperOption.clicked.connect(lambda: self.component_control_switch_page("Clipper", 2))
         self.ui.ForkliftOption.clicked.connect(lambda: self.component_control_switch_page("Forklift", 3))
 
@@ -223,6 +238,10 @@ class MainWindow(QMainWindow):
         qt_img = convert_cv_to_qt(cv_img)
         pixmap = QPixmap.fromImage(qt_img)
         self.ui.VisionTextInComponentControl.setPixmap(pixmap)  # Replace with your QLabel name
+
+    def update_detection_mode(self, mode):
+        print(f"[UI] Detection mode is now: {mode}")
+        # Optionally update label or status bar
 
 
     #ROS2 Menu
@@ -389,12 +408,12 @@ class MainWindow(QMainWindow):
     #Vision
 
 
-    def activate_vision_view(self):
+    # def activate_vision_view(self):
         # Switch to Vision page
-        self.choose_vision()
+        # self.choose_vision()
 
         # Optional: Manually refresh or send trigger to vision system
-        print("[UI] Vision page activated — ready to receive image")
+        # print("[UI] Vision page activated — ready to receive image")
 
         # Optionally send a ROS signal to start detection (if needed)
         # self.send_detection_task("start")  # <-- if you want to publish to /detection_task
