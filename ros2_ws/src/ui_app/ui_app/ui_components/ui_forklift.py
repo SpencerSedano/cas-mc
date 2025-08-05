@@ -9,10 +9,9 @@ class ForkliftController:
         self.ui = ui
         self.ros_node = ros_node
 
-        self.ui.SliderLift.valueChanged.connect(self.on_slider_changed)
-
-
         self.current_height = 0 
+
+        self.ui.SliderLift.valueChanged.connect(self.on_slider_changed)
 
         # Connect UI buttons
         self.ui.LiftUp.clicked.connect(self.lift_up_10mm)
@@ -38,7 +37,51 @@ class ForkliftController:
         self.current_height = height
         self.ui.currentHeight.setText(f"{height} mm")  
 
+    def lift_up_10mm(self):
+        self.on_touch_buttons(self.ui.LiftUp)
 
+        new_value = min(self.ui.SliderLift.maximum(), self.ui.SliderLift.value() + 10)
+        self.ui.SliderLift.setValue(new_value)  # This updates the HeightCommand text too
+
+        # Immediately publish the command
+        self.publish_adjust_command("up", new_value)
+
+        # Disable the button for 5 seconds
+        self.disable_buttons_temporarily(5000)
+
+    def lower_down_10mm(self):
+        self.on_touch_buttons(self.ui.LowerDown)
+
+        new_value = max(self.ui.SliderLift.minimum(), self.ui.SliderLift.value() - 10)
+        self.ui.SliderLift.setValue(new_value)
+
+        self.publish_adjust_command("down", new_value)
+        
+        # Disable the button for 5 seconds
+        self.disable_buttons_temporarily(5000)
+
+    def disable_buttons_temporarily(self, ms):
+        # Disable functionality
+        self.ui.LiftUp.setEnabled(False)
+        self.ui.LowerDown.setEnabled(False)
+
+        # Add disabled style without overwriting existing design
+        self.ui.LiftUp.setStyleSheet(self.ui.LiftUp.styleSheet() + "opacity: 0.5;")
+        self.ui.LowerDown.setStyleSheet(self.ui.LowerDown.styleSheet() + "opacity: 0.5;")
+
+        # Re-enable after cooldown
+        QTimer.singleShot(ms, lambda: self.enable_buttons())
+
+    def enable_buttons(self):
+        self.ui.LiftUp.setEnabled(True)
+        self.ui.LowerDown.setEnabled(True)
+
+        # Remove only the opacity we added
+        original_style_up = self.ui.LiftUp.styleSheet().replace("opacity: 0.5;", "")
+        original_style_down = self.ui.LowerDown.styleSheet().replace("opacity: 0.5;", "")
+
+        self.ui.LiftUp.setStyleSheet(original_style_up)
+        self.ui.LowerDown.setStyleSheet(original_style_down)
 
     def publish_fork_cmd(self, mode, speed, direction, distance):
         msg = ForkCmd()
@@ -87,30 +130,10 @@ class ForkliftController:
         self.ui.HeightCommand.setText(str(value))
 
 
-    def lift_up_10mm(self):
-        self.on_touch_buttons(self.ui.LiftUp)
-
-        new_value = min(self.ui.SliderLift.maximum(), self.ui.SliderLift.value() + 10)
-        self.ui.SliderLift.setValue(new_value)  # This updates the HeightCommand text too
-
-        # Immediately publish the command
-        self.publish_adjust_command("up", new_value)
-
-    def lower_down_10mm(self):
-        self.on_touch_buttons(self.ui.LowerDown)
-
-        new_value = max(self.ui.SliderLift.minimum(), self.ui.SliderLift.value() - 10)
-        self.ui.SliderLift.setValue(new_value)
-
-        self.publish_adjust_command("down", new_value)
-
     def publish_adjust_command(self, direction, distance):
         speed_button = self.ui.buttonGroup.checkedButton()
         speed = speed_button.text().lower() if speed_button else "slow"
         self.publish_fork_cmd("run", speed, direction, float(distance))
-
-
-
 
 
     def on_touch_buttons(self, button):

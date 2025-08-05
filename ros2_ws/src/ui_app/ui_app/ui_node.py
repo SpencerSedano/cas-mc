@@ -56,11 +56,12 @@ class ROSNode(Node):
         # mode cmd
         self.mode_cmd_publisher = self.create_publisher(String, '/mode_cmd', 10)
 
+
         # publisher using custom StateCmd message
         self.state_cmd_publisher = self.create_publisher(StateCmd, '/state_cmd', 10)
 
         #task cmd
-        self.task_cmd_publisher = self.create_publisher(String, '/task_cmd', 10)
+        self.task_cmd_publisher = self.create_publisher(String, '/task_state_rough_align', 10)
 
         #fork lift
         self.fork_cmd_publisher = self.create_publisher(ForkCmd, '/fork_cmd', 10)
@@ -154,7 +155,9 @@ class MainWindow(QMainWindow):
         self.ros_msg_received.connect(self.handle_ros_message)
 
         # connect buttons to send data to another node (ROS2)
+        self.ui.INITButton.clicked.connect(lambda: self.send_state_cmd("init"))
         self.ui.RunButton.clicked.connect(lambda: self.send_state_cmd("run"))
+        self.ui.PauseButton.clicked.connect(lambda: self.send_state_cmd("pause"))
         self.ui.StopButton.clicked.connect(lambda: self.send_state_cmd("stop"))
         # self.ui.AutoResetButton.clicked.connect(lambda: self.send_state_cmd("reset"))
 
@@ -162,8 +165,8 @@ class MainWindow(QMainWindow):
         self.ui.ManualButton.toggled.connect(self.on_manual_toggled)
 
 
-        self.ui.RoughAlignButton.clicked.connect(lambda: self.send_task_cmd("rough align"))
-        self.ui.PreciseAlignButton.clicked.connect(lambda: self.send_task_cmd("precise align"))
+        self.ui.RoughAlignButton.clicked.connect(lambda: self.send_task_cmd("rough_align"))
+        self.ui.PreciseAlignButton.clicked.connect(lambda: self.send_task_cmd("precise_align"))
         self.ui.PickButton.clicked.connect(lambda: self.send_task_cmd("pick"))
         self.ui.AssemblyButton.clicked.connect(lambda: self.send_task_cmd("assembly"))
 
@@ -352,19 +355,19 @@ class MainWindow(QMainWindow):
         msg = StateCmd()
 
         # Reset all flags
-        msg.pause_button = False
         msg.init_button = False
         msg.run_button = False
-        msg.reset_button = False
+        msg.pause_button = False
+        msg.stop_button = False
 
         if flag == "init":
             msg.init_button = True
         elif flag == "run":
             msg.run_button = True
-        elif flag == "stop":
+        elif flag == "pause":
             msg.pause_button = True
-        elif flag == "reset":
-            msg.reset_button = True
+        elif flag == "stop":
+            msg.stop_button = True
 
         print(f"[DEBUG] Publishing StateCmd: {msg}")
         self.ros_node.state_cmd_publisher.publish(msg)

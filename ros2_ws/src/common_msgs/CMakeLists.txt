@@ -13,16 +13,15 @@ find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-    "msg/ButtonCommand.msg"
-    "msg/StateCmd.msg"
-    "msg/MotionCmd.msg"
+    "msg/FuncCmd.msg"
     "msg/MotionState.msg"
+    "msg/MotionCmd.msg"
     "msg/MultipleM.msg"
-    "msg/PoseCommand.msg"
     "msg/SingleM.msg"
-    "msg/StateInfo.msg"
-    "msg/ForkCmd.msg"
+    "msg/StateCmd.msg"
     "msg/JogCmd.msg"
+    "msg/ForkCmd.msg"
+    
 )
 
 if(BUILD_TESTING)
