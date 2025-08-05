@@ -20,14 +20,11 @@ class ForkliftController:
         self.ui.SendForkliftCommand.clicked.connect(self.handle_send_forklift_command)
         self.ui.StopForkliftButton.clicked.connect(self.handle_stop_forklift_command)
 
-    
-
 
     def send_fork_cmd(self, direction):
-        mode_button = self.ui.buttonGroup_2.checkedButton()
         speed_button = self.ui.buttonGroup.checkedButton()
 
-        mode = mode_button.text().lower() if mode_button else "run"
+        mode = "run" if self.ui.RunForkliftButton.isChecked() else "stop"
         speed = speed_button.text().lower() if speed_button else "slow"
         distance = float(self.ui.SliderLift.value())
 
@@ -94,25 +91,28 @@ class ForkliftController:
 
     def handle_send_forklift_command(self):
         # Send a ForkCmd with mode="run"
-        self.send_fork_cmd_from_height_command(mode="run")
+        self.send_fork_cmd_from_height_command()
 
     def handle_stop_forklift_command(self):
         # Send a pure STOP message
         self.publish_fork_cmd(mode="stop", speed="", direction="", distance=0.0)
 
 
-    def send_fork_cmd_from_height_command(self, mode):
+    def send_fork_cmd_from_height_command(self):
         speed_button = self.ui.buttonGroup.checkedButton()
         speed = speed_button.text().lower() if speed_button else "slow"
 
-        # Use fixed direction from buttons
-        if self.ui.LiftUp.isChecked():
-            direction = "up"
-        elif self.ui.LowerDown.isChecked():
-            direction = "down"
+        if self.ui.RunForkliftButton.isChecked():
+            mode = "run"
         else:
-            direction = "stop"
+            mode = "stop"
+            speed = ""
+            direction = ""
+            target_distance = 0.0
+            self.publish_fork_cmd(mode, speed, direction, target_distance)
+            return  # Stop here for "stop" mode
 
+        # Read target height from UI
         raw_text = self.ui.HeightCommand.text()
         print(f"[DEBUG] Raw HeightCommand text: '{raw_text}'")
         cleaned_text = raw_text.lower().replace("mm", "").strip()
@@ -123,7 +123,17 @@ class ForkliftController:
             print("[Forklift] Invalid HeightCommand value")
             return
 
+        # Auto decide based on current height
+        current_height = self.ros_node.forklift_controller.current_height
+        if target_distance > current_height:
+            direction = "up"
+        elif target_distance < current_height:
+            direction = "down"
+        else:
+            direction = "stop"
+
         self.publish_fork_cmd(mode, speed, direction, target_distance)
+
 
 
     def on_slider_changed(self, value):

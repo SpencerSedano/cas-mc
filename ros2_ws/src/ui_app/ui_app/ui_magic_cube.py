@@ -17,8 +17,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QButtonGroup, QFrame, QGridLayout,
     QHBoxLayout, QLabel, QMainWindow, QPushButton,
-    QSizePolicy, QSlider, QStackedWidget, QVBoxLayout,
-    QWidget)
+    QScrollArea, QSizePolicy, QSlider, QStackedWidget,
+    QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -704,7 +704,7 @@ class Ui_MainWindow(object):
         self.ProcessAndInfoStackedWidget.addWidget(self.InformationPage)
         self.AutoAndManualStackedWidget = QStackedWidget(self.MainPagePage)
         self.AutoAndManualStackedWidget.setObjectName(u"AutoAndManualStackedWidget")
-        self.AutoAndManualStackedWidget.setGeometry(QRect(720, 10, 291, 531))
+        self.AutoAndManualStackedWidget.setGeometry(QRect(720, 10, 291, 681))
         self.AutoAndManualStackedWidget.setFrameShape(QFrame.Shape.StyledPanel)
         self.AutoAndManualStackedWidget.setFrameShadow(QFrame.Shadow.Raised)
         self.BeforeAutoAndManualPage = QWidget()
@@ -841,6 +841,33 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_12.addWidget(self.RunButton)
 
+        self.verticalLayoutAutoPauseAndStop = QVBoxLayout()
+        self.verticalLayoutAutoPauseAndStop.setSpacing(6)
+        self.verticalLayoutAutoPauseAndStop.setObjectName(u"verticalLayoutAutoPauseAndStop")
+        self.verticalLayoutAutoPauseAndStop.setContentsMargins(-1, 37, -1, -1)
+        self.AutoPauseButton = QPushButton(self.ActionButtonsPage)
+        self.AutoPauseButton.setObjectName(u"AutoPauseButton")
+        sizePolicy.setHeightForWidth(self.AutoPauseButton.sizePolicy().hasHeightForWidth())
+        self.AutoPauseButton.setSizePolicy(sizePolicy)
+        self.AutoPauseButton.setFont(font)
+        self.AutoPauseButton.setStyleSheet(u"")
+        self.AutoPauseButton.setCheckable(True)
+
+        self.verticalLayoutAutoPauseAndStop.addWidget(self.AutoPauseButton)
+
+        self.AutoStopButton = QPushButton(self.ActionButtonsPage)
+        self.AutoStopButton.setObjectName(u"AutoStopButton")
+        sizePolicy.setHeightForWidth(self.AutoStopButton.sizePolicy().hasHeightForWidth())
+        self.AutoStopButton.setSizePolicy(sizePolicy)
+        self.AutoStopButton.setFont(font)
+        self.AutoStopButton.setStyleSheet(u"")
+        self.AutoStopButton.setCheckable(False)
+
+        self.verticalLayoutAutoPauseAndStop.addWidget(self.AutoStopButton)
+
+
+        self.verticalLayout_12.addLayout(self.verticalLayoutAutoPauseAndStop)
+
         self.ActionButtons.addWidget(self.ActionButtonsPage)
         self.ManualButtonsPage = QWidget()
         self.ManualButtonsPage.setObjectName(u"ManualButtonsPage")
@@ -848,76 +875,88 @@ class Ui_MainWindow(object):
         self.verticalLayout_20 = QVBoxLayout(self.ManualButtonsPage)
         self.verticalLayout_20.setObjectName(u"verticalLayout_20")
         self.RoughAlignButton = QPushButton(self.ManualButtonsPage)
+        self.ManualButtons = QButtonGroup(MainWindow)
+        self.ManualButtons.setObjectName(u"ManualButtons")
+        self.ManualButtons.addButton(self.RoughAlignButton)
         self.RoughAlignButton.setObjectName(u"RoughAlignButton")
         sizePolicy.setHeightForWidth(self.RoughAlignButton.sizePolicy().hasHeightForWidth())
         self.RoughAlignButton.setSizePolicy(sizePolicy)
         self.RoughAlignButton.setMaximumSize(QSize(16777215, 90))
         self.RoughAlignButton.setFont(font)
         self.RoughAlignButton.setStyleSheet(u"")
-        self.RoughAlignButton.setCheckable(False)
+        self.RoughAlignButton.setCheckable(True)
 
         self.verticalLayout_20.addWidget(self.RoughAlignButton)
 
         self.PreciseAlignButton = QPushButton(self.ManualButtonsPage)
+        self.ManualButtons.addButton(self.PreciseAlignButton)
         self.PreciseAlignButton.setObjectName(u"PreciseAlignButton")
         sizePolicy.setHeightForWidth(self.PreciseAlignButton.sizePolicy().hasHeightForWidth())
         self.PreciseAlignButton.setSizePolicy(sizePolicy)
         self.PreciseAlignButton.setMaximumSize(QSize(16777215, 90))
         self.PreciseAlignButton.setFont(font)
         self.PreciseAlignButton.setStyleSheet(u"")
+        self.PreciseAlignButton.setCheckable(True)
 
         self.verticalLayout_20.addWidget(self.PreciseAlignButton)
 
         self.PickButton = QPushButton(self.ManualButtonsPage)
+        self.ManualButtons.addButton(self.PickButton)
         self.PickButton.setObjectName(u"PickButton")
         sizePolicy.setHeightForWidth(self.PickButton.sizePolicy().hasHeightForWidth())
         self.PickButton.setSizePolicy(sizePolicy)
         self.PickButton.setMaximumSize(QSize(16777215, 90))
         self.PickButton.setFont(font)
         self.PickButton.setStyleSheet(u"")
+        self.PickButton.setCheckable(True)
 
         self.verticalLayout_20.addWidget(self.PickButton)
 
         self.AssemblyButton = QPushButton(self.ManualButtonsPage)
+        self.ManualButtons.addButton(self.AssemblyButton)
         self.AssemblyButton.setObjectName(u"AssemblyButton")
         sizePolicy.setHeightForWidth(self.AssemblyButton.sizePolicy().hasHeightForWidth())
         self.AssemblyButton.setSizePolicy(sizePolicy)
         self.AssemblyButton.setMaximumSize(QSize(16777215, 90))
         self.AssemblyButton.setFont(font)
         self.AssemblyButton.setStyleSheet(u"")
+        self.AssemblyButton.setCheckable(True)
 
         self.verticalLayout_20.addWidget(self.AssemblyButton)
+
+        self.verticalLayoutManualButtons = QVBoxLayout()
+        self.verticalLayoutManualButtons.setObjectName(u"verticalLayoutManualButtons")
+        self.verticalLayoutManualButtons.setContentsMargins(-1, 22, -1, -1)
+        self.ManualPauseButton = QPushButton(self.ManualButtonsPage)
+        self.ManualPauseButton.setObjectName(u"ManualPauseButton")
+        sizePolicy.setHeightForWidth(self.ManualPauseButton.sizePolicy().hasHeightForWidth())
+        self.ManualPauseButton.setSizePolicy(sizePolicy)
+        self.ManualPauseButton.setMaximumSize(QSize(16777215, 90))
+        self.ManualPauseButton.setFont(font)
+        self.ManualPauseButton.setStyleSheet(u"")
+        self.ManualPauseButton.setCheckable(True)
+
+        self.verticalLayoutManualButtons.addWidget(self.ManualPauseButton)
+
+        self.ManualStopButton = QPushButton(self.ManualButtonsPage)
+        self.ManualStopButton.setObjectName(u"ManualStopButton")
+        sizePolicy.setHeightForWidth(self.ManualStopButton.sizePolicy().hasHeightForWidth())
+        self.ManualStopButton.setSizePolicy(sizePolicy)
+        self.ManualStopButton.setMaximumSize(QSize(16777215, 90))
+        self.ManualStopButton.setFont(font)
+        self.ManualStopButton.setStyleSheet(u"")
+        self.ManualStopButton.setCheckable(True)
+
+        self.verticalLayoutManualButtons.addWidget(self.ManualStopButton)
+
+
+        self.verticalLayout_20.addLayout(self.verticalLayoutManualButtons)
 
         self.ActionButtons.addWidget(self.ManualButtonsPage)
 
         self.verticalLayout_24.addWidget(self.ActionButtons)
 
         self.AutoAndManualStackedWidget.addWidget(self.ActionButtonsMainPage)
-        self.widget = QWidget(self.MainPagePage)
-        self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(740, 550, 251, 141))
-        self.verticalLayoutPauseAndStop = QVBoxLayout(self.widget)
-        self.verticalLayoutPauseAndStop.setSpacing(6)
-        self.verticalLayoutPauseAndStop.setObjectName(u"verticalLayoutPauseAndStop")
-        self.verticalLayoutPauseAndStop.setContentsMargins(0, 10, 0, 0)
-        self.PauseButton = QPushButton(self.widget)
-        self.PauseButton.setObjectName(u"PauseButton")
-        sizePolicy.setHeightForWidth(self.PauseButton.sizePolicy().hasHeightForWidth())
-        self.PauseButton.setSizePolicy(sizePolicy)
-        self.PauseButton.setFont(font)
-        self.PauseButton.setStyleSheet(u"")
-
-        self.verticalLayoutPauseAndStop.addWidget(self.PauseButton)
-
-        self.StopButton = QPushButton(self.widget)
-        self.StopButton.setObjectName(u"StopButton")
-        sizePolicy.setHeightForWidth(self.StopButton.sizePolicy().hasHeightForWidth())
-        self.StopButton.setSizePolicy(sizePolicy)
-        self.StopButton.setFont(font)
-        self.StopButton.setStyleSheet(u"")
-
-        self.verticalLayoutPauseAndStop.addWidget(self.StopButton)
-
         self.ParentStackedWidgetToChangeMenuOptions.addWidget(self.MainPagePage)
         self.ComponentControlPage = QWidget()
         self.ComponentControlPage.setObjectName(u"ComponentControlPage")
@@ -967,6 +1006,14 @@ class Ui_MainWindow(object):
         self.ChooseForklift.setStyleSheet(u"")
 
         self.verticalLayout_27.addWidget(self.ChooseForklift)
+
+        self.ChooseDIDO = QPushButton(self.ChooseListOptionsWidget)
+        self.ChooseDIDO.setObjectName(u"ChooseDIDO")
+        sizePolicy.setHeightForWidth(self.ChooseDIDO.sizePolicy().hasHeightForWidth())
+        self.ChooseDIDO.setSizePolicy(sizePolicy)
+        self.ChooseDIDO.setStyleSheet(u"")
+
+        self.verticalLayout_27.addWidget(self.ChooseDIDO)
 
 
         self.verticalLayout_28.addWidget(self.ChooseListOptionsWidget)
@@ -1199,7 +1246,7 @@ class Ui_MainWindow(object):
         icon12.addFile(u":/controlArrows/lift.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.LiftUp.setIcon(icon12)
         self.LiftUp.setIconSize(QSize(80, 80))
-        self.LiftUp.setCheckable(True)
+        self.LiftUp.setCheckable(False)
         self.LowerDown = QPushButton(self.ForkliftPage)
         self.buttonGroup_2.addButton(self.LowerDown)
         self.LowerDown.setObjectName(u"LowerDown")
@@ -1212,7 +1259,7 @@ class Ui_MainWindow(object):
         icon13.addFile(u":/controlArrows/lower.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.LowerDown.setIcon(icon13)
         self.LowerDown.setIconSize(QSize(80, 80))
-        self.LowerDown.setCheckable(True)
+        self.LowerDown.setCheckable(False)
         self.SliderLift = QSlider(self.ForkliftPage)
         self.SliderLift.setObjectName(u"SliderLift")
         self.SliderLift.setGeometry(QRect(50, 320, 231, 41))
@@ -1281,7 +1328,7 @@ class Ui_MainWindow(object):
         self.ChangeComponentControlStackedWidget.addWidget(self.DIDOPage)
         self.ListOptionsWidget = QWidget(self.ComponentControlMain)
         self.ListOptionsWidget.setObjectName(u"ListOptionsWidget")
-        self.ListOptionsWidget.setGeometry(QRect(20, 100, 251, 281))
+        self.ListOptionsWidget.setGeometry(QRect(20, 100, 251, 391))
         sizePolicy1.setHeightForWidth(self.ListOptionsWidget.sizePolicy().hasHeightForWidth())
         self.ListOptionsWidget.setSizePolicy(sizePolicy1)
         self.verticalLayout_5 = QVBoxLayout(self.ListOptionsWidget)
@@ -1610,113 +1657,49 @@ class Ui_MainWindow(object):
         self.MiddleStackedWidget.addWidget(self.VisionAndInfoPage)
         self.DIDOContainerPage = QWidget()
         self.DIDOContainerPage.setObjectName(u"DIDOContainerPage")
-        self.widget_2 = QWidget(self.DIDOContainerPage)
+        self.scrollArea = QScrollArea(self.DIDOContainerPage)
+        self.scrollArea.setObjectName(u"scrollArea")
+        self.scrollArea.setGeometry(QRect(0, 320, 701, 361))
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollAreaWidgetContents_2 = QWidget()
+        self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 685, 568))
+        self.horizontalLayout_34 = QHBoxLayout(self.scrollAreaWidgetContents_2)
+        self.horizontalLayout_34.setSpacing(9)
+        self.horizontalLayout_34.setObjectName(u"horizontalLayout_34")
+        self.widget_2 = QWidget(self.scrollAreaWidgetContents_2)
         self.widget_2.setObjectName(u"widget_2")
-        self.widget_2.setGeometry(QRect(20, 0, 336, 671))
+        self.widget_2.setMaximumSize(QSize(16777215, 16777215))
         self.gridLayout_7 = QGridLayout(self.widget_2)
         self.gridLayout_7.setObjectName(u"gridLayout_7")
-        self.widget_17 = QWidget(self.widget_2)
-        self.widget_17.setObjectName(u"widget_17")
-        self.label_24 = QLabel(self.widget_17)
-        self.label_24.setObjectName(u"label_24")
-        self.label_24.setGeometry(QRect(10, 10, 67, 17))
-
-        self.gridLayout_7.addWidget(self.widget_17, 6, 2, 1, 1)
-
-        self.widget_10 = QWidget(self.widget_2)
-        self.widget_10.setObjectName(u"widget_10")
-        self.label_15 = QLabel(self.widget_10)
-        self.label_15.setObjectName(u"label_15")
-        self.label_15.setGeometry(QRect(10, 10, 67, 17))
-
-        self.gridLayout_7.addWidget(self.widget_10, 7, 0, 1, 1)
-
-        self.widget_12 = QWidget(self.widget_2)
-        self.widget_12.setObjectName(u"widget_12")
-        self.verticalLayout_31 = QVBoxLayout(self.widget_12)
-        self.verticalLayout_31.setObjectName(u"verticalLayout_31")
-        self.label_17 = QLabel(self.widget_12)
-        self.label_17.setObjectName(u"label_17")
-
-        self.verticalLayout_31.addWidget(self.label_17)
-
-        self.y0_3 = QWidget(self.widget_12)
-        self.y0_3.setObjectName(u"y0_3")
-        self.y0_3.setStyleSheet(u"    border: none;\n"
-"    border-radius: 24px;\n"
-"    background-color: #000000;\n"
-"")
-        self.horizontalLayout_37 = QHBoxLayout(self.y0_3)
-        self.horizontalLayout_37.setObjectName(u"horizontalLayout_37")
-        self.CircleOff_5 = QPushButton(self.y0_3)
-        self.CircleOff_5.setObjectName(u"CircleOff_5")
-        self.CircleOff_5.setStyleSheet(u"QPushButton {\n"
-"    border: none;\n"
-"    border-radius: 15px;\n"
-"    background-color: white;\n"
-"    max-width: 30px;\n"
-"    min-height: 30px;\n"
-"    max-height: 30px;\n"
-"    padding: 0;\n"
-"}\n"
-"")
-        self.CircleOff_5.setCheckable(True)
-
-        self.horizontalLayout_37.addWidget(self.CircleOff_5)
-
-        self.CircleOn_5 = QPushButton(self.y0_3)
-        self.CircleOn_5.setObjectName(u"CircleOn_5")
-        self.CircleOn_5.setStyleSheet(u"QPushButton {\n"
-"    border: none;\n"
-"    border-radius: 15px;\n"
-"    background-color: #000000;\n"
-"    max-width: 30px;\n"
-"    min-height: 30px;\n"
-"    max-height: 30px;\n"
-"    padding: 0;\n"
-"}\n"
-"")
-        self.CircleOn_5.setCheckable(True)
-
-        self.horizontalLayout_37.addWidget(self.CircleOn_5, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop)
-
-
-        self.verticalLayout_31.addWidget(self.y0_3)
-
-
-        self.gridLayout_7.addWidget(self.widget_12, 1, 2, 1, 1)
-
-        self.label_8 = QLabel(self.widget_2)
-        self.label_8.setObjectName(u"label_8")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
+        self.gridLayout_7.setHorizontalSpacing(0)
+        self.gridLayout_7.setVerticalSpacing(10)
+        self.gridLayout_7.setContentsMargins(0, 0, 0, 0)
+        self.y0_15 = QWidget(self.widget_2)
+        self.y0_15.setObjectName(u"y0_15")
+        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
         sizePolicy5.setHorizontalStretch(0)
         sizePolicy5.setVerticalStretch(0)
-        sizePolicy5.setHeightForWidth(self.label_8.sizePolicy().hasHeightForWidth())
-        self.label_8.setSizePolicy(sizePolicy5)
-        self.label_8.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.gridLayout_7.addWidget(self.label_8, 0, 0, 1, 3)
-
-        self.widget_14 = QWidget(self.widget_2)
-        self.widget_14.setObjectName(u"widget_14")
-        self.verticalLayout_32 = QVBoxLayout(self.widget_14)
-        self.verticalLayout_32.setObjectName(u"verticalLayout_32")
-        self.label_21 = QLabel(self.widget_14)
-        self.label_21.setObjectName(u"label_21")
-
-        self.verticalLayout_32.addWidget(self.label_21)
-
-        self.y1Widget_3 = QWidget(self.widget_14)
-        self.y1Widget_3.setObjectName(u"y1Widget_3")
-        self.y1Widget_3.setStyleSheet(u"    border: none;\n"
+        sizePolicy5.setHeightForWidth(self.y0_15.sizePolicy().hasHeightForWidth())
+        self.y0_15.setSizePolicy(sizePolicy5)
+        self.y0_15.setMinimumSize(QSize(90, 60))
+        self.y0_15.setStyleSheet(u"    border: none;\n"
 "    border-radius: 24px;\n"
 "    background-color: #000000;\n"
 "")
-        self.horizontalLayout_40 = QHBoxLayout(self.y1Widget_3)
-        self.horizontalLayout_40.setObjectName(u"horizontalLayout_40")
-        self.pushButton_4 = QPushButton(self.y1Widget_3)
-        self.pushButton_4.setObjectName(u"pushButton_4")
-        self.pushButton_4.setStyleSheet(u"QPushButton {\n"
+        self.horizontalLayout_47 = QHBoxLayout(self.y0_15)
+        self.horizontalLayout_47.setObjectName(u"horizontalLayout_47")
+        self.horizontalLayout_47.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_15 = QPushButton(self.y0_15)
+        self.CircleOff_15.setObjectName(u"CircleOff_15")
+        sizePolicy2.setHeightForWidth(self.CircleOff_15.sizePolicy().hasHeightForWidth())
+        self.CircleOff_15.setSizePolicy(sizePolicy2)
+        self.CircleOff_15.setMinimumSize(QSize(0, 30))
+        self.CircleOff_15.setMaximumSize(QSize(30, 30))
+        font4 = QFont()
+        font4.setPointSize(16)
+        self.CircleOff_15.setFont(font4)
+        self.CircleOff_15.setStyleSheet(u"QPushButton {\n"
 "    border: none;\n"
 "    border-radius: 15px;\n"
 "    background-color: white;\n"
@@ -1724,15 +1707,19 @@ class Ui_MainWindow(object):
 "    min-height: 30px;\n"
 "    max-height: 30px;\n"
 "    padding: 0;\n"
+"	color: black;\n"
 "}\n"
 "")
-        self.pushButton_4.setCheckable(True)
+        self.CircleOff_15.setCheckable(True)
 
-        self.horizontalLayout_40.addWidget(self.pushButton_4)
+        self.horizontalLayout_47.addWidget(self.CircleOff_15)
 
-        self.CircleOn_8 = QPushButton(self.y1Widget_3)
-        self.CircleOn_8.setObjectName(u"CircleOn_8")
-        self.CircleOn_8.setStyleSheet(u"QPushButton {\n"
+        self.CircleOn_15 = QPushButton(self.y0_15)
+        self.CircleOn_15.setObjectName(u"CircleOn_15")
+        sizePolicy2.setHeightForWidth(self.CircleOn_15.sizePolicy().hasHeightForWidth())
+        self.CircleOn_15.setSizePolicy(sizePolicy2)
+        self.CircleOn_15.setMaximumSize(QSize(30, 30))
+        self.CircleOn_15.setStyleSheet(u"QPushButton {\n"
 "    border: none;\n"
 "    border-radius: 15px;\n"
 "    background-color: #000000;\n"
@@ -1742,68 +1729,33 @@ class Ui_MainWindow(object):
 "    padding: 0;\n"
 "}\n"
 "")
-        self.CircleOn_8.setCheckable(True)
+        self.CircleOn_15.setCheckable(True)
 
-        self.horizontalLayout_40.addWidget(self.CircleOn_8, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop)
-
-
-        self.verticalLayout_32.addWidget(self.y1Widget_3)
+        self.horizontalLayout_47.addWidget(self.CircleOn_15)
 
 
-        self.gridLayout_7.addWidget(self.widget_14, 3, 2, 1, 1)
+        self.gridLayout_7.addWidget(self.y0_15, 3, 0, 1, 1)
 
-        self.widget_18 = QWidget(self.widget_2)
-        self.widget_18.setObjectName(u"widget_18")
-        self.label_25 = QLabel(self.widget_18)
-        self.label_25.setObjectName(u"label_25")
-        self.label_25.setGeometry(QRect(10, 10, 67, 17))
-
-        self.gridLayout_7.addWidget(self.widget_18, 7, 2, 1, 1)
-
-        self.widget_16 = QWidget(self.widget_2)
-        self.widget_16.setObjectName(u"widget_16")
-        self.label_23 = QLabel(self.widget_16)
-        self.label_23.setObjectName(u"label_23")
-        self.label_23.setGeometry(QRect(10, 10, 67, 17))
-
-        self.gridLayout_7.addWidget(self.widget_16, 5, 2, 1, 1)
-
-        self.widget_11 = QWidget(self.widget_2)
-        self.widget_11.setObjectName(u"widget_11")
-        self.label_16 = QLabel(self.widget_11)
-        self.label_16.setObjectName(u"label_16")
-        self.label_16.setGeometry(QRect(10, 10, 67, 17))
-
-        self.gridLayout_7.addWidget(self.widget_11, 8, 0, 1, 1)
-
-        self.widget_19 = QWidget(self.widget_2)
-        self.widget_19.setObjectName(u"widget_19")
-        self.label_26 = QLabel(self.widget_19)
-        self.label_26.setObjectName(u"label_26")
-        self.label_26.setGeometry(QRect(10, 10, 67, 17))
-
-        self.gridLayout_7.addWidget(self.widget_19, 8, 2, 1, 1)
-
-        self.widget_4 = QWidget(self.widget_2)
-        self.widget_4.setObjectName(u"widget_4")
-        self.verticalLayout_17 = QVBoxLayout(self.widget_4)
-        self.verticalLayout_17.setObjectName(u"verticalLayout_17")
-        self.label_9 = QLabel(self.widget_4)
-        self.label_9.setObjectName(u"label_9")
-
-        self.verticalLayout_17.addWidget(self.label_9)
-
-        self.y0 = QWidget(self.widget_4)
-        self.y0.setObjectName(u"y0")
-        self.y0.setStyleSheet(u"    border: none;\n"
+        self.y0_32 = QWidget(self.widget_2)
+        self.y0_32.setObjectName(u"y0_32")
+        sizePolicy5.setHeightForWidth(self.y0_32.sizePolicy().hasHeightForWidth())
+        self.y0_32.setSizePolicy(sizePolicy5)
+        self.y0_32.setMinimumSize(QSize(90, 60))
+        self.y0_32.setStyleSheet(u"    border: none;\n"
 "    border-radius: 24px;\n"
 "    background-color: #000000;\n"
 "")
-        self.horizontalLayout_33 = QHBoxLayout(self.y0)
-        self.horizontalLayout_33.setObjectName(u"horizontalLayout_33")
-        self.CircleOff = QPushButton(self.y0)
-        self.CircleOff.setObjectName(u"CircleOff")
-        self.CircleOff.setStyleSheet(u"QPushButton {\n"
+        self.horizontalLayout_64 = QHBoxLayout(self.y0_32)
+        self.horizontalLayout_64.setObjectName(u"horizontalLayout_64")
+        self.horizontalLayout_64.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_32 = QPushButton(self.y0_32)
+        self.CircleOff_32.setObjectName(u"CircleOff_32")
+        sizePolicy2.setHeightForWidth(self.CircleOff_32.sizePolicy().hasHeightForWidth())
+        self.CircleOff_32.setSizePolicy(sizePolicy2)
+        self.CircleOff_32.setMinimumSize(QSize(0, 30))
+        self.CircleOff_32.setMaximumSize(QSize(30, 30))
+        self.CircleOff_32.setFont(font4)
+        self.CircleOff_32.setStyleSheet(u"QPushButton {\n"
 "    border: none;\n"
 "    border-radius: 15px;\n"
 "    background-color: white;\n"
@@ -1811,15 +1763,19 @@ class Ui_MainWindow(object):
 "    min-height: 30px;\n"
 "    max-height: 30px;\n"
 "    padding: 0;\n"
+"	color: black;\n"
 "}\n"
 "")
-        self.CircleOff.setCheckable(True)
+        self.CircleOff_32.setCheckable(True)
 
-        self.horizontalLayout_33.addWidget(self.CircleOff)
+        self.horizontalLayout_64.addWidget(self.CircleOff_32)
 
-        self.CircleOn = QPushButton(self.y0)
-        self.CircleOn.setObjectName(u"CircleOn")
-        self.CircleOn.setStyleSheet(u"QPushButton {\n"
+        self.CircleOn_32 = QPushButton(self.y0_32)
+        self.CircleOn_32.setObjectName(u"CircleOn_32")
+        sizePolicy2.setHeightForWidth(self.CircleOn_32.sizePolicy().hasHeightForWidth())
+        self.CircleOn_32.setSizePolicy(sizePolicy2)
+        self.CircleOn_32.setMaximumSize(QSize(30, 30))
+        self.CircleOn_32.setStyleSheet(u"QPushButton {\n"
 "    border: none;\n"
 "    border-radius: 15px;\n"
 "    background-color: #000000;\n"
@@ -1829,36 +1785,33 @@ class Ui_MainWindow(object):
 "    padding: 0;\n"
 "}\n"
 "")
-        self.CircleOn.setCheckable(True)
+        self.CircleOn_32.setCheckable(True)
 
-        self.horizontalLayout_33.addWidget(self.CircleOn, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop)
-
-
-        self.verticalLayout_17.addWidget(self.y0)
+        self.horizontalLayout_64.addWidget(self.CircleOn_32)
 
 
-        self.gridLayout_7.addWidget(self.widget_4, 1, 0, 1, 1)
+        self.gridLayout_7.addWidget(self.y0_32, 5, 5, 1, 1)
 
-        self.widget_13 = QWidget(self.widget_2)
-        self.widget_13.setObjectName(u"widget_13")
-        self.verticalLayout_29 = QVBoxLayout(self.widget_13)
-        self.verticalLayout_29.setObjectName(u"verticalLayout_29")
-        self.label_20 = QLabel(self.widget_13)
-        self.label_20.setObjectName(u"label_20")
-
-        self.verticalLayout_29.addWidget(self.label_20)
-
-        self.y0_4 = QWidget(self.widget_13)
-        self.y0_4.setObjectName(u"y0_4")
-        self.y0_4.setStyleSheet(u"    border: none;\n"
+        self.y0_14 = QWidget(self.widget_2)
+        self.y0_14.setObjectName(u"y0_14")
+        sizePolicy5.setHeightForWidth(self.y0_14.sizePolicy().hasHeightForWidth())
+        self.y0_14.setSizePolicy(sizePolicy5)
+        self.y0_14.setMinimumSize(QSize(90, 60))
+        self.y0_14.setStyleSheet(u"    border: none;\n"
 "    border-radius: 24px;\n"
 "    background-color: #000000;\n"
 "")
-        self.horizontalLayout_35 = QHBoxLayout(self.y0_4)
-        self.horizontalLayout_35.setObjectName(u"horizontalLayout_35")
-        self.CircleOff_3 = QPushButton(self.y0_4)
-        self.CircleOff_3.setObjectName(u"CircleOff_3")
-        self.CircleOff_3.setStyleSheet(u"QPushButton {\n"
+        self.horizontalLayout_46 = QHBoxLayout(self.y0_14)
+        self.horizontalLayout_46.setObjectName(u"horizontalLayout_46")
+        self.horizontalLayout_46.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_14 = QPushButton(self.y0_14)
+        self.CircleOff_14.setObjectName(u"CircleOff_14")
+        sizePolicy2.setHeightForWidth(self.CircleOff_14.sizePolicy().hasHeightForWidth())
+        self.CircleOff_14.setSizePolicy(sizePolicy2)
+        self.CircleOff_14.setMinimumSize(QSize(0, 30))
+        self.CircleOff_14.setMaximumSize(QSize(30, 30))
+        self.CircleOff_14.setFont(font4)
+        self.CircleOff_14.setStyleSheet(u"QPushButton {\n"
 "    border: none;\n"
 "    border-radius: 15px;\n"
 "    background-color: white;\n"
@@ -1866,15 +1819,19 @@ class Ui_MainWindow(object):
 "    min-height: 30px;\n"
 "    max-height: 30px;\n"
 "    padding: 0;\n"
+"	color: black;\n"
 "}\n"
 "")
-        self.CircleOff_3.setCheckable(True)
+        self.CircleOff_14.setCheckable(True)
 
-        self.horizontalLayout_35.addWidget(self.CircleOff_3)
+        self.horizontalLayout_46.addWidget(self.CircleOff_14)
 
-        self.CircleOn_3 = QPushButton(self.y0_4)
-        self.CircleOn_3.setObjectName(u"CircleOn_3")
-        self.CircleOn_3.setStyleSheet(u"QPushButton {\n"
+        self.CircleOn_14 = QPushButton(self.y0_14)
+        self.CircleOn_14.setObjectName(u"CircleOn_14")
+        sizePolicy2.setHeightForWidth(self.CircleOn_14.sizePolicy().hasHeightForWidth())
+        self.CircleOn_14.setSizePolicy(sizePolicy2)
+        self.CircleOn_14.setMaximumSize(QSize(30, 30))
+        self.CircleOn_14.setStyleSheet(u"QPushButton {\n"
 "    border: none;\n"
 "    border-radius: 15px;\n"
 "    background-color: #000000;\n"
@@ -1884,36 +1841,33 @@ class Ui_MainWindow(object):
 "    padding: 0;\n"
 "}\n"
 "")
-        self.CircleOn_3.setCheckable(True)
+        self.CircleOn_14.setCheckable(True)
 
-        self.horizontalLayout_35.addWidget(self.CircleOn_3, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop)
-
-
-        self.verticalLayout_29.addWidget(self.y0_4)
+        self.horizontalLayout_46.addWidget(self.CircleOn_14)
 
 
-        self.gridLayout_7.addWidget(self.widget_13, 2, 2, 1, 1)
+        self.gridLayout_7.addWidget(self.y0_14, 2, 5, 1, 1)
 
-        self.Y1Container = QWidget(self.widget_2)
-        self.Y1Container.setObjectName(u"Y1Container")
-        self.verticalLayout_23 = QVBoxLayout(self.Y1Container)
-        self.verticalLayout_23.setObjectName(u"verticalLayout_23")
-        self.label_10 = QLabel(self.Y1Container)
-        self.label_10.setObjectName(u"label_10")
-
-        self.verticalLayout_23.addWidget(self.label_10)
-
-        self.y1Widget = QWidget(self.Y1Container)
-        self.y1Widget.setObjectName(u"y1Widget")
-        self.y1Widget.setStyleSheet(u"    border: none;\n"
+        self.y0_24 = QWidget(self.widget_2)
+        self.y0_24.setObjectName(u"y0_24")
+        sizePolicy5.setHeightForWidth(self.y0_24.sizePolicy().hasHeightForWidth())
+        self.y0_24.setSizePolicy(sizePolicy5)
+        self.y0_24.setMinimumSize(QSize(90, 60))
+        self.y0_24.setStyleSheet(u"    border: none;\n"
 "    border-radius: 24px;\n"
 "    background-color: #000000;\n"
 "")
-        self.horizontalLayout_34 = QHBoxLayout(self.y1Widget)
-        self.horizontalLayout_34.setObjectName(u"horizontalLayout_34")
-        self.pushButton = QPushButton(self.y1Widget)
-        self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setStyleSheet(u"QPushButton {\n"
+        self.horizontalLayout_56 = QHBoxLayout(self.y0_24)
+        self.horizontalLayout_56.setObjectName(u"horizontalLayout_56")
+        self.horizontalLayout_56.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_24 = QPushButton(self.y0_24)
+        self.CircleOff_24.setObjectName(u"CircleOff_24")
+        sizePolicy2.setHeightForWidth(self.CircleOff_24.sizePolicy().hasHeightForWidth())
+        self.CircleOff_24.setSizePolicy(sizePolicy2)
+        self.CircleOff_24.setMinimumSize(QSize(0, 30))
+        self.CircleOff_24.setMaximumSize(QSize(30, 30))
+        self.CircleOff_24.setFont(font4)
+        self.CircleOff_24.setStyleSheet(u"QPushButton {\n"
 "    border: none;\n"
 "    border-radius: 15px;\n"
 "    background-color: white;\n"
@@ -1921,15 +1875,19 @@ class Ui_MainWindow(object):
 "    min-height: 30px;\n"
 "    max-height: 30px;\n"
 "    padding: 0;\n"
+"	color: black;\n"
 "}\n"
 "")
-        self.pushButton.setCheckable(True)
+        self.CircleOff_24.setCheckable(True)
 
-        self.horizontalLayout_34.addWidget(self.pushButton)
+        self.horizontalLayout_56.addWidget(self.CircleOff_24)
 
-        self.CircleOn_2 = QPushButton(self.y1Widget)
-        self.CircleOn_2.setObjectName(u"CircleOn_2")
-        self.CircleOn_2.setStyleSheet(u"QPushButton {\n"
+        self.CircleOn_24 = QPushButton(self.y0_24)
+        self.CircleOn_24.setObjectName(u"CircleOn_24")
+        sizePolicy2.setHeightForWidth(self.CircleOn_24.sizePolicy().hasHeightForWidth())
+        self.CircleOn_24.setSizePolicy(sizePolicy2)
+        self.CircleOn_24.setMaximumSize(QSize(30, 30))
+        self.CircleOn_24.setStyleSheet(u"QPushButton {\n"
 "    border: none;\n"
 "    border-radius: 15px;\n"
 "    background-color: #000000;\n"
@@ -1939,36 +1897,33 @@ class Ui_MainWindow(object):
 "    padding: 0;\n"
 "}\n"
 "")
-        self.CircleOn_2.setCheckable(True)
+        self.CircleOn_24.setCheckable(True)
 
-        self.horizontalLayout_34.addWidget(self.CircleOn_2, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop)
-
-
-        self.verticalLayout_23.addWidget(self.y1Widget)
+        self.horizontalLayout_56.addWidget(self.CircleOn_24)
 
 
-        self.gridLayout_7.addWidget(self.Y1Container, 1, 1, 1, 1)
+        self.gridLayout_7.addWidget(self.y0_24, 4, 3, 1, 1)
 
-        self.widget_6 = QWidget(self.widget_2)
-        self.widget_6.setObjectName(u"widget_6")
-        self.verticalLayout_30 = QVBoxLayout(self.widget_6)
-        self.verticalLayout_30.setObjectName(u"verticalLayout_30")
-        self.label_11 = QLabel(self.widget_6)
-        self.label_11.setObjectName(u"label_11")
-
-        self.verticalLayout_30.addWidget(self.label_11)
-
-        self.y1Widget_2 = QWidget(self.widget_6)
-        self.y1Widget_2.setObjectName(u"y1Widget_2")
-        self.y1Widget_2.setStyleSheet(u"    border: none;\n"
+        self.y0_9 = QWidget(self.widget_2)
+        self.y0_9.setObjectName(u"y0_9")
+        sizePolicy5.setHeightForWidth(self.y0_9.sizePolicy().hasHeightForWidth())
+        self.y0_9.setSizePolicy(sizePolicy5)
+        self.y0_9.setMinimumSize(QSize(90, 60))
+        self.y0_9.setStyleSheet(u"    border: none;\n"
 "    border-radius: 24px;\n"
 "    background-color: #000000;\n"
 "")
-        self.horizontalLayout_36 = QHBoxLayout(self.y1Widget_2)
-        self.horizontalLayout_36.setObjectName(u"horizontalLayout_36")
-        self.pushButton_2 = QPushButton(self.y1Widget_2)
-        self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setStyleSheet(u"QPushButton {\n"
+        self.horizontalLayout_41 = QHBoxLayout(self.y0_9)
+        self.horizontalLayout_41.setObjectName(u"horizontalLayout_41")
+        self.horizontalLayout_41.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_9 = QPushButton(self.y0_9)
+        self.CircleOff_9.setObjectName(u"CircleOff_9")
+        sizePolicy2.setHeightForWidth(self.CircleOff_9.sizePolicy().hasHeightForWidth())
+        self.CircleOff_9.setSizePolicy(sizePolicy2)
+        self.CircleOff_9.setMinimumSize(QSize(0, 30))
+        self.CircleOff_9.setMaximumSize(QSize(30, 30))
+        self.CircleOff_9.setFont(font4)
+        self.CircleOff_9.setStyleSheet(u"QPushButton {\n"
 "    border: none;\n"
 "    border-radius: 15px;\n"
 "    background-color: white;\n"
@@ -1976,15 +1931,19 @@ class Ui_MainWindow(object):
 "    min-height: 30px;\n"
 "    max-height: 30px;\n"
 "    padding: 0;\n"
+"	color: black;\n"
 "}\n"
 "")
-        self.pushButton_2.setCheckable(True)
+        self.CircleOff_9.setCheckable(True)
 
-        self.horizontalLayout_36.addWidget(self.pushButton_2)
+        self.horizontalLayout_41.addWidget(self.CircleOff_9)
 
-        self.CircleOn_4 = QPushButton(self.y1Widget_2)
-        self.CircleOn_4.setObjectName(u"CircleOn_4")
-        self.CircleOn_4.setStyleSheet(u"QPushButton {\n"
+        self.CircleOn_9 = QPushButton(self.y0_9)
+        self.CircleOn_9.setObjectName(u"CircleOn_9")
+        sizePolicy2.setHeightForWidth(self.CircleOn_9.sizePolicy().hasHeightForWidth())
+        self.CircleOn_9.setSizePolicy(sizePolicy2)
+        self.CircleOn_9.setMaximumSize(QSize(30, 30))
+        self.CircleOn_9.setStyleSheet(u"QPushButton {\n"
 "    border: none;\n"
 "    border-radius: 15px;\n"
 "    background-color: #000000;\n"
@@ -1994,36 +1953,33 @@ class Ui_MainWindow(object):
 "    padding: 0;\n"
 "}\n"
 "")
-        self.CircleOn_4.setCheckable(True)
+        self.CircleOn_9.setCheckable(True)
 
-        self.horizontalLayout_36.addWidget(self.CircleOn_4, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop)
-
-
-        self.verticalLayout_30.addWidget(self.y1Widget_2)
+        self.horizontalLayout_41.addWidget(self.CircleOn_9)
 
 
-        self.gridLayout_7.addWidget(self.widget_6, 2, 0, 1, 1)
+        self.gridLayout_7.addWidget(self.y0_9, 2, 0, 1, 1)
 
-        self.widget_7 = QWidget(self.widget_2)
-        self.widget_7.setObjectName(u"widget_7")
-        self.verticalLayout_33 = QVBoxLayout(self.widget_7)
-        self.verticalLayout_33.setObjectName(u"verticalLayout_33")
-        self.label_12 = QLabel(self.widget_7)
-        self.label_12.setObjectName(u"label_12")
-
-        self.verticalLayout_33.addWidget(self.label_12)
-
-        self.y1Widget_4 = QWidget(self.widget_7)
-        self.y1Widget_4.setObjectName(u"y1Widget_4")
-        self.y1Widget_4.setStyleSheet(u"    border: none;\n"
+        self.y0_6 = QWidget(self.widget_2)
+        self.y0_6.setObjectName(u"y0_6")
+        sizePolicy5.setHeightForWidth(self.y0_6.sizePolicy().hasHeightForWidth())
+        self.y0_6.setSizePolicy(sizePolicy5)
+        self.y0_6.setMinimumSize(QSize(90, 60))
+        self.y0_6.setStyleSheet(u"    border: none;\n"
 "    border-radius: 24px;\n"
 "    background-color: #000000;\n"
 "")
-        self.horizontalLayout_42 = QHBoxLayout(self.y1Widget_4)
-        self.horizontalLayout_42.setObjectName(u"horizontalLayout_42")
-        self.pushButton_6 = QPushButton(self.y1Widget_4)
-        self.pushButton_6.setObjectName(u"pushButton_6")
-        self.pushButton_6.setStyleSheet(u"QPushButton {\n"
+        self.horizontalLayout_38 = QHBoxLayout(self.y0_6)
+        self.horizontalLayout_38.setObjectName(u"horizontalLayout_38")
+        self.horizontalLayout_38.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_6 = QPushButton(self.y0_6)
+        self.CircleOff_6.setObjectName(u"CircleOff_6")
+        sizePolicy2.setHeightForWidth(self.CircleOff_6.sizePolicy().hasHeightForWidth())
+        self.CircleOff_6.setSizePolicy(sizePolicy2)
+        self.CircleOff_6.setMinimumSize(QSize(0, 30))
+        self.CircleOff_6.setMaximumSize(QSize(30, 30))
+        self.CircleOff_6.setFont(font4)
+        self.CircleOff_6.setStyleSheet(u"QPushButton {\n"
 "    border: none;\n"
 "    border-radius: 15px;\n"
 "    background-color: white;\n"
@@ -2031,15 +1987,19 @@ class Ui_MainWindow(object):
 "    min-height: 30px;\n"
 "    max-height: 30px;\n"
 "    padding: 0;\n"
+"	color: black;\n"
 "}\n"
 "")
-        self.pushButton_6.setCheckable(True)
+        self.CircleOff_6.setCheckable(True)
 
-        self.horizontalLayout_42.addWidget(self.pushButton_6)
+        self.horizontalLayout_38.addWidget(self.CircleOff_6)
 
-        self.CircleOn_10 = QPushButton(self.y1Widget_4)
-        self.CircleOn_10.setObjectName(u"CircleOn_10")
-        self.CircleOn_10.setStyleSheet(u"QPushButton {\n"
+        self.CircleOn_6 = QPushButton(self.y0_6)
+        self.CircleOn_6.setObjectName(u"CircleOn_6")
+        sizePolicy2.setHeightForWidth(self.CircleOn_6.sizePolicy().hasHeightForWidth())
+        self.CircleOn_6.setSizePolicy(sizePolicy2)
+        self.CircleOn_6.setMaximumSize(QSize(30, 30))
+        self.CircleOn_6.setStyleSheet(u"QPushButton {\n"
 "    border: none;\n"
 "    border-radius: 15px;\n"
 "    background-color: #000000;\n"
@@ -2049,36 +2009,33 @@ class Ui_MainWindow(object):
 "    padding: 0;\n"
 "}\n"
 "")
-        self.CircleOn_10.setCheckable(True)
+        self.CircleOn_6.setCheckable(True)
 
-        self.horizontalLayout_42.addWidget(self.CircleOn_10, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop)
-
-
-        self.verticalLayout_33.addWidget(self.y1Widget_4)
+        self.horizontalLayout_38.addWidget(self.CircleOn_6)
 
 
-        self.gridLayout_7.addWidget(self.widget_7, 2, 1, 1, 1)
+        self.gridLayout_7.addWidget(self.y0_6, 1, 3, 1, 1)
 
-        self.widget_8 = QWidget(self.widget_2)
-        self.widget_8.setObjectName(u"widget_8")
-        self.verticalLayout_35 = QVBoxLayout(self.widget_8)
-        self.verticalLayout_35.setObjectName(u"verticalLayout_35")
-        self.label_13 = QLabel(self.widget_8)
-        self.label_13.setObjectName(u"label_13")
-
-        self.verticalLayout_35.addWidget(self.label_13)
-
-        self.y1Widget_6 = QWidget(self.widget_8)
-        self.y1Widget_6.setObjectName(u"y1Widget_6")
-        self.y1Widget_6.setStyleSheet(u"    border: none;\n"
+        self.y0_23 = QWidget(self.widget_2)
+        self.y0_23.setObjectName(u"y0_23")
+        sizePolicy5.setHeightForWidth(self.y0_23.sizePolicy().hasHeightForWidth())
+        self.y0_23.setSizePolicy(sizePolicy5)
+        self.y0_23.setMinimumSize(QSize(90, 60))
+        self.y0_23.setStyleSheet(u"    border: none;\n"
 "    border-radius: 24px;\n"
 "    background-color: #000000;\n"
 "")
-        self.horizontalLayout_45 = QHBoxLayout(self.y1Widget_6)
-        self.horizontalLayout_45.setObjectName(u"horizontalLayout_45")
-        self.pushButton_9 = QPushButton(self.y1Widget_6)
-        self.pushButton_9.setObjectName(u"pushButton_9")
-        self.pushButton_9.setStyleSheet(u"QPushButton {\n"
+        self.horizontalLayout_55 = QHBoxLayout(self.y0_23)
+        self.horizontalLayout_55.setObjectName(u"horizontalLayout_55")
+        self.horizontalLayout_55.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_23 = QPushButton(self.y0_23)
+        self.CircleOff_23.setObjectName(u"CircleOff_23")
+        sizePolicy2.setHeightForWidth(self.CircleOff_23.sizePolicy().hasHeightForWidth())
+        self.CircleOff_23.setSizePolicy(sizePolicy2)
+        self.CircleOff_23.setMinimumSize(QSize(0, 30))
+        self.CircleOff_23.setMaximumSize(QSize(30, 30))
+        self.CircleOff_23.setFont(font4)
+        self.CircleOff_23.setStyleSheet(u"QPushButton {\n"
 "    border: none;\n"
 "    border-radius: 15px;\n"
 "    background-color: white;\n"
@@ -2086,124 +2043,18 @@ class Ui_MainWindow(object):
 "    min-height: 30px;\n"
 "    max-height: 30px;\n"
 "    padding: 0;\n"
+"	color: black;\n"
 "}\n"
 "")
-        self.pushButton_9.setCheckable(True)
+        self.CircleOff_23.setCheckable(True)
 
-        self.horizontalLayout_45.addWidget(self.pushButton_9)
+        self.horizontalLayout_55.addWidget(self.CircleOff_23)
 
-        self.CircleOn_13 = QPushButton(self.y1Widget_6)
-        self.CircleOn_13.setObjectName(u"CircleOn_13")
-        self.CircleOn_13.setStyleSheet(u"QPushButton {\n"
-"    border: none;\n"
-"    border-radius: 15px;\n"
-"    background-color: #000000;\n"
-"    max-width: 30px;\n"
-"    min-height: 30px;\n"
-"    max-height: 30px;\n"
-"    padding: 0;\n"
-"}\n"
-"")
-        self.CircleOn_13.setCheckable(True)
-
-        self.horizontalLayout_45.addWidget(self.CircleOn_13, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop)
-
-
-        self.verticalLayout_35.addWidget(self.y1Widget_6)
-
-
-        self.gridLayout_7.addWidget(self.widget_8, 3, 0, 1, 1)
-
-        self.widget_15 = QWidget(self.widget_2)
-        self.widget_15.setObjectName(u"widget_15")
-        self.verticalLayout_34 = QVBoxLayout(self.widget_15)
-        self.verticalLayout_34.setObjectName(u"verticalLayout_34")
-        self.label_22 = QLabel(self.widget_15)
-        self.label_22.setObjectName(u"label_22")
-
-        self.verticalLayout_34.addWidget(self.label_22)
-
-        self.y1Widget_5 = QWidget(self.widget_15)
-        self.y1Widget_5.setObjectName(u"y1Widget_5")
-        self.y1Widget_5.setStyleSheet(u"    border: none;\n"
-"    border-radius: 24px;\n"
-"    background-color: #000000;\n"
-"")
-        self.horizontalLayout_44 = QHBoxLayout(self.y1Widget_5)
-        self.horizontalLayout_44.setObjectName(u"horizontalLayout_44")
-        self.pushButton_8 = QPushButton(self.y1Widget_5)
-        self.pushButton_8.setObjectName(u"pushButton_8")
-        self.pushButton_8.setStyleSheet(u"QPushButton {\n"
-"    border: none;\n"
-"    border-radius: 15px;\n"
-"    background-color: white;\n"
-"    max-width: 30px;\n"
-"    min-height: 30px;\n"
-"    max-height: 30px;\n"
-"    padding: 0;\n"
-"}\n"
-"")
-        self.pushButton_8.setCheckable(True)
-
-        self.horizontalLayout_44.addWidget(self.pushButton_8)
-
-        self.CircleOn_12 = QPushButton(self.y1Widget_5)
-        self.CircleOn_12.setObjectName(u"CircleOn_12")
-        self.CircleOn_12.setStyleSheet(u"QPushButton {\n"
-"    border: none;\n"
-"    border-radius: 15px;\n"
-"    background-color: #000000;\n"
-"    max-width: 30px;\n"
-"    min-height: 30px;\n"
-"    max-height: 30px;\n"
-"    padding: 0;\n"
-"}\n"
-"")
-        self.CircleOn_12.setCheckable(True)
-
-        self.horizontalLayout_44.addWidget(self.CircleOn_12, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop)
-
-
-        self.verticalLayout_34.addWidget(self.y1Widget_5)
-
-
-        self.gridLayout_7.addWidget(self.widget_15, 3, 1, 1, 1)
-
-        self.widget_9 = QWidget(self.widget_2)
-        self.widget_9.setObjectName(u"widget_9")
-        self.verticalLayout_47 = QVBoxLayout(self.widget_9)
-        self.verticalLayout_47.setObjectName(u"verticalLayout_47")
-        self.label_14 = QLabel(self.widget_9)
-        self.label_14.setObjectName(u"label_14")
-
-        self.verticalLayout_47.addWidget(self.label_14)
-
-        self.y1Widget_13 = QWidget(self.widget_9)
-        self.y1Widget_13.setObjectName(u"y1Widget_13")
-        self.y1Widget_13.setStyleSheet(u"    border: none;\n"
-"    border-radius: 24px;\n"
-"    background-color: #000000;\n"
-"")
-        self.horizontalLayout_65 = QHBoxLayout(self.y1Widget_13)
-        self.horizontalLayout_65.setObjectName(u"horizontalLayout_65")
-        self.pushButton_16 = QPushButton(self.y1Widget_13)
-        self.pushButton_16.setObjectName(u"pushButton_16")
-        self.pushButton_16.setStyleSheet(u"QPushButton {\n"
-"    border: none;\n"
-"    border-radius: 15px;\n"
-"    background-color: white;\n"
-"    max-width: 30px;\n"
-"    min-height: 30px;\n"
-"    max-height: 30px;\n"
-"    padding: 0;\n"
-"}\n"
-"")
-        self.pushButton_16.setCheckable(True)
-
-        self.horizontalLayout_65.addWidget(self.pushButton_16)
-
-        self.CircleOn_23 = QPushButton(self.y1Widget_13)
+        self.CircleOn_23 = QPushButton(self.y0_23)
         self.CircleOn_23.setObjectName(u"CircleOn_23")
+        sizePolicy2.setHeightForWidth(self.CircleOn_23.sizePolicy().hasHeightForWidth())
+        self.CircleOn_23.setSizePolicy(sizePolicy2)
+        self.CircleOn_23.setMaximumSize(QSize(30, 30))
         self.CircleOn_23.setStyleSheet(u"QPushButton {\n"
 "    border: none;\n"
 "    border-radius: 15px;\n"
@@ -2216,155 +2067,3223 @@ class Ui_MainWindow(object):
 "")
         self.CircleOn_23.setCheckable(True)
 
-        self.horizontalLayout_65.addWidget(self.CircleOn_23, 0, Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop)
+        self.horizontalLayout_55.addWidget(self.CircleOn_23)
 
 
-        self.verticalLayout_47.addWidget(self.y1Widget_13)
+        self.gridLayout_7.addWidget(self.y0_23, 4, 2, 1, 1)
+
+        self.y0_33 = QWidget(self.widget_2)
+        self.y0_33.setObjectName(u"y0_33")
+        sizePolicy5.setHeightForWidth(self.y0_33.sizePolicy().hasHeightForWidth())
+        self.y0_33.setSizePolicy(sizePolicy5)
+        self.y0_33.setMinimumSize(QSize(90, 60))
+        self.y0_33.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_67 = QHBoxLayout(self.y0_33)
+        self.horizontalLayout_67.setObjectName(u"horizontalLayout_67")
+        self.horizontalLayout_67.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_35 = QPushButton(self.y0_33)
+        self.CircleOff_35.setObjectName(u"CircleOff_35")
+        sizePolicy2.setHeightForWidth(self.CircleOff_35.sizePolicy().hasHeightForWidth())
+        self.CircleOff_35.setSizePolicy(sizePolicy2)
+        self.CircleOff_35.setMinimumSize(QSize(0, 30))
+        self.CircleOff_35.setMaximumSize(QSize(30, 30))
+        self.CircleOff_35.setFont(font4)
+        self.CircleOff_35.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_35.setCheckable(True)
+
+        self.horizontalLayout_67.addWidget(self.CircleOff_35)
+
+        self.CircleOn_35 = QPushButton(self.y0_33)
+        self.CircleOn_35.setObjectName(u"CircleOn_35")
+        sizePolicy2.setHeightForWidth(self.CircleOn_35.sizePolicy().hasHeightForWidth())
+        self.CircleOn_35.setSizePolicy(sizePolicy2)
+        self.CircleOn_35.setMaximumSize(QSize(30, 30))
+        self.CircleOn_35.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_35.setCheckable(True)
+
+        self.horizontalLayout_67.addWidget(self.CircleOn_35)
 
 
-        self.gridLayout_7.addWidget(self.widget_9, 5, 0, 1, 1)
+        self.gridLayout_7.addWidget(self.y0_33, 6, 0, 1, 1)
 
-        self.widget_3 = QWidget(self.DIDOContainerPage)
-        self.widget_3.setObjectName(u"widget_3")
-        self.widget_3.setGeometry(QRect(530, 460, 49, 163))
-        self.gridLayout_8 = QGridLayout(self.widget_3)
+        self.y0_18 = QWidget(self.widget_2)
+        self.y0_18.setObjectName(u"y0_18")
+        sizePolicy5.setHeightForWidth(self.y0_18.sizePolicy().hasHeightForWidth())
+        self.y0_18.setSizePolicy(sizePolicy5)
+        self.y0_18.setMinimumSize(QSize(90, 60))
+        self.y0_18.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_50 = QHBoxLayout(self.y0_18)
+        self.horizontalLayout_50.setObjectName(u"horizontalLayout_50")
+        self.horizontalLayout_50.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_18 = QPushButton(self.y0_18)
+        self.CircleOff_18.setObjectName(u"CircleOff_18")
+        sizePolicy2.setHeightForWidth(self.CircleOff_18.sizePolicy().hasHeightForWidth())
+        self.CircleOff_18.setSizePolicy(sizePolicy2)
+        self.CircleOff_18.setMinimumSize(QSize(0, 30))
+        self.CircleOff_18.setMaximumSize(QSize(30, 30))
+        self.CircleOff_18.setFont(font4)
+        self.CircleOff_18.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_18.setCheckable(True)
+
+        self.horizontalLayout_50.addWidget(self.CircleOff_18)
+
+        self.CircleOn_18 = QPushButton(self.y0_18)
+        self.CircleOn_18.setObjectName(u"CircleOn_18")
+        sizePolicy2.setHeightForWidth(self.CircleOn_18.sizePolicy().hasHeightForWidth())
+        self.CircleOn_18.setSizePolicy(sizePolicy2)
+        self.CircleOn_18.setMaximumSize(QSize(30, 30))
+        self.CircleOn_18.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_18.setCheckable(True)
+
+        self.horizontalLayout_50.addWidget(self.CircleOn_18)
+
+
+        self.gridLayout_7.addWidget(self.y0_18, 3, 3, 1, 1)
+
+        self.y0_20 = QWidget(self.widget_2)
+        self.y0_20.setObjectName(u"y0_20")
+        sizePolicy5.setHeightForWidth(self.y0_20.sizePolicy().hasHeightForWidth())
+        self.y0_20.setSizePolicy(sizePolicy5)
+        self.y0_20.setMinimumSize(QSize(90, 60))
+        self.y0_20.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_52 = QHBoxLayout(self.y0_20)
+        self.horizontalLayout_52.setObjectName(u"horizontalLayout_52")
+        self.horizontalLayout_52.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_20 = QPushButton(self.y0_20)
+        self.CircleOff_20.setObjectName(u"CircleOff_20")
+        sizePolicy2.setHeightForWidth(self.CircleOff_20.sizePolicy().hasHeightForWidth())
+        self.CircleOff_20.setSizePolicy(sizePolicy2)
+        self.CircleOff_20.setMinimumSize(QSize(0, 30))
+        self.CircleOff_20.setMaximumSize(QSize(30, 30))
+        self.CircleOff_20.setFont(font4)
+        self.CircleOff_20.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_20.setCheckable(True)
+
+        self.horizontalLayout_52.addWidget(self.CircleOff_20)
+
+        self.CircleOn_20 = QPushButton(self.y0_20)
+        self.CircleOn_20.setObjectName(u"CircleOn_20")
+        sizePolicy2.setHeightForWidth(self.CircleOn_20.sizePolicy().hasHeightForWidth())
+        self.CircleOn_20.setSizePolicy(sizePolicy2)
+        self.CircleOn_20.setMaximumSize(QSize(30, 30))
+        self.CircleOn_20.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_20.setCheckable(True)
+
+        self.horizontalLayout_52.addWidget(self.CircleOn_20)
+
+
+        self.gridLayout_7.addWidget(self.y0_20, 3, 5, 1, 1)
+
+        self.y0_30 = QWidget(self.widget_2)
+        self.y0_30.setObjectName(u"y0_30")
+        sizePolicy5.setHeightForWidth(self.y0_30.sizePolicy().hasHeightForWidth())
+        self.y0_30.setSizePolicy(sizePolicy5)
+        self.y0_30.setMinimumSize(QSize(90, 60))
+        self.y0_30.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_62 = QHBoxLayout(self.y0_30)
+        self.horizontalLayout_62.setObjectName(u"horizontalLayout_62")
+        self.horizontalLayout_62.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_30 = QPushButton(self.y0_30)
+        self.CircleOff_30.setObjectName(u"CircleOff_30")
+        sizePolicy2.setHeightForWidth(self.CircleOff_30.sizePolicy().hasHeightForWidth())
+        self.CircleOff_30.setSizePolicy(sizePolicy2)
+        self.CircleOff_30.setMinimumSize(QSize(0, 30))
+        self.CircleOff_30.setMaximumSize(QSize(30, 30))
+        self.CircleOff_30.setFont(font4)
+        self.CircleOff_30.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_30.setCheckable(True)
+
+        self.horizontalLayout_62.addWidget(self.CircleOff_30)
+
+        self.CircleOn_30 = QPushButton(self.y0_30)
+        self.CircleOn_30.setObjectName(u"CircleOn_30")
+        sizePolicy2.setHeightForWidth(self.CircleOn_30.sizePolicy().hasHeightForWidth())
+        self.CircleOn_30.setSizePolicy(sizePolicy2)
+        self.CircleOn_30.setMaximumSize(QSize(30, 30))
+        self.CircleOn_30.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_30.setCheckable(True)
+
+        self.horizontalLayout_62.addWidget(self.CircleOn_30)
+
+
+        self.gridLayout_7.addWidget(self.y0_30, 5, 3, 1, 1)
+
+        self.y0_39 = QWidget(self.widget_2)
+        self.y0_39.setObjectName(u"y0_39")
+        sizePolicy5.setHeightForWidth(self.y0_39.sizePolicy().hasHeightForWidth())
+        self.y0_39.setSizePolicy(sizePolicy5)
+        self.y0_39.setMinimumSize(QSize(90, 60))
+        self.y0_39.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_79 = QHBoxLayout(self.y0_39)
+        self.horizontalLayout_79.setObjectName(u"horizontalLayout_79")
+        self.horizontalLayout_79.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_47 = QPushButton(self.y0_39)
+        self.CircleOff_47.setObjectName(u"CircleOff_47")
+        sizePolicy2.setHeightForWidth(self.CircleOff_47.sizePolicy().hasHeightForWidth())
+        self.CircleOff_47.setSizePolicy(sizePolicy2)
+        self.CircleOff_47.setMinimumSize(QSize(0, 30))
+        self.CircleOff_47.setMaximumSize(QSize(30, 30))
+        self.CircleOff_47.setFont(font4)
+        self.CircleOff_47.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_47.setCheckable(True)
+
+        self.horizontalLayout_79.addWidget(self.CircleOff_47)
+
+        self.CircleOn_47 = QPushButton(self.y0_39)
+        self.CircleOn_47.setObjectName(u"CircleOn_47")
+        sizePolicy2.setHeightForWidth(self.CircleOn_47.sizePolicy().hasHeightForWidth())
+        self.CircleOn_47.setSizePolicy(sizePolicy2)
+        self.CircleOn_47.setMaximumSize(QSize(30, 30))
+        self.CircleOn_47.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_47.setCheckable(True)
+
+        self.horizontalLayout_79.addWidget(self.CircleOn_47)
+
+
+        self.gridLayout_7.addWidget(self.y0_39, 7, 0, 1, 1)
+
+        self.y0_10 = QWidget(self.widget_2)
+        self.y0_10.setObjectName(u"y0_10")
+        sizePolicy5.setHeightForWidth(self.y0_10.sizePolicy().hasHeightForWidth())
+        self.y0_10.setSizePolicy(sizePolicy5)
+        self.y0_10.setMinimumSize(QSize(90, 60))
+        self.y0_10.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_42 = QHBoxLayout(self.y0_10)
+        self.horizontalLayout_42.setObjectName(u"horizontalLayout_42")
+        self.horizontalLayout_42.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_10 = QPushButton(self.y0_10)
+        self.CircleOff_10.setObjectName(u"CircleOff_10")
+        sizePolicy2.setHeightForWidth(self.CircleOff_10.sizePolicy().hasHeightForWidth())
+        self.CircleOff_10.setSizePolicy(sizePolicy2)
+        self.CircleOff_10.setMinimumSize(QSize(0, 30))
+        self.CircleOff_10.setMaximumSize(QSize(30, 30))
+        self.CircleOff_10.setFont(font4)
+        self.CircleOff_10.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_10.setCheckable(True)
+
+        self.horizontalLayout_42.addWidget(self.CircleOff_10)
+
+        self.CircleOn_10 = QPushButton(self.y0_10)
+        self.CircleOn_10.setObjectName(u"CircleOn_10")
+        sizePolicy2.setHeightForWidth(self.CircleOn_10.sizePolicy().hasHeightForWidth())
+        self.CircleOn_10.setSizePolicy(sizePolicy2)
+        self.CircleOn_10.setMaximumSize(QSize(30, 30))
+        self.CircleOn_10.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_10.setCheckable(True)
+
+        self.horizontalLayout_42.addWidget(self.CircleOn_10)
+
+
+        self.gridLayout_7.addWidget(self.y0_10, 2, 1, 1, 1)
+
+        self.y0_50 = QWidget(self.widget_2)
+        self.y0_50.setObjectName(u"y0_50")
+        sizePolicy5.setHeightForWidth(self.y0_50.sizePolicy().hasHeightForWidth())
+        self.y0_50.setSizePolicy(sizePolicy5)
+        self.y0_50.setMinimumSize(QSize(90, 60))
+        self.y0_50.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_90 = QHBoxLayout(self.y0_50)
+        self.horizontalLayout_90.setObjectName(u"horizontalLayout_90")
+        self.horizontalLayout_90.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_58 = QPushButton(self.y0_50)
+        self.CircleOff_58.setObjectName(u"CircleOff_58")
+        sizePolicy2.setHeightForWidth(self.CircleOff_58.sizePolicy().hasHeightForWidth())
+        self.CircleOff_58.setSizePolicy(sizePolicy2)
+        self.CircleOff_58.setMinimumSize(QSize(0, 30))
+        self.CircleOff_58.setMaximumSize(QSize(30, 30))
+        self.CircleOff_58.setFont(font4)
+        self.CircleOff_58.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_58.setCheckable(True)
+
+        self.horizontalLayout_90.addWidget(self.CircleOff_58)
+
+        self.CircleOn_58 = QPushButton(self.y0_50)
+        self.CircleOn_58.setObjectName(u"CircleOn_58")
+        sizePolicy2.setHeightForWidth(self.CircleOn_58.sizePolicy().hasHeightForWidth())
+        self.CircleOn_58.setSizePolicy(sizePolicy2)
+        self.CircleOn_58.setMaximumSize(QSize(30, 30))
+        self.CircleOn_58.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_58.setCheckable(True)
+
+        self.horizontalLayout_90.addWidget(self.CircleOn_58)
+
+
+        self.gridLayout_7.addWidget(self.y0_50, 8, 5, 1, 1)
+
+        self.y0_48 = QWidget(self.widget_2)
+        self.y0_48.setObjectName(u"y0_48")
+        sizePolicy5.setHeightForWidth(self.y0_48.sizePolicy().hasHeightForWidth())
+        self.y0_48.setSizePolicy(sizePolicy5)
+        self.y0_48.setMinimumSize(QSize(90, 60))
+        self.y0_48.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_88 = QHBoxLayout(self.y0_48)
+        self.horizontalLayout_88.setObjectName(u"horizontalLayout_88")
+        self.horizontalLayout_88.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_56 = QPushButton(self.y0_48)
+        self.CircleOff_56.setObjectName(u"CircleOff_56")
+        sizePolicy2.setHeightForWidth(self.CircleOff_56.sizePolicy().hasHeightForWidth())
+        self.CircleOff_56.setSizePolicy(sizePolicy2)
+        self.CircleOff_56.setMinimumSize(QSize(0, 30))
+        self.CircleOff_56.setMaximumSize(QSize(30, 30))
+        self.CircleOff_56.setFont(font4)
+        self.CircleOff_56.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_56.setCheckable(True)
+
+        self.horizontalLayout_88.addWidget(self.CircleOff_56)
+
+        self.CircleOn_56 = QPushButton(self.y0_48)
+        self.CircleOn_56.setObjectName(u"CircleOn_56")
+        sizePolicy2.setHeightForWidth(self.CircleOn_56.sizePolicy().hasHeightForWidth())
+        self.CircleOn_56.setSizePolicy(sizePolicy2)
+        self.CircleOn_56.setMaximumSize(QSize(30, 30))
+        self.CircleOn_56.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_56.setCheckable(True)
+
+        self.horizontalLayout_88.addWidget(self.CircleOn_56)
+
+
+        self.gridLayout_7.addWidget(self.y0_48, 8, 3, 1, 1)
+
+        self.y0_11 = QWidget(self.widget_2)
+        self.y0_11.setObjectName(u"y0_11")
+        sizePolicy5.setHeightForWidth(self.y0_11.sizePolicy().hasHeightForWidth())
+        self.y0_11.setSizePolicy(sizePolicy5)
+        self.y0_11.setMinimumSize(QSize(90, 60))
+        self.y0_11.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_43 = QHBoxLayout(self.y0_11)
+        self.horizontalLayout_43.setObjectName(u"horizontalLayout_43")
+        self.horizontalLayout_43.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_11 = QPushButton(self.y0_11)
+        self.CircleOff_11.setObjectName(u"CircleOff_11")
+        sizePolicy2.setHeightForWidth(self.CircleOff_11.sizePolicy().hasHeightForWidth())
+        self.CircleOff_11.setSizePolicy(sizePolicy2)
+        self.CircleOff_11.setMinimumSize(QSize(0, 30))
+        self.CircleOff_11.setMaximumSize(QSize(30, 30))
+        self.CircleOff_11.setFont(font4)
+        self.CircleOff_11.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_11.setCheckable(True)
+
+        self.horizontalLayout_43.addWidget(self.CircleOff_11)
+
+        self.CircleOn_11 = QPushButton(self.y0_11)
+        self.CircleOn_11.setObjectName(u"CircleOn_11")
+        sizePolicy2.setHeightForWidth(self.CircleOn_11.sizePolicy().hasHeightForWidth())
+        self.CircleOn_11.setSizePolicy(sizePolicy2)
+        self.CircleOn_11.setMaximumSize(QSize(30, 30))
+        self.CircleOn_11.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_11.setCheckable(True)
+
+        self.horizontalLayout_43.addWidget(self.CircleOn_11)
+
+
+        self.gridLayout_7.addWidget(self.y0_11, 2, 2, 1, 1)
+
+        self.y0_22 = QWidget(self.widget_2)
+        self.y0_22.setObjectName(u"y0_22")
+        sizePolicy5.setHeightForWidth(self.y0_22.sizePolicy().hasHeightForWidth())
+        self.y0_22.setSizePolicy(sizePolicy5)
+        self.y0_22.setMinimumSize(QSize(90, 60))
+        self.y0_22.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_54 = QHBoxLayout(self.y0_22)
+        self.horizontalLayout_54.setObjectName(u"horizontalLayout_54")
+        self.horizontalLayout_54.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_22 = QPushButton(self.y0_22)
+        self.CircleOff_22.setObjectName(u"CircleOff_22")
+        sizePolicy2.setHeightForWidth(self.CircleOff_22.sizePolicy().hasHeightForWidth())
+        self.CircleOff_22.setSizePolicy(sizePolicy2)
+        self.CircleOff_22.setMinimumSize(QSize(0, 30))
+        self.CircleOff_22.setMaximumSize(QSize(30, 30))
+        self.CircleOff_22.setFont(font4)
+        self.CircleOff_22.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_22.setCheckable(True)
+
+        self.horizontalLayout_54.addWidget(self.CircleOff_22)
+
+        self.CircleOn_22 = QPushButton(self.y0_22)
+        self.CircleOn_22.setObjectName(u"CircleOn_22")
+        sizePolicy2.setHeightForWidth(self.CircleOn_22.sizePolicy().hasHeightForWidth())
+        self.CircleOn_22.setSizePolicy(sizePolicy2)
+        self.CircleOn_22.setMaximumSize(QSize(30, 30))
+        self.CircleOn_22.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_22.setCheckable(True)
+
+        self.horizontalLayout_54.addWidget(self.CircleOn_22)
+
+
+        self.gridLayout_7.addWidget(self.y0_22, 4, 1, 1, 1)
+
+        self.y0_8 = QWidget(self.widget_2)
+        self.y0_8.setObjectName(u"y0_8")
+        sizePolicy5.setHeightForWidth(self.y0_8.sizePolicy().hasHeightForWidth())
+        self.y0_8.setSizePolicy(sizePolicy5)
+        self.y0_8.setMinimumSize(QSize(90, 60))
+        self.y0_8.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_40 = QHBoxLayout(self.y0_8)
+        self.horizontalLayout_40.setObjectName(u"horizontalLayout_40")
+        self.horizontalLayout_40.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_8 = QPushButton(self.y0_8)
+        self.CircleOff_8.setObjectName(u"CircleOff_8")
+        sizePolicy2.setHeightForWidth(self.CircleOff_8.sizePolicy().hasHeightForWidth())
+        self.CircleOff_8.setSizePolicy(sizePolicy2)
+        self.CircleOff_8.setMinimumSize(QSize(0, 30))
+        self.CircleOff_8.setMaximumSize(QSize(30, 30))
+        self.CircleOff_8.setFont(font4)
+        self.CircleOff_8.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_8.setCheckable(True)
+
+        self.horizontalLayout_40.addWidget(self.CircleOff_8)
+
+        self.CircleOn_8 = QPushButton(self.y0_8)
+        self.CircleOn_8.setObjectName(u"CircleOn_8")
+        sizePolicy2.setHeightForWidth(self.CircleOn_8.sizePolicy().hasHeightForWidth())
+        self.CircleOn_8.setSizePolicy(sizePolicy2)
+        self.CircleOn_8.setMaximumSize(QSize(30, 30))
+        self.CircleOn_8.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_8.setCheckable(True)
+
+        self.horizontalLayout_40.addWidget(self.CircleOn_8)
+
+
+        self.gridLayout_7.addWidget(self.y0_8, 1, 5, 1, 1)
+
+        self.y0_25 = QWidget(self.widget_2)
+        self.y0_25.setObjectName(u"y0_25")
+        sizePolicy5.setHeightForWidth(self.y0_25.sizePolicy().hasHeightForWidth())
+        self.y0_25.setSizePolicy(sizePolicy5)
+        self.y0_25.setMinimumSize(QSize(90, 60))
+        self.y0_25.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_57 = QHBoxLayout(self.y0_25)
+        self.horizontalLayout_57.setObjectName(u"horizontalLayout_57")
+        self.horizontalLayout_57.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_25 = QPushButton(self.y0_25)
+        self.CircleOff_25.setObjectName(u"CircleOff_25")
+        sizePolicy2.setHeightForWidth(self.CircleOff_25.sizePolicy().hasHeightForWidth())
+        self.CircleOff_25.setSizePolicy(sizePolicy2)
+        self.CircleOff_25.setMinimumSize(QSize(0, 30))
+        self.CircleOff_25.setMaximumSize(QSize(30, 30))
+        self.CircleOff_25.setFont(font4)
+        self.CircleOff_25.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_25.setCheckable(True)
+
+        self.horizontalLayout_57.addWidget(self.CircleOff_25)
+
+        self.CircleOn_25 = QPushButton(self.y0_25)
+        self.CircleOn_25.setObjectName(u"CircleOn_25")
+        sizePolicy2.setHeightForWidth(self.CircleOn_25.sizePolicy().hasHeightForWidth())
+        self.CircleOn_25.setSizePolicy(sizePolicy2)
+        self.CircleOn_25.setMaximumSize(QSize(30, 30))
+        self.CircleOn_25.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_25.setCheckable(True)
+
+        self.horizontalLayout_57.addWidget(self.CircleOn_25)
+
+
+        self.gridLayout_7.addWidget(self.y0_25, 4, 4, 1, 1)
+
+        self.y0_49 = QWidget(self.widget_2)
+        self.y0_49.setObjectName(u"y0_49")
+        sizePolicy5.setHeightForWidth(self.y0_49.sizePolicy().hasHeightForWidth())
+        self.y0_49.setSizePolicy(sizePolicy5)
+        self.y0_49.setMinimumSize(QSize(90, 60))
+        self.y0_49.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_89 = QHBoxLayout(self.y0_49)
+        self.horizontalLayout_89.setObjectName(u"horizontalLayout_89")
+        self.horizontalLayout_89.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_57 = QPushButton(self.y0_49)
+        self.CircleOff_57.setObjectName(u"CircleOff_57")
+        sizePolicy2.setHeightForWidth(self.CircleOff_57.sizePolicy().hasHeightForWidth())
+        self.CircleOff_57.setSizePolicy(sizePolicy2)
+        self.CircleOff_57.setMinimumSize(QSize(0, 30))
+        self.CircleOff_57.setMaximumSize(QSize(30, 30))
+        self.CircleOff_57.setFont(font4)
+        self.CircleOff_57.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_57.setCheckable(True)
+
+        self.horizontalLayout_89.addWidget(self.CircleOff_57)
+
+        self.CircleOn_57 = QPushButton(self.y0_49)
+        self.CircleOn_57.setObjectName(u"CircleOn_57")
+        sizePolicy2.setHeightForWidth(self.CircleOn_57.sizePolicy().hasHeightForWidth())
+        self.CircleOn_57.setSizePolicy(sizePolicy2)
+        self.CircleOn_57.setMaximumSize(QSize(30, 30))
+        self.CircleOn_57.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_57.setCheckable(True)
+
+        self.horizontalLayout_89.addWidget(self.CircleOn_57)
+
+
+        self.gridLayout_7.addWidget(self.y0_49, 8, 4, 1, 1)
+
+        self.y0_40 = QWidget(self.widget_2)
+        self.y0_40.setObjectName(u"y0_40")
+        sizePolicy5.setHeightForWidth(self.y0_40.sizePolicy().hasHeightForWidth())
+        self.y0_40.setSizePolicy(sizePolicy5)
+        self.y0_40.setMinimumSize(QSize(90, 60))
+        self.y0_40.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_80 = QHBoxLayout(self.y0_40)
+        self.horizontalLayout_80.setObjectName(u"horizontalLayout_80")
+        self.horizontalLayout_80.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_48 = QPushButton(self.y0_40)
+        self.CircleOff_48.setObjectName(u"CircleOff_48")
+        sizePolicy2.setHeightForWidth(self.CircleOff_48.sizePolicy().hasHeightForWidth())
+        self.CircleOff_48.setSizePolicy(sizePolicy2)
+        self.CircleOff_48.setMinimumSize(QSize(0, 30))
+        self.CircleOff_48.setMaximumSize(QSize(30, 30))
+        self.CircleOff_48.setFont(font4)
+        self.CircleOff_48.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_48.setCheckable(True)
+
+        self.horizontalLayout_80.addWidget(self.CircleOff_48)
+
+        self.CircleOn_48 = QPushButton(self.y0_40)
+        self.CircleOn_48.setObjectName(u"CircleOn_48")
+        sizePolicy2.setHeightForWidth(self.CircleOn_48.sizePolicy().hasHeightForWidth())
+        self.CircleOn_48.setSizePolicy(sizePolicy2)
+        self.CircleOn_48.setMaximumSize(QSize(30, 30))
+        self.CircleOn_48.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_48.setCheckable(True)
+
+        self.horizontalLayout_80.addWidget(self.CircleOn_48)
+
+
+        self.gridLayout_7.addWidget(self.y0_40, 8, 0, 1, 1)
+
+        self.y0_5 = QWidget(self.widget_2)
+        self.y0_5.setObjectName(u"y0_5")
+        sizePolicy5.setHeightForWidth(self.y0_5.sizePolicy().hasHeightForWidth())
+        self.y0_5.setSizePolicy(sizePolicy5)
+        self.y0_5.setMinimumSize(QSize(90, 60))
+        self.y0_5.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_37 = QHBoxLayout(self.y0_5)
+        self.horizontalLayout_37.setObjectName(u"horizontalLayout_37")
+        self.horizontalLayout_37.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_5 = QPushButton(self.y0_5)
+        self.CircleOff_5.setObjectName(u"CircleOff_5")
+        sizePolicy2.setHeightForWidth(self.CircleOff_5.sizePolicy().hasHeightForWidth())
+        self.CircleOff_5.setSizePolicy(sizePolicy2)
+        self.CircleOff_5.setMinimumSize(QSize(0, 30))
+        self.CircleOff_5.setMaximumSize(QSize(30, 30))
+        self.CircleOff_5.setFont(font4)
+        self.CircleOff_5.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_5.setCheckable(True)
+
+        self.horizontalLayout_37.addWidget(self.CircleOff_5)
+
+        self.CircleOn_5 = QPushButton(self.y0_5)
+        self.CircleOn_5.setObjectName(u"CircleOn_5")
+        sizePolicy2.setHeightForWidth(self.CircleOn_5.sizePolicy().hasHeightForWidth())
+        self.CircleOn_5.setSizePolicy(sizePolicy2)
+        self.CircleOn_5.setMaximumSize(QSize(30, 30))
+        self.CircleOn_5.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_5.setCheckable(True)
+
+        self.horizontalLayout_37.addWidget(self.CircleOn_5)
+
+
+        self.gridLayout_7.addWidget(self.y0_5, 1, 2, 1, 1)
+
+        self.y0_34 = QWidget(self.widget_2)
+        self.y0_34.setObjectName(u"y0_34")
+        sizePolicy5.setHeightForWidth(self.y0_34.sizePolicy().hasHeightForWidth())
+        self.y0_34.setSizePolicy(sizePolicy5)
+        self.y0_34.setMinimumSize(QSize(90, 60))
+        self.y0_34.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_68 = QHBoxLayout(self.y0_34)
+        self.horizontalLayout_68.setObjectName(u"horizontalLayout_68")
+        self.horizontalLayout_68.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_36 = QPushButton(self.y0_34)
+        self.CircleOff_36.setObjectName(u"CircleOff_36")
+        sizePolicy2.setHeightForWidth(self.CircleOff_36.sizePolicy().hasHeightForWidth())
+        self.CircleOff_36.setSizePolicy(sizePolicy2)
+        self.CircleOff_36.setMinimumSize(QSize(0, 30))
+        self.CircleOff_36.setMaximumSize(QSize(30, 30))
+        self.CircleOff_36.setFont(font4)
+        self.CircleOff_36.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_36.setCheckable(True)
+
+        self.horizontalLayout_68.addWidget(self.CircleOff_36)
+
+        self.CircleOn_36 = QPushButton(self.y0_34)
+        self.CircleOn_36.setObjectName(u"CircleOn_36")
+        sizePolicy2.setHeightForWidth(self.CircleOn_36.sizePolicy().hasHeightForWidth())
+        self.CircleOn_36.setSizePolicy(sizePolicy2)
+        self.CircleOn_36.setMaximumSize(QSize(30, 30))
+        self.CircleOn_36.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_36.setCheckable(True)
+
+        self.horizontalLayout_68.addWidget(self.CircleOn_36)
+
+
+        self.gridLayout_7.addWidget(self.y0_34, 6, 1, 1, 1)
+
+        self.y0_44 = QWidget(self.widget_2)
+        self.y0_44.setObjectName(u"y0_44")
+        sizePolicy5.setHeightForWidth(self.y0_44.sizePolicy().hasHeightForWidth())
+        self.y0_44.setSizePolicy(sizePolicy5)
+        self.y0_44.setMinimumSize(QSize(90, 60))
+        self.y0_44.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_84 = QHBoxLayout(self.y0_44)
+        self.horizontalLayout_84.setObjectName(u"horizontalLayout_84")
+        self.horizontalLayout_84.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_52 = QPushButton(self.y0_44)
+        self.CircleOff_52.setObjectName(u"CircleOff_52")
+        sizePolicy2.setHeightForWidth(self.CircleOff_52.sizePolicy().hasHeightForWidth())
+        self.CircleOff_52.setSizePolicy(sizePolicy2)
+        self.CircleOff_52.setMinimumSize(QSize(0, 30))
+        self.CircleOff_52.setMaximumSize(QSize(30, 30))
+        self.CircleOff_52.setFont(font4)
+        self.CircleOff_52.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_52.setCheckable(True)
+
+        self.horizontalLayout_84.addWidget(self.CircleOff_52)
+
+        self.CircleOn_52 = QPushButton(self.y0_44)
+        self.CircleOn_52.setObjectName(u"CircleOn_52")
+        sizePolicy2.setHeightForWidth(self.CircleOn_52.sizePolicy().hasHeightForWidth())
+        self.CircleOn_52.setSizePolicy(sizePolicy2)
+        self.CircleOn_52.setMaximumSize(QSize(30, 30))
+        self.CircleOn_52.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_52.setCheckable(True)
+
+        self.horizontalLayout_84.addWidget(self.CircleOn_52)
+
+
+        self.gridLayout_7.addWidget(self.y0_44, 7, 4, 1, 1)
+
+        self.y0_35 = QWidget(self.widget_2)
+        self.y0_35.setObjectName(u"y0_35")
+        sizePolicy5.setHeightForWidth(self.y0_35.sizePolicy().hasHeightForWidth())
+        self.y0_35.setSizePolicy(sizePolicy5)
+        self.y0_35.setMinimumSize(QSize(90, 60))
+        self.y0_35.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_69 = QHBoxLayout(self.y0_35)
+        self.horizontalLayout_69.setObjectName(u"horizontalLayout_69")
+        self.horizontalLayout_69.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_37 = QPushButton(self.y0_35)
+        self.CircleOff_37.setObjectName(u"CircleOff_37")
+        sizePolicy2.setHeightForWidth(self.CircleOff_37.sizePolicy().hasHeightForWidth())
+        self.CircleOff_37.setSizePolicy(sizePolicy2)
+        self.CircleOff_37.setMinimumSize(QSize(0, 30))
+        self.CircleOff_37.setMaximumSize(QSize(30, 30))
+        self.CircleOff_37.setFont(font4)
+        self.CircleOff_37.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_37.setCheckable(True)
+
+        self.horizontalLayout_69.addWidget(self.CircleOff_37)
+
+        self.CircleOn_37 = QPushButton(self.y0_35)
+        self.CircleOn_37.setObjectName(u"CircleOn_37")
+        sizePolicy2.setHeightForWidth(self.CircleOn_37.sizePolicy().hasHeightForWidth())
+        self.CircleOn_37.setSizePolicy(sizePolicy2)
+        self.CircleOn_37.setMaximumSize(QSize(30, 30))
+        self.CircleOn_37.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_37.setCheckable(True)
+
+        self.horizontalLayout_69.addWidget(self.CircleOn_37)
+
+
+        self.gridLayout_7.addWidget(self.y0_35, 6, 2, 1, 1)
+
+        self.y0_4 = QWidget(self.widget_2)
+        self.y0_4.setObjectName(u"y0_4")
+        sizePolicy5.setHeightForWidth(self.y0_4.sizePolicy().hasHeightForWidth())
+        self.y0_4.setSizePolicy(sizePolicy5)
+        self.y0_4.setMinimumSize(QSize(90, 60))
+        self.y0_4.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_36 = QHBoxLayout(self.y0_4)
+        self.horizontalLayout_36.setObjectName(u"horizontalLayout_36")
+        self.horizontalLayout_36.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_4 = QPushButton(self.y0_4)
+        self.CircleOff_4.setObjectName(u"CircleOff_4")
+        sizePolicy2.setHeightForWidth(self.CircleOff_4.sizePolicy().hasHeightForWidth())
+        self.CircleOff_4.setSizePolicy(sizePolicy2)
+        self.CircleOff_4.setMinimumSize(QSize(0, 30))
+        self.CircleOff_4.setMaximumSize(QSize(30, 30))
+        self.CircleOff_4.setFont(font4)
+        self.CircleOff_4.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_4.setCheckable(True)
+
+        self.horizontalLayout_36.addWidget(self.CircleOff_4)
+
+        self.CircleOn_4 = QPushButton(self.y0_4)
+        self.CircleOn_4.setObjectName(u"CircleOn_4")
+        sizePolicy2.setHeightForWidth(self.CircleOn_4.sizePolicy().hasHeightForWidth())
+        self.CircleOn_4.setSizePolicy(sizePolicy2)
+        self.CircleOn_4.setMaximumSize(QSize(30, 30))
+        self.CircleOn_4.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_4.setCheckable(True)
+
+        self.horizontalLayout_36.addWidget(self.CircleOn_4)
+
+
+        self.gridLayout_7.addWidget(self.y0_4, 1, 1, 1, 1)
+
+        self.y0_41 = QWidget(self.widget_2)
+        self.y0_41.setObjectName(u"y0_41")
+        sizePolicy5.setHeightForWidth(self.y0_41.sizePolicy().hasHeightForWidth())
+        self.y0_41.setSizePolicy(sizePolicy5)
+        self.y0_41.setMinimumSize(QSize(90, 60))
+        self.y0_41.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_81 = QHBoxLayout(self.y0_41)
+        self.horizontalLayout_81.setObjectName(u"horizontalLayout_81")
+        self.horizontalLayout_81.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_49 = QPushButton(self.y0_41)
+        self.CircleOff_49.setObjectName(u"CircleOff_49")
+        sizePolicy2.setHeightForWidth(self.CircleOff_49.sizePolicy().hasHeightForWidth())
+        self.CircleOff_49.setSizePolicy(sizePolicy2)
+        self.CircleOff_49.setMinimumSize(QSize(0, 30))
+        self.CircleOff_49.setMaximumSize(QSize(30, 30))
+        self.CircleOff_49.setFont(font4)
+        self.CircleOff_49.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_49.setCheckable(True)
+
+        self.horizontalLayout_81.addWidget(self.CircleOff_49)
+
+        self.CircleOn_49 = QPushButton(self.y0_41)
+        self.CircleOn_49.setObjectName(u"CircleOn_49")
+        sizePolicy2.setHeightForWidth(self.CircleOn_49.sizePolicy().hasHeightForWidth())
+        self.CircleOn_49.setSizePolicy(sizePolicy2)
+        self.CircleOn_49.setMaximumSize(QSize(30, 30))
+        self.CircleOn_49.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_49.setCheckable(True)
+
+        self.horizontalLayout_81.addWidget(self.CircleOn_49)
+
+
+        self.gridLayout_7.addWidget(self.y0_41, 7, 1, 1, 1)
+
+        self.y0_42 = QWidget(self.widget_2)
+        self.y0_42.setObjectName(u"y0_42")
+        sizePolicy5.setHeightForWidth(self.y0_42.sizePolicy().hasHeightForWidth())
+        self.y0_42.setSizePolicy(sizePolicy5)
+        self.y0_42.setMinimumSize(QSize(90, 60))
+        self.y0_42.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_82 = QHBoxLayout(self.y0_42)
+        self.horizontalLayout_82.setObjectName(u"horizontalLayout_82")
+        self.horizontalLayout_82.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_50 = QPushButton(self.y0_42)
+        self.CircleOff_50.setObjectName(u"CircleOff_50")
+        sizePolicy2.setHeightForWidth(self.CircleOff_50.sizePolicy().hasHeightForWidth())
+        self.CircleOff_50.setSizePolicy(sizePolicy2)
+        self.CircleOff_50.setMinimumSize(QSize(0, 30))
+        self.CircleOff_50.setMaximumSize(QSize(30, 30))
+        self.CircleOff_50.setFont(font4)
+        self.CircleOff_50.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_50.setCheckable(True)
+
+        self.horizontalLayout_82.addWidget(self.CircleOff_50)
+
+        self.CircleOn_50 = QPushButton(self.y0_42)
+        self.CircleOn_50.setObjectName(u"CircleOn_50")
+        sizePolicy2.setHeightForWidth(self.CircleOn_50.sizePolicy().hasHeightForWidth())
+        self.CircleOn_50.setSizePolicy(sizePolicy2)
+        self.CircleOn_50.setMaximumSize(QSize(30, 30))
+        self.CircleOn_50.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_50.setCheckable(True)
+
+        self.horizontalLayout_82.addWidget(self.CircleOn_50)
+
+
+        self.gridLayout_7.addWidget(self.y0_42, 7, 2, 1, 1)
+
+        self.y0_43 = QWidget(self.widget_2)
+        self.y0_43.setObjectName(u"y0_43")
+        sizePolicy5.setHeightForWidth(self.y0_43.sizePolicy().hasHeightForWidth())
+        self.y0_43.setSizePolicy(sizePolicy5)
+        self.y0_43.setMinimumSize(QSize(90, 60))
+        self.y0_43.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_83 = QHBoxLayout(self.y0_43)
+        self.horizontalLayout_83.setObjectName(u"horizontalLayout_83")
+        self.horizontalLayout_83.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_51 = QPushButton(self.y0_43)
+        self.CircleOff_51.setObjectName(u"CircleOff_51")
+        sizePolicy2.setHeightForWidth(self.CircleOff_51.sizePolicy().hasHeightForWidth())
+        self.CircleOff_51.setSizePolicy(sizePolicy2)
+        self.CircleOff_51.setMinimumSize(QSize(0, 30))
+        self.CircleOff_51.setMaximumSize(QSize(30, 30))
+        self.CircleOff_51.setFont(font4)
+        self.CircleOff_51.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_51.setCheckable(True)
+
+        self.horizontalLayout_83.addWidget(self.CircleOff_51)
+
+        self.CircleOn_51 = QPushButton(self.y0_43)
+        self.CircleOn_51.setObjectName(u"CircleOn_51")
+        sizePolicy2.setHeightForWidth(self.CircleOn_51.sizePolicy().hasHeightForWidth())
+        self.CircleOn_51.setSizePolicy(sizePolicy2)
+        self.CircleOn_51.setMaximumSize(QSize(30, 30))
+        self.CircleOn_51.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_51.setCheckable(True)
+
+        self.horizontalLayout_83.addWidget(self.CircleOn_51)
+
+
+        self.gridLayout_7.addWidget(self.y0_43, 7, 3, 1, 1)
+
+        self.y0_38 = QWidget(self.widget_2)
+        self.y0_38.setObjectName(u"y0_38")
+        sizePolicy5.setHeightForWidth(self.y0_38.sizePolicy().hasHeightForWidth())
+        self.y0_38.setSizePolicy(sizePolicy5)
+        self.y0_38.setMinimumSize(QSize(90, 60))
+        self.y0_38.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_77 = QHBoxLayout(self.y0_38)
+        self.horizontalLayout_77.setObjectName(u"horizontalLayout_77")
+        self.horizontalLayout_77.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_45 = QPushButton(self.y0_38)
+        self.CircleOff_45.setObjectName(u"CircleOff_45")
+        sizePolicy2.setHeightForWidth(self.CircleOff_45.sizePolicy().hasHeightForWidth())
+        self.CircleOff_45.setSizePolicy(sizePolicy2)
+        self.CircleOff_45.setMinimumSize(QSize(0, 30))
+        self.CircleOff_45.setMaximumSize(QSize(30, 30))
+        self.CircleOff_45.setFont(font4)
+        self.CircleOff_45.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_45.setCheckable(True)
+
+        self.horizontalLayout_77.addWidget(self.CircleOff_45)
+
+        self.CircleOn_45 = QPushButton(self.y0_38)
+        self.CircleOn_45.setObjectName(u"CircleOn_45")
+        sizePolicy2.setHeightForWidth(self.CircleOn_45.sizePolicy().hasHeightForWidth())
+        self.CircleOn_45.setSizePolicy(sizePolicy2)
+        self.CircleOn_45.setMaximumSize(QSize(30, 30))
+        self.CircleOn_45.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_45.setCheckable(True)
+
+        self.horizontalLayout_77.addWidget(self.CircleOn_45)
+
+
+        self.gridLayout_7.addWidget(self.y0_38, 6, 5, 1, 1)
+
+        self.y0_16 = QWidget(self.widget_2)
+        self.y0_16.setObjectName(u"y0_16")
+        sizePolicy5.setHeightForWidth(self.y0_16.sizePolicy().hasHeightForWidth())
+        self.y0_16.setSizePolicy(sizePolicy5)
+        self.y0_16.setMinimumSize(QSize(90, 60))
+        self.y0_16.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_48 = QHBoxLayout(self.y0_16)
+        self.horizontalLayout_48.setObjectName(u"horizontalLayout_48")
+        self.horizontalLayout_48.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_16 = QPushButton(self.y0_16)
+        self.CircleOff_16.setObjectName(u"CircleOff_16")
+        sizePolicy2.setHeightForWidth(self.CircleOff_16.sizePolicy().hasHeightForWidth())
+        self.CircleOff_16.setSizePolicy(sizePolicy2)
+        self.CircleOff_16.setMinimumSize(QSize(0, 30))
+        self.CircleOff_16.setMaximumSize(QSize(30, 30))
+        self.CircleOff_16.setFont(font4)
+        self.CircleOff_16.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_16.setCheckable(True)
+
+        self.horizontalLayout_48.addWidget(self.CircleOff_16)
+
+        self.CircleOn_16 = QPushButton(self.y0_16)
+        self.CircleOn_16.setObjectName(u"CircleOn_16")
+        sizePolicy2.setHeightForWidth(self.CircleOn_16.sizePolicy().hasHeightForWidth())
+        self.CircleOn_16.setSizePolicy(sizePolicy2)
+        self.CircleOn_16.setMaximumSize(QSize(30, 30))
+        self.CircleOn_16.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_16.setCheckable(True)
+
+        self.horizontalLayout_48.addWidget(self.CircleOn_16)
+
+
+        self.gridLayout_7.addWidget(self.y0_16, 3, 1, 1, 1)
+
+        self.y0_19 = QWidget(self.widget_2)
+        self.y0_19.setObjectName(u"y0_19")
+        sizePolicy5.setHeightForWidth(self.y0_19.sizePolicy().hasHeightForWidth())
+        self.y0_19.setSizePolicy(sizePolicy5)
+        self.y0_19.setMinimumSize(QSize(90, 60))
+        self.y0_19.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_51 = QHBoxLayout(self.y0_19)
+        self.horizontalLayout_51.setObjectName(u"horizontalLayout_51")
+        self.horizontalLayout_51.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_19 = QPushButton(self.y0_19)
+        self.CircleOff_19.setObjectName(u"CircleOff_19")
+        sizePolicy2.setHeightForWidth(self.CircleOff_19.sizePolicy().hasHeightForWidth())
+        self.CircleOff_19.setSizePolicy(sizePolicy2)
+        self.CircleOff_19.setMinimumSize(QSize(0, 30))
+        self.CircleOff_19.setMaximumSize(QSize(30, 30))
+        self.CircleOff_19.setFont(font4)
+        self.CircleOff_19.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_19.setCheckable(True)
+
+        self.horizontalLayout_51.addWidget(self.CircleOff_19)
+
+        self.CircleOn_19 = QPushButton(self.y0_19)
+        self.CircleOn_19.setObjectName(u"CircleOn_19")
+        sizePolicy2.setHeightForWidth(self.CircleOn_19.sizePolicy().hasHeightForWidth())
+        self.CircleOn_19.setSizePolicy(sizePolicy2)
+        self.CircleOn_19.setMaximumSize(QSize(30, 30))
+        self.CircleOn_19.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_19.setCheckable(True)
+
+        self.horizontalLayout_51.addWidget(self.CircleOn_19)
+
+
+        self.gridLayout_7.addWidget(self.y0_19, 3, 4, 1, 1)
+
+        self.y0_31 = QWidget(self.widget_2)
+        self.y0_31.setObjectName(u"y0_31")
+        sizePolicy5.setHeightForWidth(self.y0_31.sizePolicy().hasHeightForWidth())
+        self.y0_31.setSizePolicy(sizePolicy5)
+        self.y0_31.setMinimumSize(QSize(90, 60))
+        self.y0_31.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_63 = QHBoxLayout(self.y0_31)
+        self.horizontalLayout_63.setObjectName(u"horizontalLayout_63")
+        self.horizontalLayout_63.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_31 = QPushButton(self.y0_31)
+        self.CircleOff_31.setObjectName(u"CircleOff_31")
+        sizePolicy2.setHeightForWidth(self.CircleOff_31.sizePolicy().hasHeightForWidth())
+        self.CircleOff_31.setSizePolicy(sizePolicy2)
+        self.CircleOff_31.setMinimumSize(QSize(0, 30))
+        self.CircleOff_31.setMaximumSize(QSize(30, 30))
+        self.CircleOff_31.setFont(font4)
+        self.CircleOff_31.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_31.setCheckable(True)
+
+        self.horizontalLayout_63.addWidget(self.CircleOff_31)
+
+        self.CircleOn_31 = QPushButton(self.y0_31)
+        self.CircleOn_31.setObjectName(u"CircleOn_31")
+        sizePolicy2.setHeightForWidth(self.CircleOn_31.sizePolicy().hasHeightForWidth())
+        self.CircleOn_31.setSizePolicy(sizePolicy2)
+        self.CircleOn_31.setMaximumSize(QSize(30, 30))
+        self.CircleOn_31.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_31.setCheckable(True)
+
+        self.horizontalLayout_63.addWidget(self.CircleOn_31)
+
+
+        self.gridLayout_7.addWidget(self.y0_31, 5, 4, 1, 1)
+
+        self.y0_7 = QWidget(self.widget_2)
+        self.y0_7.setObjectName(u"y0_7")
+        sizePolicy5.setHeightForWidth(self.y0_7.sizePolicy().hasHeightForWidth())
+        self.y0_7.setSizePolicy(sizePolicy5)
+        self.y0_7.setMinimumSize(QSize(90, 60))
+        self.y0_7.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_39 = QHBoxLayout(self.y0_7)
+        self.horizontalLayout_39.setObjectName(u"horizontalLayout_39")
+        self.horizontalLayout_39.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_7 = QPushButton(self.y0_7)
+        self.CircleOff_7.setObjectName(u"CircleOff_7")
+        sizePolicy2.setHeightForWidth(self.CircleOff_7.sizePolicy().hasHeightForWidth())
+        self.CircleOff_7.setSizePolicy(sizePolicy2)
+        self.CircleOff_7.setMinimumSize(QSize(0, 30))
+        self.CircleOff_7.setMaximumSize(QSize(30, 30))
+        self.CircleOff_7.setFont(font4)
+        self.CircleOff_7.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_7.setCheckable(True)
+
+        self.horizontalLayout_39.addWidget(self.CircleOff_7)
+
+        self.CircleOn_7 = QPushButton(self.y0_7)
+        self.CircleOn_7.setObjectName(u"CircleOn_7")
+        sizePolicy2.setHeightForWidth(self.CircleOn_7.sizePolicy().hasHeightForWidth())
+        self.CircleOn_7.setSizePolicy(sizePolicy2)
+        self.CircleOn_7.setMaximumSize(QSize(30, 30))
+        self.CircleOn_7.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_7.setCheckable(True)
+
+        self.horizontalLayout_39.addWidget(self.CircleOn_7)
+
+
+        self.gridLayout_7.addWidget(self.y0_7, 1, 4, 1, 1)
+
+        self.y0_47 = QWidget(self.widget_2)
+        self.y0_47.setObjectName(u"y0_47")
+        sizePolicy5.setHeightForWidth(self.y0_47.sizePolicy().hasHeightForWidth())
+        self.y0_47.setSizePolicy(sizePolicy5)
+        self.y0_47.setMinimumSize(QSize(90, 60))
+        self.y0_47.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_87 = QHBoxLayout(self.y0_47)
+        self.horizontalLayout_87.setObjectName(u"horizontalLayout_87")
+        self.horizontalLayout_87.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_55 = QPushButton(self.y0_47)
+        self.CircleOff_55.setObjectName(u"CircleOff_55")
+        sizePolicy2.setHeightForWidth(self.CircleOff_55.sizePolicy().hasHeightForWidth())
+        self.CircleOff_55.setSizePolicy(sizePolicy2)
+        self.CircleOff_55.setMinimumSize(QSize(0, 30))
+        self.CircleOff_55.setMaximumSize(QSize(30, 30))
+        self.CircleOff_55.setFont(font4)
+        self.CircleOff_55.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_55.setCheckable(True)
+
+        self.horizontalLayout_87.addWidget(self.CircleOff_55)
+
+        self.CircleOn_55 = QPushButton(self.y0_47)
+        self.CircleOn_55.setObjectName(u"CircleOn_55")
+        sizePolicy2.setHeightForWidth(self.CircleOn_55.sizePolicy().hasHeightForWidth())
+        self.CircleOn_55.setSizePolicy(sizePolicy2)
+        self.CircleOn_55.setMaximumSize(QSize(30, 30))
+        self.CircleOn_55.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_55.setCheckable(True)
+
+        self.horizontalLayout_87.addWidget(self.CircleOn_55)
+
+
+        self.gridLayout_7.addWidget(self.y0_47, 8, 2, 1, 1)
+
+        self.y0_36 = QWidget(self.widget_2)
+        self.y0_36.setObjectName(u"y0_36")
+        sizePolicy5.setHeightForWidth(self.y0_36.sizePolicy().hasHeightForWidth())
+        self.y0_36.setSizePolicy(sizePolicy5)
+        self.y0_36.setMinimumSize(QSize(90, 60))
+        self.y0_36.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_70 = QHBoxLayout(self.y0_36)
+        self.horizontalLayout_70.setObjectName(u"horizontalLayout_70")
+        self.horizontalLayout_70.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_38 = QPushButton(self.y0_36)
+        self.CircleOff_38.setObjectName(u"CircleOff_38")
+        sizePolicy2.setHeightForWidth(self.CircleOff_38.sizePolicy().hasHeightForWidth())
+        self.CircleOff_38.setSizePolicy(sizePolicy2)
+        self.CircleOff_38.setMinimumSize(QSize(0, 30))
+        self.CircleOff_38.setMaximumSize(QSize(30, 30))
+        self.CircleOff_38.setFont(font4)
+        self.CircleOff_38.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_38.setCheckable(True)
+
+        self.horizontalLayout_70.addWidget(self.CircleOff_38)
+
+        self.CircleOn_38 = QPushButton(self.y0_36)
+        self.CircleOn_38.setObjectName(u"CircleOn_38")
+        sizePolicy2.setHeightForWidth(self.CircleOn_38.sizePolicy().hasHeightForWidth())
+        self.CircleOn_38.setSizePolicy(sizePolicy2)
+        self.CircleOn_38.setMaximumSize(QSize(30, 30))
+        self.CircleOn_38.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_38.setCheckable(True)
+
+        self.horizontalLayout_70.addWidget(self.CircleOn_38)
+
+
+        self.gridLayout_7.addWidget(self.y0_36, 6, 3, 1, 1)
+
+        self.y0_3 = QWidget(self.widget_2)
+        self.y0_3.setObjectName(u"y0_3")
+        sizePolicy5.setHeightForWidth(self.y0_3.sizePolicy().hasHeightForWidth())
+        self.y0_3.setSizePolicy(sizePolicy5)
+        self.y0_3.setMinimumSize(QSize(90, 60))
+        self.y0_3.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_35 = QHBoxLayout(self.y0_3)
+        self.horizontalLayout_35.setObjectName(u"horizontalLayout_35")
+        self.horizontalLayout_35.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_3 = QPushButton(self.y0_3)
+        self.CircleOff_3.setObjectName(u"CircleOff_3")
+        sizePolicy2.setHeightForWidth(self.CircleOff_3.sizePolicy().hasHeightForWidth())
+        self.CircleOff_3.setSizePolicy(sizePolicy2)
+        self.CircleOff_3.setMinimumSize(QSize(0, 30))
+        self.CircleOff_3.setMaximumSize(QSize(30, 30))
+        self.CircleOff_3.setFont(font4)
+        self.CircleOff_3.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_3.setCheckable(True)
+
+        self.horizontalLayout_35.addWidget(self.CircleOff_3)
+
+        self.CircleOn_3 = QPushButton(self.y0_3)
+        self.CircleOn_3.setObjectName(u"CircleOn_3")
+        sizePolicy2.setHeightForWidth(self.CircleOn_3.sizePolicy().hasHeightForWidth())
+        self.CircleOn_3.setSizePolicy(sizePolicy2)
+        self.CircleOn_3.setMaximumSize(QSize(30, 30))
+        self.CircleOn_3.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_3.setCheckable(True)
+
+        self.horizontalLayout_35.addWidget(self.CircleOn_3)
+
+
+        self.gridLayout_7.addWidget(self.y0_3, 1, 0, 1, 1)
+
+        self.y0_17 = QWidget(self.widget_2)
+        self.y0_17.setObjectName(u"y0_17")
+        sizePolicy5.setHeightForWidth(self.y0_17.sizePolicy().hasHeightForWidth())
+        self.y0_17.setSizePolicy(sizePolicy5)
+        self.y0_17.setMinimumSize(QSize(90, 60))
+        self.y0_17.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_49 = QHBoxLayout(self.y0_17)
+        self.horizontalLayout_49.setObjectName(u"horizontalLayout_49")
+        self.horizontalLayout_49.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_17 = QPushButton(self.y0_17)
+        self.CircleOff_17.setObjectName(u"CircleOff_17")
+        sizePolicy2.setHeightForWidth(self.CircleOff_17.sizePolicy().hasHeightForWidth())
+        self.CircleOff_17.setSizePolicy(sizePolicy2)
+        self.CircleOff_17.setMinimumSize(QSize(0, 30))
+        self.CircleOff_17.setMaximumSize(QSize(30, 30))
+        self.CircleOff_17.setFont(font4)
+        self.CircleOff_17.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_17.setCheckable(True)
+
+        self.horizontalLayout_49.addWidget(self.CircleOff_17)
+
+        self.CircleOn_17 = QPushButton(self.y0_17)
+        self.CircleOn_17.setObjectName(u"CircleOn_17")
+        sizePolicy2.setHeightForWidth(self.CircleOn_17.sizePolicy().hasHeightForWidth())
+        self.CircleOn_17.setSizePolicy(sizePolicy2)
+        self.CircleOn_17.setMaximumSize(QSize(30, 30))
+        self.CircleOn_17.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_17.setCheckable(True)
+
+        self.horizontalLayout_49.addWidget(self.CircleOn_17)
+
+
+        self.gridLayout_7.addWidget(self.y0_17, 3, 2, 1, 1)
+
+        self.y0_45 = QWidget(self.widget_2)
+        self.y0_45.setObjectName(u"y0_45")
+        sizePolicy5.setHeightForWidth(self.y0_45.sizePolicy().hasHeightForWidth())
+        self.y0_45.setSizePolicy(sizePolicy5)
+        self.y0_45.setMinimumSize(QSize(90, 60))
+        self.y0_45.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_85 = QHBoxLayout(self.y0_45)
+        self.horizontalLayout_85.setObjectName(u"horizontalLayout_85")
+        self.horizontalLayout_85.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_53 = QPushButton(self.y0_45)
+        self.CircleOff_53.setObjectName(u"CircleOff_53")
+        sizePolicy2.setHeightForWidth(self.CircleOff_53.sizePolicy().hasHeightForWidth())
+        self.CircleOff_53.setSizePolicy(sizePolicy2)
+        self.CircleOff_53.setMinimumSize(QSize(0, 30))
+        self.CircleOff_53.setMaximumSize(QSize(30, 30))
+        self.CircleOff_53.setFont(font4)
+        self.CircleOff_53.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_53.setCheckable(True)
+
+        self.horizontalLayout_85.addWidget(self.CircleOff_53)
+
+        self.CircleOn_53 = QPushButton(self.y0_45)
+        self.CircleOn_53.setObjectName(u"CircleOn_53")
+        sizePolicy2.setHeightForWidth(self.CircleOn_53.sizePolicy().hasHeightForWidth())
+        self.CircleOn_53.setSizePolicy(sizePolicy2)
+        self.CircleOn_53.setMaximumSize(QSize(30, 30))
+        self.CircleOn_53.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_53.setCheckable(True)
+
+        self.horizontalLayout_85.addWidget(self.CircleOn_53)
+
+
+        self.gridLayout_7.addWidget(self.y0_45, 7, 5, 1, 1)
+
+        self.y0_37 = QWidget(self.widget_2)
+        self.y0_37.setObjectName(u"y0_37")
+        sizePolicy5.setHeightForWidth(self.y0_37.sizePolicy().hasHeightForWidth())
+        self.y0_37.setSizePolicy(sizePolicy5)
+        self.y0_37.setMinimumSize(QSize(90, 60))
+        self.y0_37.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_76 = QHBoxLayout(self.y0_37)
+        self.horizontalLayout_76.setObjectName(u"horizontalLayout_76")
+        self.horizontalLayout_76.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_44 = QPushButton(self.y0_37)
+        self.CircleOff_44.setObjectName(u"CircleOff_44")
+        sizePolicy2.setHeightForWidth(self.CircleOff_44.sizePolicy().hasHeightForWidth())
+        self.CircleOff_44.setSizePolicy(sizePolicy2)
+        self.CircleOff_44.setMinimumSize(QSize(0, 30))
+        self.CircleOff_44.setMaximumSize(QSize(30, 30))
+        self.CircleOff_44.setFont(font4)
+        self.CircleOff_44.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_44.setCheckable(True)
+
+        self.horizontalLayout_76.addWidget(self.CircleOff_44)
+
+        self.CircleOn_44 = QPushButton(self.y0_37)
+        self.CircleOn_44.setObjectName(u"CircleOn_44")
+        sizePolicy2.setHeightForWidth(self.CircleOn_44.sizePolicy().hasHeightForWidth())
+        self.CircleOn_44.setSizePolicy(sizePolicy2)
+        self.CircleOn_44.setMaximumSize(QSize(30, 30))
+        self.CircleOn_44.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_44.setCheckable(True)
+
+        self.horizontalLayout_76.addWidget(self.CircleOn_44)
+
+
+        self.gridLayout_7.addWidget(self.y0_37, 6, 4, 1, 1)
+
+        self.y0_13 = QWidget(self.widget_2)
+        self.y0_13.setObjectName(u"y0_13")
+        sizePolicy5.setHeightForWidth(self.y0_13.sizePolicy().hasHeightForWidth())
+        self.y0_13.setSizePolicy(sizePolicy5)
+        self.y0_13.setMinimumSize(QSize(90, 60))
+        self.y0_13.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_45 = QHBoxLayout(self.y0_13)
+        self.horizontalLayout_45.setObjectName(u"horizontalLayout_45")
+        self.horizontalLayout_45.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_13 = QPushButton(self.y0_13)
+        self.CircleOff_13.setObjectName(u"CircleOff_13")
+        sizePolicy2.setHeightForWidth(self.CircleOff_13.sizePolicy().hasHeightForWidth())
+        self.CircleOff_13.setSizePolicy(sizePolicy2)
+        self.CircleOff_13.setMinimumSize(QSize(0, 30))
+        self.CircleOff_13.setMaximumSize(QSize(30, 30))
+        self.CircleOff_13.setFont(font4)
+        self.CircleOff_13.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_13.setCheckable(True)
+
+        self.horizontalLayout_45.addWidget(self.CircleOff_13)
+
+        self.CircleOn_13 = QPushButton(self.y0_13)
+        self.CircleOn_13.setObjectName(u"CircleOn_13")
+        sizePolicy2.setHeightForWidth(self.CircleOn_13.sizePolicy().hasHeightForWidth())
+        self.CircleOn_13.setSizePolicy(sizePolicy2)
+        self.CircleOn_13.setMaximumSize(QSize(30, 30))
+        self.CircleOn_13.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_13.setCheckable(True)
+
+        self.horizontalLayout_45.addWidget(self.CircleOn_13)
+
+
+        self.gridLayout_7.addWidget(self.y0_13, 2, 4, 1, 1)
+
+        self.y0_28 = QWidget(self.widget_2)
+        self.y0_28.setObjectName(u"y0_28")
+        sizePolicy5.setHeightForWidth(self.y0_28.sizePolicy().hasHeightForWidth())
+        self.y0_28.setSizePolicy(sizePolicy5)
+        self.y0_28.setMinimumSize(QSize(90, 60))
+        self.y0_28.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_60 = QHBoxLayout(self.y0_28)
+        self.horizontalLayout_60.setObjectName(u"horizontalLayout_60")
+        self.horizontalLayout_60.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_28 = QPushButton(self.y0_28)
+        self.CircleOff_28.setObjectName(u"CircleOff_28")
+        sizePolicy2.setHeightForWidth(self.CircleOff_28.sizePolicy().hasHeightForWidth())
+        self.CircleOff_28.setSizePolicy(sizePolicy2)
+        self.CircleOff_28.setMinimumSize(QSize(0, 30))
+        self.CircleOff_28.setMaximumSize(QSize(30, 30))
+        self.CircleOff_28.setFont(font4)
+        self.CircleOff_28.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_28.setCheckable(True)
+
+        self.horizontalLayout_60.addWidget(self.CircleOff_28)
+
+        self.CircleOn_28 = QPushButton(self.y0_28)
+        self.CircleOn_28.setObjectName(u"CircleOn_28")
+        sizePolicy2.setHeightForWidth(self.CircleOn_28.sizePolicy().hasHeightForWidth())
+        self.CircleOn_28.setSizePolicy(sizePolicy2)
+        self.CircleOn_28.setMaximumSize(QSize(30, 30))
+        self.CircleOn_28.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_28.setCheckable(True)
+
+        self.horizontalLayout_60.addWidget(self.CircleOn_28)
+
+
+        self.gridLayout_7.addWidget(self.y0_28, 5, 1, 1, 1)
+
+        self.y0_27 = QWidget(self.widget_2)
+        self.y0_27.setObjectName(u"y0_27")
+        sizePolicy5.setHeightForWidth(self.y0_27.sizePolicy().hasHeightForWidth())
+        self.y0_27.setSizePolicy(sizePolicy5)
+        self.y0_27.setMinimumSize(QSize(90, 60))
+        self.y0_27.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_59 = QHBoxLayout(self.y0_27)
+        self.horizontalLayout_59.setObjectName(u"horizontalLayout_59")
+        self.horizontalLayout_59.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_27 = QPushButton(self.y0_27)
+        self.CircleOff_27.setObjectName(u"CircleOff_27")
+        sizePolicy2.setHeightForWidth(self.CircleOff_27.sizePolicy().hasHeightForWidth())
+        self.CircleOff_27.setSizePolicy(sizePolicy2)
+        self.CircleOff_27.setMinimumSize(QSize(0, 30))
+        self.CircleOff_27.setMaximumSize(QSize(30, 30))
+        self.CircleOff_27.setFont(font4)
+        self.CircleOff_27.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_27.setCheckable(True)
+
+        self.horizontalLayout_59.addWidget(self.CircleOff_27)
+
+        self.CircleOn_27 = QPushButton(self.y0_27)
+        self.CircleOn_27.setObjectName(u"CircleOn_27")
+        sizePolicy2.setHeightForWidth(self.CircleOn_27.sizePolicy().hasHeightForWidth())
+        self.CircleOn_27.setSizePolicy(sizePolicy2)
+        self.CircleOn_27.setMaximumSize(QSize(30, 30))
+        self.CircleOn_27.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_27.setCheckable(True)
+
+        self.horizontalLayout_59.addWidget(self.CircleOn_27)
+
+
+        self.gridLayout_7.addWidget(self.y0_27, 5, 0, 1, 1)
+
+        self.y0_29 = QWidget(self.widget_2)
+        self.y0_29.setObjectName(u"y0_29")
+        sizePolicy5.setHeightForWidth(self.y0_29.sizePolicy().hasHeightForWidth())
+        self.y0_29.setSizePolicy(sizePolicy5)
+        self.y0_29.setMinimumSize(QSize(90, 60))
+        self.y0_29.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_61 = QHBoxLayout(self.y0_29)
+        self.horizontalLayout_61.setObjectName(u"horizontalLayout_61")
+        self.horizontalLayout_61.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_29 = QPushButton(self.y0_29)
+        self.CircleOff_29.setObjectName(u"CircleOff_29")
+        sizePolicy2.setHeightForWidth(self.CircleOff_29.sizePolicy().hasHeightForWidth())
+        self.CircleOff_29.setSizePolicy(sizePolicy2)
+        self.CircleOff_29.setMinimumSize(QSize(0, 30))
+        self.CircleOff_29.setMaximumSize(QSize(30, 30))
+        self.CircleOff_29.setFont(font4)
+        self.CircleOff_29.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_29.setCheckable(True)
+
+        self.horizontalLayout_61.addWidget(self.CircleOff_29)
+
+        self.CircleOn_29 = QPushButton(self.y0_29)
+        self.CircleOn_29.setObjectName(u"CircleOn_29")
+        sizePolicy2.setHeightForWidth(self.CircleOn_29.sizePolicy().hasHeightForWidth())
+        self.CircleOn_29.setSizePolicy(sizePolicy2)
+        self.CircleOn_29.setMaximumSize(QSize(30, 30))
+        self.CircleOn_29.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_29.setCheckable(True)
+
+        self.horizontalLayout_61.addWidget(self.CircleOn_29)
+
+
+        self.gridLayout_7.addWidget(self.y0_29, 5, 2, 1, 1)
+
+        self.y0_26 = QWidget(self.widget_2)
+        self.y0_26.setObjectName(u"y0_26")
+        sizePolicy5.setHeightForWidth(self.y0_26.sizePolicy().hasHeightForWidth())
+        self.y0_26.setSizePolicy(sizePolicy5)
+        self.y0_26.setMinimumSize(QSize(90, 60))
+        self.y0_26.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_58 = QHBoxLayout(self.y0_26)
+        self.horizontalLayout_58.setObjectName(u"horizontalLayout_58")
+        self.horizontalLayout_58.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_26 = QPushButton(self.y0_26)
+        self.CircleOff_26.setObjectName(u"CircleOff_26")
+        sizePolicy2.setHeightForWidth(self.CircleOff_26.sizePolicy().hasHeightForWidth())
+        self.CircleOff_26.setSizePolicy(sizePolicy2)
+        self.CircleOff_26.setMinimumSize(QSize(0, 30))
+        self.CircleOff_26.setMaximumSize(QSize(30, 30))
+        self.CircleOff_26.setFont(font4)
+        self.CircleOff_26.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_26.setCheckable(True)
+
+        self.horizontalLayout_58.addWidget(self.CircleOff_26)
+
+        self.CircleOn_26 = QPushButton(self.y0_26)
+        self.CircleOn_26.setObjectName(u"CircleOn_26")
+        sizePolicy2.setHeightForWidth(self.CircleOn_26.sizePolicy().hasHeightForWidth())
+        self.CircleOn_26.setSizePolicy(sizePolicy2)
+        self.CircleOn_26.setMaximumSize(QSize(30, 30))
+        self.CircleOn_26.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_26.setCheckable(True)
+
+        self.horizontalLayout_58.addWidget(self.CircleOn_26)
+
+
+        self.gridLayout_7.addWidget(self.y0_26, 4, 5, 1, 1)
+
+        self.y0_46 = QWidget(self.widget_2)
+        self.y0_46.setObjectName(u"y0_46")
+        sizePolicy5.setHeightForWidth(self.y0_46.sizePolicy().hasHeightForWidth())
+        self.y0_46.setSizePolicy(sizePolicy5)
+        self.y0_46.setMinimumSize(QSize(90, 60))
+        self.y0_46.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_86 = QHBoxLayout(self.y0_46)
+        self.horizontalLayout_86.setObjectName(u"horizontalLayout_86")
+        self.horizontalLayout_86.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_54 = QPushButton(self.y0_46)
+        self.CircleOff_54.setObjectName(u"CircleOff_54")
+        sizePolicy2.setHeightForWidth(self.CircleOff_54.sizePolicy().hasHeightForWidth())
+        self.CircleOff_54.setSizePolicy(sizePolicy2)
+        self.CircleOff_54.setMinimumSize(QSize(0, 30))
+        self.CircleOff_54.setMaximumSize(QSize(30, 30))
+        self.CircleOff_54.setFont(font4)
+        self.CircleOff_54.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_54.setCheckable(True)
+
+        self.horizontalLayout_86.addWidget(self.CircleOff_54)
+
+        self.CircleOn_54 = QPushButton(self.y0_46)
+        self.CircleOn_54.setObjectName(u"CircleOn_54")
+        sizePolicy2.setHeightForWidth(self.CircleOn_54.sizePolicy().hasHeightForWidth())
+        self.CircleOn_54.setSizePolicy(sizePolicy2)
+        self.CircleOn_54.setMaximumSize(QSize(30, 30))
+        self.CircleOn_54.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_54.setCheckable(True)
+
+        self.horizontalLayout_86.addWidget(self.CircleOn_54)
+
+
+        self.gridLayout_7.addWidget(self.y0_46, 8, 1, 1, 1)
+
+        self.y0_12 = QWidget(self.widget_2)
+        self.y0_12.setObjectName(u"y0_12")
+        sizePolicy5.setHeightForWidth(self.y0_12.sizePolicy().hasHeightForWidth())
+        self.y0_12.setSizePolicy(sizePolicy5)
+        self.y0_12.setMinimumSize(QSize(90, 60))
+        self.y0_12.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_44 = QHBoxLayout(self.y0_12)
+        self.horizontalLayout_44.setObjectName(u"horizontalLayout_44")
+        self.horizontalLayout_44.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_12 = QPushButton(self.y0_12)
+        self.CircleOff_12.setObjectName(u"CircleOff_12")
+        sizePolicy2.setHeightForWidth(self.CircleOff_12.sizePolicy().hasHeightForWidth())
+        self.CircleOff_12.setSizePolicy(sizePolicy2)
+        self.CircleOff_12.setMinimumSize(QSize(0, 30))
+        self.CircleOff_12.setMaximumSize(QSize(30, 30))
+        self.CircleOff_12.setFont(font4)
+        self.CircleOff_12.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_12.setCheckable(True)
+
+        self.horizontalLayout_44.addWidget(self.CircleOff_12)
+
+        self.CircleOn_12 = QPushButton(self.y0_12)
+        self.CircleOn_12.setObjectName(u"CircleOn_12")
+        sizePolicy2.setHeightForWidth(self.CircleOn_12.sizePolicy().hasHeightForWidth())
+        self.CircleOn_12.setSizePolicy(sizePolicy2)
+        self.CircleOn_12.setMaximumSize(QSize(30, 30))
+        self.CircleOn_12.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_12.setCheckable(True)
+
+        self.horizontalLayout_44.addWidget(self.CircleOn_12)
+
+
+        self.gridLayout_7.addWidget(self.y0_12, 2, 3, 1, 1)
+
+        self.y0_21 = QWidget(self.widget_2)
+        self.y0_21.setObjectName(u"y0_21")
+        sizePolicy5.setHeightForWidth(self.y0_21.sizePolicy().hasHeightForWidth())
+        self.y0_21.setSizePolicy(sizePolicy5)
+        self.y0_21.setMinimumSize(QSize(90, 60))
+        self.y0_21.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_53 = QHBoxLayout(self.y0_21)
+        self.horizontalLayout_53.setObjectName(u"horizontalLayout_53")
+        self.horizontalLayout_53.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_21 = QPushButton(self.y0_21)
+        self.CircleOff_21.setObjectName(u"CircleOff_21")
+        sizePolicy2.setHeightForWidth(self.CircleOff_21.sizePolicy().hasHeightForWidth())
+        self.CircleOff_21.setSizePolicy(sizePolicy2)
+        self.CircleOff_21.setMinimumSize(QSize(0, 30))
+        self.CircleOff_21.setMaximumSize(QSize(30, 30))
+        self.CircleOff_21.setFont(font4)
+        self.CircleOff_21.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_21.setCheckable(True)
+
+        self.horizontalLayout_53.addWidget(self.CircleOff_21)
+
+        self.CircleOn_21 = QPushButton(self.y0_21)
+        self.CircleOn_21.setObjectName(u"CircleOn_21")
+        sizePolicy2.setHeightForWidth(self.CircleOn_21.sizePolicy().hasHeightForWidth())
+        self.CircleOn_21.setSizePolicy(sizePolicy2)
+        self.CircleOn_21.setMaximumSize(QSize(30, 30))
+        self.CircleOn_21.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_21.setCheckable(True)
+
+        self.horizontalLayout_53.addWidget(self.CircleOn_21)
+
+
+        self.gridLayout_7.addWidget(self.y0_21, 4, 0, 1, 1)
+
+
+        self.horizontalLayout_34.addWidget(self.widget_2)
+
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents_2)
+        self.gridLayoutWidget = QWidget(self.DIDOContainerPage)
+        self.gridLayoutWidget.setObjectName(u"gridLayoutWidget")
+        self.gridLayoutWidget.setGeometry(QRect(20, 30, 661, 260))
+        self.gridLayout_8 = QGridLayout(self.gridLayoutWidget)
         self.gridLayout_8.setObjectName(u"gridLayout_8")
-        self.widget_38 = QWidget(self.widget_3)
-        self.widget_38.setObjectName(u"widget_38")
-        self.label_46 = QLabel(self.widget_38)
-        self.label_46.setObjectName(u"label_46")
-        self.label_46.setGeometry(QRect(10, 10, 67, 17))
+        self.gridLayout_8.setContentsMargins(0, 0, 0, 0)
+        self.y0_58 = QWidget(self.gridLayoutWidget)
+        self.y0_58.setObjectName(u"y0_58")
+        sizePolicy5.setHeightForWidth(self.y0_58.sizePolicy().hasHeightForWidth())
+        self.y0_58.setSizePolicy(sizePolicy5)
+        self.y0_58.setMinimumSize(QSize(90, 60))
+        self.y0_58.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_65 = QHBoxLayout(self.y0_58)
+        self.horizontalLayout_65.setObjectName(u"horizontalLayout_65")
+        self.horizontalLayout_65.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_33 = QPushButton(self.y0_58)
+        self.CircleOff_33.setObjectName(u"CircleOff_33")
+        sizePolicy2.setHeightForWidth(self.CircleOff_33.sizePolicy().hasHeightForWidth())
+        self.CircleOff_33.setSizePolicy(sizePolicy2)
+        self.CircleOff_33.setMinimumSize(QSize(0, 30))
+        self.CircleOff_33.setMaximumSize(QSize(30, 30))
+        self.CircleOff_33.setFont(font4)
+        self.CircleOff_33.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_33.setCheckable(True)
 
-        self.gridLayout_8.addWidget(self.widget_38, 2, 0, 1, 1)
+        self.horizontalLayout_65.addWidget(self.CircleOff_33)
 
-        self.widget_48 = QWidget(self.widget_3)
-        self.widget_48.setObjectName(u"widget_48")
-        self.label_56 = QLabel(self.widget_48)
-        self.label_56.setObjectName(u"label_56")
-        self.label_56.setGeometry(QRect(10, 10, 67, 17))
+        self.CircleOn_33 = QPushButton(self.y0_58)
+        self.CircleOn_33.setObjectName(u"CircleOn_33")
+        sizePolicy2.setHeightForWidth(self.CircleOn_33.sizePolicy().hasHeightForWidth())
+        self.CircleOn_33.setSizePolicy(sizePolicy2)
+        self.CircleOn_33.setMaximumSize(QSize(30, 30))
+        self.CircleOn_33.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_33.setCheckable(True)
 
-        self.gridLayout_8.addWidget(self.widget_48, 7, 0, 1, 1)
+        self.horizontalLayout_65.addWidget(self.CircleOn_33)
 
-        self.widget_40 = QWidget(self.widget_3)
-        self.widget_40.setObjectName(u"widget_40")
-        self.label_48 = QLabel(self.widget_40)
-        self.label_48.setObjectName(u"label_48")
-        self.label_48.setGeometry(QRect(10, 10, 67, 17))
 
-        self.gridLayout_8.addWidget(self.widget_40, 3, 0, 1, 1)
+        self.gridLayout_8.addWidget(self.y0_58, 2, 2, 1, 1)
 
-        self.widget_39 = QWidget(self.widget_3)
-        self.widget_39.setObjectName(u"widget_39")
-        self.label_47 = QLabel(self.widget_39)
-        self.label_47.setObjectName(u"label_47")
-        self.label_47.setGeometry(QRect(10, 10, 67, 17))
+        self.y0_52 = QWidget(self.gridLayoutWidget)
+        self.y0_52.setObjectName(u"y0_52")
+        sizePolicy5.setHeightForWidth(self.y0_52.sizePolicy().hasHeightForWidth())
+        self.y0_52.setSizePolicy(sizePolicy5)
+        self.y0_52.setMinimumSize(QSize(90, 60))
+        self.y0_52.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_92 = QHBoxLayout(self.y0_52)
+        self.horizontalLayout_92.setObjectName(u"horizontalLayout_92")
+        self.horizontalLayout_92.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_60 = QPushButton(self.y0_52)
+        self.CircleOff_60.setObjectName(u"CircleOff_60")
+        sizePolicy2.setHeightForWidth(self.CircleOff_60.sizePolicy().hasHeightForWidth())
+        self.CircleOff_60.setSizePolicy(sizePolicy2)
+        self.CircleOff_60.setMinimumSize(QSize(0, 30))
+        self.CircleOff_60.setMaximumSize(QSize(30, 30))
+        self.CircleOff_60.setFont(font4)
+        self.CircleOff_60.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_60.setCheckable(True)
 
-        self.gridLayout_8.addWidget(self.widget_39, 2, 1, 1, 1)
+        self.horizontalLayout_92.addWidget(self.CircleOff_60)
 
-        self.widget_41 = QWidget(self.widget_3)
-        self.widget_41.setObjectName(u"widget_41")
-        self.label_49 = QLabel(self.widget_41)
-        self.label_49.setObjectName(u"label_49")
-        self.label_49.setGeometry(QRect(10, 10, 67, 17))
+        self.CircleOn_60 = QPushButton(self.y0_52)
+        self.CircleOn_60.setObjectName(u"CircleOn_60")
+        sizePolicy2.setHeightForWidth(self.CircleOn_60.sizePolicy().hasHeightForWidth())
+        self.CircleOn_60.setSizePolicy(sizePolicy2)
+        self.CircleOn_60.setMaximumSize(QSize(30, 30))
+        self.CircleOn_60.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_60.setCheckable(True)
 
-        self.gridLayout_8.addWidget(self.widget_41, 3, 1, 1, 1)
+        self.horizontalLayout_92.addWidget(self.CircleOn_60)
 
-        self.widget_44 = QWidget(self.widget_3)
-        self.widget_44.setObjectName(u"widget_44")
-        self.label_52 = QLabel(self.widget_44)
-        self.label_52.setObjectName(u"label_52")
-        self.label_52.setGeometry(QRect(10, 10, 67, 17))
 
-        self.gridLayout_8.addWidget(self.widget_44, 5, 0, 1, 1)
+        self.gridLayout_8.addWidget(self.y0_52, 0, 1, 1, 1)
 
-        self.widget_50 = QWidget(self.widget_3)
-        self.widget_50.setObjectName(u"widget_50")
-        self.label_58 = QLabel(self.widget_50)
-        self.label_58.setObjectName(u"label_58")
-        self.label_58.setGeometry(QRect(10, 10, 67, 17))
+        self.y0_57 = QWidget(self.gridLayoutWidget)
+        self.y0_57.setObjectName(u"y0_57")
+        sizePolicy5.setHeightForWidth(self.y0_57.sizePolicy().hasHeightForWidth())
+        self.y0_57.setSizePolicy(sizePolicy5)
+        self.y0_57.setMinimumSize(QSize(90, 60))
+        self.y0_57.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_99 = QHBoxLayout(self.y0_57)
+        self.horizontalLayout_99.setObjectName(u"horizontalLayout_99")
+        self.horizontalLayout_99.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_67 = QPushButton(self.y0_57)
+        self.CircleOff_67.setObjectName(u"CircleOff_67")
+        sizePolicy2.setHeightForWidth(self.CircleOff_67.sizePolicy().hasHeightForWidth())
+        self.CircleOff_67.setSizePolicy(sizePolicy2)
+        self.CircleOff_67.setMinimumSize(QSize(0, 30))
+        self.CircleOff_67.setMaximumSize(QSize(30, 30))
+        self.CircleOff_67.setFont(font4)
+        self.CircleOff_67.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_67.setCheckable(True)
 
-        self.gridLayout_8.addWidget(self.widget_50, 8, 0, 1, 1)
+        self.horizontalLayout_99.addWidget(self.CircleOff_67)
 
-        self.widget_42 = QWidget(self.widget_3)
-        self.widget_42.setObjectName(u"widget_42")
-        self.label_50 = QLabel(self.widget_42)
-        self.label_50.setObjectName(u"label_50")
-        self.label_50.setGeometry(QRect(10, 10, 67, 17))
+        self.CircleOn_67 = QPushButton(self.y0_57)
+        self.CircleOn_67.setObjectName(u"CircleOn_67")
+        sizePolicy2.setHeightForWidth(self.CircleOn_67.sizePolicy().hasHeightForWidth())
+        self.CircleOn_67.setSizePolicy(sizePolicy2)
+        self.CircleOn_67.setMaximumSize(QSize(30, 30))
+        self.CircleOn_67.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_67.setCheckable(True)
 
-        self.gridLayout_8.addWidget(self.widget_42, 4, 0, 1, 1)
+        self.horizontalLayout_99.addWidget(self.CircleOn_67)
 
-        self.widget_45 = QWidget(self.widget_3)
-        self.widget_45.setObjectName(u"widget_45")
-        self.label_53 = QLabel(self.widget_45)
-        self.label_53.setObjectName(u"label_53")
-        self.label_53.setGeometry(QRect(10, 10, 67, 17))
 
-        self.gridLayout_8.addWidget(self.widget_45, 5, 1, 1, 1)
+        self.gridLayout_8.addWidget(self.y0_57, 1, 2, 1, 1)
 
-        self.widget_43 = QWidget(self.widget_3)
-        self.widget_43.setObjectName(u"widget_43")
-        self.label_51 = QLabel(self.widget_43)
-        self.label_51.setObjectName(u"label_51")
-        self.label_51.setGeometry(QRect(10, 10, 67, 17))
+        self.y0_53 = QWidget(self.gridLayoutWidget)
+        self.y0_53.setObjectName(u"y0_53")
+        sizePolicy5.setHeightForWidth(self.y0_53.sizePolicy().hasHeightForWidth())
+        self.y0_53.setSizePolicy(sizePolicy5)
+        self.y0_53.setMinimumSize(QSize(90, 60))
+        self.y0_53.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_93 = QHBoxLayout(self.y0_53)
+        self.horizontalLayout_93.setObjectName(u"horizontalLayout_93")
+        self.horizontalLayout_93.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_61 = QPushButton(self.y0_53)
+        self.CircleOff_61.setObjectName(u"CircleOff_61")
+        sizePolicy2.setHeightForWidth(self.CircleOff_61.sizePolicy().hasHeightForWidth())
+        self.CircleOff_61.setSizePolicy(sizePolicy2)
+        self.CircleOff_61.setMinimumSize(QSize(0, 30))
+        self.CircleOff_61.setMaximumSize(QSize(30, 30))
+        self.CircleOff_61.setFont(font4)
+        self.CircleOff_61.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_61.setCheckable(True)
 
-        self.gridLayout_8.addWidget(self.widget_43, 4, 1, 1, 1)
+        self.horizontalLayout_93.addWidget(self.CircleOff_61)
 
-        self.label_60 = QLabel(self.widget_3)
-        self.label_60.setObjectName(u"label_60")
-        sizePolicy5.setHeightForWidth(self.label_60.sizePolicy().hasHeightForWidth())
-        self.label_60.setSizePolicy(sizePolicy5)
-        self.label_60.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.CircleOn_61 = QPushButton(self.y0_53)
+        self.CircleOn_61.setObjectName(u"CircleOn_61")
+        sizePolicy2.setHeightForWidth(self.CircleOn_61.sizePolicy().hasHeightForWidth())
+        self.CircleOn_61.setSizePolicy(sizePolicy2)
+        self.CircleOn_61.setMaximumSize(QSize(30, 30))
+        self.CircleOn_61.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_61.setCheckable(True)
 
-        self.gridLayout_8.addWidget(self.label_60, 0, 0, 1, 2)
+        self.horizontalLayout_93.addWidget(self.CircleOn_61)
 
-        self.widget_36 = QWidget(self.widget_3)
-        self.widget_36.setObjectName(u"widget_36")
-        self.label_44 = QLabel(self.widget_36)
-        self.label_44.setObjectName(u"label_44")
-        self.label_44.setGeometry(QRect(10, 10, 67, 17))
 
-        self.gridLayout_8.addWidget(self.widget_36, 1, 0, 1, 1)
+        self.gridLayout_8.addWidget(self.y0_53, 0, 2, 1, 1)
 
-        self.widget_49 = QWidget(self.widget_3)
-        self.widget_49.setObjectName(u"widget_49")
-        self.label_57 = QLabel(self.widget_49)
-        self.label_57.setObjectName(u"label_57")
-        self.label_57.setGeometry(QRect(10, 10, 67, 17))
+        self.y0_115 = QWidget(self.gridLayoutWidget)
+        self.y0_115.setObjectName(u"y0_115")
+        sizePolicy5.setHeightForWidth(self.y0_115.sizePolicy().hasHeightForWidth())
+        self.y0_115.setSizePolicy(sizePolicy5)
+        self.y0_115.setMinimumSize(QSize(90, 60))
+        self.y0_115.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_157 = QHBoxLayout(self.y0_115)
+        self.horizontalLayout_157.setObjectName(u"horizontalLayout_157")
+        self.horizontalLayout_157.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_125 = QPushButton(self.y0_115)
+        self.CircleOff_125.setObjectName(u"CircleOff_125")
+        sizePolicy2.setHeightForWidth(self.CircleOff_125.sizePolicy().hasHeightForWidth())
+        self.CircleOff_125.setSizePolicy(sizePolicy2)
+        self.CircleOff_125.setMinimumSize(QSize(0, 30))
+        self.CircleOff_125.setMaximumSize(QSize(30, 30))
+        self.CircleOff_125.setFont(font4)
+        self.CircleOff_125.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_125.setCheckable(True)
 
-        self.gridLayout_8.addWidget(self.widget_49, 7, 1, 1, 1)
+        self.horizontalLayout_157.addWidget(self.CircleOff_125)
 
-        self.widget_46 = QWidget(self.widget_3)
-        self.widget_46.setObjectName(u"widget_46")
-        self.label_54 = QLabel(self.widget_46)
-        self.label_54.setObjectName(u"label_54")
-        self.label_54.setGeometry(QRect(10, 10, 67, 17))
+        self.CircleOn_125 = QPushButton(self.y0_115)
+        self.CircleOn_125.setObjectName(u"CircleOn_125")
+        sizePolicy2.setHeightForWidth(self.CircleOn_125.sizePolicy().hasHeightForWidth())
+        self.CircleOn_125.setSizePolicy(sizePolicy2)
+        self.CircleOn_125.setMaximumSize(QSize(30, 30))
+        self.CircleOn_125.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_125.setCheckable(True)
 
-        self.gridLayout_8.addWidget(self.widget_46, 6, 0, 1, 1)
+        self.horizontalLayout_157.addWidget(self.CircleOn_125)
 
-        self.widget_47 = QWidget(self.widget_3)
-        self.widget_47.setObjectName(u"widget_47")
-        self.label_55 = QLabel(self.widget_47)
-        self.label_55.setObjectName(u"label_55")
-        self.label_55.setGeometry(QRect(10, 10, 67, 17))
 
-        self.gridLayout_8.addWidget(self.widget_47, 6, 1, 1, 1)
+        self.gridLayout_8.addWidget(self.y0_115, 2, 1, 1, 1)
 
-        self.widget_51 = QWidget(self.widget_3)
-        self.widget_51.setObjectName(u"widget_51")
-        self.label_59 = QLabel(self.widget_51)
-        self.label_59.setObjectName(u"label_59")
-        self.label_59.setGeometry(QRect(10, 10, 67, 17))
+        self.y0_114 = QWidget(self.gridLayoutWidget)
+        self.y0_114.setObjectName(u"y0_114")
+        sizePolicy5.setHeightForWidth(self.y0_114.sizePolicy().hasHeightForWidth())
+        self.y0_114.setSizePolicy(sizePolicy5)
+        self.y0_114.setMinimumSize(QSize(90, 60))
+        self.y0_114.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_156 = QHBoxLayout(self.y0_114)
+        self.horizontalLayout_156.setObjectName(u"horizontalLayout_156")
+        self.horizontalLayout_156.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_124 = QPushButton(self.y0_114)
+        self.CircleOff_124.setObjectName(u"CircleOff_124")
+        sizePolicy2.setHeightForWidth(self.CircleOff_124.sizePolicy().hasHeightForWidth())
+        self.CircleOff_124.setSizePolicy(sizePolicy2)
+        self.CircleOff_124.setMinimumSize(QSize(0, 30))
+        self.CircleOff_124.setMaximumSize(QSize(30, 30))
+        self.CircleOff_124.setFont(font4)
+        self.CircleOff_124.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_124.setCheckable(True)
 
-        self.gridLayout_8.addWidget(self.widget_51, 8, 1, 1, 1)
+        self.horizontalLayout_156.addWidget(self.CircleOff_124)
 
-        self.widget_37 = QWidget(self.widget_3)
-        self.widget_37.setObjectName(u"widget_37")
-        self.label_45 = QLabel(self.widget_37)
-        self.label_45.setObjectName(u"label_45")
-        self.label_45.setGeometry(QRect(10, 10, 67, 17))
+        self.CircleOn_124 = QPushButton(self.y0_114)
+        self.CircleOn_124.setObjectName(u"CircleOn_124")
+        sizePolicy2.setHeightForWidth(self.CircleOn_124.sizePolicy().hasHeightForWidth())
+        self.CircleOn_124.setSizePolicy(sizePolicy2)
+        self.CircleOn_124.setMaximumSize(QSize(30, 30))
+        self.CircleOn_124.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_124.setCheckable(True)
 
-        self.gridLayout_8.addWidget(self.widget_37, 1, 1, 1, 1)
+        self.horizontalLayout_156.addWidget(self.CircleOn_124)
 
+
+        self.gridLayout_8.addWidget(self.y0_114, 2, 0, 1, 1)
+
+        self.y0_113 = QWidget(self.gridLayoutWidget)
+        self.y0_113.setObjectName(u"y0_113")
+        sizePolicy5.setHeightForWidth(self.y0_113.sizePolicy().hasHeightForWidth())
+        self.y0_113.setSizePolicy(sizePolicy5)
+        self.y0_113.setMinimumSize(QSize(90, 60))
+        self.y0_113.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_155 = QHBoxLayout(self.y0_113)
+        self.horizontalLayout_155.setObjectName(u"horizontalLayout_155")
+        self.horizontalLayout_155.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_123 = QPushButton(self.y0_113)
+        self.CircleOff_123.setObjectName(u"CircleOff_123")
+        sizePolicy2.setHeightForWidth(self.CircleOff_123.sizePolicy().hasHeightForWidth())
+        self.CircleOff_123.setSizePolicy(sizePolicy2)
+        self.CircleOff_123.setMinimumSize(QSize(0, 30))
+        self.CircleOff_123.setMaximumSize(QSize(30, 30))
+        self.CircleOff_123.setFont(font4)
+        self.CircleOff_123.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_123.setCheckable(True)
+
+        self.horizontalLayout_155.addWidget(self.CircleOff_123)
+
+        self.CircleOn_123 = QPushButton(self.y0_113)
+        self.CircleOn_123.setObjectName(u"CircleOn_123")
+        sizePolicy2.setHeightForWidth(self.CircleOn_123.sizePolicy().hasHeightForWidth())
+        self.CircleOn_123.setSizePolicy(sizePolicy2)
+        self.CircleOn_123.setMaximumSize(QSize(30, 30))
+        self.CircleOn_123.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_123.setCheckable(True)
+
+        self.horizontalLayout_155.addWidget(self.CircleOn_123)
+
+
+        self.gridLayout_8.addWidget(self.y0_113, 1, 3, 1, 1)
+
+        self.y0_56 = QWidget(self.gridLayoutWidget)
+        self.y0_56.setObjectName(u"y0_56")
+        sizePolicy5.setHeightForWidth(self.y0_56.sizePolicy().hasHeightForWidth())
+        self.y0_56.setSizePolicy(sizePolicy5)
+        self.y0_56.setMinimumSize(QSize(90, 60))
+        self.y0_56.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_98 = QHBoxLayout(self.y0_56)
+        self.horizontalLayout_98.setObjectName(u"horizontalLayout_98")
+        self.horizontalLayout_98.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_66 = QPushButton(self.y0_56)
+        self.CircleOff_66.setObjectName(u"CircleOff_66")
+        sizePolicy2.setHeightForWidth(self.CircleOff_66.sizePolicy().hasHeightForWidth())
+        self.CircleOff_66.setSizePolicy(sizePolicy2)
+        self.CircleOff_66.setMinimumSize(QSize(0, 30))
+        self.CircleOff_66.setMaximumSize(QSize(30, 30))
+        self.CircleOff_66.setFont(font4)
+        self.CircleOff_66.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_66.setCheckable(True)
+
+        self.horizontalLayout_98.addWidget(self.CircleOff_66)
+
+        self.CircleOn_66 = QPushButton(self.y0_56)
+        self.CircleOn_66.setObjectName(u"CircleOn_66")
+        sizePolicy2.setHeightForWidth(self.CircleOn_66.sizePolicy().hasHeightForWidth())
+        self.CircleOn_66.setSizePolicy(sizePolicy2)
+        self.CircleOn_66.setMaximumSize(QSize(30, 30))
+        self.CircleOn_66.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_66.setCheckable(True)
+
+        self.horizontalLayout_98.addWidget(self.CircleOn_66)
+
+
+        self.gridLayout_8.addWidget(self.y0_56, 1, 1, 1, 1)
+
+        self.y0_51 = QWidget(self.gridLayoutWidget)
+        self.y0_51.setObjectName(u"y0_51")
+        sizePolicy5.setHeightForWidth(self.y0_51.sizePolicy().hasHeightForWidth())
+        self.y0_51.setSizePolicy(sizePolicy5)
+        self.y0_51.setMinimumSize(QSize(90, 60))
+        self.y0_51.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_91 = QHBoxLayout(self.y0_51)
+        self.horizontalLayout_91.setObjectName(u"horizontalLayout_91")
+        self.horizontalLayout_91.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_59 = QPushButton(self.y0_51)
+        self.CircleOff_59.setObjectName(u"CircleOff_59")
+        sizePolicy2.setHeightForWidth(self.CircleOff_59.sizePolicy().hasHeightForWidth())
+        self.CircleOff_59.setSizePolicy(sizePolicy2)
+        self.CircleOff_59.setMinimumSize(QSize(0, 30))
+        self.CircleOff_59.setMaximumSize(QSize(30, 30))
+        self.CircleOff_59.setFont(font4)
+        self.CircleOff_59.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_59.setCheckable(True)
+
+        self.horizontalLayout_91.addWidget(self.CircleOff_59)
+
+        self.CircleOn_59 = QPushButton(self.y0_51)
+        self.CircleOn_59.setObjectName(u"CircleOn_59")
+        sizePolicy2.setHeightForWidth(self.CircleOn_59.sizePolicy().hasHeightForWidth())
+        self.CircleOn_59.setSizePolicy(sizePolicy2)
+        self.CircleOn_59.setMaximumSize(QSize(30, 30))
+        self.CircleOn_59.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_59.setCheckable(True)
+
+        self.horizontalLayout_91.addWidget(self.CircleOn_59)
+
+
+        self.gridLayout_8.addWidget(self.y0_51, 0, 0, 1, 1)
+
+        self.y0_54 = QWidget(self.gridLayoutWidget)
+        self.y0_54.setObjectName(u"y0_54")
+        sizePolicy5.setHeightForWidth(self.y0_54.sizePolicy().hasHeightForWidth())
+        self.y0_54.setSizePolicy(sizePolicy5)
+        self.y0_54.setMinimumSize(QSize(90, 60))
+        self.y0_54.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_96 = QHBoxLayout(self.y0_54)
+        self.horizontalLayout_96.setObjectName(u"horizontalLayout_96")
+        self.horizontalLayout_96.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_64 = QPushButton(self.y0_54)
+        self.CircleOff_64.setObjectName(u"CircleOff_64")
+        sizePolicy2.setHeightForWidth(self.CircleOff_64.sizePolicy().hasHeightForWidth())
+        self.CircleOff_64.setSizePolicy(sizePolicy2)
+        self.CircleOff_64.setMinimumSize(QSize(0, 30))
+        self.CircleOff_64.setMaximumSize(QSize(30, 30))
+        self.CircleOff_64.setFont(font4)
+        self.CircleOff_64.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_64.setCheckable(True)
+
+        self.horizontalLayout_96.addWidget(self.CircleOff_64)
+
+        self.CircleOn_64 = QPushButton(self.y0_54)
+        self.CircleOn_64.setObjectName(u"CircleOn_64")
+        sizePolicy2.setHeightForWidth(self.CircleOn_64.sizePolicy().hasHeightForWidth())
+        self.CircleOn_64.setSizePolicy(sizePolicy2)
+        self.CircleOn_64.setMaximumSize(QSize(30, 30))
+        self.CircleOn_64.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_64.setCheckable(True)
+
+        self.horizontalLayout_96.addWidget(self.CircleOn_64)
+
+
+        self.gridLayout_8.addWidget(self.y0_54, 0, 3, 1, 1)
+
+        self.y0_59 = QWidget(self.gridLayoutWidget)
+        self.y0_59.setObjectName(u"y0_59")
+        sizePolicy5.setHeightForWidth(self.y0_59.sizePolicy().hasHeightForWidth())
+        self.y0_59.setSizePolicy(sizePolicy5)
+        self.y0_59.setMinimumSize(QSize(90, 60))
+        self.y0_59.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_66 = QHBoxLayout(self.y0_59)
+        self.horizontalLayout_66.setObjectName(u"horizontalLayout_66")
+        self.horizontalLayout_66.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_34 = QPushButton(self.y0_59)
+        self.CircleOff_34.setObjectName(u"CircleOff_34")
+        sizePolicy2.setHeightForWidth(self.CircleOff_34.sizePolicy().hasHeightForWidth())
+        self.CircleOff_34.setSizePolicy(sizePolicy2)
+        self.CircleOff_34.setMinimumSize(QSize(0, 30))
+        self.CircleOff_34.setMaximumSize(QSize(30, 30))
+        self.CircleOff_34.setFont(font4)
+        self.CircleOff_34.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_34.setCheckable(True)
+
+        self.horizontalLayout_66.addWidget(self.CircleOff_34)
+
+        self.CircleOn_34 = QPushButton(self.y0_59)
+        self.CircleOn_34.setObjectName(u"CircleOn_34")
+        sizePolicy2.setHeightForWidth(self.CircleOn_34.sizePolicy().hasHeightForWidth())
+        self.CircleOn_34.setSizePolicy(sizePolicy2)
+        self.CircleOn_34.setMaximumSize(QSize(30, 30))
+        self.CircleOn_34.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_34.setCheckable(True)
+
+        self.horizontalLayout_66.addWidget(self.CircleOn_34)
+
+
+        self.gridLayout_8.addWidget(self.y0_59, 2, 3, 1, 1)
+
+        self.y0_55 = QWidget(self.gridLayoutWidget)
+        self.y0_55.setObjectName(u"y0_55")
+        sizePolicy5.setHeightForWidth(self.y0_55.sizePolicy().hasHeightForWidth())
+        self.y0_55.setSizePolicy(sizePolicy5)
+        self.y0_55.setMinimumSize(QSize(90, 60))
+        self.y0_55.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_97 = QHBoxLayout(self.y0_55)
+        self.horizontalLayout_97.setObjectName(u"horizontalLayout_97")
+        self.horizontalLayout_97.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_65 = QPushButton(self.y0_55)
+        self.CircleOff_65.setObjectName(u"CircleOff_65")
+        sizePolicy2.setHeightForWidth(self.CircleOff_65.sizePolicy().hasHeightForWidth())
+        self.CircleOff_65.setSizePolicy(sizePolicy2)
+        self.CircleOff_65.setMinimumSize(QSize(0, 30))
+        self.CircleOff_65.setMaximumSize(QSize(30, 30))
+        self.CircleOff_65.setFont(font4)
+        self.CircleOff_65.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_65.setCheckable(True)
+
+        self.horizontalLayout_97.addWidget(self.CircleOff_65)
+
+        self.CircleOn_65 = QPushButton(self.y0_55)
+        self.CircleOn_65.setObjectName(u"CircleOn_65")
+        sizePolicy2.setHeightForWidth(self.CircleOn_65.sizePolicy().hasHeightForWidth())
+        self.CircleOn_65.setSizePolicy(sizePolicy2)
+        self.CircleOn_65.setMaximumSize(QSize(30, 30))
+        self.CircleOn_65.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_65.setCheckable(True)
+
+        self.horizontalLayout_97.addWidget(self.CircleOn_65)
+
+
+        self.gridLayout_8.addWidget(self.y0_55, 1, 0, 1, 1)
+
+        self.y0_60 = QWidget(self.gridLayoutWidget)
+        self.y0_60.setObjectName(u"y0_60")
+        sizePolicy5.setHeightForWidth(self.y0_60.sizePolicy().hasHeightForWidth())
+        self.y0_60.setSizePolicy(sizePolicy5)
+        self.y0_60.setMinimumSize(QSize(90, 60))
+        self.y0_60.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_71 = QHBoxLayout(self.y0_60)
+        self.horizontalLayout_71.setObjectName(u"horizontalLayout_71")
+        self.horizontalLayout_71.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_39 = QPushButton(self.y0_60)
+        self.CircleOff_39.setObjectName(u"CircleOff_39")
+        sizePolicy2.setHeightForWidth(self.CircleOff_39.sizePolicy().hasHeightForWidth())
+        self.CircleOff_39.setSizePolicy(sizePolicy2)
+        self.CircleOff_39.setMinimumSize(QSize(0, 30))
+        self.CircleOff_39.setMaximumSize(QSize(30, 30))
+        self.CircleOff_39.setFont(font4)
+        self.CircleOff_39.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_39.setCheckable(True)
+
+        self.horizontalLayout_71.addWidget(self.CircleOff_39)
+
+        self.CircleOn_39 = QPushButton(self.y0_60)
+        self.CircleOn_39.setObjectName(u"CircleOn_39")
+        sizePolicy2.setHeightForWidth(self.CircleOn_39.sizePolicy().hasHeightForWidth())
+        self.CircleOn_39.setSizePolicy(sizePolicy2)
+        self.CircleOn_39.setMaximumSize(QSize(30, 30))
+        self.CircleOn_39.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_39.setCheckable(True)
+
+        self.horizontalLayout_71.addWidget(self.CircleOn_39)
+
+
+        self.gridLayout_8.addWidget(self.y0_60, 3, 0, 1, 1)
+
+        self.y0_71 = QWidget(self.gridLayoutWidget)
+        self.y0_71.setObjectName(u"y0_71")
+        sizePolicy5.setHeightForWidth(self.y0_71.sizePolicy().hasHeightForWidth())
+        self.y0_71.setSizePolicy(sizePolicy5)
+        self.y0_71.setMinimumSize(QSize(90, 60))
+        self.y0_71.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_75 = QHBoxLayout(self.y0_71)
+        self.horizontalLayout_75.setObjectName(u"horizontalLayout_75")
+        self.horizontalLayout_75.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_43 = QPushButton(self.y0_71)
+        self.CircleOff_43.setObjectName(u"CircleOff_43")
+        sizePolicy2.setHeightForWidth(self.CircleOff_43.sizePolicy().hasHeightForWidth())
+        self.CircleOff_43.setSizePolicy(sizePolicy2)
+        self.CircleOff_43.setMinimumSize(QSize(0, 30))
+        self.CircleOff_43.setMaximumSize(QSize(30, 30))
+        self.CircleOff_43.setFont(font4)
+        self.CircleOff_43.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_43.setCheckable(True)
+
+        self.horizontalLayout_75.addWidget(self.CircleOff_43)
+
+        self.CircleOn_43 = QPushButton(self.y0_71)
+        self.CircleOn_43.setObjectName(u"CircleOn_43")
+        sizePolicy2.setHeightForWidth(self.CircleOn_43.sizePolicy().hasHeightForWidth())
+        self.CircleOn_43.setSizePolicy(sizePolicy2)
+        self.CircleOn_43.setMaximumSize(QSize(30, 30))
+        self.CircleOn_43.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_43.setCheckable(True)
+
+        self.horizontalLayout_75.addWidget(self.CircleOn_43)
+
+
+        self.gridLayout_8.addWidget(self.y0_71, 3, 1, 1, 1)
+
+        self.y0_72 = QWidget(self.gridLayoutWidget)
+        self.y0_72.setObjectName(u"y0_72")
+        sizePolicy5.setHeightForWidth(self.y0_72.sizePolicy().hasHeightForWidth())
+        self.y0_72.setSizePolicy(sizePolicy5)
+        self.y0_72.setMinimumSize(QSize(90, 60))
+        self.y0_72.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_78 = QHBoxLayout(self.y0_72)
+        self.horizontalLayout_78.setObjectName(u"horizontalLayout_78")
+        self.horizontalLayout_78.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_46 = QPushButton(self.y0_72)
+        self.CircleOff_46.setObjectName(u"CircleOff_46")
+        sizePolicy2.setHeightForWidth(self.CircleOff_46.sizePolicy().hasHeightForWidth())
+        self.CircleOff_46.setSizePolicy(sizePolicy2)
+        self.CircleOff_46.setMinimumSize(QSize(0, 30))
+        self.CircleOff_46.setMaximumSize(QSize(30, 30))
+        self.CircleOff_46.setFont(font4)
+        self.CircleOff_46.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_46.setCheckable(True)
+
+        self.horizontalLayout_78.addWidget(self.CircleOff_46)
+
+        self.CircleOn_46 = QPushButton(self.y0_72)
+        self.CircleOn_46.setObjectName(u"CircleOn_46")
+        sizePolicy2.setHeightForWidth(self.CircleOn_46.sizePolicy().hasHeightForWidth())
+        self.CircleOn_46.setSizePolicy(sizePolicy2)
+        self.CircleOn_46.setMaximumSize(QSize(30, 30))
+        self.CircleOn_46.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_46.setCheckable(True)
+
+        self.horizontalLayout_78.addWidget(self.CircleOn_46)
+
+
+        self.gridLayout_8.addWidget(self.y0_72, 3, 2, 1, 1)
+
+        self.y0_73 = QWidget(self.gridLayoutWidget)
+        self.y0_73.setObjectName(u"y0_73")
+        sizePolicy5.setHeightForWidth(self.y0_73.sizePolicy().hasHeightForWidth())
+        self.y0_73.setSizePolicy(sizePolicy5)
+        self.y0_73.setMinimumSize(QSize(90, 60))
+        self.y0_73.setStyleSheet(u"    border: none;\n"
+"    border-radius: 24px;\n"
+"    background-color: #000000;\n"
+"")
+        self.horizontalLayout_105 = QHBoxLayout(self.y0_73)
+        self.horizontalLayout_105.setObjectName(u"horizontalLayout_105")
+        self.horizontalLayout_105.setContentsMargins(4, -1, -1, -1)
+        self.CircleOff_73 = QPushButton(self.y0_73)
+        self.CircleOff_73.setObjectName(u"CircleOff_73")
+        sizePolicy2.setHeightForWidth(self.CircleOff_73.sizePolicy().hasHeightForWidth())
+        self.CircleOff_73.setSizePolicy(sizePolicy2)
+        self.CircleOff_73.setMinimumSize(QSize(0, 30))
+        self.CircleOff_73.setMaximumSize(QSize(30, 30))
+        self.CircleOff_73.setFont(font4)
+        self.CircleOff_73.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: white;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"	color: black;\n"
+"}\n"
+"")
+        self.CircleOff_73.setCheckable(True)
+
+        self.horizontalLayout_105.addWidget(self.CircleOff_73)
+
+        self.CircleOn_73 = QPushButton(self.y0_73)
+        self.CircleOn_73.setObjectName(u"CircleOn_73")
+        sizePolicy2.setHeightForWidth(self.CircleOn_73.sizePolicy().hasHeightForWidth())
+        self.CircleOn_73.setSizePolicy(sizePolicy2)
+        self.CircleOn_73.setMaximumSize(QSize(30, 30))
+        self.CircleOn_73.setStyleSheet(u"QPushButton {\n"
+"    border: none;\n"
+"    border-radius: 15px;\n"
+"    background-color: #000000;\n"
+"    max-width: 30px;\n"
+"    min-height: 30px;\n"
+"    max-height: 30px;\n"
+"    padding: 0;\n"
+"}\n"
+"")
+        self.CircleOn_73.setCheckable(True)
+
+        self.horizontalLayout_105.addWidget(self.CircleOn_73)
+
+
+        self.gridLayout_8.addWidget(self.y0_73, 3, 3, 1, 1)
+
+        self.label_5 = QLabel(self.DIDOContainerPage)
+        self.label_5.setObjectName(u"label_5")
+        self.label_5.setGeometry(QRect(320, 0, 67, 17))
+        self.label_5.setFont(font4)
+        self.label_5.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label_8 = QLabel(self.DIDOContainerPage)
+        self.label_8.setObjectName(u"label_8")
+        self.label_8.setGeometry(QRect(320, 300, 67, 17))
+        self.label_8.setFont(font4)
+        self.label_8.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.MiddleStackedWidget.addWidget(self.DIDOContainerPage)
         self.ParentStackedWidgetToChangeMenuOptions.addWidget(self.ComponentControlPage)
         self.ProductionRecordPage = QWidget()
@@ -2480,9 +5399,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
         self.WorkOrderText = QLabel(self.WorkOrderWidget)
         self.WorkOrderText.setObjectName(u"WorkOrderText")
-        font4 = QFont()
-        font4.setBold(True)
-        self.WorkOrderText.setFont(font4)
+        font5 = QFont()
+        font5.setBold(True)
+        self.WorkOrderText.setFont(font5)
 
         self.horizontalLayout_17.addWidget(self.WorkOrderText)
 
@@ -2499,7 +5418,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
         self.RecipeText = QLabel(self.RecipeWidget)
         self.RecipeText.setObjectName(u"RecipeText")
-        self.RecipeText.setFont(font4)
+        self.RecipeText.setFont(font5)
 
         self.horizontalLayout_18.addWidget(self.RecipeText)
 
@@ -2516,7 +5435,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
         self.QuantityText = QLabel(self.QuantityWidget)
         self.QuantityText.setObjectName(u"QuantityText")
-        self.QuantityText.setFont(font4)
+        self.QuantityText.setFont(font5)
 
         self.horizontalLayout_20.addWidget(self.QuantityText)
 
@@ -2533,7 +5452,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
         self.WorkerNameText = QLabel(self.WorkerNameWidget)
         self.WorkerNameText.setObjectName(u"WorkerNameText")
-        self.WorkerNameText.setFont(font4)
+        self.WorkerNameText.setFont(font5)
 
         self.horizontalLayout_21.addWidget(self.WorkerNameText)
 
@@ -2550,7 +5469,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
         self.CartHeightText = QLabel(self.CartHeightWidget)
         self.CartHeightText.setObjectName(u"CartHeightText")
-        self.CartHeightText.setFont(font4)
+        self.CartHeightText.setFont(font5)
 
         self.horizontalLayout_23.addWidget(self.CartHeightText)
 
@@ -2567,7 +5486,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_24.setObjectName(u"horizontalLayout_24")
         self.CartDepthText = QLabel(self.CartDepthWidget)
         self.CartDepthText.setObjectName(u"CartDepthText")
-        self.CartDepthText.setFont(font4)
+        self.CartDepthText.setFont(font5)
 
         self.horizontalLayout_24.addWidget(self.CartDepthText)
 
@@ -2584,7 +5503,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_26.setObjectName(u"horizontalLayout_26")
         self.DateText = QLabel(self.DateWidget)
         self.DateText.setObjectName(u"DateText")
-        self.DateText.setFont(font4)
+        self.DateText.setFont(font5)
 
         self.horizontalLayout_26.addWidget(self.DateText)
 
@@ -2615,8 +5534,8 @@ class Ui_MainWindow(object):
 
         self.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(0)
         self.ProcessAndInfoStackedWidget.setCurrentIndex(0)
-        self.AutoAndManualStackedWidget.setCurrentIndex(2)
-        self.ActionButtons.setCurrentIndex(0)
+        self.AutoAndManualStackedWidget.setCurrentIndex(0)
+        self.ActionButtons.setCurrentIndex(1)
         self.ComponentControlStackedWidget.setCurrentIndex(1)
         self.ChangeComponentControlStackedWidget.setCurrentIndex(3)
         self.MiddleStackedWidget.setCurrentIndex(0)
@@ -2683,16 +5602,19 @@ class Ui_MainWindow(object):
         self.ManualButton.setText(QCoreApplication.translate("MainWindow", u"Manual", None))
         self.INITButton.setText(QCoreApplication.translate("MainWindow", u"INIT", None))
         self.RunButton.setText(QCoreApplication.translate("MainWindow", u"RUN", None))
+        self.AutoPauseButton.setText(QCoreApplication.translate("MainWindow", u"Pause", None))
+        self.AutoStopButton.setText(QCoreApplication.translate("MainWindow", u"STOP", None))
         self.RoughAlignButton.setText(QCoreApplication.translate("MainWindow", u"Rough Align", None))
         self.PreciseAlignButton.setText(QCoreApplication.translate("MainWindow", u"Precise Align", None))
         self.PickButton.setText(QCoreApplication.translate("MainWindow", u"Pick", None))
         self.AssemblyButton.setText(QCoreApplication.translate("MainWindow", u"Assembly", None))
-        self.PauseButton.setText(QCoreApplication.translate("MainWindow", u"Pause", None))
-        self.StopButton.setText(QCoreApplication.translate("MainWindow", u"STOP", None))
+        self.ManualPauseButton.setText(QCoreApplication.translate("MainWindow", u"Pause", None))
+        self.ManualStopButton.setText(QCoreApplication.translate("MainWindow", u"STOP", None))
         self.ChooseMotor.setText(QCoreApplication.translate("MainWindow", u"Motor", None))
         self.ChooseVision.setText(QCoreApplication.translate("MainWindow", u"Vision", None))
         self.ChooseClipper.setText(QCoreApplication.translate("MainWindow", u"Clipper", None))
         self.ChooseForklift.setText(QCoreApplication.translate("MainWindow", u"Forklift", None))
+        self.ChooseDIDO.setText(QCoreApplication.translate("MainWindow", u"DI/DO", None))
         self.MotorStartedButton.setText(QCoreApplication.translate("MainWindow", u"Motor", None))
         self.HamburgerMenu.setText("")
         self.ControlUpCP.setText("")
@@ -2745,60 +5667,136 @@ class Ui_MainWindow(object):
         self.h1_2.setText(QCoreApplication.translate("MainWindow", u"Height Cmd: ", None))
         self.HeightCommand.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.RecordDataButton_2.setText(QCoreApplication.translate("MainWindow", u"Record Data", None))
-        self.label_24.setText(QCoreApplication.translate("MainWindow", u"Y13", None))
-        self.label_15.setText(QCoreApplication.translate("MainWindow", u"Y6", None))
-        self.label_17.setText(QCoreApplication.translate("MainWindow", u"Y8", None))
-        self.CircleOff_5.setText("")
-        self.CircleOn_5.setText("")
-        self.label_8.setText(QCoreApplication.translate("MainWindow", u"DO", None))
-        self.label_21.setText(QCoreApplication.translate("MainWindow", u"Y10", None))
-        self.pushButton_4.setText("")
-        self.CircleOn_8.setText("")
-        self.label_25.setText(QCoreApplication.translate("MainWindow", u"Y14", None))
-        self.label_23.setText(QCoreApplication.translate("MainWindow", u"Y12", None))
-        self.label_16.setText(QCoreApplication.translate("MainWindow", u"Y7", None))
-        self.label_26.setText(QCoreApplication.translate("MainWindow", u"Y15", None))
-        self.label_9.setText(QCoreApplication.translate("MainWindow", u"Y0", None))
-        self.CircleOff.setText("")
-        self.CircleOn.setText("")
-        self.label_20.setText(QCoreApplication.translate("MainWindow", u"Y9", None))
-        self.CircleOff_3.setText("")
-        self.CircleOn_3.setText("")
-        self.label_10.setText(QCoreApplication.translate("MainWindow", u"Y1", None))
-        self.pushButton.setText("")
-        self.CircleOn_2.setText("")
-        self.label_11.setText(QCoreApplication.translate("MainWindow", u"Y2", None))
-        self.pushButton_2.setText("")
-        self.CircleOn_4.setText("")
-        self.label_12.setText(QCoreApplication.translate("MainWindow", u"Y3", None))
-        self.pushButton_6.setText("")
-        self.CircleOn_10.setText("")
-        self.label_13.setText(QCoreApplication.translate("MainWindow", u"Y4", None))
-        self.pushButton_9.setText("")
-        self.CircleOn_13.setText("")
-        self.label_22.setText(QCoreApplication.translate("MainWindow", u"Y11", None))
-        self.pushButton_8.setText("")
-        self.CircleOn_12.setText("")
-        self.label_14.setText(QCoreApplication.translate("MainWindow", u"Y5", None))
-        self.pushButton_16.setText("")
+        self.CircleOff_15.setText(QCoreApplication.translate("MainWindow", u"13", None))
+        self.CircleOn_15.setText("")
+        self.CircleOff_32.setText(QCoreApplication.translate("MainWindow", u"30", None))
+        self.CircleOn_32.setText("")
+        self.CircleOff_14.setText(QCoreApplication.translate("MainWindow", u"12", None))
+        self.CircleOn_14.setText("")
+        self.CircleOff_24.setText(QCoreApplication.translate("MainWindow", u"22", None))
+        self.CircleOn_24.setText("")
+        self.CircleOff_9.setText(QCoreApplication.translate("MainWindow", u"7", None))
+        self.CircleOn_9.setText("")
+        self.CircleOff_6.setText(QCoreApplication.translate("MainWindow", u"4", None))
+        self.CircleOn_6.setText("")
+        self.CircleOff_23.setText(QCoreApplication.translate("MainWindow", u"21", None))
         self.CircleOn_23.setText("")
-        self.label_46.setText(QCoreApplication.translate("MainWindow", u"Y1", None))
-        self.label_56.setText(QCoreApplication.translate("MainWindow", u"Y6", None))
-        self.label_48.setText(QCoreApplication.translate("MainWindow", u"Y2", None))
-        self.label_47.setText(QCoreApplication.translate("MainWindow", u"Y9", None))
-        self.label_49.setText(QCoreApplication.translate("MainWindow", u"Y10", None))
-        self.label_52.setText(QCoreApplication.translate("MainWindow", u"Y4", None))
-        self.label_58.setText(QCoreApplication.translate("MainWindow", u"Y7", None))
-        self.label_50.setText(QCoreApplication.translate("MainWindow", u"Y3", None))
-        self.label_53.setText(QCoreApplication.translate("MainWindow", u"Y12", None))
-        self.label_51.setText(QCoreApplication.translate("MainWindow", u"Y11", None))
-        self.label_60.setText(QCoreApplication.translate("MainWindow", u"DI", None))
-        self.label_44.setText(QCoreApplication.translate("MainWindow", u"Y0", None))
-        self.label_57.setText(QCoreApplication.translate("MainWindow", u"Y14", None))
-        self.label_54.setText(QCoreApplication.translate("MainWindow", u"Y5", None))
-        self.label_55.setText(QCoreApplication.translate("MainWindow", u"Y13", None))
-        self.label_59.setText(QCoreApplication.translate("MainWindow", u"Y15", None))
-        self.label_45.setText(QCoreApplication.translate("MainWindow", u"Y8", None))
+        self.CircleOff_35.setText(QCoreApplication.translate("MainWindow", u"31", None))
+        self.CircleOn_35.setText("")
+        self.CircleOff_18.setText(QCoreApplication.translate("MainWindow", u"16", None))
+        self.CircleOn_18.setText("")
+        self.CircleOff_20.setText(QCoreApplication.translate("MainWindow", u"18", None))
+        self.CircleOn_20.setText("")
+        self.CircleOff_30.setText(QCoreApplication.translate("MainWindow", u"28", None))
+        self.CircleOn_30.setText("")
+        self.CircleOff_47.setText(QCoreApplication.translate("MainWindow", u"37", None))
+        self.CircleOn_47.setText("")
+        self.CircleOff_10.setText(QCoreApplication.translate("MainWindow", u"8", None))
+        self.CircleOn_10.setText("")
+        self.CircleOff_58.setText(QCoreApplication.translate("MainWindow", u"48", None))
+        self.CircleOn_58.setText("")
+        self.CircleOff_56.setText(QCoreApplication.translate("MainWindow", u"46", None))
+        self.CircleOn_56.setText("")
+        self.CircleOff_11.setText(QCoreApplication.translate("MainWindow", u"9", None))
+        self.CircleOn_11.setText("")
+        self.CircleOff_22.setText(QCoreApplication.translate("MainWindow", u"20", None))
+        self.CircleOn_22.setText("")
+        self.CircleOff_8.setText(QCoreApplication.translate("MainWindow", u"6", None))
+        self.CircleOn_8.setText("")
+        self.CircleOff_25.setText(QCoreApplication.translate("MainWindow", u"23", None))
+        self.CircleOn_25.setText("")
+        self.CircleOff_57.setText(QCoreApplication.translate("MainWindow", u"47", None))
+        self.CircleOn_57.setText("")
+        self.CircleOff_48.setText(QCoreApplication.translate("MainWindow", u"43", None))
+        self.CircleOn_48.setText("")
+        self.CircleOff_5.setText(QCoreApplication.translate("MainWindow", u"3", None))
+        self.CircleOn_5.setText("")
+        self.CircleOff_36.setText(QCoreApplication.translate("MainWindow", u"32", None))
+        self.CircleOn_36.setText("")
+        self.CircleOff_52.setText(QCoreApplication.translate("MainWindow", u"41", None))
+        self.CircleOn_52.setText("")
+        self.CircleOff_37.setText(QCoreApplication.translate("MainWindow", u"33", None))
+        self.CircleOn_37.setText("")
+        self.CircleOff_4.setText(QCoreApplication.translate("MainWindow", u"2", None))
+        self.CircleOn_4.setText("")
+        self.CircleOff_49.setText(QCoreApplication.translate("MainWindow", u"38", None))
+        self.CircleOn_49.setText("")
+        self.CircleOff_50.setText(QCoreApplication.translate("MainWindow", u"39", None))
+        self.CircleOn_50.setText("")
+        self.CircleOff_51.setText(QCoreApplication.translate("MainWindow", u"40", None))
+        self.CircleOn_51.setText("")
+        self.CircleOff_45.setText(QCoreApplication.translate("MainWindow", u"36", None))
+        self.CircleOn_45.setText("")
+        self.CircleOff_16.setText(QCoreApplication.translate("MainWindow", u"14", None))
+        self.CircleOn_16.setText("")
+        self.CircleOff_19.setText(QCoreApplication.translate("MainWindow", u"17", None))
+        self.CircleOn_19.setText("")
+        self.CircleOff_31.setText(QCoreApplication.translate("MainWindow", u"29", None))
+        self.CircleOn_31.setText("")
+        self.CircleOff_7.setText(QCoreApplication.translate("MainWindow", u"5", None))
+        self.CircleOn_7.setText("")
+        self.CircleOff_55.setText(QCoreApplication.translate("MainWindow", u"45", None))
+        self.CircleOn_55.setText("")
+        self.CircleOff_38.setText(QCoreApplication.translate("MainWindow", u"34", None))
+        self.CircleOn_38.setText("")
+        self.CircleOff_3.setText(QCoreApplication.translate("MainWindow", u"1", None))
+        self.CircleOn_3.setText("")
+        self.CircleOff_17.setText(QCoreApplication.translate("MainWindow", u"15", None))
+        self.CircleOn_17.setText("")
+        self.CircleOff_53.setText(QCoreApplication.translate("MainWindow", u"42", None))
+        self.CircleOn_53.setText("")
+        self.CircleOff_44.setText(QCoreApplication.translate("MainWindow", u"35", None))
+        self.CircleOn_44.setText("")
+        self.CircleOff_13.setText(QCoreApplication.translate("MainWindow", u"11", None))
+        self.CircleOn_13.setText("")
+        self.CircleOff_28.setText(QCoreApplication.translate("MainWindow", u"26", None))
+        self.CircleOn_28.setText("")
+        self.CircleOff_27.setText(QCoreApplication.translate("MainWindow", u"25", None))
+        self.CircleOn_27.setText("")
+        self.CircleOff_29.setText(QCoreApplication.translate("MainWindow", u"27", None))
+        self.CircleOn_29.setText("")
+        self.CircleOff_26.setText(QCoreApplication.translate("MainWindow", u"24", None))
+        self.CircleOn_26.setText("")
+        self.CircleOff_54.setText(QCoreApplication.translate("MainWindow", u"44", None))
+        self.CircleOn_54.setText("")
+        self.CircleOff_12.setText(QCoreApplication.translate("MainWindow", u"10", None))
+        self.CircleOn_12.setText("")
+        self.CircleOff_21.setText(QCoreApplication.translate("MainWindow", u"19", None))
+        self.CircleOn_21.setText("")
+        self.CircleOff_33.setText(QCoreApplication.translate("MainWindow", u"11", None))
+        self.CircleOn_33.setText("")
+        self.CircleOff_60.setText(QCoreApplication.translate("MainWindow", u"2", None))
+        self.CircleOn_60.setText("")
+        self.CircleOff_67.setText(QCoreApplication.translate("MainWindow", u"7", None))
+        self.CircleOn_67.setText("")
+        self.CircleOff_61.setText(QCoreApplication.translate("MainWindow", u"3", None))
+        self.CircleOn_61.setText("")
+        self.CircleOff_125.setText(QCoreApplication.translate("MainWindow", u"10", None))
+        self.CircleOn_125.setText("")
+        self.CircleOff_124.setText(QCoreApplication.translate("MainWindow", u"9", None))
+        self.CircleOn_124.setText("")
+        self.CircleOff_123.setText(QCoreApplication.translate("MainWindow", u"8", None))
+        self.CircleOn_123.setText("")
+        self.CircleOff_66.setText(QCoreApplication.translate("MainWindow", u"6", None))
+        self.CircleOn_66.setText("")
+        self.CircleOff_59.setText(QCoreApplication.translate("MainWindow", u"1", None))
+        self.CircleOn_59.setText("")
+        self.CircleOff_64.setText(QCoreApplication.translate("MainWindow", u"4", None))
+        self.CircleOn_64.setText("")
+        self.CircleOff_34.setText(QCoreApplication.translate("MainWindow", u"12", None))
+        self.CircleOn_34.setText("")
+        self.CircleOff_65.setText(QCoreApplication.translate("MainWindow", u"5", None))
+        self.CircleOn_65.setText("")
+        self.CircleOff_39.setText(QCoreApplication.translate("MainWindow", u"13", None))
+        self.CircleOn_39.setText("")
+        self.CircleOff_43.setText(QCoreApplication.translate("MainWindow", u"14", None))
+        self.CircleOn_43.setText("")
+        self.CircleOff_46.setText(QCoreApplication.translate("MainWindow", u"15", None))
+        self.CircleOn_46.setText("")
+        self.CircleOff_73.setText(QCoreApplication.translate("MainWindow", u"16", None))
+        self.CircleOn_73.setText("")
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"DI", None))
+        self.label_8.setText(QCoreApplication.translate("MainWindow", u"DO", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Production Record", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Logs", None))
         self.ChangeLanguageText.setText(QCoreApplication.translate("MainWindow", u"Change Language", None))
