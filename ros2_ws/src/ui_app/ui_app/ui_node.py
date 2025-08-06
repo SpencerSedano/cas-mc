@@ -3,7 +3,7 @@ from datetime import date
 import cv2
 from PySide6.QtCore import Qt, QEvent, QTimer, Signal
 from PySide6.QtGui import QIcon, QImage, QPixmap
-from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtWidgets import QApplication, QMainWindow, QButtonGroup, QScroller
 
 from ui_app.ui_magic_cube import Ui_MainWindow # Import my design made in Qt Designer (already in .py)
 import ui_app.resources_rc  # this includes the images and icons
@@ -11,6 +11,7 @@ import ui_app.resources_rc  # this includes the images and icons
 #ui components
 from ui_app.ui_components.ui_forklift import ForkliftController
 from ui_app.ui_components.ui_motor import MotorController
+from ui_app.ui_components.ui_dido import DIDOController
 
 #Vision
 from sensor_msgs.msg import Image
@@ -26,6 +27,7 @@ from common_msgs.msg import StateCmd, ForkCmd, JogCmd
 class ROSNode(Node):
     def __init__(self):
         super().__init__('ui_node')
+
 
         self.mode_cmd = {
             'auto': True,
@@ -47,6 +49,8 @@ class ROSNode(Node):
             'main_page': True,
             'component_control': False
         }
+
+
 
         self.forklift_controller = None
 
@@ -79,8 +83,12 @@ class ROSNode(Node):
         #menu publishers
         self.component_control_publisher = self.create_publisher(String, '/run_cmd', 10)
 
+        # di/do
+        self.dido_control_publisher = self.create_publisher(String, '/test_dido', 10)
+
         #vision publish
         self.vision_control_publisher = self.create_publisher(String, '/detection_task', 10)
+
 
         self.color_image_subscriber = self.create_subscription(
         Image,
@@ -88,6 +96,7 @@ class ROSNode(Node):
         self.image_callback,
         10
         )
+
 
         self.bridge = CvBridge()
 
@@ -133,6 +142,8 @@ class MainWindow(QMainWindow):
         self.ros_node.image_update_callback = self.update_image
         self.ros_node.detection_task_callback_ui = self.update_detection_mode
 
+        QScroller.grabGesture(self.ui.ScrollAreaDIDO.viewport(), QScroller.LeftMouseButtonGesture)
+
 
         #motor ui
         self.motor_controller = MotorController(self.ui, self.ros_node)
@@ -140,6 +151,9 @@ class MainWindow(QMainWindow):
         #forklift ui
         self.forklift_controller = ForkliftController(self.ui, self.ros_node)
         self.ros_node.forklift_controller = self.forklift_controller
+
+        # DI/DO UI Controller
+        self.dido_controller = DIDOController(self.ui, self.ros_node)
         
 
         # Get Today's date
@@ -177,7 +191,7 @@ class MainWindow(QMainWindow):
         self.ui.VisionTwo.toggled.connect(lambda checked: checked and self.send_vision_cmd("l_shape"))
         self.ui.VisionThree.toggled.connect(lambda checked: checked and self.send_vision_cmd("icp_fit"))
 
-        self.ui.VisionTextInComponentControl.setFixedSize(640, 480)
+        # self.ui.VisionTextInComponentControl.setFixedSize(640, 480)
 
 
         # component control - publisher
@@ -206,8 +220,7 @@ class MainWindow(QMainWindow):
         self.ui.ChooseVision.clicked.connect(self.choose_vision)
         self.ui.ChooseClipper.clicked.connect(self.choose_clipper)
         self.ui.ChooseForklift.clicked.connect(self.choose_forklift)
-        # self.ui.ChooseDIDO.clicked.connect(self.choose_DIDO)
-
+        self.ui.ChooseDIDO.clicked.connect(self.choose_DIDO)
 
         # menu
         self.ui.MainPageButton.toggled.connect(self.change_to_main_page)
@@ -229,14 +242,16 @@ class MainWindow(QMainWindow):
         self.ui.ForkliftOption.clicked.connect(lambda: self.component_control_switch_page("Forklift", 3))
         self.ui.DIDOOption.clicked.connect(lambda: self.component_control_switch_page("DI/DO", 4))
 
+        for btn in self.ui.ManualButtons.buttons():
+            btn.toggled.connect(lambda checked, b=btn: self.on_manual_button_toggled(b, checked))
 
-        # DI/DO
-        # self.ui.CircleOff.clicked.connect(self.update_circle_off_style)
-        # self.ui.CircleOn.clicked.connect(self.update_circle_on_style)
+        
+
+
 
 
     def update_circle_off_style(self):
-        self.ui.CircleOff.setStyleSheet("""
+        self.ui.OneCircleOff.setStyleSheet("""
             QPushButton {
                 background-color: #0B76A0;
                 border: none;
@@ -248,7 +263,7 @@ class MainWindow(QMainWindow):
             }
         """)
 
-        self.ui.CircleOn.setStyleSheet("""
+        self.ui.OneCircleOn.setStyleSheet("""
             QPushButton {
                 background-color: white;
                 border: none;
@@ -260,7 +275,7 @@ class MainWindow(QMainWindow):
             }
         """)
 
-        self.ui.y0.setStyleSheet("""
+        self.ui.DO1Widget.setStyleSheet("""
             QWidget {
                 background-color: #0B76A0;
                 border: none;
@@ -269,7 +284,7 @@ class MainWindow(QMainWindow):
         """)
 
     def update_circle_on_style(self):
-        self.ui.CircleOff.setStyleSheet("""
+        self.ui.OneCircleOff.setStyleSheet("""
             QPushButton {
                 background-color: white;
                 border: none;
@@ -281,7 +296,7 @@ class MainWindow(QMainWindow):
             }
         """)
 
-        self.ui.CircleOn.setStyleSheet("""
+        self.ui.OneCircleOn.setStyleSheet("""
             QPushButton {
                 background-color: #000000;
                 border: none;
@@ -293,7 +308,7 @@ class MainWindow(QMainWindow):
             }
         """)
 
-        self.ui.y0.setStyleSheet("""
+        self.ui.DO1Widget.setStyleSheet("""
             QWidget {
                 background-color: #000000;
                 border: none;
@@ -309,7 +324,6 @@ class MainWindow(QMainWindow):
 
 
         current_index = self.ui.ParentStackedWidgetToChangeMenuOptions.currentIndex()
-
 
         if current_index == 0:  # Main Page
             self.ui.VisionText.setPixmap(pixmap)
@@ -425,17 +439,69 @@ class MainWindow(QMainWindow):
         print(f"[UI] Sent VisionCmd: {mode}")
 
     
+    def on_manual_button_toggled(self, button, checked):
+        if checked:
+            for other in self.ui.ManualButtons.buttons():
+                if other != button:
+                    other.setChecked(False)
+
+
     #Principal Menu - StackedWidget
     def change_to_main_page(self, checked):
         if checked:
+            # Buttons for Main Page reset
+            main_page_buttons = [
+                self.ui.AutoPauseButton,
+
+                self.ui.RoughAlignButton,
+                self.ui.PreciseAlignButton,
+                self.ui.PickButton,
+                self.ui.AssemblyButton,
+                self.ui.ManualPauseButton
+            ]
+            self.reset_buttons_and_machine(main_page_buttons, send_pause=True)
+
             self.ui.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(0)
             self.ui.AutoAndManualStackedWidget.setCurrentIndex(1)
 
     def change_to_component_control_page(self, checked):
         if checked:
+            component_control_buttons = [
+                 self.ui.ClipperButtonOnOff,
+                 self.ui.VisionOne,
+                 self.ui.VisionTwo,
+                 self.ui.VisionThree,
+
+                 self.ui.RunForkliftButton,
+                 self.ui.buttonGroup
+            ]
+            self.reset_buttons_and_machine(component_control_buttons, send_pause=True)
+
             self.ui.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(1)
             self.ui.ComponentControlStackedWidget.setCurrentIndex(0)
+            self.ui.MiddleStackedWidget.setCurrentIndex(0)
             self.send_mode_cmd("component_control")
+
+    def reset_buttons_and_machine(self, buttons_or_groups, send_pause=False):
+        for item in buttons_or_groups:
+            if isinstance(item, QButtonGroup):
+                # Temporarily disable exclusivity to allow all buttons to uncheck
+                item.setExclusive(False)
+                for btn in item.buttons():
+                    btn.setChecked(False)
+                item.setExclusive(True)
+            else:
+                # Normal single button
+                item.setChecked(False)
+
+        if send_pause:
+            msg = StateCmd()
+            msg.init_button = False
+            msg.run_button = False
+            msg.pause_button = True
+            msg.stop_button = False
+            self.ros_node.state_cmd_publisher.publish(msg)
+
             
 
     def change_to_production_record_page(self):
@@ -485,10 +551,11 @@ class MainWindow(QMainWindow):
         self.ui.ChangeComponentControlStackedWidget.setCurrentIndex(3)
         self.ui.MotorStartedButton.setText("Forklift")
 
-    # def choose_DIDO(self):
-    #     self.ui.ComponentControlStackedWidget.setCurrentIndex(1)
-    #     self.ui.ChangeComponentControlStackedWidget.setCurrentIndex(4)
-    #     self.ui.MotorStartedButton.setText("DI/DO")
+    def choose_DIDO(self):
+        self.ui.ComponentControlStackedWidget.setCurrentIndex(1)
+        self.ui.ChangeComponentControlStackedWidget.setCurrentIndex(4)
+        self.ui.MiddleStackedWidget.setCurrentIndex(1)
+        self.ui.MotorStartedButton.setText("DI/DO")
 
 
     # Auto or Manual Buttons
@@ -499,7 +566,7 @@ class MainWindow(QMainWindow):
         self.ui.ActionButtons.setCurrentIndex(1)
         
 
-    #
+    
     def on_auto_toggled(self, checked):
         if checked:
             self.send_mode_cmd("auto")
@@ -507,6 +574,9 @@ class MainWindow(QMainWindow):
     def on_manual_toggled(self, checked):
         if checked:
             self.send_mode_cmd("manual")
+
+    def on_dido_toggled(self, checked):
+        self.send_test_dido("on" if checked else "off")
 
     # def on_component_control_toggled(self, checked):
     #     if checked:
