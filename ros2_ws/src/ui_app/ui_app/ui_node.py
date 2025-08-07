@@ -485,7 +485,6 @@ class MainWindow(QMainWindow):
             self.reset_buttons_and_machine(main_page_buttons, send_pause=True)
 
             self.ui.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(0)
-            self.ui.AutoAndManualStackedWidget.setCurrentIndex(1)
 
     def change_to_component_control_page(self, checked):
         if checked:
