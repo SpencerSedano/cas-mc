@@ -212,14 +212,6 @@ class MainWindow(QMainWindow):
         # self.ui.RecordDataButton.clicked.connect(lambda: self.on_record_data_clicked(self.ui.RecordDataButton))
         self.ui.ClipperButtonOnOff.toggled.connect(lambda: self.update_clipper_state(self.ui.ClipperButtonOnOff))
 
-
-        # choose init or stop
-        self.ui.INITBefore.clicked.connect(self.change_to_action_buttons)
-
-        # choose auto or manual
-        self.ui.ChooseAutoButton.clicked.connect(lambda: self.choose_auto_or_manual(0))
-        self.ui.ChooseManualButton.clicked.connect(lambda: self.choose_auto_or_manual(1))
-
         #choose your component control
         self.ui.ChooseMotor.clicked.connect(self.choose_motor)
         self.ui.ChooseVision.clicked.connect(self.choose_vision)
@@ -543,21 +535,6 @@ class MainWindow(QMainWindow):
     def change_to_system_settings_page(self):
         self.ui.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(4)
 
-    #INIT or Stop
-    def change_to_action_buttons(self):
-        self.ui.AutoAndManualStackedWidget.setCurrentIndex(1)
-
-    #choose Auto or Manual
-    def choose_auto_or_manual(self, autoOrManualIndex):
-        self.ui.AutoAndManualStackedWidget.setCurrentIndex(2)
-        self.ui.ActionButtons.setCurrentIndex(autoOrManualIndex)
-
-        if autoOrManualIndex == 0:
-            self.ui.AutoButton.setChecked(True)
-
-        elif autoOrManualIndex == 1:
-            self.ui.ManualButton.setChecked(True)
-    
     #choose your component control
     def choose_motor(self):
         self.ui.ComponentControlStackedWidget.setCurrentIndex(1)

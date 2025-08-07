@@ -98,8 +98,8 @@ class ForkliftController:
 
 
     def send_fork_cmd_from_height_command(self):
-        speed = self.get_speed()
         mode = "run"
+        speed = self.get_speed()
 
         # Read target height from UI
         raw_text = self.ui.HeightCommand.text()
