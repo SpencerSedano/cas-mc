@@ -31,15 +31,6 @@ class ForkliftController:
         self.ros_node.fork_cmd_publisher.publish(msg)
         print(f"[ForkLift] Published: {mode}, {speed}, {direction}, {distance}")
 
-    def send_fork_cmd(self, direction):
-        mode = "run"
-        speed_button = self.ui.buttonGroup.checkedButton()
-
-        speed = speed_button.text().lower() if speed_button else "slow"
-        distance = float(self.ui.SliderLift.value())
-
-        self.publish_fork_cmd(mode, speed, direction, distance)
-
     def update_height_display(self, height):
         self.current_height = height
         self.ui.currentHeight.setText(f"{height} mm")  
