@@ -1,2 +1,2 @@
 string name
-string state
+bool state
