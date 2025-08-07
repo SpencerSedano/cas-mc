@@ -1226,7 +1226,7 @@ QPushButton:pressed {
           <enum>QFrame::Shadow::Raised</enum>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="BeforeAutoAndManualPage">
           <layout class="QVBoxLayout" name="verticalLayout_25">
@@ -1517,7 +1517,7 @@ QPushButton:pressed {
               <string notr="true"/>
              </property>
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="ActionButtonsPage">
               <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -2030,7 +2030,7 @@ QPushButton:pressed {
             <string notr="true"/>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>3</number>
            </property>
            <widget class="QWidget" name="MotorPage">
             <widget class="QPushButton" name="ControlUpCP">
@@ -2353,7 +2353,7 @@ QPushButton:pressed {
               <bool>true</bool>
              </property>
              <attribute name="buttonGroup">
-              <string notr="true">dete</string>
+              <string notr="true">VisionButtonGroup</string>
              </attribute>
             </widget>
             <widget class="QPushButton" name="VisionTwo">
@@ -2381,7 +2381,7 @@ QPushButton:pressed {
               <bool>true</bool>
              </property>
              <attribute name="buttonGroup">
-              <string notr="true">dete</string>
+              <string notr="true">VisionButtonGroup</string>
              </attribute>
             </widget>
             <widget class="QPushButton" name="VisionThree">
@@ -2409,33 +2409,8 @@ QPushButton:pressed {
               <bool>true</bool>
              </property>
              <attribute name="buttonGroup">
-              <string notr="true">dete</string>
+              <string notr="true">VisionButtonGroup</string>
              </attribute>
-            </widget>
-            <widget class="QPushButton" name="VisionReset">
-             <property name="geometry">
-              <rect>
-               <x>50</x>
-               <y>500</y>
-               <width>233</width>
-               <height>79</height>
-              </rect>
-             </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string>Reset</string>
-             </property>
-             <property name="checkable">
-              <bool>false</bool>
-             </property>
             </widget>
            </widget>
            <widget class="QWidget" name="ClipperPage">
@@ -2458,7 +2433,7 @@ QPushButton:pressed {
              <property name="geometry">
               <rect>
                <x>30</x>
-               <y>490</y>
+               <y>480</y>
                <width>101</width>
                <height>91</height>
               </rect>
@@ -2497,7 +2472,7 @@ border: none;</string>
              <property name="geometry">
               <rect>
                <x>190</x>
-               <y>490</y>
+               <y>480</y>
                <width>101</width>
                <height>91</height>
               </rect>
@@ -2535,8 +2510,8 @@ border: none;</string>
             <widget class="QSlider" name="SliderLift">
              <property name="geometry">
               <rect>
-               <x>50</x>
-               <y>320</y>
+               <x>40</x>
+               <y>300</y>
                <width>231</width>
                <height>41</height>
               </rect>
@@ -2578,7 +2553,7 @@ QSlider::handle:horizontal {
              <property name="geometry">
               <rect>
                <x>20</x>
-               <y>190</y>
+               <y>170</y>
                <width>88</width>
                <height>71</height>
               </rect>
@@ -2597,7 +2572,7 @@ QSlider::handle:horizontal {
              <property name="geometry">
               <rect>
                <x>220</x>
-               <y>190</y>
+               <y>170</y>
                <width>88</width>
                <height>71</height>
               </rect>
@@ -2612,29 +2587,13 @@ QSlider::handle:horizontal {
               <string notr="true">buttonGroup</string>
              </attribute>
             </widget>
-            <widget class="QPushButton" name="RunForkliftButton">
-             <property name="geometry">
-              <rect>
-               <x>30</x>
-               <y>60</y>
-               <width>121</width>
-               <height>71</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>Run</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-            </widget>
             <widget class="QPushButton" name="StopForkliftButton">
              <property name="geometry">
               <rect>
-               <x>170</x>
-               <y>60</y>
-               <width>121</width>
-               <height>71</height>
+               <x>30</x>
+               <y>30</y>
+               <width>261</width>
+               <height>81</height>
               </rect>
              </property>
              <property name="text">
@@ -2644,27 +2603,11 @@ QSlider::handle:horizontal {
               <bool>false</bool>
              </property>
             </widget>
-            <widget class="QLabel" name="label_2">
-             <property name="geometry">
-              <rect>
-               <x>130</x>
-               <y>30</y>
-               <width>67</width>
-               <height>17</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>Mode</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignmentFlag::AlignCenter</set>
-             </property>
-            </widget>
             <widget class="QLabel" name="label_4">
              <property name="geometry">
               <rect>
                <x>130</x>
-               <y>150</y>
+               <y>140</y>
                <width>67</width>
                <height>17</height>
               </rect>
@@ -2680,13 +2623,13 @@ QSlider::handle:horizontal {
              <property name="geometry">
               <rect>
                <x>40</x>
-               <y>380</y>
+               <y>360</y>
                <width>241</width>
                <height>81</height>
               </rect>
              </property>
              <property name="text">
-              <string>Send Cmd</string>
+              <string>Go to distance</string>
              </property>
              <property name="checkable">
               <bool>false</bool>
@@ -2696,7 +2639,7 @@ QSlider::handle:horizontal {
              <property name="geometry">
               <rect>
                <x>120</x>
-               <y>190</y>
+               <y>170</y>
                <width>88</width>
                <height>71</height>
               </rect>
@@ -2715,13 +2658,45 @@ QSlider::handle:horizontal {
              <property name="geometry">
               <rect>
                <x>90</x>
-               <y>280</y>
+               <y>270</y>
                <width>141</width>
                <height>20</height>
               </rect>
              </property>
              <property name="text">
               <string>Distance (manual)</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignCenter</set>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_2">
+             <property name="geometry">
+              <rect>
+               <x>50</x>
+               <y>570</y>
+               <width>67</width>
+               <height>17</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>10mm</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignCenter</set>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_9">
+             <property name="geometry">
+              <rect>
+               <x>210</x>
+               <y>570</y>
+               <width>67</width>
+               <height>17</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>10mm</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -2736,7 +2711,7 @@ QSlider::handle:horizontal {
              <x>10</x>
              <y>100</y>
              <width>291</width>
-             <height>451</height>
+             <height>461</height>
             </rect>
            </property>
            <property name="sizePolicy">
@@ -3350,7 +3325,7 @@ border-radius: 6px;</string>
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>685</width>
+              <width>588</width>
               <height>648</height>
              </rect>
             </property>
@@ -6323,18 +6298,22 @@ border-radius: 6px;</string>
  <resources/>
  <connections/>
  <buttongroups>
+  <buttongroup name="buttonGroup"/>
+  <buttongroup name="VisionButtonGroup">
+   <property name="exclusive">
+    <bool>false</bool>
+   </property>
+  </buttongroup>
   <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="LanguageButtonGroup"/>
+  <buttongroup name="AutoAndManualButtonGroup"/>
   <buttongroup name="FontSizeButtonGroup"/>
-  <buttongroup name="dete"/>
   <buttongroup name="ManualButtons">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
-  <buttongroup name="LanguageButtonGroup"/>
   <buttongroup name="ThemeButtonGroup"/>
-  <buttongroup name="AutoAndManualButtonGroup"/>
-  <buttongroup name="buttonGroup"/>
   <buttongroup name="MenuButtonGroup"/>
  </buttongroups>
 </ui>

@@ -23,6 +23,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
     "msg/ForkCmd.msg"
     "msg/ComponentCmd.msg"
     "msg/TaskCmd.msg"
+    "msg/TaskState.msg"
+    "msg/DIDOCmd.msg"
 )
 
 if(BUILD_TESTING)

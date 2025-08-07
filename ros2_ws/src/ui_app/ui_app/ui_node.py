@@ -22,7 +22,7 @@ import threading
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int32
-from common_msgs.msg import StateCmd, ForkCmd, JogCmd, ComponentCmd, TaskCmd
+from common_msgs.msg import StateCmd, ForkCmd, JogCmd, ComponentCmd, TaskCmd, TaskState, DIDOCmd
 
 class ROSNode(Node):
     def __init__(self):
@@ -54,11 +54,8 @@ class ROSNode(Node):
 
         self.forklift_controller = None
 
-        # Subscriber to the same topic
-        # self.subscription = self.create_subscription(StateCmd, '/state_cmd', self.ros_message_callback, 10)
-
+        # publisher
         self.mode_cmd_publisher = self.create_publisher(String, '/mode_cmd', 10)
-
 
         self.state_cmd_publisher = self.create_publisher(StateCmd, '/state_cmd', 10)
 
@@ -68,6 +65,17 @@ class ROSNode(Node):
 
         self.fork_cmd_publisher = self.create_publisher(ForkCmd, '/fork_cmd', 10)
 
+        self.jog_cmd_publisher = self.create_publisher(JogCmd, '/jog_cmd', 10)
+
+        self.component_control_publisher = self.create_publisher(String, '/run_cmd', 10)
+
+        self.vision_control_publisher = self.create_publisher(String, '/detection_task', 10)
+
+        self.dido_control_publisher = self.create_publisher(DIDOCmd, '/test_dido', 10)
+
+
+        # subscriber
+
         self.height_info_subscriber = self.create_subscription(
             Int32,
             'lr_distance',
@@ -75,25 +83,19 @@ class ROSNode(Node):
             10
         )
 
-        #jog control
-        self.jog_cmd_publisher = self.create_publisher(JogCmd, '/jog_cmd', 10)
-
-        #menu publishers
-        self.component_control_publisher = self.create_publisher(String, '/run_cmd', 10)
-
-        # di/do
-        self.dido_control_publisher = self.create_publisher(String, '/test_dido', 10)
-
-        #vision publish
-        self.vision_control_publisher = self.create_publisher(String, '/detection_task', 10)
-
-
         self.color_image_subscriber = self.create_subscription(
-        Image,
-        '/color_image',
-        self.image_callback,
-        10
+            Image,
+            '/color_image',
+            self.image_callback,
+            10
         )
+
+        # self.task_state_subscriber = self.create_subscription(
+        #     TaskState,
+        #     '/task_state',
+        #     self.task_state_callback,
+        #     10
+        # )
 
 
         self.bridge = CvBridge()
@@ -183,10 +185,16 @@ class MainWindow(QMainWindow):
         self.ui.ManualPauseButton.toggled.connect(self.on_pause_toggled)
         self.ui.ManualStopButton.clicked.connect(lambda: self.send_state_cmd("stop"))
 
+        # vision fix
+        self.ui.VisionOne.toggled.connect(lambda checked: self.on_vision_toggled("screw", checked))
+        self.ui.VisionTwo.toggled.connect(lambda checked: self.on_vision_toggled("l_shape", checked))
+        self.ui.VisionThree.toggled.connect(lambda checked: self.on_vision_toggled("icp_fit", checked))
+
+
         # vision
-        self.ui.VisionOne.toggled.connect(lambda checked: checked and self.send_vision_cmd("screw"))
-        self.ui.VisionTwo.toggled.connect(lambda checked: checked and self.send_vision_cmd("l_shape"))
-        self.ui.VisionThree.toggled.connect(lambda checked: checked and self.send_vision_cmd("icp_fit"))
+        #self.ui.VisionOne.toggled.connect(lambda checked: checked and self.send_vision_cmd("screw"))
+        #self.ui.VisionTwo.toggled.connect(lambda checked: checked and self.send_vision_cmd("l_shape"))
+        #self.ui.VisionThree.toggled.connect(lambda checked: checked and self.send_vision_cmd("icp_fit"))
 
         # self.ui.VisionTextInComponentControl.setFixedSize(640, 480)
 
@@ -242,6 +250,8 @@ class MainWindow(QMainWindow):
         for btn in self.ui.ManualButtons.buttons():
             btn.toggled.connect(lambda checked, b=btn: self.on_manual_button_toggled(b, checked))
 
+        for btn in self.ui.VisionButtonGroup.buttons():
+            btn.toggled.connect(lambda checked, b=btn: self.on_vision_button_toggled(b, checked))
         
 
 
@@ -431,6 +441,17 @@ class MainWindow(QMainWindow):
         else:
             button.setText("Clipper OFF")
 
+    #vision fix
+    def on_vision_toggled(self, vision_name, checked):
+        if checked:
+            self.send_vision_cmd(vision_name)
+            print(f"[UI] {vision_name} started")
+        else:
+            # Since buttons are exclusive, unchecking means no task is active
+            # Optional: send a stop/idle command
+            self.send_vision_cmd("idle")
+            print(f"[UI] {vision_name} stopped")
+
     def send_vision_cmd(self, mode):
         print(f"[DEBUG] Trying to publish: {mode}")  
 
@@ -448,6 +469,12 @@ class MainWindow(QMainWindow):
             for other in self.ui.ManualButtons.buttons():
                 if other != button:
                     other.setChecked(False)
+    
+    def on_vision_button_toggled(self, button, checked):
+        if checked:
+            for other in self.ui.VisionButtonGroup.buttons():
+                if other != button:
+                    other.setCheckable(False)
 
 
     #Principal Menu - StackedWidget
@@ -579,12 +606,17 @@ class MainWindow(QMainWindow):
         if checked:
             self.send_mode_cmd("manual")
 
-    def on_dido_toggled(self, checked):
-        self.send_test_dido("on" if checked else "off")
+    # def on_dido_toggled(self, checked):
+    #     self.send_test_dido("on" if checked else "off")
 
     # def on_component_control_toggled(self, checked):
     #     if checked:
             
+
+    # def send_test_dido(self, pin: str, state: str):
+    #     msg = String()
+    #     msg.data = f"{pin}:{state}"
+    #     self.ros_node.dido_control_publisher.publish(msg)
 
 
     #Component Control - Motor
