@@ -503,7 +503,6 @@ class MainWindow(QMainWindow):
                  self.ui.VisionTwo,
                  self.ui.VisionThree,
 
-                 self.ui.RunForkliftButton,
                  self.ui.buttonGroup
             ]
             self.reset_buttons_and_machine(component_control_buttons, send_pause=True)

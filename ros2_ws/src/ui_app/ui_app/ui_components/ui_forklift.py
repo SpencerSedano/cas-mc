@@ -21,10 +21,20 @@ class ForkliftController:
         self.ui.StopForkliftButton.clicked.connect(self.handle_stop_forklift_command)
 
 
+
+    def publish_fork_cmd(self, mode, speed, direction, distance):
+        msg = ForkCmd()
+        msg.mode = mode
+        msg.speed = speed
+        msg.direction = direction
+        msg.distance = distance
+        self.ros_node.fork_cmd_publisher.publish(msg)
+        print(f"[ForkLift] Published: {mode}, {speed}, {direction}, {distance}")
+
     def send_fork_cmd(self, direction):
+        mode = "run"
         speed_button = self.ui.buttonGroup.checkedButton()
 
-        mode = "run" if self.ui.RunForkliftButton.isChecked() else "stop"
         speed = speed_button.text().lower() if speed_button else "slow"
         distance = float(self.ui.SliderLift.value())
 
@@ -37,25 +47,30 @@ class ForkliftController:
     def lift_up_10mm(self):
         self.on_touch_buttons(self.ui.LiftUp)
 
-        new_value = min(self.ui.SliderLift.maximum(), self.ui.SliderLift.value() + 10)
-        self.ui.SliderLift.setValue(new_value)  # This updates the HeightCommand text too
+        # new_height  = min(self.ui.SliderLift.maximum(), self.current_height + 10)
+        # self.ui.currentHeight.setText(str(new_height))
 
-        # Immediately publish the command
-        self.publish_adjust_command("up", new_value)
+        self.publish_fork_cmd("run", self.get_speed(), "up", 10.0)  # send only +10mm
 
         # Disable the button for 5 seconds
         self.disable_buttons_temporarily(5000)
+
 
     def lower_down_10mm(self):
         self.on_touch_buttons(self.ui.LowerDown)
 
-        new_value = max(self.ui.SliderLift.minimum(), self.ui.SliderLift.value() - 10)
-        self.ui.SliderLift.setValue(new_value)
+        # Subtract 10mm from current height
+        # new_height = max(self.ui.SliderLift.minimum(), self.current_height - 10)
+        # self.ui.currentHeight.setText(str(new_height))
 
-        self.publish_adjust_command("down", new_value)
-        
-        # Disable the button for 5 seconds
+        self.publish_fork_cmd("run", self.get_speed(), "down", 10.0)  # send only -10mm
+
         self.disable_buttons_temporarily(5000)
+
+
+    def get_speed(self):
+        speed_button = self.ui.buttonGroup.checkedButton()
+        return speed_button.text().lower() if speed_button else "slow"
 
     def disable_buttons_temporarily(self, ms):
         # Disable functionality
@@ -80,14 +95,7 @@ class ForkliftController:
         self.ui.LiftUp.setStyleSheet(original_style_up)
         self.ui.LowerDown.setStyleSheet(original_style_down)
 
-    def publish_fork_cmd(self, mode, speed, direction, distance):
-        msg = ForkCmd()
-        msg.mode = mode
-        msg.speed = speed
-        msg.direction = direction
-        msg.distance = distance
-        self.ros_node.fork_cmd_publisher.publish(msg)
-        print(f"[ForkLift] Published: {mode}, {speed}, {direction}, {distance}")
+
 
     def handle_send_forklift_command(self):
         # Send a ForkCmd with mode="run"
@@ -99,18 +107,8 @@ class ForkliftController:
 
 
     def send_fork_cmd_from_height_command(self):
-        speed_button = self.ui.buttonGroup.checkedButton()
-        speed = speed_button.text().lower() if speed_button else "slow"
-
-        if self.ui.RunForkliftButton.isChecked():
-            mode = "run"
-        else:
-            mode = "stop"
-            speed = ""
-            direction = ""
-            target_distance = 0.0
-            self.publish_fork_cmd(mode, speed, direction, target_distance)
-            return  # Stop here for "stop" mode
+        speed = self.get_speed()
+        mode = "run"
 
         # Read target height from UI
         raw_text = self.ui.HeightCommand.text()
@@ -123,8 +121,8 @@ class ForkliftController:
             print("[Forklift] Invalid HeightCommand value")
             return
 
-        # Auto decide based on current height
-        current_height = self.ros_node.forklift_controller.current_height
+        # Auto decide direction based on current height
+        current_height = self.current_height  # Use your own member directly
         if target_distance > current_height:
             direction = "up"
         elif target_distance < current_height:
@@ -137,13 +135,11 @@ class ForkliftController:
 
 
     def on_slider_changed(self, value):
-        self.ui.HeightCommand.setText(str(value))
+            self.ui.HeightCommand.setText(str(value))
 
 
     def publish_adjust_command(self, direction, distance):
-        speed_button = self.ui.buttonGroup.checkedButton()
-        speed = speed_button.text().lower() if speed_button else "slow"
-        self.publish_fork_cmd("run", speed, direction, float(distance))
+            self.publish_fork_cmd("run", self.get_speed(), direction, float(distance))
 
 
     def on_touch_buttons(self, button):
