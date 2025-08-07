@@ -22,7 +22,7 @@ import threading
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int32
-from common_msgs.msg import StateCmd, ForkCmd, JogCmd
+from common_msgs.msg import StateCmd, ForkCmd, JogCmd, ComponentCmd, TaskCmd
 
 class ROSNode(Node):
     def __init__(self):
@@ -57,17 +57,15 @@ class ROSNode(Node):
         # Subscriber to the same topic
         # self.subscription = self.create_subscription(StateCmd, '/state_cmd', self.ros_message_callback, 10)
 
-        # mode cmd
         self.mode_cmd_publisher = self.create_publisher(String, '/mode_cmd', 10)
 
 
-        # publisher using custom StateCmd message
         self.state_cmd_publisher = self.create_publisher(StateCmd, '/state_cmd', 10)
 
-        #task cmd
-        self.task_cmd_publisher = self.create_publisher(String, '/task_state_rough_align', 10)
+        self.component_cmd_publisher = self.create_publisher(ComponentCmd, "/component_control_cmd", 10)
 
-        #fork lift
+        self.task_cmd_publisher = self.create_publisher(TaskCmd, '/task_cmd', 10)
+
         self.fork_cmd_publisher = self.create_publisher(ForkCmd, '/fork_cmd', 10)
 
         self.height_info_subscriber = self.create_subscription(
@@ -184,7 +182,6 @@ class MainWindow(QMainWindow):
 
         self.ui.ManualPauseButton.toggled.connect(self.on_pause_toggled)
         self.ui.ManualStopButton.clicked.connect(lambda: self.send_state_cmd("stop"))
-
 
         # vision
         self.ui.VisionOne.toggled.connect(lambda checked: checked and self.send_vision_cmd("screw"))
@@ -370,7 +367,7 @@ class MainWindow(QMainWindow):
         else:
             # Since buttons are exclusive, unchecking means no task is active
             # Optional: send a stop/idle command
-            self.send_task_cmd("stop_button")
+            self.send_task_cmd("idle")
             print(f"[UI] {task_name} stopped")
 
 
@@ -404,13 +401,20 @@ class MainWindow(QMainWindow):
         self.ros_node.mode_cmd_publisher.publish(msg)
         print(f"[UI] Sent ModeCmd: {msg.data}")
 
+    def send_component_cmd(self, flag):
+        msg = ComponentCmd()
+        msg.mode = flag
+
+        self.ros_node.component_cmd_publisher.publish(msg)
+        print(f"[UI] Sent ComponentCmd: {msg.mode}")
+
 
     def send_task_cmd(self, flag):
-        msg = String()
-        msg.data = flag
+        msg = TaskCmd()
+        msg.mode = flag
         
         self.ros_node.task_cmd_publisher.publish(msg)
-        print(f"[UI] Sent TaskCmd: {msg.data}")
+        print(f"[UI] Sent TaskCmd: {msg.mode}")
 
     def send_jog_cmd(self, axis, direction):
         msg = JogCmd()
@@ -593,14 +597,19 @@ class MainWindow(QMainWindow):
         self.ui.ListOptionsWidget.setVisible(False)
 
         if name == "DI/DO":
+            self.send_component_cmd("dido_control")
             self.ui.MiddleStackedWidget.setCurrentIndex(1)
         elif name == "Motor":
+            self.send_component_cmd("pose_control")
             self.ui.MiddleStackedWidget.setCurrentIndex(0)
         elif name == "Vision":
+            self.send_component_cmd("vision_control")
             self.ui.MiddleStackedWidget.setCurrentIndex(0)
         elif name == "Clipper":
+            self.send_component_cmd("cliper_control")
             self.ui.MiddleStackedWidget.setCurrentIndex(0)
         elif name == "Forklift":
+            self.send_component_cmd("forklift_control")
             self.ui.MiddleStackedWidget.setCurrentIndex(0)
 
 

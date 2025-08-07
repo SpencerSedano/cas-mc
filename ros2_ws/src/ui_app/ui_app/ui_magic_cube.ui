@@ -372,7 +372,7 @@ Record</string>
         <string notr="true"/>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="MainPagePage">
         <widget class="QWidget" name="CameraWidget" native="true">
@@ -1852,7 +1852,7 @@ QPushButton:pressed {
           <enum>QFrame::Shadow::Raised</enum>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="BeforeComponentControl">
           <layout class="QVBoxLayout" name="verticalLayout_28">
@@ -1954,8 +1954,8 @@ QPushButton:pressed {
           <widget class="QWidget" name="ComponentControlOptionsWidget" native="true">
            <property name="geometry">
             <rect>
-             <x>-10</x>
-             <y>-10</y>
+             <x>10</x>
+             <y>0</y>
              <width>291</width>
              <height>101</height>
             </rect>
@@ -1963,6 +1963,9 @@ QPushButton:pressed {
            <layout class="QHBoxLayout" name="horizontalLayout_16">
             <property name="spacing">
              <number>25</number>
+            </property>
+            <property name="leftMargin">
+             <number>9</number>
             </property>
             <item>
              <widget class="QPushButton" name="MotorStartedButton">
@@ -2020,14 +2023,14 @@ QPushButton:pressed {
              <x>-10</x>
              <y>90</y>
              <width>321</width>
-             <height>581</height>
+             <height>591</height>
             </rect>
            </property>
            <property name="styleSheet">
             <string notr="true"/>
            </property>
            <property name="currentIndex">
-            <number>2</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="MotorPage">
             <widget class="QPushButton" name="ControlUpCP">
@@ -2328,8 +2331,8 @@ QPushButton:pressed {
             <widget class="QPushButton" name="VisionOne">
              <property name="geometry">
               <rect>
-               <x>40</x>
-               <y>150</y>
+               <x>50</x>
+               <y>90</y>
                <width>233</width>
                <height>79</height>
               </rect>
@@ -2356,8 +2359,8 @@ QPushButton:pressed {
             <widget class="QPushButton" name="VisionTwo">
              <property name="geometry">
               <rect>
-               <x>40</x>
-               <y>260</y>
+               <x>50</x>
+               <y>200</y>
                <width>233</width>
                <height>79</height>
               </rect>
@@ -2384,8 +2387,8 @@ QPushButton:pressed {
             <widget class="QPushButton" name="VisionThree">
              <property name="geometry">
               <rect>
-               <x>40</x>
-               <y>360</y>
+               <x>50</x>
+               <y>300</y>
                <width>233</width>
                <height>79</height>
               </rect>
@@ -2408,6 +2411,31 @@ QPushButton:pressed {
              <attribute name="buttonGroup">
               <string notr="true">dete</string>
              </attribute>
+            </widget>
+            <widget class="QPushButton" name="VisionReset">
+             <property name="geometry">
+              <rect>
+               <x>50</x>
+               <y>500</y>
+               <width>233</width>
+               <height>79</height>
+              </rect>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string>Reset</string>
+             </property>
+             <property name="checkable">
+              <bool>false</bool>
+             </property>
             </widget>
            </widget>
            <widget class="QWidget" name="ClipperPage">
@@ -2589,7 +2617,7 @@ QSlider::handle:horizontal {
               <rect>
                <x>30</x>
                <y>60</y>
-               <width>111</width>
+               <width>121</width>
                <height>71</height>
               </rect>
              </property>
@@ -2606,7 +2634,7 @@ QSlider::handle:horizontal {
                <x>170</x>
                <y>60</y>
                <width>121</width>
-               <height>81</height>
+               <height>71</height>
               </rect>
              </property>
              <property name="text">
@@ -2705,10 +2733,10 @@ QSlider::handle:horizontal {
           <widget class="QWidget" name="ListOptionsWidget" native="true">
            <property name="geometry">
             <rect>
-             <x>20</x>
+             <x>10</x>
              <y>100</y>
-             <width>251</width>
-             <height>391</height>
+             <width>291</width>
+             <height>451</height>
             </rect>
            </property>
            <property name="sizePolicy">
@@ -6278,7 +6306,6 @@ border-radius: 6px;</string>
       <zorder>Line</zorder>
       <zorder>SystemSettingsButton</zorder>
       <zorder>SignalLightsWidget</zorder>
-      <zorder>DeltaLogo</zorder>
       <zorder>MenuButtons</zorder>
       <zorder>WorkOrderWidget</zorder>
       <zorder>RecipeWidget</zorder>
@@ -6287,6 +6314,7 @@ border-radius: 6px;</string>
       <zorder>CartHeightWidget</zorder>
       <zorder>CartDepthWidget</zorder>
       <zorder>DateWidget</zorder>
+      <zorder>DeltaLogo</zorder>
      </widget>
     </item>
    </layout>
@@ -6296,17 +6324,17 @@ border-radius: 6px;</string>
  <connections/>
  <buttongroups>
   <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="buttonGroup"/>
-  <buttongroup name="ThemeButtonGroup"/>
-  <buttongroup name="MenuButtonGroup"/>
+  <buttongroup name="FontSizeButtonGroup"/>
+  <buttongroup name="dete"/>
   <buttongroup name="ManualButtons">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
-  <buttongroup name="FontSizeButtonGroup"/>
-  <buttongroup name="AutoAndManualButtonGroup"/>
   <buttongroup name="LanguageButtonGroup"/>
-  <buttongroup name="dete"/>
+  <buttongroup name="ThemeButtonGroup"/>
+  <buttongroup name="AutoAndManualButtonGroup"/>
+  <buttongroup name="buttonGroup"/>
+  <buttongroup name="MenuButtonGroup"/>
  </buttongroups>
 </ui>
