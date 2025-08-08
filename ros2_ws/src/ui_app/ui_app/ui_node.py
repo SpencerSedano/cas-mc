@@ -220,9 +220,10 @@ class MainWindow(QMainWindow):
         self.ui.ManualStopButton.clicked.connect(lambda: self.send_state_cmd("stop"))
 
         # vision fix
-        self.ui.VisionOne.toggled.connect(lambda checked: self.on_vision_toggled("screw", checked))
-        self.ui.VisionTwo.toggled.connect(lambda checked: self.on_vision_toggled("l_shape", checked))
-        self.ui.VisionThree.toggled.connect(lambda checked: self.on_vision_toggled("icp_fit", checked))
+        # self.ui.VisionOne.toggled.connect(lambda checked: self.on_vision_toggled("screw", checked))
+        # self.ui.VisionTwo.toggled.connect(lambda checked: self.on_vision_toggled("l_shape", checked))
+        # self.ui.VisionThree.toggled.connect(lambda checked: self.on_vision_toggled("icp_fit", checked))
+
 
 
         # vision
@@ -276,8 +277,23 @@ class MainWindow(QMainWindow):
         for btn in self.ui.ManualButtons.buttons():
             btn.toggled.connect(lambda checked, b=btn: self.on_manual_button_toggled(b, checked))
 
-        for btn in self.ui.VisionButtonGroup.buttons():
-            btn.toggled.connect(lambda checked, b=btn: self.on_vision_button_toggled(b, checked))
+
+        # after setupUi(...)
+        self._vision_buttons = [
+            (self.ui.VisionOne,   "screw"),
+            (self.ui.VisionTwo,   "l_shape"),
+            (self.ui.VisionThree, "icp_fit"),
+        ]
+
+        # Make sure they’re checkable and not in an exclusive QButtonGroup
+        for btn, mode in self._vision_buttons:
+            btn.setCheckable(True)
+            # 1) publishing: start/stop per button
+            btn.toggled.connect(lambda checked, m=mode: self.on_vision_toggled(m, checked))
+            # 2) manual exclusivity: when one is clicked on, turn others off; clicking again turns it off
+            btn.clicked.connect(lambda checked, b=btn: self._on_vision_clicked(b, checked))
+
+    
         
 
 
@@ -286,6 +302,17 @@ class MainWindow(QMainWindow):
         self.ui.MotorNextPageButton.clicked.connect(self.go_to_next_page_motor)
         self.ui.MotorBackPageButton.clicked.connect(self.go_to_back_page_motor)
         
+
+    def _on_vision_clicked(self, btn, checked):
+        if checked:
+            # Turn others off (this will trigger their toggled(False) → publish "<mode>_off")
+            for other, _ in self._vision_buttons:
+                if other is not btn and other.isChecked():
+                    other.setChecked(False)
+        else:
+            # User clicked the same button to turn it off → no mode selected; nothing else to do
+            pass
+
 
     
     def go_to_next_page_motor(self):
@@ -480,13 +507,25 @@ class MainWindow(QMainWindow):
     #vision fix
     def on_vision_toggled(self, vision_name, checked):
         if checked:
-            self.send_vision_cmd(vision_name)
+            self.send_vision_cmd(f"{vision_name}")
             print(f"[UI] {vision_name} started")
         else:
-            # Since buttons are exclusive, unchecking means no task is active
-            # Optional: send a stop/idle command
-            self.send_vision_cmd("idle")
+            self.send_vision_cmd(f"{vision_name}_off")
             print(f"[UI] {vision_name} stopped")
+
+
+    # def _on_vision_clicked(self, btn, mode, checked):
+    #     if checked:
+    #         # turn others off
+    #         for other, _ in self._vision_buttons:
+    #             if other is not btn:
+    #                 other.setChecked(False)
+    #         # start selected mode
+    #         self.on_vision_toggled(mode, True)
+    #     else:
+    #         # user clicked the same button to turn it off -> no mode active
+    #         self.on_vision_toggled("idle", False)
+
 
     def send_vision_cmd(self, mode):
         print(f"[DEBUG] Trying to publish: {mode}")  
@@ -499,6 +538,12 @@ class MainWindow(QMainWindow):
         self.ros_node.vision_control_publisher.publish(msg)
         print(f"[UI] Sent VisionCmd: {mode}")
 
+    # def send_vision_cmd(self, mode):
+    #     # simplest: no dedupe
+    #     msg = String(); msg.data = mode
+    #     self.ros_node.vision_control_publisher.publish(msg)
+
+
     
     def on_manual_button_toggled(self, button, checked):
         if checked:
@@ -506,11 +551,7 @@ class MainWindow(QMainWindow):
                 if other != button:
                     other.setChecked(False)
     
-    def on_vision_button_toggled(self, button, checked):
-        if checked:
-            for other in self.ui.VisionButtonGroup.buttons():
-                if other != button:
-                    other.setCheckable(False)
+
 
 
     #Principal Menu - StackedWidget
