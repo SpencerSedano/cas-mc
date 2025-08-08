@@ -1,5 +1,15 @@
-cmake_minimum_required(VERSION 3.8)
-project(common_msgs)
+cmake_minimum_required(VERSION 3.5)
+project(uros_interface)
+
+# Default to C99
+if(NOT CMAKE_C_STANDARD)
+  set(CMAKE_C_STANDARD 99)
+endif()
+
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -13,30 +23,19 @@ find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-    "msg/FuncCmd.msg"
-    "msg/MotionState.msg"
-    "msg/MotionCmd.msg"
-    "msg/MultipleM.msg"
-    "msg/SingleM.msg"
-    "msg/StateCmd.msg"
-    "msg/JogCmd.msg"
-    "msg/ForkCmd.msg"
-    "msg/ComponentCmd.msg"
-    "msg/TaskCmd.msg"
-    "msg/TaskState.msg"
-    "msg/DIDOCmd.msg"
-    "msg/RunCmd.msg"
+  "srv/ESMCmd.srv"
+  "msg/JointArr.msg"
+  "msg/Joint2DArr.msg"
 )
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
-  # comment the line when a copyright and license is added to all source files
-  set(ament_cmake_copyright_FOUND TRUE)
+  # uncomment the line when a copyright and license is not present in all source files
+  #set(ament_cmake_copyright_FOUND TRUE)
   # the following line skips cpplint (only works in a git repo)
-  # comment the line when this package is in a git repo and when
-  # a copyright and license is added to all source files
-  set(ament_cmake_cpplint_FOUND TRUE)
+  # uncomment the line when this package is not in a git repo
+  #set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
 
