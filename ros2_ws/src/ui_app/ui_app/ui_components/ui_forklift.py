@@ -39,7 +39,7 @@ class ForkliftController:
         # new_height  = min(self.ui.SliderLift.maximum(), self.current_height + 10)
         # self.ui.currentHeight.setText(str(new_height))
 
-        self.publish_fork_cmd("run", self.get_speed(), "up", 10.0)  # send only +10mm
+        self.publish_fork_cmd("run", self.get_speed(), "up", float(min(1500, self.current_height + 10.0)))  # send only +10mm
 
         # Disable the button for 5 seconds
         self.disable_buttons_temporarily(5000)
@@ -52,7 +52,7 @@ class ForkliftController:
         # new_height = max(self.ui.SliderLift.minimum(), self.current_height - 10)
         # self.ui.currentHeight.setText(str(new_height))
 
-        self.publish_fork_cmd("run", self.get_speed(), "down", 10.0)  # send only -10mm
+        self.publish_fork_cmd("run", self.get_speed(), "down", float(max(80, self.current_height - 10.0)))  # send only -10mm
 
         self.disable_buttons_temporarily(5000)
 

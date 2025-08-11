@@ -522,6 +522,9 @@ class MainWindow(QMainWindow):
 
     # vision fix
     def on_vision_toggled(self, vision_name, checked):
+        
+        
+
         if checked:
             self.send_vision_cmd(f"{vision_name}")
             print(f"[UI] {vision_name} started")
@@ -545,17 +548,12 @@ class MainWindow(QMainWindow):
         # simplest: no dedupe
         msg = String(); msg.data = mode
         self.ros_node.vision_control_publisher.publish(msg)
-
-
     
     def on_manual_button_toggled(self, button, checked):
         if checked:
             for other in self.ui.ManualButtons.buttons():
                 if other != button:
                     other.setChecked(False)
-    
-
-
 
     #Principal Menu - StackedWidget
     def change_to_main_page(self, checked):
@@ -810,7 +808,6 @@ class MainWindow(QMainWindow):
         else:
             self.showMaximized()
             print("Only one screen, maximized")
-
 
 
 def convert_cv_to_qt(cv_img):
