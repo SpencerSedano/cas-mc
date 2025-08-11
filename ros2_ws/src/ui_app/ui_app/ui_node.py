@@ -13,6 +13,7 @@ from ui_app.ui_components.ui_forklift import ForkliftController
 from ui_app.ui_components.ui_motor import MotorController
 from ui_app.ui_components.ui_clipper import ClipperController
 from ui_app.ui_components.ui_dido import DIDOController
+# from ui_app.ui_components.ui_vision import VisionController
 
 #Vision
 from sensor_msgs.msg import Image
@@ -53,7 +54,7 @@ class ROSNode(Node):
         # }
 
 
-        self.height_update_callback = None   # <-- add this
+        self.height_update_callback = None
 
         self.forklift_controller = None
 
@@ -87,7 +88,6 @@ class ROSNode(Node):
 
 
         # subscriber
-
         self.height_info_subscriber = self.create_subscription(
             Int32,
             'lr_distance',
@@ -171,6 +171,8 @@ class MainWindow(QMainWindow):
     height_update = Signal(int)
     di_update = Signal(str, bool)
 
+    image_update = Signal(object)   # carries numpy image
+    vision_mode_update = Signal(str)
 
     def __init__(self, ros_node):
         super().__init__()
@@ -185,6 +187,14 @@ class MainWindow(QMainWindow):
         #vision ui
         self.ros_node.image_update_callback = self.update_image
         self.ros_node.detection_task_callback_ui = self.update_detection_mode
+        # self.vision_controller = VisionController(self.ui, self.ros_node)
+
+        # # Bridge ROS → GUI via signals (thread-safe)
+        # self.image_update.connect(self.vision_controller.update_image)
+        # self.vision_mode_update.connect(self.vision_controller.update_mode)
+
+        # self.ros_node.image_update_callback = lambda cv: self.image_update.emit(cv)
+        # self.ros_node.detection_task_callback_ui = lambda s: self.vision_mode_update.emit(s)
 
         #motor ui
         self.motor_controller = MotorController(self.ui, self.ros_node)
@@ -504,13 +514,13 @@ class MainWindow(QMainWindow):
         self.ros_node.jog_cmd_publisher.publish(msg)
         print(f"[UI] Sent JogCmd: axis={axis}, direction={direction}")
 
-    # def update_clipper_state(self, button):
-    #     if button.isChecked():
-    #         button.setText("Clipper ON")
-    #     else:
-    #         button.setText("Clipper OFF")
+    def update_clipper_state(self, button):
+        if button.isChecked():
+            button.setText("Clipper ON")
+        else:
+            button.setText("Clipper OFF")
 
-    #vision fix
+    # vision fix
     def on_vision_toggled(self, vision_name, checked):
         if checked:
             self.send_vision_cmd(f"{vision_name}")
@@ -531,10 +541,10 @@ class MainWindow(QMainWindow):
         self.ros_node.vision_control_publisher.publish(msg)
         print(f"[UI] Sent VisionCmd: {mode}")
 
-    # def send_vision_cmd(self, mode):
-    #     # simplest: no dedupe
-    #     msg = String(); msg.data = mode
-    #     self.ros_node.vision_control_publisher.publish(msg)
+    def send_vision_cmd(self, mode):
+        # simplest: no dedupe
+        msg = String(); msg.data = mode
+        self.ros_node.vision_control_publisher.publish(msg)
 
 
     

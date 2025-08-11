@@ -28,6 +28,18 @@ class MotorController:
         self.ui.ControlUpCP.setAutoRepeatDelay(300)
         self.ui.ControlUpCP.setAutoRepeatInterval(80) 
 
+        self.ui.ControlDownCP.setAutoRepeat(True)
+        self.ui.ControlDownCP.setAutoRepeatDelay(300)
+        self.ui.ControlDownCP.setAutoRepeatInterval(80) 
+
+        self.ui.ControlLeftCP.setAutoRepeat(True)
+        self.ui.ControlLeftCP.setAutoRepeatDelay(300)
+        self.ui.ControlLeftCP.setAutoRepeatInterval(80) 
+
+        self.ui.ControlRightCP.setAutoRepeat(True)
+        self.ui.ControlRightCP.setAutoRepeatDelay(300)
+        self.ui.ControlRightCP.setAutoRepeatInterval(80) 
+
 
         self.ui.ControlUpCP.clicked.connect(  lambda: self.send_jog_cmd("y_axis",  +1))
         self.ui.ControlDownCP.clicked.connect(lambda: self.send_jog_cmd("y_axis",  -1))
@@ -91,10 +103,10 @@ class MotorController:
         msg.direction = float(1 if sign >= 0 else -1)  # exactly ±1.0
 
         if axis == "yaw_axis":
-            msg.angle = float(sign) * self.selected_deg     # ±0.5 / ±1 / ±5
+            msg.angle = self.selected_deg     # ±0.5 / ±1 / ±5
             msg.distance = 0.0
         else:
-            msg.distance = float(sign) * self.selected_distance  # ±1 / ±5 / ±10
+            msg.distance = self.selected_distance  # ±1 / ±5 / ±10
             msg.angle = 0.0
 
         msg.speed = 5.0
