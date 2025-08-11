@@ -26,6 +26,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
     "msg/TaskState.msg"
     "msg/DIDOCmd.msg"
     "msg/RunCmd.msg"
+    "msg/ClipperCmd.msg"
 )
 
 if(BUILD_TESTING)
