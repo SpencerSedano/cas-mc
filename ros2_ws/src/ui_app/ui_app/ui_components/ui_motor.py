@@ -1,5 +1,6 @@
-from PySide6.QtCore import QTimer
-from common_msgs.msg import JogCmd, MotionCmd
+from PySide6.QtCore import QTimer, Qt
+from PySide6.QtGui import QPixmap
+from common_msgs.msg import JogCmd, MotionCmd, MultipleM
 from uros_interface.srv import ESMCmd
 from rclpy.client import Client
 from std_msgs.msg import String
@@ -11,6 +12,33 @@ class MotorController:
 
         self.cli: Client = self.ros_node.create_client(ESMCmd, '/esm_command')
         self.waiting_for_result = False
+
+
+        self._light_colors = {
+            "red_on":    "#FF4D4D",
+            "red_off":   "#660000",
+            "yellow_on": "#FFEB3B",
+            "yellow_off":"#666633",
+            "green_on":  "#6FCF53",
+            "green_off": "#336633",   # chosen dim green
+        }
+
+        self._set_lights(on_red=False, on_yellow=False, on_green=False)
+
+        def _prepare_lamp(lbl, size=18):
+            lbl.setPixmap(QPixmap())                # ensure no image covers the bg
+            lbl.setText("")                         # no text overlay
+            # lbl.setAttribute(Qt.WA_StyledBackground, True)
+            # lbl.setFixedSize(size, size)            # consistent circle size (optional)
+            # lbl.setStyleSheet(f"border-radius:{size//2}px;")  # circle
+            lbl.setStyleSheet("border-radius:999px;")
+
+        # prepare once
+        _prepare_lamp(self.ui.RedSignal)
+        _prepare_lamp(self.ui.YellowSignal)
+        _prepare_lamp(self.ui.GreenSignal)
+
+
 
         # Disable buttons until service is ready
         # self.ui.ServoON.setEnabled(False)
@@ -165,6 +193,34 @@ class MotorController:
             self.status_label.setText("Waiting for service response...")
         else:
             self.status_label.setText("Ready")
+
+
+    def _paint_light(self, lbl, on_color, off_color, is_on):
+        color = on_color if is_on else off_color
+        lbl.setStyleSheet(f"background-color:{color}; border-radius:{lbl.height()//2}px;")
+
+
+
+    def _set_lights(self, on_red: bool, on_yellow: bool, on_green: bool):
+        c = self._light_colors
+        self._paint_light(self.ui.RedSignal,    c["red_on"],    c["red_off"],    on_red)
+        self._paint_light(self.ui.YellowSignal, c["yellow_on"], c["yellow_off"], on_yellow)
+        self._paint_light(self.ui.GreenSignal,  c["green_on"],  c["green_off"],  on_green)
+        
+
+    def apply_motion_state(self, init_done: bool, motion_done: bool):
+        if init_done and motion_done:
+            r, y, g = False, False, True
+        elif init_done and not motion_done:
+            r, y, g = False, True,  False
+        elif not init_done and not motion_done:
+            r, y, g = True,  False, False
+        else:
+            r, y, g = False, True,  False
+        self._set_lights(r, y, g)  # now on GUI thread
+
+
+
 
 
 

@@ -98,7 +98,7 @@ class Ui_MainWindow(object):
         self.GreenSignal = QLabel(self.SignalLightsWidget)
         self.GreenSignal.setObjectName(u"GreenSignal")
         self.GreenSignal.setMaximumSize(QSize(30, 30))
-        self.GreenSignal.setStyleSheet(u"background-color: #6FCF53; border-radius: 10px;")
+        self.GreenSignal.setStyleSheet(u"background-color: #336633; border-radius: 10px;")
 
         self.horizontalLayout.addWidget(self.GreenSignal)
 
@@ -1819,10 +1819,10 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_30.addWidget(self.Position_2)
 
-        self.PositionText_2 = QLabel(self.PositionFrame_2)
-        self.PositionText_2.setObjectName(u"PositionText_2")
+        self.MotorPos = QLabel(self.PositionFrame_2)
+        self.MotorPos.setObjectName(u"MotorPos")
 
-        self.horizontalLayout_30.addWidget(self.PositionText_2)
+        self.horizontalLayout_30.addWidget(self.MotorPos)
 
 
         self.gridLayout_5.addWidget(self.PositionFrame_2, 2, 0, 1, 1)
@@ -1846,10 +1846,10 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_31.addWidget(self.Current_2)
 
-        self.CurrentText_2 = QLabel(self.CurrentFrame_2)
-        self.CurrentText_2.setObjectName(u"CurrentText_2")
+        self.CurrentPos = QLabel(self.CurrentFrame_2)
+        self.CurrentPos.setObjectName(u"CurrentPos")
 
-        self.horizontalLayout_31.addWidget(self.CurrentText_2)
+        self.horizontalLayout_31.addWidget(self.CurrentPos)
 
 
         self.gridLayout_5.addWidget(self.CurrentFrame_2, 3, 0, 1, 1)
@@ -3292,10 +3292,10 @@ class Ui_MainWindow(object):
         self.x_2.setText(QCoreApplication.translate("MainWindow", u"x:", None))
         self.xText_2.setText(QCoreApplication.translate("MainWindow", u"pos", None))
         self.Position_2.setText(QCoreApplication.translate("MainWindow", u"Position:", None))
-        self.PositionText_2.setText(QCoreApplication.translate("MainWindow", u"pos", None))
+        self.MotorPos.setText(QCoreApplication.translate("MainWindow", u"pos", None))
         self.MotorInfoText_2.setText(QCoreApplication.translate("MainWindow", u"Motor Info", None))
         self.Current_2.setText(QCoreApplication.translate("MainWindow", u"Current: ", None))
-        self.CurrentText_2.setText(QCoreApplication.translate("MainWindow", u"pos", None))
+        self.CurrentPos.setText(QCoreApplication.translate("MainWindow", u"pos", None))
         self.d1_2.setText(QCoreApplication.translate("MainWindow", u"D1: ", None))
         self.LaserInfoText_2.setText(QCoreApplication.translate("MainWindow", u"Laser Info", None))
         self.d2_2.setText(QCoreApplication.translate("MainWindow", u"Current Height: ", None))

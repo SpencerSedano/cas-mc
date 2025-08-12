@@ -160,7 +160,7 @@ Settings</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #6FCF53; border-radius: 10px;</string>
+           <string notr="true">background-color: #336633; border-radius: 10px;</string>
           </property>
           <property name="text">
            <string/>
@@ -3540,7 +3540,7 @@ border-radius: 6px;</string>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="PositionText_2">
+                   <widget class="QLabel" name="MotorPos">
                     <property name="text">
                      <string>pos</string>
                     </property>
@@ -3582,7 +3582,7 @@ border-radius: 6px;</string>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="CurrentText_2">
+                   <widget class="QLabel" name="CurrentPos">
                     <property name="text">
                      <string>pos</string>
                     </property>
@@ -3787,7 +3787,7 @@ border-radius: 6px;</string>
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>685</width>
+              <width>588</width>
               <height>648</height>
              </rect>
             </property>
@@ -6808,22 +6808,22 @@ border-radius: 6px;</string>
  <resources/>
  <connections/>
  <buttongroups>
+  <buttongroup name="MenuButtonGroup"/>
   <buttongroup name="AutoAndManualButtonGroup"/>
-  <buttongroup name="buttonGroup"/>
   <buttongroup name="LanguageButtonGroup"/>
   <buttongroup name="ThemeButtonGroup"/>
-  <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="VisionButtonGroup">
-   <property name="exclusive">
-    <bool>false</bool>
-   </property>
-  </buttongroup>
+  <buttongroup name="FontSizeButtonGroup"/>
   <buttongroup name="ManualButtons">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
-  <buttongroup name="FontSizeButtonGroup"/>
-  <buttongroup name="MenuButtonGroup"/>
+  <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="buttonGroup"/>
+  <buttongroup name="VisionButtonGroup">
+   <property name="exclusive">
+    <bool>false</bool>
+   </property>
+  </buttongroup>
  </buttongroups>
 </ui>

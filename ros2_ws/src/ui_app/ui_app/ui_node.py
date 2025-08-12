@@ -24,7 +24,7 @@ import threading
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int32
-from common_msgs.msg import StateCmd, ForkCmd, JogCmd, ComponentCmd, TaskCmd, TaskState, DIDOCmd, RunCmd, MotionCmd, MotionState, ClipperCmd
+from common_msgs.msg import StateCmd, ForkCmd, JogCmd, ComponentCmd, TaskCmd, TaskState, DIDOCmd, RunCmd, MotionCmd, MotionState, ClipperCmd, MultipleM
 from uros_interface.srv import ESMCmd
 
 
@@ -59,6 +59,10 @@ class ROSNode(Node):
         self.forklift_controller = None
 
         self.di_update_callback = None
+
+        self.current_motor_len = [0.0, 0.0, 0.0]
+
+        self.motion_state_callback_ui = None
 
 
         # publisher
@@ -102,6 +106,14 @@ class ROSNode(Node):
             10
         )
 
+        self.motors_info_sub = self.create_subscription(
+            MultipleM,
+            '/multi_motor_info',
+            self.motors_info_callback,
+            10
+        )
+
+
         self.dido_control_subscriber = self.create_subscription(
             DIDOCmd,
             '/dido_cmd',
@@ -109,12 +121,12 @@ class ROSNode(Node):
             10
         )
 
-        # self.motion_state_subscriber = self.create_subscription(
-        #     MotionState,
-        #     '/motion_state',
-        #     self.motion_state_callback,
-        #     10
-        # )
+        self.motion_state_subscriber = self.create_subscription(
+            MotionState,
+            '/motion_state',
+            self.motion_state_callback,
+            10
+        )
 
         # self.task_state_subscriber = self.create_subscription(
         #     TaskState,
@@ -150,6 +162,15 @@ class ROSNode(Node):
         if self.detection_task_callback_ui:
             self.detection_task_callback_ui(msg.data)
 
+    def motors_info_callback(self, msg:MultipleM):
+        self.current_motor_len = [
+            msg.motor_info[0].fb_position,
+            msg.motor_info[1].fb_position,
+            msg.motor_info[2].fb_position
+        ]
+
+        print("motor_info callback", self.current_motor_len)
+
 
     def dido_callback(self, msg: DIDOCmd):
         name = msg.name.strip()
@@ -159,9 +180,10 @@ class ROSNode(Node):
         if self.di_update_callback:
             self.di_update_callback(name, state)
 
-    
-
-    # def motion_state_callback(self, msg: MotionState):
+    def motion_state_callback(self, msg: MotionState):
+        print(f"[ROS] /motion_state -> init={msg.init_finish}, motion={msg.motion_finish}")
+        if self.motion_state_callback_ui:
+            self.motion_state_callback_ui(bool(msg.init_finish), bool(msg.motion_finish))
 
 
 class MainWindow(QMainWindow):
@@ -173,6 +195,8 @@ class MainWindow(QMainWindow):
 
     image_update = Signal(object)   # carries numpy image
     vision_mode_update = Signal(str)
+
+    motion_state_update = Signal(bool, bool)
 
     def __init__(self, ros_node):
         super().__init__()
@@ -198,6 +222,10 @@ class MainWindow(QMainWindow):
 
         #motor ui
         self.motor_controller = MotorController(self.ui, self.ros_node)
+        self.motion_state_update.connect(self.motor_controller.apply_motion_state)
+        self.ros_node.motion_state_callback_ui = self.motion_state_update.emit
+
+
 
         #forklift ui
         self.forklift_controller = ForkliftController(self.ui, self.ros_node)
@@ -522,8 +550,6 @@ class MainWindow(QMainWindow):
 
     # vision fix
     def on_vision_toggled(self, vision_name, checked):
-
-
         if checked:
             self.send_vision_cmd(f"{vision_name}")
             print(f"[UI] {vision_name} started")
@@ -543,10 +569,10 @@ class MainWindow(QMainWindow):
         self.ros_node.vision_control_publisher.publish(msg)
         print(f"[UI] Sent VisionCmd: {mode}")
 
-    def send_vision_cmd(self, mode):
-        # simplest: no dedupe
-        msg = String(); msg.data = mode
-        self.ros_node.vision_control_publisher.publish(msg)
+    # def send_vision_cmd(self, mode):
+    #     # simplest: no dedupe
+    #     msg = String(); msg.data = mode
+    #     self.ros_node.vision_control_publisher.publish(msg)
     
     def on_manual_button_toggled(self, button, checked):
         if checked:
