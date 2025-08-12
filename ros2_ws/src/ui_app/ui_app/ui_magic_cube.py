@@ -761,39 +761,15 @@ class Ui_MainWindow(object):
 
         self.RunButton = QPushButton(self.ActionButtonsPage)
         self.RunButton.setObjectName(u"RunButton")
-        sizePolicy.setHeightForWidth(self.RunButton.sizePolicy().hasHeightForWidth())
-        self.RunButton.setSizePolicy(sizePolicy)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Ignored)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.RunButton.sizePolicy().hasHeightForWidth())
+        self.RunButton.setSizePolicy(sizePolicy3)
         self.RunButton.setFont(font)
         self.RunButton.setStyleSheet(u"")
 
         self.verticalLayout_12.addWidget(self.RunButton)
-
-        self.verticalLayoutAutoPauseAndStop = QVBoxLayout()
-        self.verticalLayoutAutoPauseAndStop.setSpacing(6)
-        self.verticalLayoutAutoPauseAndStop.setObjectName(u"verticalLayoutAutoPauseAndStop")
-        self.verticalLayoutAutoPauseAndStop.setContentsMargins(-1, 37, -1, -1)
-        self.AutoPauseButton = QPushButton(self.ActionButtonsPage)
-        self.AutoPauseButton.setObjectName(u"AutoPauseButton")
-        sizePolicy.setHeightForWidth(self.AutoPauseButton.sizePolicy().hasHeightForWidth())
-        self.AutoPauseButton.setSizePolicy(sizePolicy)
-        self.AutoPauseButton.setFont(font)
-        self.AutoPauseButton.setStyleSheet(u"")
-        self.AutoPauseButton.setCheckable(True)
-
-        self.verticalLayoutAutoPauseAndStop.addWidget(self.AutoPauseButton)
-
-        self.AutoStopButton = QPushButton(self.ActionButtonsPage)
-        self.AutoStopButton.setObjectName(u"AutoStopButton")
-        sizePolicy.setHeightForWidth(self.AutoStopButton.sizePolicy().hasHeightForWidth())
-        self.AutoStopButton.setSizePolicy(sizePolicy)
-        self.AutoStopButton.setFont(font)
-        self.AutoStopButton.setStyleSheet(u"")
-        self.AutoStopButton.setCheckable(False)
-
-        self.verticalLayoutAutoPauseAndStop.addWidget(self.AutoStopButton)
-
-
-        self.verticalLayout_12.addLayout(self.verticalLayoutAutoPauseAndStop)
 
         self.ActionButtons.addWidget(self.ActionButtonsPage)
         self.ManualButtonsPage = QWidget()
@@ -852,37 +828,38 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_20.addWidget(self.AssemblyButton)
 
-        self.verticalLayoutManualButtons = QVBoxLayout()
-        self.verticalLayoutManualButtons.setObjectName(u"verticalLayoutManualButtons")
-        self.verticalLayoutManualButtons.setContentsMargins(-1, 22, -1, -1)
-        self.ManualPauseButton = QPushButton(self.ManualButtonsPage)
-        self.ManualPauseButton.setObjectName(u"ManualPauseButton")
-        sizePolicy.setHeightForWidth(self.ManualPauseButton.sizePolicy().hasHeightForWidth())
-        self.ManualPauseButton.setSizePolicy(sizePolicy)
-        self.ManualPauseButton.setMaximumSize(QSize(16777215, 90))
-        self.ManualPauseButton.setFont(font)
-        self.ManualPauseButton.setStyleSheet(u"")
-        self.ManualPauseButton.setCheckable(True)
-
-        self.verticalLayoutManualButtons.addWidget(self.ManualPauseButton)
-
-        self.ManualStopButton = QPushButton(self.ManualButtonsPage)
-        self.ManualStopButton.setObjectName(u"ManualStopButton")
-        sizePolicy.setHeightForWidth(self.ManualStopButton.sizePolicy().hasHeightForWidth())
-        self.ManualStopButton.setSizePolicy(sizePolicy)
-        self.ManualStopButton.setMaximumSize(QSize(16777215, 90))
-        self.ManualStopButton.setFont(font)
-        self.ManualStopButton.setStyleSheet(u"")
-        self.ManualStopButton.setCheckable(False)
-
-        self.verticalLayoutManualButtons.addWidget(self.ManualStopButton)
-
-
-        self.verticalLayout_20.addLayout(self.verticalLayoutManualButtons)
-
         self.ActionButtons.addWidget(self.ManualButtonsPage)
 
         self.verticalLayout_24.addWidget(self.ActionButtons)
+
+        self.verticalLayoutAutoPauseAndStop = QVBoxLayout()
+        self.verticalLayoutAutoPauseAndStop.setSpacing(6)
+        self.verticalLayoutAutoPauseAndStop.setObjectName(u"verticalLayoutAutoPauseAndStop")
+        self.verticalLayoutAutoPauseAndStop.setContentsMargins(-1, 0, -1, -1)
+        self.AutoPauseButton = QPushButton(self.AutoAndManualWidget)
+        self.AutoPauseButton.setObjectName(u"AutoPauseButton")
+        sizePolicy.setHeightForWidth(self.AutoPauseButton.sizePolicy().hasHeightForWidth())
+        self.AutoPauseButton.setSizePolicy(sizePolicy)
+        self.AutoPauseButton.setMinimumSize(QSize(0, 80))
+        self.AutoPauseButton.setFont(font)
+        self.AutoPauseButton.setStyleSheet(u"")
+        self.AutoPauseButton.setCheckable(True)
+
+        self.verticalLayoutAutoPauseAndStop.addWidget(self.AutoPauseButton)
+
+        self.AutoStopButton = QPushButton(self.AutoAndManualWidget)
+        self.AutoStopButton.setObjectName(u"AutoStopButton")
+        sizePolicy.setHeightForWidth(self.AutoStopButton.sizePolicy().hasHeightForWidth())
+        self.AutoStopButton.setSizePolicy(sizePolicy)
+        self.AutoStopButton.setMinimumSize(QSize(0, 80))
+        self.AutoStopButton.setFont(font)
+        self.AutoStopButton.setStyleSheet(u"")
+        self.AutoStopButton.setCheckable(False)
+
+        self.verticalLayoutAutoPauseAndStop.addWidget(self.AutoStopButton)
+
+
+        self.verticalLayout_24.addLayout(self.verticalLayoutAutoPauseAndStop)
 
         self.ParentStackedWidgetToChangeMenuOptions.addWidget(self.MainPagePage)
         self.ComponentControlPage = QWidget()
@@ -1124,11 +1101,11 @@ class Ui_MainWindow(object):
         self.YawPlusCP = QPushButton(self.JogPage)
         self.YawPlusCP.setObjectName(u"YawPlusCP")
         self.YawPlusCP.setGeometry(QRect(200, 20, 101, 91))
-        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.YawPlusCP.sizePolicy().hasHeightForWidth())
-        self.YawPlusCP.setSizePolicy(sizePolicy3)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.YawPlusCP.sizePolicy().hasHeightForWidth())
+        self.YawPlusCP.setSizePolicy(sizePolicy4)
         self.YawPlusCP.setStyleSheet(u"background-color: transparent;\n"
 "border: none;")
         icon6 = QIcon()
@@ -1138,8 +1115,8 @@ class Ui_MainWindow(object):
         self.ControlUpCP = QPushButton(self.JogPage)
         self.ControlUpCP.setObjectName(u"ControlUpCP")
         self.ControlUpCP.setGeometry(QRect(100, 50, 101, 91))
-        sizePolicy3.setHeightForWidth(self.ControlUpCP.sizePolicy().hasHeightForWidth())
-        self.ControlUpCP.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.ControlUpCP.sizePolicy().hasHeightForWidth())
+        self.ControlUpCP.setSizePolicy(sizePolicy4)
         self.ControlUpCP.setStyleSheet(u"background-color: transparent;\n"
 "border: none;")
         icon7 = QIcon()
@@ -1176,8 +1153,8 @@ class Ui_MainWindow(object):
         self.YawMinusCP = QPushButton(self.JogPage)
         self.YawMinusCP.setObjectName(u"YawMinusCP")
         self.YawMinusCP.setGeometry(QRect(0, 270, 101, 91))
-        sizePolicy3.setHeightForWidth(self.YawMinusCP.sizePolicy().hasHeightForWidth())
-        self.YawMinusCP.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.YawMinusCP.sizePolicy().hasHeightForWidth())
+        self.YawMinusCP.setSizePolicy(sizePolicy4)
         self.YawMinusCP.setStyleSheet(u"background-color: transparent;\n"
 "border: none;")
         icon11 = QIcon()
@@ -1558,8 +1535,8 @@ class Ui_MainWindow(object):
         self.buttonGroup_2.addButton(self.LiftUp)
         self.LiftUp.setObjectName(u"LiftUp")
         self.LiftUp.setGeometry(QRect(30, 480, 101, 91))
-        sizePolicy3.setHeightForWidth(self.LiftUp.sizePolicy().hasHeightForWidth())
-        self.LiftUp.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.LiftUp.sizePolicy().hasHeightForWidth())
+        self.LiftUp.setSizePolicy(sizePolicy4)
         self.LiftUp.setStyleSheet(u"background-color: transparent;\n"
 "border: none;")
         icon12 = QIcon()
@@ -1571,8 +1548,8 @@ class Ui_MainWindow(object):
         self.buttonGroup_2.addButton(self.LowerDown)
         self.LowerDown.setObjectName(u"LowerDown")
         self.LowerDown.setGeometry(QRect(190, 480, 101, 91))
-        sizePolicy3.setHeightForWidth(self.LowerDown.sizePolicy().hasHeightForWidth())
-        self.LowerDown.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.LowerDown.sizePolicy().hasHeightForWidth())
+        self.LowerDown.setSizePolicy(sizePolicy4)
         self.LowerDown.setStyleSheet(u"background-color: transparent;\n"
 "border: none;")
         icon13 = QIcon()
@@ -3249,14 +3226,12 @@ class Ui_MainWindow(object):
         self.ManualButton.setText(QCoreApplication.translate("MainWindow", u"Manual", None))
         self.INITButton.setText(QCoreApplication.translate("MainWindow", u"INIT", None))
         self.RunButton.setText(QCoreApplication.translate("MainWindow", u"RUN", None))
-        self.AutoPauseButton.setText(QCoreApplication.translate("MainWindow", u"Pause", None))
-        self.AutoStopButton.setText(QCoreApplication.translate("MainWindow", u"STOP", None))
         self.RoughAlignButton.setText(QCoreApplication.translate("MainWindow", u"Rough Align", None))
         self.PreciseAlignButton.setText(QCoreApplication.translate("MainWindow", u"Precise Align", None))
         self.PickButton.setText(QCoreApplication.translate("MainWindow", u"Pick", None))
         self.AssemblyButton.setText(QCoreApplication.translate("MainWindow", u"Assembly", None))
-        self.ManualPauseButton.setText(QCoreApplication.translate("MainWindow", u"Pause", None))
-        self.ManualStopButton.setText(QCoreApplication.translate("MainWindow", u"STOP", None))
+        self.AutoPauseButton.setText(QCoreApplication.translate("MainWindow", u"Pause", None))
+        self.AutoStopButton.setText(QCoreApplication.translate("MainWindow", u"STOP", None))
         self.ChooseMotor.setText(QCoreApplication.translate("MainWindow", u"Motor", None))
         self.ChooseVision.setText(QCoreApplication.translate("MainWindow", u"Vision", None))
         self.ChooseClipper.setText(QCoreApplication.translate("MainWindow", u"Clipper", None))

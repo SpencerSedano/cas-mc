@@ -245,8 +245,8 @@ class MainWindow(QMainWindow):
         self.ui.PickButton.toggled.connect(lambda checked: self.on_task_toggled("pick", checked))
         self.ui.AssemblyButton.toggled.connect(lambda checked: self.on_task_toggled("assembly", checked))
 
-        self.ui.ManualPauseButton.toggled.connect(self.on_pause_toggled)
-        self.ui.ManualStopButton.clicked.connect(lambda: self.send_state_cmd("stop"))
+        # self.ui.ManualPauseButton.toggled.connect(self.on_pause_toggled)
+        # self.ui.ManualStopButton.clicked.connect(lambda: self.send_state_cmd("stop"))
 
         # self.ui.VisionTextInComponentControl.setFixedSize(640, 480)
 
@@ -565,7 +565,7 @@ class MainWindow(QMainWindow):
                 self.ui.PreciseAlignButton,
                 self.ui.PickButton,
                 self.ui.AssemblyButton,
-                self.ui.ManualPauseButton
+                # self.ui.ManualPauseButton
             ]
             self.reset_buttons_and_machine(main_page_buttons, send_pause=False)
 
@@ -783,7 +783,6 @@ class MainWindow(QMainWindow):
         }
         """))
 
-
     def on_ros_message(self, text):
         self.ros_msg_received.emit(text)
 
@@ -806,7 +805,7 @@ class MainWindow(QMainWindow):
             print("Moved to second screen and fullscreen")
         else:
             self.showFullScreen()
-            print("Only one screen, maximized")
+            print("Only one screen, screen fullscreen anyways")
 
 
 def convert_cv_to_qt(cv_img):
