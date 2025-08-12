@@ -522,8 +522,7 @@ class MainWindow(QMainWindow):
 
     # vision fix
     def on_vision_toggled(self, vision_name, checked):
-        
-        
+
 
         if checked:
             self.send_vision_cmd(f"{vision_name}")
@@ -806,7 +805,7 @@ class MainWindow(QMainWindow):
             self.showFullScreen()
             print("Moved to second screen and fullscreen")
         else:
-            self.showMaximized()
+            self.showFullScreen()
             print("Only one screen, maximized")
 
 
