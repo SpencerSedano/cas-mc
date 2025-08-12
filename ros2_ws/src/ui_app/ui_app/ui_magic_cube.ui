@@ -3799,7 +3799,7 @@ QSlider::handle:horizontal {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>685</width>
+              <width>588</width>
               <height>648</height>
              </rect>
             </property>
@@ -6821,21 +6821,21 @@ QSlider::handle:horizontal {
  <connections/>
  <buttongroups>
   <buttongroup name="MenuButtonGroup"/>
-  <buttongroup name="AutoAndManualButtonGroup"/>
   <buttongroup name="LanguageButtonGroup"/>
-  <buttongroup name="ThemeButtonGroup"/>
-  <buttongroup name="FontSizeButtonGroup"/>
+  <buttongroup name="AutoAndManualButtonGroup"/>
   <buttongroup name="ManualButtons">
+   <property name="exclusive">
+    <bool>false</bool>
+   </property>
+  </buttongroup>
+  <buttongroup name="VisionButtonGroup">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
   <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup"/>
-  <buttongroup name="VisionButtonGroup">
-   <property name="exclusive">
-    <bool>false</bool>
-   </property>
-  </buttongroup>
+  <buttongroup name="ThemeButtonGroup"/>
+  <buttongroup name="FontSizeButtonGroup"/>
  </buttongroups>
 </ui>

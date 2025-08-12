@@ -185,13 +185,36 @@ class MotorController:
 
         future.add_done_callback(handle_response)
 
+    # def send_y_motor_cmd(self, flag):
+    #     msg = String()
+    #     msg.data = flag
+
+    #     self.ros_node.y_motor_cmd_publisher.publish(msg)
+    #     print(f"[UI] Sent YMotor Cmd String: {msg.data}")
+
     def send_y_motor_cmd(self, flag):
-        msg = String()
-        msg.data = flag
+        msg = MotionCmd()
+        msg.command_type = MotionCmd.TYPE_Y_MOVE
 
-        self.ros_node.y_motor_cmd_publisher.publish(msg)
-        print(f"[UI] Sent YMotor Cmd String: {msg.data}")
+        if flag == "home_y":
+            print("[UI] Sending YMotor Cmd: Home")
+            msg.pose_data = [0.0, 0.0, 0.0]  # Y軸歸零
 
+        elif flag == "ready_y":
+            print("[UI] Sending YMotor Cmd: Ready")
+            msg.pose_data = [0.0, 500.0, 0.0]
+
+        elif flag == "assembly_y":
+            print("[UI] Sending YMotor Cmd: Assembly")
+            msg.pose_data = [0.0, 1100.0, 0.0]
+
+        else:
+            print(f"[UI] Unknown YMotor command: {flag}")
+            return
+        
+        msg.speed = 20.0  # 可以根據需要調整速度
+        self.ros_node.motion_cmd_publisher.publish(msg)
+        print(f"[YMotor] Command Type: {msg.command_type}, Pose Data: {msg.pose_data}, Speed: {msg.speed}")
 
 
     def update_gui(self):
@@ -204,7 +227,7 @@ class MotorController:
 
     def on_motor_info(self, m1: float, m2: float, m3: float):
         self.ui.MotorPos.setText(f"M1:{m1:.1f}, M2:{m2:.1f}, M3:{m3:.1f}")
-        self.ui.CurrentPos.setText(f"{m1:.1f}")  # or whichever axis you want here
+        # self.ui.CurrentPos.setText(f"{m1:.1f}")
 
 
     def _paint_light(self, lbl, on_color, off_color, is_on):
