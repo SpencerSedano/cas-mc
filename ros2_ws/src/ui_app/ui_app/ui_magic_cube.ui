@@ -358,7 +358,7 @@ Record</string>
        <property name="geometry">
         <rect>
          <x>240</x>
-         <y>80</y>
+         <y>90</y>
          <width>1021</width>
          <height>691</height>
         </rect>
@@ -379,9 +379,9 @@ Record</string>
          <property name="geometry">
           <rect>
            <x>0</x>
-           <y>10</y>
+           <y>0</y>
            <width>701</width>
-           <height>481</height>
+           <height>491</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -409,7 +409,7 @@ Record</string>
            <x>0</x>
            <y>500</y>
            <width>701</width>
-           <height>191</height>
+           <height>181</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -3271,9 +3271,9 @@ QSlider::handle:horizontal {
          <property name="geometry">
           <rect>
            <x>0</x>
-           <y>10</y>
+           <y>0</y>
            <width>701</width>
-           <height>681</height>
+           <height>701</height>
           </rect>
          </property>
          <property name="currentIndex">
@@ -3314,7 +3314,7 @@ QSlider::handle:horizontal {
              <x>0</x>
              <y>500</y>
              <width>701</width>
-             <height>191</height>
+             <height>182</height>
             </rect>
            </property>
            <property name="styleSheet">
@@ -3328,7 +3328,7 @@ QSlider::handle:horizontal {
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_19" stretch="0,0,0,0">
             <property name="topMargin">
-             <number>0</number>
+             <number>9</number>
             </property>
             <property name="bottomMargin">
              <number>9</number>
@@ -3347,10 +3347,70 @@ QSlider::handle:horizontal {
                 <height>0</height>
                </size>
               </property>
+              <property name="styleSheet">
+               <string notr="true">QWidget#CartesianPoseWidget_2 {
+	border: 2px solid #FFFFFF;  /* white solid border */
+	border-radius: 6px;
+}</string>
+              </property>
               <layout class="QGridLayout" name="gridLayout_4">
                <property name="topMargin">
                 <number>6</number>
                </property>
+               <item row="2" column="1">
+                <widget class="QFrame" name="yawPosFrame_2">
+                 <property name="frameShape">
+                  <enum>QFrame::Shape::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Shadow::Raised</enum>
+                 </property>
+                 <layout class="QHBoxLayout" name="horizontalLayout_28">
+                  <property name="bottomMargin">
+                   <number>14</number>
+                  </property>
+                  <item alignment="Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter">
+                   <widget class="QLabel" name="yaw_2">
+                    <property name="font">
+                     <font>
+                      <pointsize>9</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>yaw:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item alignment="Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignVCenter">
+                   <widget class="QLabel" name="yawText_2">
+                    <property name="text">
+                     <string>pos</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item row="0" column="0" colspan="2" alignment="Qt::AlignmentFlag::AlignTop">
+                <widget class="QLabel" name="CartesianPoseText_2">
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel#CartesianPoseText_2 {
+    border-bottom: 1px solid white;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Cartesian Pose</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignmentFlag::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
                <item row="1" column="1">
                 <widget class="QFrame" name="yPosFrame_2">
                  <property name="frameShape">
@@ -3419,56 +3479,6 @@ QSlider::handle:horizontal {
                  </layout>
                 </widget>
                </item>
-               <item row="2" column="1">
-                <widget class="QFrame" name="yawPosFrame_2">
-                 <property name="frameShape">
-                  <enum>QFrame::Shape::StyledPanel</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Shadow::Raised</enum>
-                 </property>
-                 <layout class="QHBoxLayout" name="horizontalLayout_28">
-                  <property name="bottomMargin">
-                   <number>14</number>
-                  </property>
-                  <item alignment="Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter">
-                   <widget class="QLabel" name="yaw_2">
-                    <property name="font">
-                     <font>
-                      <pointsize>9</pointsize>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>yaw:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item alignment="Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignVCenter">
-                   <widget class="QLabel" name="yawText_2">
-                    <property name="text">
-                     <string>pos</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item row="0" column="0" colspan="2" alignment="Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop">
-                <widget class="QLabel" name="CartesianPoseText_2">
-                 <property name="font">
-                  <font>
-                   <pointsize>10</pointsize>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">border: 2px solid #FFFFFF;  /* white solid border */
-border-radius: 6px;</string>
-                 </property>
-                 <property name="text">
-                  <string>Cartesian Pose</string>
-                 </property>
-                </widget>
-               </item>
                <item row="1" column="0">
                 <widget class="QFrame" name="xPosFrame_2">
                  <property name="font">
@@ -3517,13 +3527,25 @@ border-radius: 6px;</string>
             <item>
              <widget class="QWidget" name="MotorInfoWidget_2" native="true">
               <property name="styleSheet">
-               <string notr="true"/>
+               <string notr="true">QWidget#MotorInfoWidget_2 {
+	border: 2px solid #FFFFFF;  /* white solid border */
+	border-radius: 6px;
+}</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_5">
                <property name="topMargin">
                 <number>6</number>
                </property>
-               <item row="2" column="0">
+               <property name="rightMargin">
+                <number>9</number>
+               </property>
+               <property name="bottomMargin">
+                <number>9</number>
+               </property>
+               <property name="spacing">
+                <number>6</number>
+               </property>
+               <item row="1" column="0">
                 <widget class="QFrame" name="PositionFrame_2">
                  <property name="frameShape">
                   <enum>QFrame::Shape::StyledPanel</enum>
@@ -3531,7 +3553,7 @@ border-radius: 6px;</string>
                  <property name="frameShadow">
                   <enum>QFrame::Shadow::Raised</enum>
                  </property>
-                 <layout class="QHBoxLayout" name="horizontalLayout_30">
+                 <layout class="QVBoxLayout" name="verticalLayout_15">
                   <item>
                    <widget class="QLabel" name="Position_2">
                     <property name="text">
@@ -3549,7 +3571,7 @@ border-radius: 6px;</string>
                  </layout>
                 </widget>
                </item>
-               <item row="0" column="0" alignment="Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop">
+               <item row="0" column="0" alignment="Qt::AlignmentFlag::AlignTop">
                 <widget class="QLabel" name="MotorInfoText_2">
                  <property name="font">
                   <font>
@@ -3557,15 +3579,19 @@ border-radius: 6px;</string>
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">border: 2px solid #FFFFFF;  /* white solid border */
-border-radius: 6px;</string>
+                  <string notr="true">QLabel#MotorInfoText_2 {
+    border-bottom: 1px solid white;
+}</string>
                  </property>
                  <property name="text">
                   <string>Motor Info</string>
                  </property>
+                 <property name="alignment">
+                  <set>Qt::AlignmentFlag::AlignCenter</set>
+                 </property>
                 </widget>
                </item>
-               <item row="3" column="0">
+               <item row="4" column="0">
                 <widget class="QFrame" name="CurrentFrame_2">
                  <property name="frameShape">
                   <enum>QFrame::Shape::StyledPanel</enum>
@@ -3573,7 +3599,7 @@ border-radius: 6px;</string>
                  <property name="frameShadow">
                   <enum>QFrame::Shadow::Raised</enum>
                  </property>
-                 <layout class="QHBoxLayout" name="horizontalLayout_31">
+                 <layout class="QVBoxLayout" name="verticalLayout_17">
                   <item>
                    <widget class="QLabel" name="Current_2">
                     <property name="text">
@@ -3595,87 +3621,17 @@ border-radius: 6px;</string>
              </widget>
             </item>
             <item>
-             <widget class="QWidget" name="RecordData_2" native="true">
+             <widget class="QWidget" name="LaserInfoWidget" native="true">
+              <property name="styleSheet">
+               <string notr="true">QWidget#LaserInfoWidget {
+	border: 2px solid #FFFFFF;  /* white solid border */
+	border-radius: 6px;
+}</string>
+              </property>
               <layout class="QGridLayout" name="gridLayout_6">
                <property name="topMargin">
                 <number>6</number>
                </property>
-               <item row="1" column="0">
-                <widget class="QFrame" name="frame_12">
-                 <property name="frameShape">
-                  <enum>QFrame::Shape::StyledPanel</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Shadow::Raised</enum>
-                 </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_15">
-                  <property name="leftMargin">
-                   <number>9</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>9</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>0</number>
-                  </property>
-                  <item>
-                   <widget class="QLabel" name="d1_2">
-                    <property name="text">
-                     <string>D1: </string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item row="0" column="0" alignment="Qt::AlignmentFlag::AlignHCenter">
-                <widget class="QLabel" name="LaserInfoText_2">
-                 <property name="font">
-                  <font>
-                   <pointsize>10</pointsize>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">border: 2px solid #FFFFFF;  /* white solid border */
-border-radius: 6px;</string>
-                 </property>
-                 <property name="text">
-                  <string>Laser Info</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
-                <widget class="QFrame" name="frame_7">
-                 <property name="frameShape">
-                  <enum>QFrame::Shape::StyledPanel</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Shadow::Raised</enum>
-                 </property>
-                 <layout class="QHBoxLayout" name="horizontalLayout_32">
-                  <property name="leftMargin">
-                   <number>9</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>0</number>
-                  </property>
-                  <item>
-                   <widget class="QLabel" name="d2_2">
-                    <property name="text">
-                     <string>Current Height: </string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="currentHeight">
-                    <property name="text">
-                     <string>0</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
                <item row="4" column="0">
                 <widget class="QFrame" name="frame_8">
                  <property name="frameShape">
@@ -3684,12 +3640,12 @@ border-radius: 6px;</string>
                  <property name="frameShadow">
                   <enum>QFrame::Shadow::Raised</enum>
                  </property>
-                 <layout class="QHBoxLayout" name="horizontalLayout_25">
+                 <layout class="QVBoxLayout" name="verticalLayout_25">
                   <property name="leftMargin">
                    <number>9</number>
                   </property>
                   <property name="bottomMargin">
-                   <number>0</number>
+                   <number>9</number>
                   </property>
                   <item>
                    <widget class="QLabel" name="h1_2">
@@ -3700,6 +3656,58 @@ border-radius: 6px;</string>
                   </item>
                   <item>
                    <widget class="QLabel" name="HeightCommand">
+                    <property name="text">
+                     <string>0</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item row="0" column="0" alignment="Qt::AlignmentFlag::AlignTop">
+                <widget class="QLabel" name="LaserInfoText_2">
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel#LaserInfoText_2 {
+    border-bottom: 1px solid white;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Laser Info</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignmentFlag::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QFrame" name="frame_7">
+                 <property name="frameShape">
+                  <enum>QFrame::Shape::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Shadow::Raised</enum>
+                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_23">
+                  <property name="leftMargin">
+                   <number>9</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>9</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="d2_2">
+                    <property name="text">
+                     <string>Current Height: </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="currentHeight">
                     <property name="text">
                      <string>0</string>
                     </property>
@@ -3755,6 +3763,10 @@ border-radius: 6px;</string>
              </widget>
             </item>
            </layout>
+           <zorder>MotorInfoWidget_2</zorder>
+           <zorder>LaserInfoWidget</zorder>
+           <zorder>RecordDataButtonContainer_2</zorder>
+           <zorder>CartesianPoseWidget_2</zorder>
           </widget>
          </widget>
          <widget class="QWidget" name="DIDOContainerPage">
@@ -3787,7 +3799,7 @@ border-radius: 6px;</string>
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>588</width>
+              <width>685</width>
               <height>648</height>
              </rect>
             </property>

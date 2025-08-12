@@ -60,11 +60,15 @@ class ROSNode(Node):
 
         self.di_update_callback = None
 
-        self.current_motor_len = [0.0, 0.0, 0.0]
+        # self.current_motor_len = [0.0, 0.0, 0.0]
 
         self.motion_state_callback_ui = None
+        
+        # self.motor_info_update_callback_ui = None
 
+        self.current_motor_len = [10.0, 0.0, 0.0]
 
+        
         # publisher
         self.mode_cmd_publisher = self.create_publisher(String, '/mode_cmd', 10)
 
@@ -162,14 +166,15 @@ class ROSNode(Node):
         if self.detection_task_callback_ui:
             self.detection_task_callback_ui(msg.data)
 
-    def motors_info_callback(self, msg:MultipleM):
-        self.current_motor_len = [
-            msg.motor_info[0].fb_position,
-            msg.motor_info[1].fb_position,
-            msg.motor_info[2].fb_position
-        ]
+    def motors_info_callback(self, msg: MultipleM):
+            m1 = msg.motor_info[0].fb_position
+            m2 = msg.motor_info[1].fb_position
+            m3 = msg.motor_info[2].fb_position
 
-        print("motor_info callback", self.current_motor_len)
+            if self.motor_info_update_callback_ui:
+                # This runs in the ROS thread; it's fine to emit a Qt Signal from here
+                # because Qt will queue delivery to the UI thread.
+                self.motor_info_update_callback_ui(m1, m2, m3)
 
 
     def dido_callback(self, msg: DIDOCmd):
@@ -197,6 +202,7 @@ class MainWindow(QMainWindow):
     vision_mode_update = Signal(str)
 
     motion_state_update = Signal(bool, bool)
+    motor_info_update = Signal(float, float, float)
 
     def __init__(self, ros_node):
         super().__init__()
@@ -222,6 +228,11 @@ class MainWindow(QMainWindow):
 
         #motor ui
         self.motor_controller = MotorController(self.ui, self.ros_node)
+        self.motor_info_update.connect(self.motor_controller.on_motor_info)
+        self.ros_node.motor_info_update_callback_ui = \
+            lambda m1, m2, m3: self.motor_info_update.emit(m1, m2, m3)
+        
+
         self.motion_state_update.connect(self.motor_controller.apply_motion_state)
         self.ros_node.motion_state_callback_ui = self.motion_state_update.emit
 

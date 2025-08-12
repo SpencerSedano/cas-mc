@@ -20,23 +20,25 @@ class MotorController:
             "yellow_on": "#FFEB3B",
             "yellow_off":"#666633",
             "green_on":  "#6FCF53",
-            "green_off": "#336633",   # chosen dim green
+            "green_off": "#336633",
         }
 
         self._set_lights(on_red=False, on_yellow=False, on_green=False)
 
-        def _prepare_lamp(lbl, size=18):
-            lbl.setPixmap(QPixmap())                # ensure no image covers the bg
-            lbl.setText("")                         # no text overlay
-            # lbl.setAttribute(Qt.WA_StyledBackground, True)
-            # lbl.setFixedSize(size, size)            # consistent circle size (optional)
-            # lbl.setStyleSheet(f"border-radius:{size//2}px;")  # circle
-            lbl.setStyleSheet("border-radius:999px;")
+        # def _prepare_lamp(lbl):
+        #     lbl.setPixmap(QPixmap())                # ensure no image covers the bg
+        #     lbl.setText("")                         # no text overlay
+        #     # lbl.setAttribute(Qt.WA_StyledBackground, True)
+        #     # lbl.setFixedSize(size, size)            # consistent circle size (optional)
+        #     # lbl.setStyleSheet(f"border-radius:{size//2}px;")  # circle
 
-        # prepare once
-        _prepare_lamp(self.ui.RedSignal)
-        _prepare_lamp(self.ui.YellowSignal)
-        _prepare_lamp(self.ui.GreenSignal)
+
+        #     lbl.setStyleSheet("border-radius:10px;")
+
+        # # prepare once
+        # _prepare_lamp(self.ui.RedSignal)
+        # _prepare_lamp(self.ui.YellowSignal)
+        # _prepare_lamp(self.ui.GreenSignal)
 
 
 
@@ -67,6 +69,11 @@ class MotorController:
         self.ui.ControlRightCP.setAutoRepeat(True)
         self.ui.ControlRightCP.setAutoRepeatDelay(300)
         self.ui.ControlRightCP.setAutoRepeatInterval(80) 
+
+        # self.ui.RedSignal.setStyleSheet("background-color: red")
+        # self.ui.YellowSignal.setStyleSheet("background-color: yellow")
+
+        # self.ui.GreenSignal.setStyleSheet("background-color: green")
 
 
         self.ui.ControlUpCP.clicked.connect(  lambda: self.send_jog_cmd("y_axis",  +1))
@@ -193,6 +200,11 @@ class MotorController:
             self.status_label.setText("Waiting for service response...")
         else:
             self.status_label.setText("Ready")
+
+
+    def on_motor_info(self, m1: float, m2: float, m3: float):
+        self.ui.MotorPos.setText(f"M1: {m1:.1f}, M2: {m2:.1f}, M3: {m3:.1f}")
+        self.ui.CurrentPos.setText(f"{m1:.1f}")  # or whichever axis you want here
 
 
     def _paint_light(self, lbl, on_color, off_color, is_on):
