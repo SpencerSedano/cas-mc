@@ -203,7 +203,7 @@ class MotorController:
 
 
     def on_motor_info(self, m1: float, m2: float, m3: float):
-        self.ui.MotorPos.setText(f"M1: {m1:.1f}, M2: {m2:.1f}, M3: {m3:.1f}")
+        self.ui.MotorPos.setText(f"M1:{m1:.1f}, M2:{m2:.1f}, M3:{m3:.1f}")
         self.ui.CurrentPos.setText(f"{m1:.1f}")  # or whichever axis you want here
 
 
