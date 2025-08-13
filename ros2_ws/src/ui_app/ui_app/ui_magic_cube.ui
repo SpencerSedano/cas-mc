@@ -3350,7 +3350,7 @@ QSlider::handle:horizontal {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>685</width>
+              <width>588</width>
               <height>648</height>
              </rect>
             </property>
@@ -6361,7 +6361,7 @@ QSlider::handle:horizontal {
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton#ServoONOFFButton {
-		border-radius: 30px;
+         border-radius: 8px;
 }</string>
        </property>
        <property name="text">
@@ -6381,7 +6381,8 @@ QSlider::handle:horizontal {
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border-radius: 30px;</string>
+        <string notr="true">            border-radius: 8px;
+</string>
        </property>
        <property name="text">
         <string>Alarm: 0</string>
@@ -6403,7 +6404,8 @@ QSlider::handle:horizontal {
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border-radius: 30px;</string>
+        <string notr="true">            border-radius: 8px;
+</string>
        </property>
        <property name="text">
         <string>Reset</string>
@@ -6433,22 +6435,22 @@ QSlider::handle:horizontal {
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="LanguageButtonGroup"/>
-  <buttongroup name="buttonGroup"/>
-  <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="FontSizeButtonGroup"/>
-  <buttongroup name="MenuButtonGroup"/>
   <buttongroup name="AutoAndManualButtonGroup"/>
-  <buttongroup name="ThemeButtonGroup"/>
+  <buttongroup name="FontSizeButtonGroup"/>
+  <buttongroup name="buttonGroup"/>
   <buttongroup name="ManualButtons">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
+  <buttongroup name="ThemeButtonGroup"/>
+  <buttongroup name="MenuButtonGroup"/>
+  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="VisionButtonGroup">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
+  <buttongroup name="LanguageButtonGroup"/>
  </buttongroups>
 </ui>

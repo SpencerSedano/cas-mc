@@ -1696,7 +1696,7 @@ class Ui_MainWindow(object):
         self.ScrollAreaDIDO.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 685, 648))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 588, 648))
         self.horizontalLayout_34 = QHBoxLayout(self.scrollAreaWidgetContents_2)
         self.horizontalLayout_34.setSpacing(9)
         self.horizontalLayout_34.setObjectName(u"horizontalLayout_34")
@@ -2874,18 +2874,20 @@ class Ui_MainWindow(object):
         self.ServoONOFFButton.setObjectName(u"ServoONOFFButton")
         self.ServoONOFFButton.setGeometry(QRect(960, 0, 91, 61))
         self.ServoONOFFButton.setStyleSheet(u"QPushButton#ServoONOFFButton {\n"
-"		border-radius: 30px;\n"
+"         border-radius: 8px;\n"
 "}")
         self.ServoONOFFButton.setCheckable(True)
         self.AlarmButton = QPushButton(self.BackgroundWidget)
         self.AlarmButton.setObjectName(u"AlarmButton")
         self.AlarmButton.setGeometry(QRect(1060, 0, 91, 61))
-        self.AlarmButton.setStyleSheet(u"border-radius: 30px;")
+        self.AlarmButton.setStyleSheet(u"            border-radius: 8px;\n"
+"")
         self.AlarmButton.setIconSize(QSize(28, 28))
         self.ResetButton = QPushButton(self.BackgroundWidget)
         self.ResetButton.setObjectName(u"ResetButton")
         self.ResetButton.setGeometry(QRect(1160, 0, 90, 61))
-        self.ResetButton.setStyleSheet(u"border-radius: 30px;")
+        self.ResetButton.setStyleSheet(u"            border-radius: 8px;\n"
+"")
         self.ParentStackedWidgetToChangeMenuOptions.raise_()
         self.Line.raise_()
         self.SystemSettingsButton.raise_()
@@ -2909,7 +2911,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(1)
+        self.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(0)
         self.ProcessAndInfoStackedWidget.setCurrentIndex(0)
         self.ActionButtons.setCurrentIndex(0)
         self.ComponentControlStackedWidget.setCurrentIndex(1)

@@ -2,7 +2,7 @@ import sys
 from datetime import date
 import cv2
 from PySide6.QtCore import Qt, QEvent, QTimer, Signal
-from PySide6.QtGui import QIcon, QImage, QPixmap
+from PySide6.QtGui import QIcon, QImage, QPixmap, QKeySequence, QShortcut
 from PySide6.QtWidgets import QApplication, QMainWindow, QButtonGroup, QScroller
 
 from ui_app.ui_magic_cube import Ui_MainWindow # Import my design made in Qt Designer (already in .py)
@@ -77,6 +77,8 @@ class ROSNode(Node):
 
         # self.MH2_cmd_publisher = self.create_publisher(MH2Cmd, '/MH2_cmd', 10)
 
+        # self.MH2_cmd_publisher = self.create_publisher()
+
         self.mode_cmd_publisher = self.create_publisher(String, '/mode_cmd', 10)
 
         self.state_cmd_publisher = self.create_publisher(StateCmd, '/state_cmd', 10)
@@ -100,6 +102,8 @@ class ROSNode(Node):
         self.y_motor_cmd_publisher = self.create_publisher(String, '/test_y_motor_cmd', 10)
 
         self.clipper_cmd_publisher = self.create_publisher(ClipperCmd, '/clipper_cmd', 10)
+
+
 
 
         # subscriber
@@ -236,6 +240,8 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        QShortcut(QKeySequence(Qt.Key_Escape), self, activated=self.close)
+
         #Start ROS2 Node
         self.ros_node = ros_node
 
@@ -298,9 +304,21 @@ class MainWindow(QMainWindow):
         # Connect Qt signal to UI handler
         self.ros_msg_received.connect(self.handle_ros_message)
 
-        #servo, alarm, reset
-        self.ui.ServoONOFFButton.toggled.connect(self.on_servo_on_off_toggled)
+        self.ui.ServoONOFFButton.setStyleSheet("""
+        QPushButton#ServoONOFFButton {
+            color: black;
+            border-radius: 8px;
+            background-color: #A0A0A0; /* OFF (default) */
+        }
+        QPushButton#ServoONOFFButton:checked {
+            background-color: #4CAF50; /* ON */
+        }
+        """)
 
+        #servo, alarm, reset
+        self.ui.ServoONOFFButton.clicked.connect(lambda checked: self.on_servo_click(checked))
+
+        
         
 
         # auto
@@ -477,32 +495,50 @@ class MainWindow(QMainWindow):
             }
         """)
 
+    def on_servo_click(self, checked: bool):
+        btn = self.ui.ServoONOFFButton
+        prev = not checked            # this was the state before the click
+        desired = checked             # what the user asked for
+
+        # Revert UI until ROS confirms
+        btn.blockSignals(True)
+        btn.setChecked(prev)          # undo the automatic toggle -> stays gray/green as before
+        btn.blockSignals(False)
+
+        btn.setEnabled(False)         # avoid double clicks
+        self.motor_controller.call_servo(desired)
+
+
+
         
 
-    def on_servo_on_off_toggled(self, checked: bool):
-        if checked:
-            # ON: green
-            self.ui.ServoONOFFButton.setStyleSheet("""
-                QPushButton {
-                    background-color: #4CAF50;  /* Green */
-                    color: white;
-                    border-radius: 8px;
-                }
-            """)
-            self.ui.ServoONOFFButton.setText("Servo ON")
-            # Optionally call your service
-            self.motor_controller.call_servo(True if checked else False)
-        else:
-            # OFF: gray
-            self.ui.ServoONOFFButton.setStyleSheet("""
-                QPushButton {
-                    background-color: #A0A0A0;  /* Gray */
-                    color: white;
-                    border-radius: 8px;
-                }
-            """)
-            self.ui.ServoONOFFButton.setText("Servo OFF")
-            self.motor_controller.call_servo(True if checked else False)
+    # def on_servo_on_off_toggled(self, checked: bool):
+
+        
+
+    #     if checked:
+    #         # ON: green
+    #         self.ui.ServoONOFFButton.setStyleSheet("""
+    #             QPushButton {
+    #                 background-color: #4CAF50;  /* Green */
+    #                 color: white;
+    #                 border-radius: 8px;
+    #             }
+    #         """)
+    #         self.ui.ServoONOFFButton.setText("Servo ON")
+    #         # Optionally call your service
+    #         self.motor_controller.call_servo(True if checked else False)
+    #     else:
+    #         # OFF: gray
+    #         self.ui.ServoONOFFButton.setStyleSheet("""
+    #             QPushButton {
+    #                 background-color: #A0A0A0;  /* Gray */
+    #                 color: white;
+    #                 border-radius: 8px;
+    #             }
+    #         """)
+    #         self.ui.ServoONOFFButton.setText("Servo OFF")
+    #         self.motor_controller.call_servo(True if checked else False)
 
     def update_image(self, cv_img):
         qt_img = convert_cv_to_qt(cv_img)
@@ -914,10 +950,10 @@ class MainWindow(QMainWindow):
             second_screen = screens[1]  # Use the actual second screen
             second_geom = second_screen.geometry()
             self.setGeometry(second_geom)  # Move and resize in one step
-            self.showFullScreen()
-            print("Moved to second screen and fullscreen")
+            self.showMaximized()
+            print("Maximized")
         else:
-            self.showFullScreen()
+            self.showMaximized()
             print("Only one screen, screen fullscreen anyways")
 
 

@@ -186,16 +186,24 @@ class MotorController:
     #             self.ui.AlarmButton.styleSheet() + "\nQPushButton { border: 2px solid yellow; }"
     #         )
 
-
     def _on_mh2_state_ui(self, servo_on: bool, alarm_code: int):
-        # Keep the toggle button in sync with the real machine state
-        self.ui.ServoONOFFButton.blockSignals(True)
-        # self.ui.ServoONOFFButton.setChecked(servo_on)
-        self.ui.ServoONOFFButton.blockSignals(False)
-        # Optional: show alarm code if you have a label
-        if hasattr(self.ui, "AlarmButton"):
-            self.ui.AlarmButton.setText(str(alarm_code))
+        btn = self.ui.ServoONOFFButton
+        btn.blockSignals(True)
+        btn.setChecked(servo_on)                  # QSS :checked applies here
+        btn.setText("Servo ON" if servo_on else "Servo OFF")
+        btn.blockSignals(False)
+        btn.setEnabled(True)
 
+        # Alarm UI
+        if hasattr(self.ui, "AlarmButton"):
+            self.ui.AlarmButton.setText(f"Alarm: {alarm_code}")
+            # optional coloring: 0 = ok (green-ish), else = warn (yellow) / error (red)
+            if alarm_code == 0:
+                self.ui.AlarmButton.setStyleSheet("background-color: #6FCF53; color: black;")   # green
+            else:
+                self.ui.AlarmButton.setStyleSheet("background-color: #FFEB3B; color:black;")   # yellow (or red)
+        else:
+            print("[UI] AlarmButton not found - check your .ui objectName")
 
     def call_servo(self, on=True):
         if not self.cli.service_is_ready():
