@@ -27,6 +27,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
     "msg/DIDOCmd.msg"
     "msg/RunCmd.msg"
     "msg/ClipperCmd.msg"
+    "msg/MH2Cmd.msg"
 )
 
 if(BUILD_TESTING)

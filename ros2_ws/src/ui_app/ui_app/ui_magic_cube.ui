@@ -372,7 +372,7 @@ Record</string>
         <string notr="true"/>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="MainPagePage">
         <widget class="QWidget" name="CameraWidget" native="true">
@@ -6350,7 +6350,7 @@ QSlider::handle:horizontal {
         </item>
        </layout>
       </widget>
-      <widget class="QPushButton" name="ServoONOFF">
+      <widget class="QPushButton" name="ServoONOFFButton">
        <property name="geometry">
         <rect>
          <x>960</x>
@@ -6366,7 +6366,7 @@ QSlider::handle:horizontal {
         <string>Servo OFF</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="Alarm">
+      <widget class="QPushButton" name="AlarmButton">
        <property name="geometry">
         <rect>
          <x>1060</x>
@@ -6417,8 +6417,8 @@ QSlider::handle:horizontal {
       <zorder>CartDepthWidget</zorder>
       <zorder>DateWidget</zorder>
       <zorder>DeltaLogo</zorder>
-      <zorder>ServoONOFF</zorder>
-      <zorder>Alarm</zorder>
+      <zorder>ServoONOFFButton</zorder>
+      <zorder>AlarmButton</zorder>
       <zorder>Reset</zorder>
      </widget>
     </item>

@@ -24,7 +24,9 @@ import threading
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int32
-from common_msgs.msg import StateCmd, ForkCmd, JogCmd, ComponentCmd, TaskCmd, TaskState, DIDOCmd, RunCmd, MotionCmd, MotionState, ClipperCmd, MultipleM
+
+from common_msgs.msg import StateCmd, ForkCmd, JogCmd, ComponentCmd, TaskCmd, TaskState, DIDOCmd, RunCmd, MotionCmd, MotionState, ClipperCmd, MultipleM, MH2Cmd
+
 from uros_interface.srv import ESMCmd
 
 
@@ -70,6 +72,9 @@ class ROSNode(Node):
 
         
         # publisher
+
+        self.MH2_cmd_publisher = self.create_publisher(MH2Cmd, '/MH2_cmd', 10)
+
         self.mode_cmd_publisher = self.create_publisher(String, '/mode_cmd', 10)
 
         self.state_cmd_publisher = self.create_publisher(StateCmd, '/state_cmd', 10)
@@ -108,6 +113,11 @@ class ROSNode(Node):
             '/color_image',
             self.image_callback,
             10
+        )
+
+        self.motion_cmd_subscriber = self.create_subscription(
+            MotionCmd,
+            "/"
         )
 
         self.motors_info_sub = self.create_subscription(
@@ -226,6 +236,7 @@ class MainWindow(QMainWindow):
         # self.ros_node.image_update_callback = lambda cv: self.image_update.emit(cv)
         # self.ros_node.detection_task_callback_ui = lambda s: self.vision_mode_update.emit(s)
 
+
         #motor ui
         self.motor_controller = MotorController(self.ui, self.ros_node)
         self.motor_info_update.connect(self.motor_controller.on_motor_info)
@@ -266,6 +277,9 @@ class MainWindow(QMainWindow):
 
         # Connect Qt signal to UI handler
         self.ros_msg_received.connect(self.handle_ros_message)
+
+        #servo, alarm, reset
+        self.ui.ServoONOFFButton.toggled.connect(self.on_servo_on_off_toggled)
 
         # auto
         self.ui.AutoButton.toggled.connect(self.on_auto_toggled)
@@ -358,7 +372,7 @@ class MainWindow(QMainWindow):
         self.ui.MotorConfigNextButton.clicked.connect(lambda: self.go_to_next_page_motor(1))
         self.ui.MotorJogNextButton.clicked.connect(lambda: self.go_to_next_page_motor(2))
         self.ui.MotorYAxisNextButton.clicked.connect(lambda: self.go_to_next_page_motor(0))
-        
+
 
     def _on_vision_clicked(self, btn, checked):
         if checked:
@@ -463,7 +477,22 @@ class MainWindow(QMainWindow):
 
     def update_detection_mode(self, mode):
         print(f"[UI] Detection mode is now: {mode}")
-        # Optionally update label or status bar
+        # Optionally update label or status bar  
+    
+    # def on_servo_on_off_toggled(self, checked):
+    #     if checked: 
+
+
+
+    
+    # def send_MH2_cmd(self, flag):
+    #     msg = MH2Cmd()
+
+    #     msg.servo_state = True
+
+    #     print(f"[UI] Sent MH2Cmd: {flag}")
+
+
 
 
     #ROS2 Menu
