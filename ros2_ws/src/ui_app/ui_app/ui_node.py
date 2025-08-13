@@ -241,6 +241,7 @@ class MainWindow(QMainWindow):
 
         QScroller.grabGesture(self.ui.ScrollAreaDIDO.viewport(), QScroller.LeftMouseButtonGesture)
 
+
         #vision ui
         self.ros_node.image_update_callback = self.update_image
         self.ros_node.detection_task_callback_ui = self.update_detection_mode
@@ -264,7 +265,9 @@ class MainWindow(QMainWindow):
         self.motion_state_update.connect(self.motor_controller.apply_motion_state)
         self.ros_node.motion_state_callback_ui = self.motion_state_update.emit
 
-
+        self.mh2_state_update.connect(self.motor_controller._on_mh2_state_ui)
+        self.ros_node.mh2_state_callback_ui = \
+            (lambda msg: self.mh2_state_update.emit(bool(msg.servo_state), int(msg.alarm_code)))
 
         #forklift ui
         self.forklift_controller = ForkliftController(self.ui, self.ros_node)
@@ -488,7 +491,7 @@ class MainWindow(QMainWindow):
             """)
             self.ui.ServoONOFFButton.setText("Servo ON")
             # Optionally call your service
-            self.call_servo(True)
+            self.motor_controller.call_servo(True if checked else False)
         else:
             # OFF: gray
             self.ui.ServoONOFFButton.setStyleSheet("""
@@ -499,7 +502,7 @@ class MainWindow(QMainWindow):
                 }
             """)
             self.ui.ServoONOFFButton.setText("Servo OFF")
-            self.call_servo(False)
+            self.motor_controller.call_servo(True if checked else False)
 
     def update_image(self, cv_img):
         qt_img = convert_cv_to_qt(cv_img)

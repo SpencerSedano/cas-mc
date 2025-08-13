@@ -2873,17 +2873,19 @@ class Ui_MainWindow(object):
         self.ServoONOFFButton = QPushButton(self.BackgroundWidget)
         self.ServoONOFFButton.setObjectName(u"ServoONOFFButton")
         self.ServoONOFFButton.setGeometry(QRect(960, 0, 91, 61))
-        self.ServoONOFFButton.setStyleSheet(u"border-radius: 30px;")
+        self.ServoONOFFButton.setStyleSheet(u"QPushButton#ServoONOFFButton {\n"
+"		border-radius: 30px;\n"
+"}")
         self.ServoONOFFButton.setCheckable(True)
         self.AlarmButton = QPushButton(self.BackgroundWidget)
         self.AlarmButton.setObjectName(u"AlarmButton")
         self.AlarmButton.setGeometry(QRect(1060, 0, 91, 61))
         self.AlarmButton.setStyleSheet(u"border-radius: 30px;")
         self.AlarmButton.setIconSize(QSize(28, 28))
-        self.Reset = QPushButton(self.BackgroundWidget)
-        self.Reset.setObjectName(u"Reset")
-        self.Reset.setGeometry(QRect(1160, 0, 90, 61))
-        self.Reset.setStyleSheet(u"border-radius: 30px;")
+        self.ResetButton = QPushButton(self.BackgroundWidget)
+        self.ResetButton.setObjectName(u"ResetButton")
+        self.ResetButton.setGeometry(QRect(1160, 0, 90, 61))
+        self.ResetButton.setStyleSheet(u"border-radius: 30px;")
         self.ParentStackedWidgetToChangeMenuOptions.raise_()
         self.Line.raise_()
         self.SystemSettingsButton.raise_()
@@ -2899,7 +2901,7 @@ class Ui_MainWindow(object):
         self.DeltaLogo.raise_()
         self.ServoONOFFButton.raise_()
         self.AlarmButton.raise_()
-        self.Reset.raise_()
+        self.ResetButton.raise_()
 
         self.horizontalLayout_4.addWidget(self.BackgroundWidget)
 
@@ -3126,5 +3128,5 @@ class Ui_MainWindow(object):
         self.DateInput.setText(QCoreApplication.translate("MainWindow", u"7/25/2025", None))
         self.ServoONOFFButton.setText(QCoreApplication.translate("MainWindow", u"Servo OFF", None))
         self.AlarmButton.setText(QCoreApplication.translate("MainWindow", u"Alarm: 0", None))
-        self.Reset.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
+        self.ResetButton.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
     # retranslateUi

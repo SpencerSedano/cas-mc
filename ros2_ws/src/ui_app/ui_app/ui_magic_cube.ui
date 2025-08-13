@@ -372,7 +372,7 @@ Record</string>
         <string notr="true"/>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="MainPagePage">
         <widget class="QWidget" name="CameraWidget" native="true">
@@ -6360,7 +6360,9 @@ QSlider::handle:horizontal {
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border-radius: 30px;</string>
+        <string notr="true">QPushButton#ServoONOFFButton {
+		border-radius: 30px;
+}</string>
        </property>
        <property name="text">
         <string>Servo OFF</string>
@@ -6391,7 +6393,7 @@ QSlider::handle:horizontal {
         </size>
        </property>
       </widget>
-      <widget class="QPushButton" name="Reset">
+      <widget class="QPushButton" name="ResetButton">
        <property name="geometry">
         <rect>
          <x>1160</x>
@@ -6422,7 +6424,7 @@ QSlider::handle:horizontal {
       <zorder>DeltaLogo</zorder>
       <zorder>ServoONOFFButton</zorder>
       <zorder>AlarmButton</zorder>
-      <zorder>Reset</zorder>
+      <zorder>ResetButton</zorder>
      </widget>
     </item>
    </layout>

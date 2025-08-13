@@ -186,6 +186,17 @@ class MotorController:
     #             self.ui.AlarmButton.styleSheet() + "\nQPushButton { border: 2px solid yellow; }"
     #         )
 
+
+    def _on_mh2_state_ui(self, servo_on: bool, alarm_code: int):
+        # Keep the toggle button in sync with the real machine state
+        self.ui.ServoONOFFButton.blockSignals(True)
+        # self.ui.ServoONOFFButton.setChecked(servo_on)
+        self.ui.ServoONOFFButton.blockSignals(False)
+        # Optional: show alarm code if you have a label
+        if hasattr(self.ui, "AlarmButton"):
+            self.ui.AlarmButton.setText(str(alarm_code))
+
+
     def call_servo(self, on=True):
         if not self.cli.service_is_ready():
             self.ros_node.get_logger().warn('Service not available')
