@@ -247,6 +247,21 @@ class MotorController:
     #     self.ros_node.y_motor_cmd_publisher.publish(msg)
     #     print(f"[UI] Sent YMotor Cmd String: {msg.data}")
 
+    def current_pose(self, x: float, y: float, yaw_deg: float):
+        """
+        Slot to handle current pose updates from ROS and show them on the UI.
+        Connected in MainWindow:
+            self.current_pose_update.connect(self.motor_controller.current_pose)
+        """
+        # Defensive: make sure the labels exist and have setText
+        if hasattr(self.ui, "xPos"):
+            self.ui.xPos.setText(f"{x:.1f}")      # mm or whatever unit you use
+        if hasattr(self.ui, "yPos"):
+            self.ui.yPos.setText(f"{y:.1f}")
+        if hasattr(self.ui, "yawPos"):
+            self.ui.yawPos.setText(f"{yaw_deg:.2f}")  # degrees with 2 decimal places
+
+
     def send_y_motor_cmd(self, flag):
         msg = MotionCmd()
         msg.command_type = MotionCmd.TYPE_Y_MOVE

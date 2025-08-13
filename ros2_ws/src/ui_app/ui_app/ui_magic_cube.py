@@ -1477,10 +1477,10 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_22.addWidget(self.y_2)
 
-        self.yText_2 = QLabel(self.yPosFrame_2)
-        self.yText_2.setObjectName(u"yText_2")
+        self.yPos = QLabel(self.yPosFrame_2)
+        self.yPos.setObjectName(u"yPos")
 
-        self.horizontalLayout_22.addWidget(self.yText_2)
+        self.horizontalLayout_22.addWidget(self.yPos)
 
 
         self.gridLayout_4.addWidget(self.yPosFrame_2, 1, 1, 1, 1)
@@ -1498,10 +1498,10 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_28.addWidget(self.yaw_2)
 
-        self.yawText_2 = QLabel(self.yawPosFrame_2)
-        self.yawText_2.setObjectName(u"yawText_2")
+        self.yawPos = QLabel(self.yawPosFrame_2)
+        self.yawPos.setObjectName(u"yawPos")
 
-        self.horizontalLayout_28.addWidget(self.yawText_2)
+        self.horizontalLayout_28.addWidget(self.yawPos)
 
 
         self.gridLayout_4.addWidget(self.yawPosFrame_2, 2, 1, 1, 1)
@@ -1520,10 +1520,10 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_29.addWidget(self.x_2)
 
-        self.xText_2 = QLabel(self.xPosFrame_2)
-        self.xText_2.setObjectName(u"xText_2")
+        self.xPos = QLabel(self.xPosFrame_2)
+        self.xPos.setObjectName(u"xPos")
 
-        self.horizontalLayout_29.addWidget(self.xText_2)
+        self.horizontalLayout_29.addWidget(self.xPos)
 
 
         self.gridLayout_4.addWidget(self.xPosFrame_2, 1, 0, 1, 1)
@@ -2912,7 +2912,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(0)
+        self.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(1)
         self.ProcessAndInfoStackedWidget.setCurrentIndex(0)
         self.ActionButtons.setCurrentIndex(0)
         self.ComponentControlStackedWidget.setCurrentIndex(0)
@@ -3019,11 +3019,11 @@ class Ui_MainWindow(object):
         self.z_2.setText(QCoreApplication.translate("MainWindow", u"z:", None))
         self.zPose.setText(QCoreApplication.translate("MainWindow", u"pos", None))
         self.y_2.setText(QCoreApplication.translate("MainWindow", u"y:", None))
-        self.yText_2.setText(QCoreApplication.translate("MainWindow", u"pos", None))
-        self.yaw_2.setText(QCoreApplication.translate("MainWindow", u"yaw:", None))
-        self.yawText_2.setText(QCoreApplication.translate("MainWindow", u"pos", None))
+        self.yPos.setText(QCoreApplication.translate("MainWindow", u"pos", None))
+        self.yaw_2.setText(QCoreApplication.translate("MainWindow", u"yaw", None))
+        self.yawPos.setText(QCoreApplication.translate("MainWindow", u"pos", None))
         self.x_2.setText(QCoreApplication.translate("MainWindow", u"x:", None))
-        self.xText_2.setText(QCoreApplication.translate("MainWindow", u"pos", None))
+        self.xPos.setText(QCoreApplication.translate("MainWindow", u"pos", None))
         self.Position_2.setText(QCoreApplication.translate("MainWindow", u"Position:", None))
         self.MotorPos.setText(QCoreApplication.translate("MainWindow", u"pos", None))
         self.MotorInfoText_2.setText(QCoreApplication.translate("MainWindow", u"Motor Info", None))
