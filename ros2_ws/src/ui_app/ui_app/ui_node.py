@@ -25,7 +25,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int32
 
-from common_msgs.msg import StateCmd, ForkCmd, JogCmd, ComponentCmd, TaskCmd, TaskState, DIDOCmd, RunCmd, MotionCmd, MotionState, ClipperCmd, MultipleM, MH2Cmd
+from common_msgs.msg import StateCmd, ForkCmd, JogCmd, ComponentCmd, TaskCmd, TaskState, DIDOCmd, RunCmd, MotionCmd, MotionState, ClipperCmd, MultipleM, MH2State
 
 from uros_interface.srv import ESMCmd
 
@@ -56,6 +56,8 @@ class ROSNode(Node):
         # }
 
 
+        self.mh2_state_callback_ui = None
+
         self.height_update_callback = None
 
         self.forklift_controller = None
@@ -73,7 +75,7 @@ class ROSNode(Node):
         
         # publisher
 
-        self.MH2_cmd_publisher = self.create_publisher(MH2Cmd, '/MH2_cmd', 10)
+        # self.MH2_cmd_publisher = self.create_publisher(MH2Cmd, '/MH2_cmd', 10)
 
         self.mode_cmd_publisher = self.create_publisher(String, '/mode_cmd', 10)
 
@@ -101,6 +103,13 @@ class ROSNode(Node):
 
 
         # subscriber
+        self.mh2_state_subscriber = self.create_subscription(
+            MH2State,
+            "mh2_state",
+            self.mh2_state_callback,
+            10
+        )
+
         self.height_info_subscriber = self.create_subscription(
             Int32,
             'lr_distance',
@@ -115,10 +124,10 @@ class ROSNode(Node):
             10
         )
 
-        self.motion_cmd_subscriber = self.create_subscription(
-            MotionCmd,
-            "/"
-        )
+        # self.motion_cmd_subscriber = self.create_subscription(
+        #     MotionCmd,
+        #     "/"
+        # )
 
         self.motors_info_sub = self.create_subscription(
             MultipleM,
@@ -154,6 +163,13 @@ class ROSNode(Node):
 
         self.detection_task_callback_ui = None
         self.image_update_callback = None
+
+    def mh2_state_callback(self, msg: MH2State):
+        self.get_logger().info(f"Received MH2State: \n servo_state: {msg.servo_state} \n alarm_code: {msg.alarm_code}")
+        
+        if self.mh2_state_callback_ui:
+            self.mh2_state_callback_ui(msg)  # hand off to UI layer
+
 
     def height_info_callback(self, msg: Int32):
         self.get_logger().info(f"Received height info: {msg.data} mm")
@@ -205,6 +221,7 @@ class MainWindow(QMainWindow):
 
     #GUI Threads
     ros_msg_received = Signal(str)
+    mh2_state_update = Signal(bool, int)
     height_update = Signal(int)
     di_update = Signal(str, bool)
 
@@ -280,6 +297,8 @@ class MainWindow(QMainWindow):
 
         #servo, alarm, reset
         self.ui.ServoONOFFButton.toggled.connect(self.on_servo_on_off_toggled)
+
+        
 
         # auto
         self.ui.AutoButton.toggled.connect(self.on_auto_toggled)
@@ -456,6 +475,31 @@ class MainWindow(QMainWindow):
         """)
 
         
+
+    def on_servo_on_off_toggled(self, checked: bool):
+        if checked:
+            # ON: green
+            self.ui.ServoONOFFButton.setStyleSheet("""
+                QPushButton {
+                    background-color: #4CAF50;  /* Green */
+                    color: white;
+                    border-radius: 8px;
+                }
+            """)
+            self.ui.ServoONOFFButton.setText("Servo ON")
+            # Optionally call your service
+            self.call_servo(True)
+        else:
+            # OFF: gray
+            self.ui.ServoONOFFButton.setStyleSheet("""
+                QPushButton {
+                    background-color: #A0A0A0;  /* Gray */
+                    color: white;
+                    border-radius: 8px;
+                }
+            """)
+            self.ui.ServoONOFFButton.setText("Servo OFF")
+            self.call_servo(False)
 
     def update_image(self, cv_img):
         qt_img = convert_cv_to_qt(cv_img)

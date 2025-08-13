@@ -2874,6 +2874,7 @@ class Ui_MainWindow(object):
         self.ServoONOFFButton.setObjectName(u"ServoONOFFButton")
         self.ServoONOFFButton.setGeometry(QRect(960, 0, 91, 61))
         self.ServoONOFFButton.setStyleSheet(u"border-radius: 30px;")
+        self.ServoONOFFButton.setCheckable(True)
         self.AlarmButton = QPushButton(self.BackgroundWidget)
         self.AlarmButton.setObjectName(u"AlarmButton")
         self.AlarmButton.setGeometry(QRect(1060, 0, 91, 61))
@@ -2906,7 +2907,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(0)
+        self.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(1)
         self.ProcessAndInfoStackedWidget.setCurrentIndex(0)
         self.ActionButtons.setCurrentIndex(0)
         self.ComponentControlStackedWidget.setCurrentIndex(1)

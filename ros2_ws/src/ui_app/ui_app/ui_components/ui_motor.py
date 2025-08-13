@@ -1,6 +1,6 @@
 from PySide6.QtCore import QTimer, Qt
 from PySide6.QtGui import QPixmap
-from common_msgs.msg import JogCmd, MotionCmd, MultipleM
+from common_msgs.msg import JogCmd, MotionCmd, MultipleM, MH2State
 from uros_interface.srv import ESMCmd
 from rclpy.client import Client
 from std_msgs.msg import String
@@ -12,7 +12,6 @@ class MotorController:
 
         self.cli: Client = self.ros_node.create_client(ESMCmd, '/esm_command')
         self.waiting_for_result = False
-
 
         self._light_colors = {
             "red_on":    "#FF4D4D",
@@ -39,8 +38,6 @@ class MotorController:
         # _prepare_lamp(self.ui.RedSignal)
         # _prepare_lamp(self.ui.YellowSignal)
         # _prepare_lamp(self.ui.GreenSignal)
-
-
 
         # Disable buttons until service is ready
         # self.ui.ServoON.setEnabled(False)
@@ -161,6 +158,33 @@ class MotorController:
         self.ros_node.motion_cmd_publisher.publish(msg)
         print(f"[Home]: \n Command Type: {msg.command_type} \n Pose Data: {msg.pose_data} \n Speed: {msg.speed}")
 
+    # def on_mh2_state(self, msg: MH2State):
+    #     """Called from Qt thread (via singleShot)."""
+    #     self._apply_servo_ui(msg.servo_state)
+    #     self._apply_alarm_ui(msg.alarm_code)
+
+    # def _apply_servo_ui(self, is_on: bool):
+    #     # Keep your original styles; just add a semi-transparent overlay
+    #     if is_on:
+    #         self.ui.ServoON.setStyleSheet(
+    #             self.ui.ServoON.styleSheet() + "\nQPushButton { border: 2px solid yellow; }"
+    #         )
+    #         self.ui.ServoOFF.setStyleSheet(self.ui.ServoOFF.styleSheet())
+    #     else:
+    #         self.ui.ServoOFF.setStyleSheet(
+    #             self.ui.ServoOFF.styleSheet() + "\nQPushButton { border: 2px solid yellow; }"
+    #         )
+    #         self.ui.ServoON.setStyleSheet(self.ui.ServoON.styleSheet())
+
+    # def _apply_alarm_ui(self, code: int):
+    #     if code == 0:
+    #         # normal: no change, keep default
+    #         self.ui.AlarmButton.setStyleSheet(self.ui.AlarmButton.styleSheet())
+    #     else:
+    #         # highlight the alarm button to show it's active
+    #         self.ui.AlarmButton.setStyleSheet(
+    #             self.ui.AlarmButton.styleSheet() + "\nQPushButton { border: 2px solid yellow; }"
+    #         )
 
     def call_servo(self, on=True):
         if not self.cli.service_is_ready():
