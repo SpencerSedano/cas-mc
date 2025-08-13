@@ -5,6 +5,18 @@ from uros_interface.srv import ESMCmd
 from rclpy.client import Client
 from std_msgs.msg import String
 
+
+'''Use this if needs to be scaled down'''
+
+# import os
+# os.environ["QT_SCALE_FACTOR"] = "0.95"
+
+# from PySide6.QtGui import QGuiApplication
+# from PySide6.QtCore import Qt
+# QGuiApplication.setHighDpiScaleFactorRoundingPolicy(
+#     Qt.HighDpiScaleFactorRoundingPolicy.PassThrough
+# )
+
 class MotorController:
     def __init__(self, ui, ros_node):
         self.ui = ui
@@ -189,7 +201,7 @@ class MotorController:
     def _on_mh2_state_ui(self, servo_on: bool, alarm_code: int):
         btn = self.ui.ServoONOFFButton
         btn.blockSignals(True)
-        btn.setChecked(servo_on)                  # QSS :checked applies here
+        btn.setChecked(servo_on)
         btn.setText("Servo ON" if servo_on else "Servo OFF")
         btn.blockSignals(False)
         btn.setEnabled(True)

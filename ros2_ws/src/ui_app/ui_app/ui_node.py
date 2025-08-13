@@ -314,11 +314,10 @@ class MainWindow(QMainWindow):
             background-color: #4CAF50; /* ON */
         }
         """)
+        self.ui.ServoONOFFButton.setCheckable(True)
 
         #servo, alarm, reset
         self.ui.ServoONOFFButton.clicked.connect(lambda checked: self.on_servo_click(checked))
-
-        
         
 
         # auto
@@ -505,12 +504,8 @@ class MainWindow(QMainWindow):
         btn.setChecked(prev)          # undo the automatic toggle -> stays gray/green as before
         btn.blockSignals(False)
 
-        btn.setEnabled(False)         # avoid double clicks
+        # btn.setEnabled(False)         # avoid double clicks
         self.motor_controller.call_servo(desired)
-
-
-
-        
 
     # def on_servo_on_off_toggled(self, checked: bool):
 
@@ -953,7 +948,7 @@ class MainWindow(QMainWindow):
             self.setMaximumWidth(1280)
             self.setMaximumHeight(800)
             # self.showMaximized()
-            print("Fixed size: 1280x800")
+            print("Fixed size: 1280 x 800")
         else:
             self.showMaximized()
             print("Only one screen, screen fullscreen anyways")

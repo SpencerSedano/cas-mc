@@ -372,7 +372,7 @@ Record</string>
         <string notr="true"/>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="MainPagePage">
         <widget class="QWidget" name="CameraWidget" native="true">
@@ -409,7 +409,7 @@ Record</string>
            <x>0</x>
            <y>500</y>
            <width>701</width>
-           <height>191</height>
+           <height>181</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -2828,7 +2828,7 @@ QSlider::handle:horizontal {
           </rect>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="VisionAndInfoPage">
           <widget class="QWidget" name="CameraWidgetInComponentControl" native="true">
@@ -3321,9 +3321,6 @@ QSlider::handle:horizontal {
           </widget>
          </widget>
          <widget class="QWidget" name="DIDOContainerPage">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
           <widget class="QScrollArea" name="ScrollAreaDIDO">
            <property name="geometry">
             <rect>
