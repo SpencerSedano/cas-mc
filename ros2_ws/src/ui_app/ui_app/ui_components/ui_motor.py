@@ -199,7 +199,7 @@ class MotorController:
             self.ui.AlarmButton.setText(f"Alarm: {alarm_code}")
             # optional coloring: 0 = ok (green-ish), else = warn (yellow) / error (red)
             if alarm_code == 0:
-                self.ui.AlarmButton.setStyleSheet("background-color: #6FCF53; color: black;")   # green
+                self.ui.AlarmButton.setStyleSheet("background-color: black; color: white;")   # green
             else:
                 self.ui.AlarmButton.setStyleSheet("background-color: #FFEB3B; color:black;")   # yellow (or red)
         else:
