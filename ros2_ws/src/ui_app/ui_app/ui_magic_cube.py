@@ -3014,7 +3014,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(0)
+        self.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(1)
         self.ActionButtons.setCurrentIndex(0)
         self.ComponentControlStackedWidget.setCurrentIndex(0)
         self.ChangeComponentControlStackedWidget.setCurrentIndex(1)

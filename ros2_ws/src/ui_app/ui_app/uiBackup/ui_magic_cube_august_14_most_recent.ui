@@ -372,7 +372,7 @@ Record</string>
         <string notr="true"/>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="MainPagePage">
         <widget class="QWidget" name="CameraWidget" native="true">
@@ -6664,22 +6664,22 @@ QSlider::handle:horizontal {
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="LanguageButtonGroup"/>
-  <buttongroup name="ThemeButtonGroup"/>
-  <buttongroup name="MenuButtonGroup"/>
-  <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="AutoAndManualButtonGroup"/>
-  <buttongroup name="buttonGroup"/>
-  <buttongroup name="VisionButtonGroup">
-   <property name="exclusive">
-    <bool>false</bool>
-   </property>
-  </buttongroup>
   <buttongroup name="ManualButtons">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
   <buttongroup name="FontSizeButtonGroup"/>
+  <buttongroup name="MenuButtonGroup"/>
+  <buttongroup name="ThemeButtonGroup"/>
+  <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="buttonGroup"/>
+  <buttongroup name="AutoAndManualButtonGroup"/>
+  <buttongroup name="VisionButtonGroup">
+   <property name="exclusive">
+    <bool>false</bool>
+   </property>
+  </buttongroup>
+  <buttongroup name="LanguageButtonGroup"/>
  </buttongroups>
 </ui>

@@ -788,7 +788,7 @@ class MainWindow(QMainWindow):
         msg = MotionCmd()
         msg.command_type = MotionCmd.TYPE_GOTO
         msg.pose_data = [x, y, yaw]
-        msg.speed = 50.0
+        msg.speed = 5.0
         self.ros_node.motion_cmd_publisher.publish(msg)
         print(f"[Vision] Sent MotionCmd → pose:{msg.pose_data} speed:{msg.speed}")
 
@@ -1052,10 +1052,10 @@ class MainWindow(QMainWindow):
             second_screen = screens[1]  # Use the actual second screen
             second_geom = second_screen.geometry()
             self.setGeometry(second_geom)  # Move and resize in one step
-            self.setMaximumWidth(1280)
-            self.setMaximumHeight(800)
-            print("Fixed size: 1280 x 800")
-            # self.showFullScreen()
+            # self.setMaximumWidth(1280)
+            # self.setMaximumHeight(800)
+            # print("Fixed size: 1280 x 800")
+            self.showFullScreen()
         else:
             self.showMaximized()
             print("Only one screen, screen fullscreen anyways")
