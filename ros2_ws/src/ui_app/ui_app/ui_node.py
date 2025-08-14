@@ -645,8 +645,8 @@ class MainWindow(QMainWindow):
     
 
     def update_depth_label(self, left: float, right: float):
-        self.ui.LeftDepthText.setText("—" if left != left else f"{left:.2f}")
-        self.ui.RightDepthText.setText("—" if right != right else f"{right:.2f}")
+        self.ui.LeftDepthText.setText("—" if math.isnan(left) else f"{left:.2f}")
+        self.ui.RightDepthText.setText("—" if math.isnan(right) else f"{right:.2f}")
 
     def update_compensate_pose_label(self, x: float, y: float, yaw: float):
         self._vision_comp["x"] = x
@@ -654,9 +654,9 @@ class MainWindow(QMainWindow):
         self._vision_comp["yaw"] = yaw
         # self._vision_comp["z"]  = z
 
-        self.ui.xVisionLabel.setText("-" if x != x else f"{x:.2f}")
-        self.ui.yVisionLabel.setText("-" if y != y else f"{y:.2f}")
-        self.ui.YawVisionLabel.setText("-" if yaw != yaw else f"{yaw:.2f}")
+        self.ui.xVisionLabel.setText("-" if math.isnan(x) else f"{x:.2f}")
+        self.ui.yVisionLabel.setText("-" if math.isnan(y) else f"{y:.2f}")
+        self.ui.YawVisionLabel.setText("-" if math.isnan(yaw) else f"{yaw:.2f}")
         # self.ui.zVisionLabel.setText("-" if z != z else f"{z:.2f}")
 
 
