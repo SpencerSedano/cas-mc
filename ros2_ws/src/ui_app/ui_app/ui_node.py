@@ -59,6 +59,7 @@ class ROSNode(Node):
 
         self.depth_data_callback_ui = None   # <-- add this
 
+        self.compensate_update_callback = None
 
         self.mh2_state_callback_ui = None
 
@@ -102,6 +103,8 @@ class ROSNode(Node):
 
         self.vision_control_publisher = self.create_publisher(String, '/detection_task', 10)
 
+        # self.vision_send_publisher = self.create_publisher(MotionCmd, '/motion_cmd')
+
         self.dido_control_publisher = self.create_publisher(DIDOCmd, '/test_dido', 10)
 
         self.y_motor_cmd_publisher = self.create_publisher(String, '/test_y_motor_cmd', 10)
@@ -144,6 +147,13 @@ class ROSNode(Node):
             Image,
             '/color_image',
             self.image_callback,
+            10
+        )
+
+        self.compensate_pose_subscriber = self.create_subscription(
+            Float32MultiArray,
+            'compensate_pose',
+            self.compensate_pose_callback,
             10
         )
 
@@ -228,6 +238,12 @@ class ROSNode(Node):
         if self.image_update_callback:
             self.image_update_callback(cv_img)
 
+    def compensate_pose_callback(self, msg: Float32MultiArray):
+        self.get_logger().info(f"Received compensate_pose: {msg.data}")
+
+        if self.compensate_update_callback:
+            self.compensate_update_callback(list(msg.data))
+
     def detection_task_callback(self, msg: String):
         if self.detection_task_callback_ui:
             self.detection_task_callback_ui(msg.data)
@@ -241,7 +257,6 @@ class ROSNode(Node):
                 # This runs in the ROS thread; it's fine to emit a Qt Signal from here
                 # because Qt will queue delivery to the UI thread.
                 self.motor_info_update_callback_ui(m1, m2, m3)
-
 
     def dido_callback(self, msg: DIDOCmd):
         name = msg.name.strip()
@@ -263,6 +278,8 @@ class MainWindow(QMainWindow):
     ros_msg_received = Signal(str)
 
     depth_data_update = Signal(float, float)
+
+    compensate_pose_update = Signal(float, float, float)
 
     mh2_state_update = Signal(bool, int)
     height_update = Signal(int)
@@ -288,6 +305,8 @@ class MainWindow(QMainWindow):
 
         QScroller.grabGesture(self.ui.ScrollAreaDIDO.viewport(), QScroller.LeftMouseButtonGesture)
 
+        self._vision_comp = {"x": float('nan'), "y": float('nan'), "yaw": float('nan')}
+
 
         #vision ui
         self.ros_node.image_update_callback = self.update_image
@@ -310,6 +329,18 @@ class MainWindow(QMainWindow):
                 float(arr[0]) if len(arr) > 0 else float('nan'),
                 float(arr[1]) if len(arr) > 1 else float('nan'),
             ))
+        
+        #vision compensate pose
+        self.compensate_pose_update.connect(self.update_compensate_pose_label)
+
+        self.ros_node.compensate_update_callback = \
+            (lambda arr: self.compensate_pose_update.emit(
+                float(arr[0]) if len(arr) > 0 else float('nan'),
+                float(arr[1]) if len(arr) > 1 else float('nan'),
+                float(arr[2] if len(arr) > 2 else float('nan')),
+                # float(arr[3] if len(arr) > 3 else float('nan'))
+            ))
+        
 
         #motor ui
         self.motor_controller = MotorController(self.ui, self.ros_node)
@@ -440,6 +471,8 @@ class MainWindow(QMainWindow):
         self.ui.ClipperOption.clicked.connect(lambda: self.component_control_switch_page("Clipper", 2))
         self.ui.ForkliftOption.clicked.connect(lambda: self.component_control_switch_page("Forklift", 3))
         self.ui.DIDOOption.clicked.connect(lambda: self.component_control_switch_page("DI/DO", 4))
+
+        self.ui.VisionSendButton.clicked.connect(self.send_vision_compensate_pose)
 
         for btn in self.ui.ManualButtons.buttons():
             btn.toggled.connect(lambda checked, b=btn: self.on_manual_button_toggled(b, checked))
@@ -615,6 +648,18 @@ class MainWindow(QMainWindow):
         self.ui.LeftDepthText.setText("—" if left != left else f"{left:.2f}")
         self.ui.RightDepthText.setText("—" if right != right else f"{right:.2f}")
 
+    def update_compensate_pose_label(self, x: float, y: float, yaw: float):
+        self._vision_comp["x"] = x
+        self._vision_comp["y"] = y
+        self._vision_comp["yaw"] = yaw
+        # self._vision_comp["z"]  = z
+
+        self.ui.xVisionLabel.setText("-" if x != x else f"{x:.2f}")
+        self.ui.yVisionLabel.setText("-" if y != y else f"{y:.2f}")
+        self.ui.YawVisionLabel.setText("-" if yaw != yaw else f"{yaw:.2f}")
+        # self.ui.zVisionLabel.setText("-" if z != z else f"{z:.2f}")
+
+
     #ROS2 Menu
     def send_run_cmd(self, flag):
         msg = RunCmd()
@@ -728,6 +773,26 @@ class MainWindow(QMainWindow):
         msg.data = mode
         self.ros_node.vision_control_publisher.publish(msg)
         print(f"[UI] Sent VisionCmd: {mode}")
+
+    def send_vision_compensate_pose(self):
+        x = self._vision_comp["x"]
+        y = self._vision_comp["y"]
+        yaw = self._vision_comp["yaw"]
+        # z = self._vision_comp["z"]
+
+        # Guard: don’t send if any value is NaN
+        if any(math.isnan(v) for v in (x, y, yaw)):
+            print("[Vision] compensate_pose has NaN; not sending MotionCmd.")
+            return
+
+        msg = MotionCmd()
+        msg.command_type = MotionCmd.TYPE_GOTO
+        msg.pose_data = [x, y, yaw]
+        msg.speed = 50.0
+        self.ros_node.motion_cmd_publisher.publish(msg)
+        print(f"[Vision] Sent MotionCmd → pose:{msg.pose_data} speed:{msg.speed}")
+
+
 
     # def send_vision_cmd(self, mode):
     #     # simplest: no dedupe
