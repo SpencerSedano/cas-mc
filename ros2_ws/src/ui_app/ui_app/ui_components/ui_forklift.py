@@ -32,7 +32,7 @@ class ForkliftController:
     def update_height_display(self, height):
         self.current_height = height
         self.ui.currentHeight.setText(f"{height:.2f} mm")  
-        self.ui.zPose.setText(f"{height:.2f}") # cartesian pose: z
+        self.ui.zPose.setText(f"{height:.2f} mm") # cartesian pose: z
 
     def lift_up_10mm(self):
         self.on_touch_buttons(self.ui.LiftUp)
@@ -126,7 +126,7 @@ class ForkliftController:
 
 
     def on_slider_changed(self, value):
-            self.ui.HeightCommand.setText(str(value))
+            self.ui.HeightCommand.setText(f"{value:.2f}")
 
 
     def publish_adjust_command(self, direction, distance):

@@ -612,8 +612,8 @@ class MainWindow(QMainWindow):
     
 
     def update_depth_label(self, left: float, right: float):
-        self.ui.LeftDepthText.setText("—" if left != left else f"{left:.2f} mm")
-        self.ui.RightDepthText.setText("—" if right != right else f"{right:.2f} mm")
+        self.ui.LeftDepthText.setText("—" if left != left else f"{left:.2f}")
+        self.ui.RightDepthText.setText("—" if right != right else f"{right:.2f}")
 
     #ROS2 Menu
     def send_run_cmd(self, flag):
@@ -987,10 +987,10 @@ class MainWindow(QMainWindow):
             second_screen = screens[1]  # Use the actual second screen
             second_geom = second_screen.geometry()
             self.setGeometry(second_geom)  # Move and resize in one step
-            self.setMaximumWidth(1280)
-            self.setMaximumHeight(800)
-            # self.showMaximized()
-            print("Fixed size: 1280 x 800")
+            # self.setMaximumWidth(1280)
+            # self.setMaximumHeight(800)
+            # print("Fixed size: 1280 x 800")
+            self.showFullScreen()
         else:
             self.showMaximized()
             print("Only one screen, screen fullscreen anyways")
