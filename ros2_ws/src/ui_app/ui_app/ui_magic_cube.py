@@ -1432,7 +1432,8 @@ class Ui_MainWindow(object):
         self.CartesianPoseText_2 = QLabel(self.CartesianPoseWidget_2)
         self.CartesianPoseText_2.setObjectName(u"CartesianPoseText_2")
         font2 = QFont()
-        font2.setPointSize(10)
+        font2.setPointSize(11)
+        font2.setBold(False)
         self.CartesianPoseText_2.setFont(font2)
         self.CartesianPoseText_2.setStyleSheet(u"QLabel#CartesianPoseText_2 {\n"
 "    border-bottom: 1px solid white;\n"
@@ -1445,21 +1446,19 @@ class Ui_MainWindow(object):
         self.zPosFrame_2.setObjectName(u"zPosFrame_2")
         self.zPosFrame_2.setFrameShape(QFrame.Shape.StyledPanel)
         self.zPosFrame_2.setFrameShadow(QFrame.Shadow.Raised)
-        self.horizontalLayout_27 = QHBoxLayout(self.zPosFrame_2)
-        self.horizontalLayout_27.setObjectName(u"horizontalLayout_27")
-        self.horizontalLayout_27.setContentsMargins(-1, -1, -1, 14)
+        self.verticalLayout_16 = QVBoxLayout(self.zPosFrame_2)
+        self.verticalLayout_16.setObjectName(u"verticalLayout_16")
+        self.verticalLayout_16.setContentsMargins(-1, -1, -1, 14)
         self.z_2 = QLabel(self.zPosFrame_2)
         self.z_2.setObjectName(u"z_2")
-        font3 = QFont()
-        font3.setPointSize(9)
-        self.z_2.setFont(font3)
+        self.z_2.setFont(font2)
 
-        self.horizontalLayout_27.addWidget(self.z_2)
+        self.verticalLayout_16.addWidget(self.z_2)
 
         self.zPose = QLabel(self.zPosFrame_2)
         self.zPose.setObjectName(u"zPose")
 
-        self.horizontalLayout_27.addWidget(self.zPose)
+        self.verticalLayout_16.addWidget(self.zPose)
 
 
         self.gridLayout_4.addWidget(self.zPosFrame_2, 2, 0, 1, 1)
@@ -1468,19 +1467,19 @@ class Ui_MainWindow(object):
         self.yPosFrame_2.setObjectName(u"yPosFrame_2")
         self.yPosFrame_2.setFrameShape(QFrame.Shape.StyledPanel)
         self.yPosFrame_2.setFrameShadow(QFrame.Shadow.Raised)
-        self.horizontalLayout_22 = QHBoxLayout(self.yPosFrame_2)
-        self.horizontalLayout_22.setObjectName(u"horizontalLayout_22")
-        self.horizontalLayout_22.setContentsMargins(-1, -1, -1, 3)
+        self.verticalLayout_14 = QVBoxLayout(self.yPosFrame_2)
+        self.verticalLayout_14.setObjectName(u"verticalLayout_14")
+        self.verticalLayout_14.setContentsMargins(-1, -1, -1, 3)
         self.y_2 = QLabel(self.yPosFrame_2)
         self.y_2.setObjectName(u"y_2")
-        self.y_2.setFont(font3)
+        self.y_2.setFont(font2)
 
-        self.horizontalLayout_22.addWidget(self.y_2)
+        self.verticalLayout_14.addWidget(self.y_2)
 
         self.yPos = QLabel(self.yPosFrame_2)
         self.yPos.setObjectName(u"yPos")
 
-        self.horizontalLayout_22.addWidget(self.yPos)
+        self.verticalLayout_14.addWidget(self.yPos)
 
 
         self.gridLayout_4.addWidget(self.yPosFrame_2, 1, 1, 1, 1)
@@ -1489,41 +1488,43 @@ class Ui_MainWindow(object):
         self.yawPosFrame_2.setObjectName(u"yawPosFrame_2")
         self.yawPosFrame_2.setFrameShape(QFrame.Shape.StyledPanel)
         self.yawPosFrame_2.setFrameShadow(QFrame.Shadow.Raised)
-        self.horizontalLayout_28 = QHBoxLayout(self.yawPosFrame_2)
-        self.horizontalLayout_28.setObjectName(u"horizontalLayout_28")
-        self.horizontalLayout_28.setContentsMargins(-1, -1, -1, 14)
+        self.verticalLayout_17 = QVBoxLayout(self.yawPosFrame_2)
+        self.verticalLayout_17.setObjectName(u"verticalLayout_17")
+        self.verticalLayout_17.setContentsMargins(-1, -1, -1, 14)
         self.yaw_2 = QLabel(self.yawPosFrame_2)
         self.yaw_2.setObjectName(u"yaw_2")
-        self.yaw_2.setFont(font3)
+        self.yaw_2.setFont(font2)
 
-        self.horizontalLayout_28.addWidget(self.yaw_2)
+        self.verticalLayout_17.addWidget(self.yaw_2)
 
         self.yawPos = QLabel(self.yawPosFrame_2)
         self.yawPos.setObjectName(u"yawPos")
 
-        self.horizontalLayout_28.addWidget(self.yawPos)
+        self.verticalLayout_17.addWidget(self.yawPos)
 
 
         self.gridLayout_4.addWidget(self.yawPosFrame_2, 2, 1, 1, 1)
 
         self.xPosFrame_2 = QFrame(self.CartesianPoseWidget_2)
         self.xPosFrame_2.setObjectName(u"xPosFrame_2")
+        font3 = QFont()
+        font3.setPointSize(9)
         self.xPosFrame_2.setFont(font3)
         self.xPosFrame_2.setFrameShape(QFrame.Shape.StyledPanel)
         self.xPosFrame_2.setFrameShadow(QFrame.Shadow.Raised)
-        self.horizontalLayout_29 = QHBoxLayout(self.xPosFrame_2)
-        self.horizontalLayout_29.setObjectName(u"horizontalLayout_29")
-        self.horizontalLayout_29.setContentsMargins(9, -1, -1, 3)
+        self.verticalLayout_13 = QVBoxLayout(self.xPosFrame_2)
+        self.verticalLayout_13.setObjectName(u"verticalLayout_13")
+        self.verticalLayout_13.setContentsMargins(9, -1, -1, 3)
         self.x_2 = QLabel(self.xPosFrame_2)
         self.x_2.setObjectName(u"x_2")
-        self.x_2.setFont(font3)
+        self.x_2.setFont(font2)
 
-        self.horizontalLayout_29.addWidget(self.x_2)
+        self.verticalLayout_13.addWidget(self.x_2)
 
         self.xPos = QLabel(self.xPosFrame_2)
         self.xPos.setObjectName(u"xPos")
 
-        self.horizontalLayout_29.addWidget(self.xPos)
+        self.verticalLayout_13.addWidget(self.xPos)
 
 
         self.gridLayout_4.addWidget(self.xPosFrame_2, 1, 0, 1, 1)
@@ -1541,28 +1542,11 @@ class Ui_MainWindow(object):
         self.gridLayout_5.setSpacing(6)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
         self.gridLayout_5.setContentsMargins(-1, 6, 9, 9)
-        self.PositionFrame_2 = QFrame(self.MotorInfoWidget_2)
-        self.PositionFrame_2.setObjectName(u"PositionFrame_2")
-        self.PositionFrame_2.setFrameShape(QFrame.Shape.StyledPanel)
-        self.PositionFrame_2.setFrameShadow(QFrame.Shadow.Raised)
-        self.verticalLayout_15 = QVBoxLayout(self.PositionFrame_2)
-        self.verticalLayout_15.setObjectName(u"verticalLayout_15")
-        self.Position_2 = QLabel(self.PositionFrame_2)
-        self.Position_2.setObjectName(u"Position_2")
-
-        self.verticalLayout_15.addWidget(self.Position_2)
-
-        self.MotorPos = QLabel(self.PositionFrame_2)
-        self.MotorPos.setObjectName(u"MotorPos")
-
-        self.verticalLayout_15.addWidget(self.MotorPos)
-
-
-        self.gridLayout_5.addWidget(self.PositionFrame_2, 1, 0, 1, 1)
-
         self.MotorInfoText_2 = QLabel(self.MotorInfoWidget_2)
         self.MotorInfoText_2.setObjectName(u"MotorInfoText_2")
-        self.MotorInfoText_2.setFont(font2)
+        font4 = QFont()
+        font4.setPointSize(11)
+        self.MotorInfoText_2.setFont(font4)
         self.MotorInfoText_2.setStyleSheet(u"QLabel#MotorInfoText_2 {\n"
 "    border-bottom: 1px solid white;\n"
 "}")
@@ -1570,24 +1554,37 @@ class Ui_MainWindow(object):
 
         self.gridLayout_5.addWidget(self.MotorInfoText_2, 0, 0, 1, 1, Qt.AlignmentFlag.AlignTop)
 
-        self.CurrentFrame_2 = QFrame(self.MotorInfoWidget_2)
-        self.CurrentFrame_2.setObjectName(u"CurrentFrame_2")
-        self.CurrentFrame_2.setFrameShape(QFrame.Shape.StyledPanel)
-        self.CurrentFrame_2.setFrameShadow(QFrame.Shadow.Raised)
-        self.verticalLayout_17 = QVBoxLayout(self.CurrentFrame_2)
-        self.verticalLayout_17.setObjectName(u"verticalLayout_17")
-        self.Current_2 = QLabel(self.CurrentFrame_2)
-        self.Current_2.setObjectName(u"Current_2")
+        self.PositionFrame_2 = QFrame(self.MotorInfoWidget_2)
+        self.PositionFrame_2.setObjectName(u"PositionFrame_2")
+        self.PositionFrame_2.setFrameShape(QFrame.Shape.StyledPanel)
+        self.PositionFrame_2.setFrameShadow(QFrame.Shadow.Raised)
+        self.verticalLayout_15 = QVBoxLayout(self.PositionFrame_2)
+        self.verticalLayout_15.setSpacing(12)
+        self.verticalLayout_15.setObjectName(u"verticalLayout_15")
+        self.verticalLayout_15.setContentsMargins(-1, 9, -1, 9)
+        self.Position_2 = QLabel(self.PositionFrame_2)
+        self.Position_2.setObjectName(u"Position_2")
+        self.Position_2.setFont(font2)
 
-        self.verticalLayout_17.addWidget(self.Current_2)
+        self.verticalLayout_15.addWidget(self.Position_2)
 
-        self.CurrentPos = QLabel(self.CurrentFrame_2)
-        self.CurrentPos.setObjectName(u"CurrentPos")
+        self.MotorM1 = QLabel(self.PositionFrame_2)
+        self.MotorM1.setObjectName(u"MotorM1")
 
-        self.verticalLayout_17.addWidget(self.CurrentPos)
+        self.verticalLayout_15.addWidget(self.MotorM1)
+
+        self.MotorM2 = QLabel(self.PositionFrame_2)
+        self.MotorM2.setObjectName(u"MotorM2")
+
+        self.verticalLayout_15.addWidget(self.MotorM2)
+
+        self.MotorM3 = QLabel(self.PositionFrame_2)
+        self.MotorM3.setObjectName(u"MotorM3")
+
+        self.verticalLayout_15.addWidget(self.MotorM3)
 
 
-        self.gridLayout_5.addWidget(self.CurrentFrame_2, 4, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.PositionFrame_2, 1, 0, 1, 1, Qt.AlignmentFlag.AlignTop)
 
 
         self.horizontalLayout_19.addWidget(self.MotorInfoWidget_2)
@@ -1601,6 +1598,19 @@ class Ui_MainWindow(object):
         self.gridLayout_6 = QGridLayout(self.LaserInfoWidget)
         self.gridLayout_6.setObjectName(u"gridLayout_6")
         self.gridLayout_6.setContentsMargins(-1, 6, -1, -1)
+        self.LaserInfoText_2 = QLabel(self.LaserInfoWidget)
+        self.LaserInfoText_2.setObjectName(u"LaserInfoText_2")
+        font5 = QFont()
+        font5.setPointSize(11)
+        font5.setItalic(False)
+        self.LaserInfoText_2.setFont(font5)
+        self.LaserInfoText_2.setStyleSheet(u"QLabel#LaserInfoText_2 {\n"
+"    border-bottom: 1px solid white;\n"
+"}")
+        self.LaserInfoText_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.gridLayout_6.addWidget(self.LaserInfoText_2, 0, 0, 1, 1, Qt.AlignmentFlag.AlignTop)
+
         self.frame_8 = QFrame(self.LaserInfoWidget)
         self.frame_8.setObjectName(u"frame_8")
         self.frame_8.setFrameShape(QFrame.Shape.StyledPanel)
@@ -1610,6 +1620,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_25.setContentsMargins(9, -1, -1, 9)
         self.h1_2 = QLabel(self.frame_8)
         self.h1_2.setObjectName(u"h1_2")
+        self.h1_2.setFont(font2)
 
         self.verticalLayout_25.addWidget(self.h1_2)
 
@@ -1621,16 +1632,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout_6.addWidget(self.frame_8, 4, 0, 1, 1)
 
-        self.LaserInfoText_2 = QLabel(self.LaserInfoWidget)
-        self.LaserInfoText_2.setObjectName(u"LaserInfoText_2")
-        self.LaserInfoText_2.setFont(font2)
-        self.LaserInfoText_2.setStyleSheet(u"QLabel#LaserInfoText_2 {\n"
-"    border-bottom: 1px solid white;\n"
-"}")
-        self.LaserInfoText_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.gridLayout_6.addWidget(self.LaserInfoText_2, 0, 0, 1, 1, Qt.AlignmentFlag.AlignTop)
-
         self.frame_7 = QFrame(self.LaserInfoWidget)
         self.frame_7.setObjectName(u"frame_7")
         self.frame_7.setFrameShape(QFrame.Shape.StyledPanel)
@@ -1640,6 +1641,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_23.setContentsMargins(9, -1, -1, 9)
         self.d2_2 = QLabel(self.frame_7)
         self.d2_2.setObjectName(u"d2_2")
+        self.d2_2.setFont(font2)
 
         self.verticalLayout_23.addWidget(self.d2_2)
 
@@ -1654,33 +1656,76 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_19.addWidget(self.LaserInfoWidget)
 
-        self.RecordDataButtonContainer_2 = QWidget(self.Info_2)
-        self.RecordDataButtonContainer_2.setObjectName(u"RecordDataButtonContainer_2")
-        sizePolicy1.setHeightForWidth(self.RecordDataButtonContainer_2.sizePolicy().hasHeightForWidth())
-        self.RecordDataButtonContainer_2.setSizePolicy(sizePolicy1)
-        self.verticalLayout_21 = QVBoxLayout(self.RecordDataButtonContainer_2)
-        self.verticalLayout_21.setObjectName(u"verticalLayout_21")
-        self.verticalLayout_21.setContentsMargins(9, 9, -1, -1)
-        self.RecordDataButton_2 = QPushButton(self.RecordDataButtonContainer_2)
-        self.RecordDataButton_2.setObjectName(u"RecordDataButton_2")
-        sizePolicy1.setHeightForWidth(self.RecordDataButton_2.sizePolicy().hasHeightForWidth())
-        self.RecordDataButton_2.setSizePolicy(sizePolicy1)
-        self.RecordDataButton_2.setFont(font)
-        self.RecordDataButton_2.setStyleSheet(u"QPushButton {\n"
-"    padding: 16px 24px;\n"
-"}\n"
-"\n"
-"")
+        self.DepthInfoWidget = QWidget(self.Info_2)
+        self.DepthInfoWidget.setObjectName(u"DepthInfoWidget")
+        self.DepthInfoWidget.setStyleSheet(u"QWidget#DepthInfoWidget {\n"
+"	border: 2px solid #FFFFFF;  /* white solid border */\n"
+"	border-radius: 6px;\n"
+"}")
+        self.gridLayout_13 = QGridLayout(self.DepthInfoWidget)
+        self.gridLayout_13.setObjectName(u"gridLayout_13")
+        self.gridLayout_13.setContentsMargins(-1, 6, -1, -1)
+        self.frame_13 = QFrame(self.DepthInfoWidget)
+        self.frame_13.setObjectName(u"frame_13")
+        self.frame_13.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame_13.setFrameShadow(QFrame.Shadow.Raised)
+        self.verticalLayout_32 = QVBoxLayout(self.frame_13)
+        self.verticalLayout_32.setObjectName(u"verticalLayout_32")
+        self.verticalLayout_32.setContentsMargins(9, -1, -1, 9)
+        self.h1_5 = QLabel(self.frame_13)
+        self.h1_5.setObjectName(u"h1_5")
+        font6 = QFont()
+        font6.setBold(False)
+        self.h1_5.setFont(font6)
 
-        self.verticalLayout_21.addWidget(self.RecordDataButton_2, 0, Qt.AlignmentFlag.AlignVCenter)
+        self.verticalLayout_32.addWidget(self.h1_5)
+
+        self.RightDepthText = QLabel(self.frame_13)
+        self.RightDepthText.setObjectName(u"RightDepthText")
+
+        self.verticalLayout_32.addWidget(self.RightDepthText)
 
 
-        self.horizontalLayout_19.addWidget(self.RecordDataButtonContainer_2)
+        self.gridLayout_13.addWidget(self.frame_13, 4, 0, 1, 1)
+
+        self.DepthInfoText = QLabel(self.DepthInfoWidget)
+        self.DepthInfoText.setObjectName(u"DepthInfoText")
+        self.DepthInfoText.setFont(font4)
+        self.DepthInfoText.setStyleSheet(u"QLabel#DepthInfoText {\n"
+"    border-bottom: 1px solid white;\n"
+"}")
+        self.DepthInfoText.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.gridLayout_13.addWidget(self.DepthInfoText, 0, 0, 1, 1, Qt.AlignmentFlag.AlignTop)
+
+        self.frame_14 = QFrame(self.DepthInfoWidget)
+        self.frame_14.setObjectName(u"frame_14")
+        self.frame_14.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame_14.setFrameShadow(QFrame.Shadow.Raised)
+        self.verticalLayout_33 = QVBoxLayout(self.frame_14)
+        self.verticalLayout_33.setObjectName(u"verticalLayout_33")
+        self.verticalLayout_33.setContentsMargins(9, -1, -1, 9)
+        self.d2_5 = QLabel(self.frame_14)
+        self.d2_5.setObjectName(u"d2_5")
+        self.d2_5.setFont(font2)
+
+        self.verticalLayout_33.addWidget(self.d2_5)
+
+        self.LeftDepthText = QLabel(self.frame_14)
+        self.LeftDepthText.setObjectName(u"LeftDepthText")
+
+        self.verticalLayout_33.addWidget(self.LeftDepthText)
+
+
+        self.gridLayout_13.addWidget(self.frame_14, 1, 0, 1, 1)
+
+
+        self.horizontalLayout_19.addWidget(self.DepthInfoWidget)
 
         self.MotorInfoWidget_2.raise_()
         self.LaserInfoWidget.raise_()
-        self.RecordDataButtonContainer_2.raise_()
         self.CartesianPoseWidget_2.raise_()
+        self.DepthInfoWidget.raise_()
         self.MiddleStackedWidget.addWidget(self.VisionAndInfoPage)
         self.DIDOContainerPage = QWidget()
         self.DIDOContainerPage.setObjectName(u"DIDOContainerPage")
@@ -1688,10 +1733,10 @@ class Ui_MainWindow(object):
         self.ScrollAreaDIDO = QScrollArea(self.DIDOContainerPage)
         self.ScrollAreaDIDO.setObjectName(u"ScrollAreaDIDO")
         self.ScrollAreaDIDO.setGeometry(QRect(0, 350, 701, 331))
-        font4 = QFont()
-        font4.setStrikeOut(False)
-        font4.setKerning(True)
-        self.ScrollAreaDIDO.setFont(font4)
+        font7 = QFont()
+        font7.setStrikeOut(False)
+        font7.setKerning(True)
+        self.ScrollAreaDIDO.setFont(font7)
         self.ScrollAreaDIDO.setTabletTracking(True)
         self.ScrollAreaDIDO.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
         self.ScrollAreaDIDO.setWidgetResizable(True)
@@ -2634,14 +2679,14 @@ class Ui_MainWindow(object):
         self.label_5 = QLabel(self.DIDOContainerPage)
         self.label_5.setObjectName(u"label_5")
         self.label_5.setGeometry(QRect(320, 0, 67, 17))
-        font5 = QFont()
-        font5.setPointSize(16)
-        self.label_5.setFont(font5)
+        font8 = QFont()
+        font8.setPointSize(16)
+        self.label_5.setFont(font8)
         self.label_5.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.label_8 = QLabel(self.DIDOContainerPage)
         self.label_8.setObjectName(u"label_8")
         self.label_8.setGeometry(QRect(320, 330, 67, 17))
-        self.label_8.setFont(font5)
+        self.label_8.setFont(font8)
         self.label_8.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.MiddleStackedWidget.addWidget(self.DIDOContainerPage)
         self.ParentStackedWidgetToChangeMenuOptions.addWidget(self.ComponentControlPage)
@@ -2758,9 +2803,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
         self.WorkOrderText = QLabel(self.WorkOrderWidget)
         self.WorkOrderText.setObjectName(u"WorkOrderText")
-        font6 = QFont()
-        font6.setBold(True)
-        self.WorkOrderText.setFont(font6)
+        font9 = QFont()
+        font9.setBold(True)
+        self.WorkOrderText.setFont(font9)
 
         self.horizontalLayout_17.addWidget(self.WorkOrderText)
 
@@ -2777,7 +2822,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
         self.RecipeText = QLabel(self.RecipeWidget)
         self.RecipeText.setObjectName(u"RecipeText")
-        self.RecipeText.setFont(font6)
+        self.RecipeText.setFont(font9)
 
         self.horizontalLayout_18.addWidget(self.RecipeText)
 
@@ -2794,7 +2839,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
         self.QuantityText = QLabel(self.QuantityWidget)
         self.QuantityText.setObjectName(u"QuantityText")
-        self.QuantityText.setFont(font6)
+        self.QuantityText.setFont(font9)
 
         self.horizontalLayout_20.addWidget(self.QuantityText)
 
@@ -2811,7 +2856,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
         self.WorkerNameText = QLabel(self.WorkerNameWidget)
         self.WorkerNameText.setObjectName(u"WorkerNameText")
-        self.WorkerNameText.setFont(font6)
+        self.WorkerNameText.setFont(font9)
 
         self.horizontalLayout_21.addWidget(self.WorkerNameText)
 
@@ -2828,7 +2873,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
         self.CartHeightText = QLabel(self.CartHeightWidget)
         self.CartHeightText.setObjectName(u"CartHeightText")
-        self.CartHeightText.setFont(font6)
+        self.CartHeightText.setFont(font9)
 
         self.horizontalLayout_23.addWidget(self.CartHeightText)
 
@@ -2845,7 +2890,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_24.setObjectName(u"horizontalLayout_24")
         self.CartDepthText = QLabel(self.CartDepthWidget)
         self.CartDepthText.setObjectName(u"CartDepthText")
-        self.CartDepthText.setFont(font6)
+        self.CartDepthText.setFont(font9)
 
         self.horizontalLayout_24.addWidget(self.CartDepthText)
 
@@ -2862,7 +2907,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_26.setObjectName(u"horizontalLayout_26")
         self.DateText = QLabel(self.DateWidget)
         self.DateText.setObjectName(u"DateText")
-        self.DateText.setFont(font6)
+        self.DateText.setFont(font9)
 
         self.horizontalLayout_26.addWidget(self.DateText)
 
@@ -3020,21 +3065,25 @@ class Ui_MainWindow(object):
         self.zPose.setText(QCoreApplication.translate("MainWindow", u"pos", None))
         self.y_2.setText(QCoreApplication.translate("MainWindow", u"y:", None))
         self.yPos.setText(QCoreApplication.translate("MainWindow", u"pos", None))
-        self.yaw_2.setText(QCoreApplication.translate("MainWindow", u"yaw", None))
+        self.yaw_2.setText(QCoreApplication.translate("MainWindow", u"yaw:", None))
         self.yawPos.setText(QCoreApplication.translate("MainWindow", u"pos", None))
         self.x_2.setText(QCoreApplication.translate("MainWindow", u"x:", None))
         self.xPos.setText(QCoreApplication.translate("MainWindow", u"pos", None))
-        self.Position_2.setText(QCoreApplication.translate("MainWindow", u"Position:", None))
-        self.MotorPos.setText(QCoreApplication.translate("MainWindow", u"pos", None))
         self.MotorInfoText_2.setText(QCoreApplication.translate("MainWindow", u"Motor Info", None))
-        self.Current_2.setText(QCoreApplication.translate("MainWindow", u"Current: ", None))
-        self.CurrentPos.setText(QCoreApplication.translate("MainWindow", u"pos", None))
+        self.Position_2.setText(QCoreApplication.translate("MainWindow", u"Position:", None))
+        self.MotorM1.setText(QCoreApplication.translate("MainWindow", u"m1", None))
+        self.MotorM2.setText(QCoreApplication.translate("MainWindow", u"m2", None))
+        self.MotorM3.setText(QCoreApplication.translate("MainWindow", u"m3", None))
+        self.LaserInfoText_2.setText(QCoreApplication.translate("MainWindow", u"Height Info", None))
         self.h1_2.setText(QCoreApplication.translate("MainWindow", u"Height Cmd: ", None))
         self.HeightCommand.setText(QCoreApplication.translate("MainWindow", u"0", None))
-        self.LaserInfoText_2.setText(QCoreApplication.translate("MainWindow", u"Laser Info", None))
         self.d2_2.setText(QCoreApplication.translate("MainWindow", u"Current Height: ", None))
         self.currentHeight.setText(QCoreApplication.translate("MainWindow", u"0", None))
-        self.RecordDataButton_2.setText(QCoreApplication.translate("MainWindow", u"Record Data", None))
+        self.h1_5.setText(QCoreApplication.translate("MainWindow", u"Right:", None))
+        self.RightDepthText.setText(QCoreApplication.translate("MainWindow", u"0", None))
+        self.DepthInfoText.setText(QCoreApplication.translate("MainWindow", u"Depth Info", None))
+        self.d2_5.setText(QCoreApplication.translate("MainWindow", u"Left:", None))
+        self.LeftDepthText.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.DO23.setText(QCoreApplication.translate("MainWindow", u"23", None))
         self.DO5.setText(QCoreApplication.translate("MainWindow", u"5", None))
         self.DO14.setText(QCoreApplication.translate("MainWindow", u"14", None))

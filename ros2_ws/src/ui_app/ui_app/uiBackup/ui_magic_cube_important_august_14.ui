@@ -2912,8 +2912,7 @@ QSlider::handle:horizontal {
                 <widget class="QLabel" name="CartesianPoseText_2">
                  <property name="font">
                   <font>
-                   <pointsize>11</pointsize>
-                   <bold>false</bold>
+                   <pointsize>10</pointsize>
                   </font>
                  </property>
                  <property name="styleSheet">
@@ -2937,7 +2936,7 @@ QSlider::handle:horizontal {
                  <property name="frameShadow">
                   <enum>QFrame::Shadow::Raised</enum>
                  </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_16">
+                 <layout class="QHBoxLayout" name="horizontalLayout_27">
                   <property name="bottomMargin">
                    <number>14</number>
                   </property>
@@ -2945,8 +2944,7 @@ QSlider::handle:horizontal {
                    <widget class="QLabel" name="z_2">
                     <property name="font">
                      <font>
-                      <pointsize>11</pointsize>
-                      <bold>false</bold>
+                      <pointsize>9</pointsize>
                      </font>
                     </property>
                     <property name="text">
@@ -2972,7 +2970,7 @@ QSlider::handle:horizontal {
                  <property name="frameShadow">
                   <enum>QFrame::Shadow::Raised</enum>
                  </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_14">
+                 <layout class="QHBoxLayout" name="horizontalLayout_22">
                   <property name="bottomMargin">
                    <number>3</number>
                   </property>
@@ -2980,8 +2978,7 @@ QSlider::handle:horizontal {
                    <widget class="QLabel" name="y_2">
                     <property name="font">
                      <font>
-                      <pointsize>11</pointsize>
-                      <bold>false</bold>
+                      <pointsize>9</pointsize>
                      </font>
                     </property>
                     <property name="text">
@@ -3007,7 +3004,7 @@ QSlider::handle:horizontal {
                  <property name="frameShadow">
                   <enum>QFrame::Shadow::Raised</enum>
                  </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_17">
+                 <layout class="QHBoxLayout" name="horizontalLayout_28">
                   <property name="bottomMargin">
                    <number>14</number>
                   </property>
@@ -3015,12 +3012,11 @@ QSlider::handle:horizontal {
                    <widget class="QLabel" name="yaw_2">
                     <property name="font">
                      <font>
-                      <pointsize>11</pointsize>
-                      <bold>false</bold>
+                      <pointsize>9</pointsize>
                      </font>
                     </property>
                     <property name="text">
-                     <string>yaw:</string>
+                     <string>yaw</string>
                     </property>
                    </widget>
                   </item>
@@ -3047,7 +3043,7 @@ QSlider::handle:horizontal {
                  <property name="frameShadow">
                   <enum>QFrame::Shadow::Raised</enum>
                  </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_13">
+                 <layout class="QHBoxLayout" name="horizontalLayout_29">
                   <property name="leftMargin">
                    <number>9</number>
                   </property>
@@ -3058,8 +3054,7 @@ QSlider::handle:horizontal {
                    <widget class="QLabel" name="x_2">
                     <property name="font">
                      <font>
-                      <pointsize>11</pointsize>
-                      <bold>false</bold>
+                      <pointsize>9</pointsize>
                      </font>
                     </property>
                     <property name="text">
@@ -3101,11 +3096,37 @@ QSlider::handle:horizontal {
                <property name="spacing">
                 <number>6</number>
                </property>
+               <item row="1" column="0">
+                <widget class="QFrame" name="PositionFrame_2">
+                 <property name="frameShape">
+                  <enum>QFrame::Shape::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Shadow::Raised</enum>
+                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_15">
+                  <item>
+                   <widget class="QLabel" name="Position_2">
+                    <property name="text">
+                     <string>Position:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="MotorPos">
+                    <property name="text">
+                     <string>pos</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
                <item row="0" column="0" alignment="Qt::AlignmentFlag::AlignTop">
                 <widget class="QLabel" name="MotorInfoText_2">
                  <property name="font">
                   <font>
-                   <pointsize>11</pointsize>
+                   <pointsize>10</pointsize>
                   </font>
                  </property>
                  <property name="styleSheet">
@@ -3121,55 +3142,26 @@ QSlider::handle:horizontal {
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0" alignment="Qt::AlignmentFlag::AlignTop">
-                <widget class="QFrame" name="PositionFrame_2">
+               <item row="4" column="0">
+                <widget class="QFrame" name="CurrentFrame_2">
                  <property name="frameShape">
                   <enum>QFrame::Shape::StyledPanel</enum>
                  </property>
                  <property name="frameShadow">
                   <enum>QFrame::Shadow::Raised</enum>
                  </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_15">
-                  <property name="spacing">
-                   <number>12</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>9</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>9</number>
-                  </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_17">
                   <item>
-                   <widget class="QLabel" name="Position_2">
-                    <property name="font">
-                     <font>
-                      <pointsize>11</pointsize>
-                      <bold>false</bold>
-                     </font>
-                    </property>
+                   <widget class="QLabel" name="Current_2">
                     <property name="text">
-                     <string>Position:</string>
+                     <string>Current: </string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="MotorM1">
+                   <widget class="QLabel" name="CurrentPos">
                     <property name="text">
-                     <string>m1</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="MotorM2">
-                    <property name="text">
-                     <string>m2</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="MotorM3">
-                    <property name="text">
-                     <string>m3</string>
+                     <string>pos</string>
                     </property>
                    </widget>
                   </item>
@@ -3195,8 +3187,7 @@ QSlider::handle:horizontal {
                 <widget class="QLabel" name="LaserInfoText_2">
                  <property name="font">
                   <font>
-                   <pointsize>11</pointsize>
-                   <italic>false</italic>
+                   <pointsize>10</pointsize>
                   </font>
                  </property>
                  <property name="styleSheet">
@@ -3229,12 +3220,6 @@ QSlider::handle:horizontal {
                   </property>
                   <item>
                    <widget class="QLabel" name="h1_2">
-                    <property name="font">
-                     <font>
-                      <pointsize>11</pointsize>
-                      <bold>false</bold>
-                     </font>
-                    </property>
                     <property name="text">
                      <string>Height Cmd: </string>
                     </property>
@@ -3267,12 +3252,6 @@ QSlider::handle:horizontal {
                   </property>
                   <item>
                    <widget class="QLabel" name="d2_2">
-                    <property name="font">
-                     <font>
-                      <pointsize>11</pointsize>
-                      <bold>false</bold>
-                     </font>
-                    </property>
                     <property name="text">
                      <string>Current Height: </string>
                     </property>
@@ -3320,11 +3299,6 @@ QSlider::handle:horizontal {
                   </property>
                   <item>
                    <widget class="QLabel" name="h1_5">
-                    <property name="font">
-                     <font>
-                      <bold>false</bold>
-                     </font>
-                    </property>
                     <property name="text">
                      <string>Right:</string>
                     </property>
@@ -3344,7 +3318,7 @@ QSlider::handle:horizontal {
                 <widget class="QLabel" name="DepthInfoText">
                  <property name="font">
                   <font>
-                   <pointsize>11</pointsize>
+                   <pointsize>10</pointsize>
                   </font>
                  </property>
                  <property name="styleSheet">
@@ -3377,12 +3351,6 @@ QSlider::handle:horizontal {
                   </property>
                   <item>
                    <widget class="QLabel" name="d2_5">
-                    <property name="font">
-                     <font>
-                      <pointsize>11</pointsize>
-                      <bold>false</bold>
-                     </font>
-                    </property>
                     <property name="text">
                      <string>Left:</string>
                     </property>
@@ -6532,16 +6500,16 @@ QSlider::handle:horizontal {
     <bool>false</bool>
    </property>
   </buttongroup>
-  <buttongroup name="LanguageButtonGroup"/>
-  <buttongroup name="buttonGroup"/>
-  <buttongroup name="FontSizeButtonGroup"/>
-  <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="MenuButtonGroup"/>
-  <buttongroup name="AutoAndManualButtonGroup"/>
   <buttongroup name="VisionButtonGroup">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
+  <buttongroup name="AutoAndManualButtonGroup"/>
+  <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="FontSizeButtonGroup"/>
+  <buttongroup name="LanguageButtonGroup"/>
+  <buttongroup name="MenuButtonGroup"/>
  </buttongroups>
 </ui>
