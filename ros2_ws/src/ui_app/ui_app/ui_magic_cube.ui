@@ -1288,7 +1288,7 @@ Record</string>
             <string notr="true"/>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>2</number>
            </property>
            <widget class="QWidget" name="MotorPage">
             <widget class="QStackedWidget" name="MotorStackedWidget">
@@ -2498,7 +2498,7 @@ border: none;</string>
               <rect>
                <x>40</x>
                <y>300</y>
-               <width>231</width>
+               <width>251</width>
                <height>41</height>
               </rect>
              </property>
@@ -2533,6 +2533,12 @@ QSlider::handle:horizontal {
              </property>
              <property name="orientation">
               <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="invertedAppearance">
+              <bool>false</bool>
+             </property>
+             <property name="invertedControls">
+              <bool>false</bool>
              </property>
             </widget>
             <widget class="QPushButton" name="FastForktLiftButton">
@@ -2576,9 +2582,9 @@ QSlider::handle:horizontal {
             <widget class="QPushButton" name="StopForkliftButton">
              <property name="geometry">
               <rect>
-               <x>30</x>
+               <x>40</x>
                <y>30</y>
-               <width>261</width>
+               <width>251</width>
                <height>81</height>
               </rect>
              </property>
@@ -2610,7 +2616,7 @@ QSlider::handle:horizontal {
               <rect>
                <x>40</x>
                <y>360</y>
-               <width>241</width>
+               <width>251</width>
                <height>81</height>
               </rect>
              </property>
@@ -2643,7 +2649,7 @@ QSlider::handle:horizontal {
             <widget class="QLabel" name="label_7">
              <property name="geometry">
               <rect>
-               <x>90</x>
+               <x>100</x>
                <y>270</y>
                <width>141</width>
                <height>20</height>
@@ -2666,7 +2672,7 @@ QSlider::handle:horizontal {
               </rect>
              </property>
              <property name="text">
-              <string>+10mm</string>
+              <string>+10 mm</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -2682,7 +2688,7 @@ QSlider::handle:horizontal {
               </rect>
              </property>
              <property name="text">
-              <string>-10mm</string>
+              <string>-10 mm</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -2697,7 +2703,7 @@ QSlider::handle:horizontal {
              <x>10</x>
              <y>100</y>
              <width>291</width>
-             <height>571</height>
+             <height>581</height>
             </rect>
            </property>
            <property name="sizePolicy">
