@@ -385,11 +385,11 @@ class MainWindow(QMainWindow):
         self.dido_controller = DIDOController(self.ui, self.ros_node)
         
         self.di_update.connect(self.dido_controller.update_di)
-        # self.do_update.connect(self.dido_controller.update_do_confirmed)    
+        # self.do_update.connect(self.dido_controller.update_do)    
 
         # Make ROS -> emit the signal instead of touching widgets directly
         self.ros_node.di_update_callback = lambda name, state: self.di_update.emit(name, state)
-        self.ros_node.do_update_callback = lambda name, state: self.do_update.emit(name, state)
+        # self.ros_node.do_update_callback = lambda name, state: self.do_update.emit(name, state)
 
 
         

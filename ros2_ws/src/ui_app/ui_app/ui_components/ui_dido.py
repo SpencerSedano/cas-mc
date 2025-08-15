@@ -53,6 +53,35 @@ class DIDOController:
         self.ros_node.dido_control_publisher.publish(msg)
         print(f"[UI->ROS] {name} -> {checked}")
 
+
+    # def toggle_do(self, name: str, checked: bool):
+    #     btn = self._do_buttons.get(name)
+    #     if not btn:
+    #         return
+
+    #     # Revert visual state immediately (stay at previous) and disable until confirm
+    #     # was_blocked = btn.blockSignals(True)
+    #     btn.setChecked(not checked)
+    #     # btn.blockSignals(was_blocked)
+    #     # btn.setEnabled(False)
+
+    #     # Publish the desired state to ROS
+    #     msg = DIDOCmd()
+    #     msg.name = name
+    #     msg.state = checked
+    #     self.ros_node.dido_control_publisher.publish(msg)
+    #     print(f"[UI->ROS] Request: {name} -> {checked}")
+
+    def update_do(self, name: str, state: bool):
+        btn = self._do_buttons.get(name)
+        if not btn:
+            return
+        # was_blocked = btn.blockSignals(True)
+        btn.setChecked(state)      # now reflect the real state
+        # btn.blockSignals(was_blocked)
+        btn.setEnabled(True)
+        self.ros_node.dido_cmd[name] = state
+
     # ===== DI path: reflect hardware state (no publish) =====
     def update_di(self, name: str, state: bool):
         btn = self._di_buttons.get(name)
