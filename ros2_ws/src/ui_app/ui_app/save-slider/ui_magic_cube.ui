@@ -1288,7 +1288,7 @@ Record</string>
             <string notr="true"/>
            </property>
            <property name="currentIndex">
-            <number>3</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="MotorPage">
             <widget class="QStackedWidget" name="MotorStackedWidget">
@@ -2649,6 +2649,54 @@ border: none;</string>
               <string notr="true">buttonGroup_2</string>
              </attribute>
             </widget>
+            <widget class="QSlider" name="SliderLift">
+             <property name="geometry">
+              <rect>
+               <x>40</x>
+               <y>300</y>
+               <width>251</width>
+               <height>41</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QSlider::groove:horizontal {
+    height: 20px;
+    background: #ccc;
+    border-radius: 10px;
+}
+QSlider::handle:horizontal {
+    background: #000000;
+    border: 2px solid white;
+    width: 40px;
+    margin: -10px 0; /* center handle */
+    border-radius: 10px;
+}</string>
+             </property>
+             <property name="minimum">
+              <number>80</number>
+             </property>
+             <property name="maximum">
+              <number>1500</number>
+             </property>
+             <property name="singleStep">
+              <number>10</number>
+             </property>
+             <property name="value">
+              <number>123</number>
+             </property>
+             <property name="sliderPosition">
+              <number>123</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="invertedAppearance">
+              <bool>false</bool>
+             </property>
+             <property name="invertedControls">
+              <bool>false</bool>
+             </property>
+            </widget>
             <widget class="QPushButton" name="FastForktLiftButton">
              <property name="geometry">
               <rect>
@@ -2802,22 +2850,6 @@ border: none;</string>
               <set>Qt::AlignmentFlag::AlignCenter</set>
              </property>
             </widget>
-            <widget class="QLineEdit" name="InputDistance">
-             <property name="geometry">
-              <rect>
-               <x>70</x>
-               <y>300</y>
-               <width>191</width>
-               <height>41</height>
-              </rect>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color: #FFFFFF;</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
            </widget>
            <widget class="QWidget" name="DIDOPage"/>
           </widget>
@@ -2931,7 +2963,7 @@ border: none;</string>
           </rect>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="VisionAndInfoPage">
           <widget class="QWidget" name="CameraWidgetInComponentControl" native="true">

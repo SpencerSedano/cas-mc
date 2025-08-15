@@ -21,7 +21,7 @@ class DIDOController:
             self._do_buttons[name] = btn
             self.ros_node.dido_cmd[name] = False
             # publish on user toggle
-            btn.toggled.connect(lambda checked, n=name: self.toggle_do(n, checked))
+            btn.clicked.connect(lambda checked, n=name: self.toggle_do(n, checked))
 
         # === Setup DI Buttons (16) ===
         for i in range(1, 17):
@@ -45,6 +45,7 @@ class DIDOController:
 
     # ===== DO path: publish commands =====
     def toggle_do(self, name: str, checked: bool):
+    
         self.ros_node.dido_cmd[name] = checked
         msg = DIDOCmd()
         msg.name = name

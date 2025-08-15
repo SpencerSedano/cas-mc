@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QButtonGroup, QFrame, QGridLayout,
-    QHBoxLayout, QLabel, QMainWindow, QPushButton,
-    QScrollArea, QSizePolicy, QSlider, QStackedWidget,
+    QHBoxLayout, QLabel, QLineEdit, QMainWindow,
+    QPushButton, QScrollArea, QSizePolicy, QStackedWidget,
     QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
@@ -1330,29 +1330,6 @@ class Ui_MainWindow(object):
         self.LowerDown.setIcon(icon13)
         self.LowerDown.setIconSize(QSize(80, 80))
         self.LowerDown.setCheckable(False)
-        self.SliderLift = QSlider(self.ForkliftPage)
-        self.SliderLift.setObjectName(u"SliderLift")
-        self.SliderLift.setGeometry(QRect(40, 300, 251, 41))
-        self.SliderLift.setStyleSheet(u"QSlider::groove:horizontal {\n"
-"    height: 20px;\n"
-"    background: #ccc;\n"
-"    border-radius: 10px;\n"
-"}\n"
-"QSlider::handle:horizontal {\n"
-"    background: #000000;\n"
-"    border: 2px solid white;\n"
-"    width: 40px;\n"
-"    margin: -10px 0; /* center handle */\n"
-"    border-radius: 10px;\n"
-"}")
-        self.SliderLift.setMinimum(80)
-        self.SliderLift.setMaximum(1500)
-        self.SliderLift.setSingleStep(10)
-        self.SliderLift.setValue(123)
-        self.SliderLift.setSliderPosition(123)
-        self.SliderLift.setOrientation(Qt.Orientation.Horizontal)
-        self.SliderLift.setInvertedAppearance(False)
-        self.SliderLift.setInvertedControls(False)
         self.FastForktLiftButton = QPushButton(self.ForkliftPage)
         self.buttonGroup = QButtonGroup(MainWindow)
         self.buttonGroup.setObjectName(u"buttonGroup")
@@ -1394,13 +1371,17 @@ class Ui_MainWindow(object):
         self.label_9.setObjectName(u"label_9")
         self.label_9.setGeometry(QRect(210, 570, 67, 17))
         self.label_9.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.InputDistance = QLineEdit(self.ForkliftPage)
+        self.InputDistance.setObjectName(u"InputDistance")
+        self.InputDistance.setGeometry(QRect(70, 300, 191, 41))
+        self.InputDistance.setStyleSheet(u"background-color: #FFFFFF;")
         self.ChangeComponentControlStackedWidget.addWidget(self.ForkliftPage)
         self.DIDOPage = QWidget()
         self.DIDOPage.setObjectName(u"DIDOPage")
         self.ChangeComponentControlStackedWidget.addWidget(self.DIDOPage)
         self.ListOptionsWidget = QWidget(self.ComponentControlMain)
         self.ListOptionsWidget.setObjectName(u"ListOptionsWidget")
-        self.ListOptionsWidget.setGeometry(QRect(10, 100, 291, 581))
+        self.ListOptionsWidget.setGeometry(QRect(10, 100, 291, 16))
         sizePolicy2.setHeightForWidth(self.ListOptionsWidget.sizePolicy().hasHeightForWidth())
         self.ListOptionsWidget.setSizePolicy(sizePolicy2)
         self.verticalLayout_5 = QVBoxLayout(self.ListOptionsWidget)
@@ -1799,7 +1780,7 @@ class Ui_MainWindow(object):
         self.ScrollAreaDIDO.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 588, 648))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 685, 648))
         self.horizontalLayout_34 = QHBoxLayout(self.scrollAreaWidgetContents_2)
         self.horizontalLayout_34.setSpacing(9)
         self.horizontalLayout_34.setObjectName(u"horizontalLayout_34")
@@ -3016,8 +2997,8 @@ class Ui_MainWindow(object):
 
         self.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(1)
         self.ActionButtons.setCurrentIndex(0)
-        self.ComponentControlStackedWidget.setCurrentIndex(0)
-        self.ChangeComponentControlStackedWidget.setCurrentIndex(1)
+        self.ComponentControlStackedWidget.setCurrentIndex(1)
+        self.ChangeComponentControlStackedWidget.setCurrentIndex(3)
         self.MotorStackedWidget.setCurrentIndex(1)
         self.MiddleStackedWidget.setCurrentIndex(0)
 
@@ -3119,6 +3100,7 @@ class Ui_MainWindow(object):
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"Distance (manual)", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"+10 mm", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"-10 mm", None))
+        self.InputDistance.setText("")
         self.MotorOption.setText(QCoreApplication.translate("MainWindow", u"Motor", None))
         self.VisionOption.setText(QCoreApplication.translate("MainWindow", u"Vision", None))
         self.ClipperOption.setText(QCoreApplication.translate("MainWindow", u"Clipper", None))

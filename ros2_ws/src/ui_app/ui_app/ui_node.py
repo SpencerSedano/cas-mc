@@ -68,6 +68,8 @@ class ROSNode(Node):
         self.forklift_controller = None
 
         self.di_update_callback = None
+        self.do_update_callback = None
+
         self.current_pose_callback_ui = None
 
         # self.current_motor_len = [0.0, 0.0, 0.0]
@@ -112,8 +114,6 @@ class ROSNode(Node):
         self.clipper_cmd_publisher = self.create_publisher(ClipperCmd, '/clipper_cmd', 10)
 
 
-
-
         # subscriber
         self.depth_data_subscriber = self.create_subscription(
             Float32MultiArray,
@@ -156,6 +156,13 @@ class ROSNode(Node):
             self.compensate_pose_callback,
             10
         )
+
+        # self.get_do_subscriber = self.create_subscription(
+        #     DIDOCmd,
+        #     "get_do",
+        #     self.get_do_callback,
+        #     10
+        # )
 
         # self.motion_cmd_subscriber = self.create_subscription(
         #     MotionCmd,
@@ -259,12 +266,16 @@ class ROSNode(Node):
                 self.motor_info_update_callback_ui(m1, m2, m3)
 
     def dido_callback(self, msg: DIDOCmd):
-        name = msg.name.strip()
+        name = msg.name.strip().upper()
         state = bool(msg.state)
-        if not name.upper().startswith("DI"):
-            return
-        if self.di_update_callback:
-            self.di_update_callback(name, state)
+
+        if name.startswith("DI"):
+            if self.di_update_callback:
+                self.di_update_callback(name, state)
+        elif name.startswith("DO"):
+            if self.do_update_callback:
+                self.do_update_callback(name, state)
+
 
     def motion_state_callback(self, msg: MotionState):
         print(f"[ROS] /motion_state -> init={msg.init_finish}, motion={msg.motion_finish}")
@@ -283,7 +294,10 @@ class MainWindow(QMainWindow):
 
     mh2_state_update = Signal(bool, int)
     height_update = Signal(int)
+
     di_update = Signal(str, bool)
+    do_update = Signal(str, bool)
+
 
     image_update = Signal(object)   # carries numpy image
     vision_mode_update = Signal(str)
@@ -369,13 +383,14 @@ class MainWindow(QMainWindow):
 
         # DI/DO UI Controller
         self.dido_controller = DIDOController(self.ui, self.ros_node)
-        # self.ros_node.di_update_callback = self.dido_controller.update_di
-
-        # Connect signal to UI updater (GUI thread)
+        
         self.di_update.connect(self.dido_controller.update_di)
+        # self.do_update.connect(self.dido_controller.update_do_confirmed)    
 
         # Make ROS -> emit the signal instead of touching widgets directly
         self.ros_node.di_update_callback = lambda name, state: self.di_update.emit(name, state)
+        self.ros_node.do_update_callback = lambda name, state: self.do_update.emit(name, state)
+
 
         
 
