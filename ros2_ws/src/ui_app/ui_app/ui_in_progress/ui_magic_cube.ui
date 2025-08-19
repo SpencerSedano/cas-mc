@@ -134,7 +134,7 @@ Settings</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #660000;  border-radius: 25px;</string>
+           <string notr="true">background-color: #660000; border-radius: 25px;</string>
           </property>
           <property name="text">
            <string/>
@@ -150,7 +150,7 @@ Settings</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #666633;  border-radius: 25px;</string>
+           <string notr="true">background-color: #666633; border-radius: 25px;</string>
           </property>
           <property name="text">
            <string/>
@@ -169,7 +169,7 @@ Settings</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #336633;  border-radius: 25px;</string>
+           <string notr="true">background-color: #336633; border-radius: 25px;</string>
           </property>
           <property name="text">
            <string/>
@@ -425,42 +425,6 @@ Record</string>
               <number>25</number>
              </property>
              <item>
-              <widget class="QPushButton" name="AutoButton">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>74</height>
-                </size>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true"/>
-               </property>
-               <property name="text">
-                <string>Auto</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-               <property name="checked">
-                <bool>false</bool>
-               </property>
-               <attribute name="buttonGroup">
-                <string notr="true">AutoAndManualButtonGroup</string>
-               </attribute>
-              </widget>
-             </item>
-             <item>
               <widget class="QPushButton" name="ManualButton">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -505,60 +469,10 @@ Record</string>
              <string notr="true"/>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="ActionButtonsPage">
-             <layout class="QVBoxLayout" name="verticalLayout_12">
-              <item>
-               <widget class="QPushButton" name="INITButton">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>16</pointsize>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">
-
-QPushButton#INITButton:pressed {
-    background-color: #FFB300;     /* darker pressed */
-}</string>
-                </property>
-                <property name="text">
-                 <string>INIT</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="RunButton">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Ignored">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>16</pointsize>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">
-QPushButton#RunButton:pressed {
-    background-color: #1E7E34;
-}</string>
-                </property>
-                <property name="text">
-                 <string>RUN</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             <layout class="QVBoxLayout" name="verticalLayout_12"/>
             </widget>
             <widget class="QWidget" name="ManualButtonsPage">
              <property name="styleSheet">
@@ -687,7 +601,7 @@ QPushButton#RunButton:pressed {
                  <string notr="true"/>
                 </property>
                 <property name="text">
-                 <string>Assembly</string>
+                 <string>Push</string>
                 </property>
                 <property name="checkable">
                  <bool>true</bool>
@@ -709,69 +623,6 @@ QPushButton#RunButton:pressed {
             <property name="topMargin">
              <number>0</number>
             </property>
-            <item>
-             <widget class="QPushButton" name="AutoPauseButton">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>80</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>16</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="text">
-               <string>Pause</string>
-              </property>
-              <property name="checkable">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="AutoStopButton">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>80</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>16</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">
-QPushButton#AutoStopButton:pressed {
-    background-color: #990000;       /* darker red when pressed */
-}</string>
-              </property>
-              <property name="text">
-               <string>STOP</string>
-              </property>
-              <property name="checkable">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
            </layout>
           </item>
          </layout>
@@ -799,7 +650,7 @@ QPushButton#AutoStopButton:pressed {
             </rect>
            </property>
            <property name="styleSheet">
-            <string notr="true">background-color: #000000; </string>
+            <string notr="true">background-color: #000000;</string>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item alignment="Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignVCenter">
@@ -820,7 +671,7 @@ QPushButton#AutoStopButton:pressed {
           <widget class="QFrame" name="Timeline">
            <property name="geometry">
             <rect>
-             <x>0</x>
+             <x>10</x>
              <y>500</y>
              <width>701</width>
              <height>181</height>
@@ -4263,7 +4114,7 @@ border: none;</string>
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>588</width>
+              <width>685</width>
               <height>648</height>
              </rect>
             </property>
@@ -7423,22 +7274,22 @@ border: none;</string>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="FontSizeButtonGroup"/>
-  <buttongroup name="MenuButtonGroup"/>
+  <buttongroup name="buttonGroup"/>
   <buttongroup name="LanguageButtonGroup"/>
   <buttongroup name="ManualButtons">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
-  <buttongroup name="buttonGroup"/>
-  <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="AutoAndManualButtonGroup"/>
+  <buttongroup name="FontSizeButtonGroup"/>
   <buttongroup name="VisionButtonGroup">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
+  <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="MenuButtonGroup"/>
+  <buttongroup name="AutoAndManualButtonGroup"/>
   <buttongroup name="ThemeButtonGroup"/>
  </buttongroups>
 </ui>

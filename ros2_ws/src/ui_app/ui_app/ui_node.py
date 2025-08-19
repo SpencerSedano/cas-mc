@@ -82,11 +82,6 @@ class ROSNode(Node):
 
         
         # publisher
-
-        # self.MH2_cmd_publisher = self.create_publisher(MH2Cmd, '/MH2_cmd', 10)
-
-        # self.MH2_cmd_publisher = self.create_publisher()
-
         self.mode_cmd_publisher = self.create_publisher(String, '/mode_cmd', 10)
 
         self.state_cmd_publisher = self.create_publisher(StateCmd, '/state_cmd', 10)
@@ -104,8 +99,6 @@ class ROSNode(Node):
         self.component_control_publisher = self.create_publisher(RunCmd, '/run_cmd', 10)
 
         self.vision_control_publisher = self.create_publisher(String, '/detection_task', 10)
-
-        # self.vision_send_publisher = self.create_publisher(MotionCmd, '/motion_cmd')
 
         self.dido_control_publisher = self.create_publisher(DIDOCmd, '/test_dido', 10)
 
@@ -392,8 +385,6 @@ class MainWindow(QMainWindow):
         # self.ros_node.do_update_callback = lambda name, state: self.do_update.emit(name, state)
 
 
-        
-
         # Get Today's date
         today = date.today()
         formatted_date = today.strftime("%m/%d/%Y")
@@ -417,7 +408,6 @@ class MainWindow(QMainWindow):
 
         #servo, alarm, reset
         self.ui.ServoONOFFButton.clicked.connect(lambda checked: self.on_servo_click(checked))
-        
 
         # auto
         self.ui.AutoButton.toggled.connect(self.on_auto_toggled)
@@ -436,13 +426,10 @@ class MainWindow(QMainWindow):
         self.ui.PickButton.toggled.connect(lambda checked: self.on_task_toggled("pick", checked))
         self.ui.AssemblyButton.toggled.connect(lambda checked: self.on_task_toggled("assembly", checked))
 
-        # self.ui.ManualPauseButton.toggled.connect(self.on_pause_toggled)
-        # self.ui.ManualStopButton.clicked.connect(lambda: self.send_state_cmd("stop"))
+        # cabinets
+        self.ui.C11.clicked.connect(self.on_cabinet_click)
 
-        # self.ui.VisionTextInComponentControl.setFixedSize(640, 480)
-
-        # component control - publisher
-        # self.ui.ComponentControlButton.toggled.connect(self.on_component_control_toggled)
+        self.ui.SaveCabinet.clicked.connect(self.on_save_cabinet)
 
         # by default
         self.ui.ListOptionsWidget.setVisible(False)
@@ -451,15 +438,6 @@ class MainWindow(QMainWindow):
         self.ui.INITButton.clicked.connect(lambda: self.on_touch_different_color(self.ui.INITButton, "#FFB300"))
         self.ui.RunButton.clicked.connect(lambda: self.on_touch_different_color(self.ui.RunButton, "#1E7E34"))
         self.ui.AutoStopButton.clicked.connect(lambda: self.on_touch_different_color(self.ui.AutoStopButton, "#990000"))
-
-        # self.ui.RecordDataButton.clicked.connect(lambda: self.on_record_data_clicked(self.ui.RecordDataButton))
-
-        #choose your component control
-        # self.ui.ChooseMotor.clicked.connect(self.choose_motor)
-        # self.ui.ChooseVision.clicked.connect(self.choose_vision)
-        # self.ui.ChooseClipper.clicked.connect(self.choose_clipper)
-        # self.ui.ChooseForklift.clicked.connect(self.choose_forklift)
-        # self.ui.ChooseDIDO.clicked.connect(self.choose_DIDO)
 
         # menu
         self.ui.MainPageButton.toggled.connect(self.change_to_main_page)
@@ -513,6 +491,16 @@ class MainWindow(QMainWindow):
         self.ui.MotorConfigNextButton.clicked.connect(lambda: self.go_to_next_page_motor(1))
         self.ui.MotorJogNextButton.clicked.connect(lambda: self.go_to_next_page_motor(2))
         self.ui.MotorYAxisNextButton.clicked.connect(lambda: self.go_to_next_page_motor(0))
+
+    def on_cabinet_click(self):
+        self.ui.C11.setStyleSheet("""
+            QPushButton {
+                background-color: blue;
+            }
+                                  """)
+        
+    def on_save_cabinet(self):
+        self.ui.MainPageAutoAndManualStackedWidget.setCurrentIndex(0)
 
 
     def go_to_next_page_motor(self, index):
@@ -924,10 +912,32 @@ class MainWindow(QMainWindow):
     def on_auto_toggled(self, checked):
         if checked:
             self.send_run_cmd("auto")
+            self.ui.MainPageAutoAndManualStackedWidget.setCurrentIndex(0)
+        else:
+            self.send_task_cmd("idle")
 
-    def on_manual_toggled(self, checked):
+    def _manual_task_buttons(self):
+    # Add any other manual-task buttons here
+        return [
+            self.ui.RoughAlignButton,
+            self.ui.PreciseAlignButton,
+            self.ui.PickButton,
+            self.ui.AssemblyButton,
+        ]
+
+    def _any_manual_task_active(self) -> bool:
+        return any(btn.isChecked() for btn in self._manual_task_buttons())
+
+
+    def on_manual_toggled(self, checked: bool):
         if checked:
             self.send_run_cmd("manual")
+            if not self._any_manual_task_active():
+                self.ui.MainPageAutoAndManualStackedWidget.setCurrentIndex(1)
+        else:
+            self.send_task_cmd("idle")
+
+            
 
 
     #Component Control - Motor
@@ -1008,10 +1018,10 @@ class MainWindow(QMainWindow):
             second_screen = screens[1]  # Use the actual second screen
             second_geom = second_screen.geometry()
             self.setGeometry(second_geom)  # Move and resize in one step
-            self.setMaximumWidth(1280)
-            self.setMaximumHeight(800)
-            print("Fixed size: 1280 x 800")
-            # self.showFullScreen()
+            # self.setMaximumWidth(1280)
+            # self.setMaximumHeight(800)
+            # print("Fixed size: 1280 x 800")
+            self.showFullScreen()
         else:
             self.showMaximized()
             print("Only one screen, screen fullscreen anyways")

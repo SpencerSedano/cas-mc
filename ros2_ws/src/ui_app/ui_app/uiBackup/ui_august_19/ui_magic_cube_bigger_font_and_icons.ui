@@ -134,7 +134,7 @@ Settings</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #660000;  border-radius: 25px;</string>
+           <string notr="true">background-color: #660000; border-radius: 25px;</string>
           </property>
           <property name="text">
            <string/>
@@ -150,7 +150,7 @@ Settings</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #666633;  border-radius: 25px;</string>
+           <string notr="true">background-color: #666633; border-radius: 25px;</string>
           </property>
           <property name="text">
            <string/>
@@ -169,7 +169,7 @@ Settings</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #336633;  border-radius: 25px;</string>
+           <string notr="true">background-color: #336633; border-radius: 25px;</string>
           </property>
           <property name="text">
            <string/>
@@ -799,7 +799,7 @@ QPushButton#AutoStopButton:pressed {
             </rect>
            </property>
            <property name="styleSheet">
-            <string notr="true">background-color: #000000; </string>
+            <string notr="true">background-color: #000000;</string>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item alignment="Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignVCenter">
@@ -823,7 +823,7 @@ QPushButton#AutoStopButton:pressed {
              <x>0</x>
              <y>500</y>
              <width>701</width>
-             <height>181</height>
+             <height>91</height>
             </rect>
            </property>
            <property name="sizePolicy">
@@ -4263,7 +4263,7 @@ border: none;</string>
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>588</width>
+              <width>685</width>
               <height>648</height>
              </rect>
             </property>
@@ -7423,22 +7423,22 @@ border: none;</string>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="FontSizeButtonGroup"/>
-  <buttongroup name="MenuButtonGroup"/>
+  <buttongroup name="buttonGroup"/>
   <buttongroup name="LanguageButtonGroup"/>
   <buttongroup name="ManualButtons">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
-  <buttongroup name="buttonGroup"/>
-  <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="AutoAndManualButtonGroup"/>
+  <buttongroup name="FontSizeButtonGroup"/>
   <buttongroup name="VisionButtonGroup">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
+  <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="MenuButtonGroup"/>
+  <buttongroup name="AutoAndManualButtonGroup"/>
   <buttongroup name="ThemeButtonGroup"/>
  </buttongroups>
 </ui>
