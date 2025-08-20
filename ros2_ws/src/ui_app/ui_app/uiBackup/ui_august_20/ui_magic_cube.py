@@ -59,22 +59,6 @@ class Ui_MainWindow(object):
 "QLabel {\n"
 "	color:white;\n"
 "}")
-        self.SystemSettingsButton = QPushButton(self.BackgroundWidget)
-        self.MenuButtonGroup = QButtonGroup(MainWindow)
-        self.MenuButtonGroup.setObjectName(u"MenuButtonGroup")
-        self.MenuButtonGroup.addButton(self.SystemSettingsButton)
-        self.SystemSettingsButton.setObjectName(u"SystemSettingsButton")
-        self.SystemSettingsButton.setGeometry(QRect(10, 680, 223, 94))
-        font = QFont()
-        font.setPointSize(16)
-        self.SystemSettingsButton.setFont(font)
-        self.SystemSettingsButton.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
-        self.SystemSettingsButton.setStyleSheet(u"")
-        icon = QIcon()
-        icon.addFile(u":/icons/white/settings.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.SystemSettingsButton.setIcon(icon)
-        self.SystemSettingsButton.setIconSize(QSize(24, 24))
-        self.SystemSettingsButton.setCheckable(True)
         self.SignalLightsWidget = QWidget(self.BackgroundWidget)
         self.SignalLightsWidget.setObjectName(u"SignalLightsWidget")
         self.SignalLightsWidget.setGeometry(QRect(10, 90, 221, 101))
@@ -118,10 +102,12 @@ class Ui_MainWindow(object):
         self.DeltaLogo.setScaledContents(True)
         self.MenuButtons = QWidget(self.BackgroundWidget)
         self.MenuButtons.setObjectName(u"MenuButtons")
-        self.MenuButtons.setGeometry(QRect(10, 190, 221, 461))
+        self.MenuButtons.setGeometry(QRect(10, 190, 221, 381))
         self.verticalLayout_11 = QVBoxLayout(self.MenuButtons)
         self.verticalLayout_11.setObjectName(u"verticalLayout_11")
         self.MainPageButton = QPushButton(self.MenuButtons)
+        self.MenuButtonGroup = QButtonGroup(MainWindow)
+        self.MenuButtonGroup.setObjectName(u"MenuButtonGroup")
         self.MenuButtonGroup.addButton(self.MainPageButton)
         self.MainPageButton.setObjectName(u"MainPageButton")
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Preferred)
@@ -129,12 +115,14 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.MainPageButton.sizePolicy().hasHeightForWidth())
         self.MainPageButton.setSizePolicy(sizePolicy)
+        font = QFont()
+        font.setPointSize(16)
         self.MainPageButton.setFont(font)
         self.MainPageButton.setAutoFillBackground(False)
         self.MainPageButton.setStyleSheet(u"")
-        icon1 = QIcon()
-        icon1.addFile(u":/icons/white/home-simple-door.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.MainPageButton.setIcon(icon1)
+        icon = QIcon()
+        icon.addFile(u":/icons/white/home-simple-door.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.MainPageButton.setIcon(icon)
         self.MainPageButton.setIconSize(QSize(24, 24))
         self.MainPageButton.setCheckable(True)
         self.MainPageButton.setChecked(True)
@@ -148,43 +136,44 @@ class Ui_MainWindow(object):
         self.ComponentControlButton.setSizePolicy(sizePolicy)
         self.ComponentControlButton.setFont(font)
         self.ComponentControlButton.setStyleSheet(u"")
-        icon2 = QIcon()
-        icon2.addFile(u":/icons/white/dimmer-switch.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.ComponentControlButton.setIcon(icon2)
+        icon1 = QIcon()
+        icon1.addFile(u":/icons/white/dimmer-switch.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.ComponentControlButton.setIcon(icon1)
         self.ComponentControlButton.setIconSize(QSize(24, 24))
         self.ComponentControlButton.setCheckable(True)
 
         self.verticalLayout_11.addWidget(self.ComponentControlButton)
 
-        self.ProductionRecordButton = QPushButton(self.MenuButtons)
-        self.MenuButtonGroup.addButton(self.ProductionRecordButton)
-        self.ProductionRecordButton.setObjectName(u"ProductionRecordButton")
-        sizePolicy.setHeightForWidth(self.ProductionRecordButton.sizePolicy().hasHeightForWidth())
-        self.ProductionRecordButton.setSizePolicy(sizePolicy)
-        self.ProductionRecordButton.setFont(font)
-        self.ProductionRecordButton.setStyleSheet(u"")
+        self.RecordsButton = QPushButton(self.MenuButtons)
+        self.MenuButtonGroup.addButton(self.RecordsButton)
+        self.RecordsButton.setObjectName(u"RecordsButton")
+        sizePolicy.setHeightForWidth(self.RecordsButton.sizePolicy().hasHeightForWidth())
+        self.RecordsButton.setSizePolicy(sizePolicy)
+        self.RecordsButton.setFont(font)
+        self.RecordsButton.setStyleSheet(u"")
+        icon2 = QIcon()
+        icon2.addFile(u":/icons/white/multiple-pages.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.RecordsButton.setIcon(icon2)
+        self.RecordsButton.setIconSize(QSize(24, 24))
+        self.RecordsButton.setCheckable(True)
+
+        self.verticalLayout_11.addWidget(self.RecordsButton)
+
+        self.SystemSettingsButton = QPushButton(self.MenuButtons)
+        self.MenuButtonGroup.addButton(self.SystemSettingsButton)
+        self.SystemSettingsButton.setObjectName(u"SystemSettingsButton")
+        sizePolicy.setHeightForWidth(self.SystemSettingsButton.sizePolicy().hasHeightForWidth())
+        self.SystemSettingsButton.setSizePolicy(sizePolicy)
+        self.SystemSettingsButton.setFont(font)
+        self.SystemSettingsButton.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
+        self.SystemSettingsButton.setStyleSheet(u"")
         icon3 = QIcon()
-        icon3.addFile(u":/icons/white/page.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.ProductionRecordButton.setIcon(icon3)
-        self.ProductionRecordButton.setIconSize(QSize(24, 24))
-        self.ProductionRecordButton.setCheckable(True)
+        icon3.addFile(u":/icons/white/settings.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.SystemSettingsButton.setIcon(icon3)
+        self.SystemSettingsButton.setIconSize(QSize(24, 24))
+        self.SystemSettingsButton.setCheckable(True)
 
-        self.verticalLayout_11.addWidget(self.ProductionRecordButton)
-
-        self.LogsButton = QPushButton(self.MenuButtons)
-        self.MenuButtonGroup.addButton(self.LogsButton)
-        self.LogsButton.setObjectName(u"LogsButton")
-        sizePolicy.setHeightForWidth(self.LogsButton.sizePolicy().hasHeightForWidth())
-        self.LogsButton.setSizePolicy(sizePolicy)
-        self.LogsButton.setFont(font)
-        self.LogsButton.setStyleSheet(u"")
-        icon4 = QIcon()
-        icon4.addFile(u":/icons/white/multiple-pages.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.LogsButton.setIcon(icon4)
-        self.LogsButton.setIconSize(QSize(24, 24))
-        self.LogsButton.setCheckable(True)
-
-        self.verticalLayout_11.addWidget(self.LogsButton)
+        self.verticalLayout_11.addWidget(self.SystemSettingsButton)
 
         self.ParentStackedWidgetToChangeMenuOptions = QStackedWidget(self.BackgroundWidget)
         self.ParentStackedWidgetToChangeMenuOptions.setObjectName(u"ParentStackedWidgetToChangeMenuOptions")
@@ -245,34 +234,6 @@ class Ui_MainWindow(object):
         self.ActionButtonsPage.setObjectName(u"ActionButtonsPage")
         self.verticalLayout_12 = QVBoxLayout(self.ActionButtonsPage)
         self.verticalLayout_12.setObjectName(u"verticalLayout_12")
-        self.INITButton = QPushButton(self.ActionButtonsPage)
-        self.INITButton.setObjectName(u"INITButton")
-        sizePolicy.setHeightForWidth(self.INITButton.sizePolicy().hasHeightForWidth())
-        self.INITButton.setSizePolicy(sizePolicy)
-        self.INITButton.setFont(font)
-        self.INITButton.setStyleSheet(u"\n"
-"\n"
-"QPushButton#INITButton:pressed {\n"
-"    background-color: #FFB300;     /* darker pressed */\n"
-"}")
-
-        self.verticalLayout_12.addWidget(self.INITButton)
-
-        self.RunButton = QPushButton(self.ActionButtonsPage)
-        self.RunButton.setObjectName(u"RunButton")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Ignored)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.RunButton.sizePolicy().hasHeightForWidth())
-        self.RunButton.setSizePolicy(sizePolicy1)
-        self.RunButton.setFont(font)
-        self.RunButton.setStyleSheet(u"\n"
-"QPushButton#RunButton:pressed {\n"
-"    background-color: #1E7E34;\n"
-"}")
-
-        self.verticalLayout_12.addWidget(self.RunButton)
-
         self.ActionButtons.addWidget(self.ActionButtonsPage)
         self.ManualButtonsPage = QWidget()
         self.ManualButtonsPage.setObjectName(u"ManualButtonsPage")
@@ -332,34 +293,6 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_20.addWidget(self.AssemblyButton)
 
-        self.HeightRecipeInput = QLineEdit(self.ManualButtonsPage)
-        self.HeightRecipeInput.setObjectName(u"HeightRecipeInput")
-        self.HeightRecipeInput.setStyleSheet(u"color: white;")
-
-        self.verticalLayout_20.addWidget(self.HeightRecipeInput)
-
-        self.PickRecipeButton = QPushButton(self.ManualButtonsPage)
-        self.RecipeModeGroup = QButtonGroup(MainWindow)
-        self.RecipeModeGroup.setObjectName(u"RecipeModeGroup")
-        self.RecipeModeGroup.addButton(self.PickRecipeButton)
-        self.PickRecipeButton.setObjectName(u"PickRecipeButton")
-        self.PickRecipeButton.setCheckable(True)
-
-        self.verticalLayout_20.addWidget(self.PickRecipeButton)
-
-        self.AssemblyRecipeButton = QPushButton(self.ManualButtonsPage)
-        self.RecipeModeGroup.addButton(self.AssemblyRecipeButton)
-        self.AssemblyRecipeButton.setObjectName(u"AssemblyRecipeButton")
-        self.AssemblyRecipeButton.setCheckable(True)
-
-        self.verticalLayout_20.addWidget(self.AssemblyRecipeButton)
-
-        self.SaveRecipeButton = QPushButton(self.ManualButtonsPage)
-        self.SaveRecipeButton.setObjectName(u"SaveRecipeButton")
-        self.SaveRecipeButton.setCheckable(False)
-
-        self.verticalLayout_20.addWidget(self.SaveRecipeButton)
-
         self.ActionButtons.addWidget(self.ManualButtonsPage)
 
         self.verticalLayout_24.addWidget(self.ActionButtons)
@@ -372,7 +305,7 @@ class Ui_MainWindow(object):
         self.AutoPauseButton.setObjectName(u"AutoPauseButton")
         sizePolicy.setHeightForWidth(self.AutoPauseButton.sizePolicy().hasHeightForWidth())
         self.AutoPauseButton.setSizePolicy(sizePolicy)
-        self.AutoPauseButton.setMinimumSize(QSize(0, 60))
+        self.AutoPauseButton.setMinimumSize(QSize(0, 80))
         self.AutoPauseButton.setFont(font)
         self.AutoPauseButton.setStyleSheet(u"")
         self.AutoPauseButton.setCheckable(True)
@@ -383,7 +316,7 @@ class Ui_MainWindow(object):
         self.AutoStopButton.setObjectName(u"AutoStopButton")
         sizePolicy.setHeightForWidth(self.AutoStopButton.sizePolicy().hasHeightForWidth())
         self.AutoStopButton.setSizePolicy(sizePolicy)
-        self.AutoStopButton.setMinimumSize(QSize(0, 60))
+        self.AutoStopButton.setMinimumSize(QSize(0, 80))
         self.AutoStopButton.setFont(font)
         self.AutoStopButton.setStyleSheet(u"\n"
 "QPushButton#AutoStopButton:pressed {\n"
@@ -417,11 +350,11 @@ class Ui_MainWindow(object):
         self.Timeline = QFrame(self.VisionAndTimelinePage)
         self.Timeline.setObjectName(u"Timeline")
         self.Timeline.setGeometry(QRect(0, 500, 701, 181))
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.Timeline.sizePolicy().hasHeightForWidth())
-        self.Timeline.setSizePolicy(sizePolicy2)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.Timeline.sizePolicy().hasHeightForWidth())
+        self.Timeline.setSizePolicy(sizePolicy1)
         self.Timeline.setStyleSheet(u"background-color: #000000;")
         self.Timeline.setFrameShape(QFrame.Shape.StyledPanel)
         self.Timeline.setFrameShadow(QFrame.Shadow.Raised)
@@ -440,11 +373,11 @@ class Ui_MainWindow(object):
 
         self.StartCircle = QLabel(self.StartWidget)
         self.StartCircle.setObjectName(u"StartCircle")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.StartCircle.sizePolicy().hasHeightForWidth())
-        self.StartCircle.setSizePolicy(sizePolicy3)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.StartCircle.sizePolicy().hasHeightForWidth())
+        self.StartCircle.setSizePolicy(sizePolicy2)
         self.StartCircle.setPixmap(QPixmap(u":/icons/white/timeline-circle.svg"))
         self.StartCircle.setScaledContents(True)
         self.StartCircle.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -467,8 +400,8 @@ class Ui_MainWindow(object):
 
         self.ConnectCircle = QLabel(self.ConnectWidget)
         self.ConnectCircle.setObjectName(u"ConnectCircle")
-        sizePolicy3.setHeightForWidth(self.ConnectCircle.sizePolicy().hasHeightForWidth())
-        self.ConnectCircle.setSizePolicy(sizePolicy3)
+        sizePolicy2.setHeightForWidth(self.ConnectCircle.sizePolicy().hasHeightForWidth())
+        self.ConnectCircle.setSizePolicy(sizePolicy2)
         self.ConnectCircle.setPixmap(QPixmap(u":/icons/white/timeline-circle.svg"))
         self.ConnectCircle.setScaledContents(True)
         self.ConnectCircle.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -491,8 +424,8 @@ class Ui_MainWindow(object):
 
         self.INITCircle = QLabel(self.INITWidget)
         self.INITCircle.setObjectName(u"INITCircle")
-        sizePolicy3.setHeightForWidth(self.INITCircle.sizePolicy().hasHeightForWidth())
-        self.INITCircle.setSizePolicy(sizePolicy3)
+        sizePolicy2.setHeightForWidth(self.INITCircle.sizePolicy().hasHeightForWidth())
+        self.INITCircle.setSizePolicy(sizePolicy2)
         self.INITCircle.setPixmap(QPixmap(u":/icons/white/timeline-circle.svg"))
         self.INITCircle.setScaledContents(True)
         self.INITCircle.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -515,8 +448,8 @@ class Ui_MainWindow(object):
 
         self.IdleCircle = QLabel(self.IdleWidget)
         self.IdleCircle.setObjectName(u"IdleCircle")
-        sizePolicy3.setHeightForWidth(self.IdleCircle.sizePolicy().hasHeightForWidth())
-        self.IdleCircle.setSizePolicy(sizePolicy3)
+        sizePolicy2.setHeightForWidth(self.IdleCircle.sizePolicy().hasHeightForWidth())
+        self.IdleCircle.setSizePolicy(sizePolicy2)
         self.IdleCircle.setPixmap(QPixmap(u":/icons/white/timeline-circle.svg"))
         self.IdleCircle.setScaledContents(True)
         self.IdleCircle.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -539,8 +472,8 @@ class Ui_MainWindow(object):
 
         self.RoughAlignCircle = QLabel(self.ManualAlignWidget)
         self.RoughAlignCircle.setObjectName(u"RoughAlignCircle")
-        sizePolicy3.setHeightForWidth(self.RoughAlignCircle.sizePolicy().hasHeightForWidth())
-        self.RoughAlignCircle.setSizePolicy(sizePolicy3)
+        sizePolicy2.setHeightForWidth(self.RoughAlignCircle.sizePolicy().hasHeightForWidth())
+        self.RoughAlignCircle.setSizePolicy(sizePolicy2)
         self.RoughAlignCircle.setPixmap(QPixmap(u":/icons/white/timeline-circle.svg"))
         self.RoughAlignCircle.setScaledContents(True)
         self.RoughAlignCircle.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -563,8 +496,8 @@ class Ui_MainWindow(object):
 
         self.PreciseAlignCircle = QLabel(self.AutoAlignWidget)
         self.PreciseAlignCircle.setObjectName(u"PreciseAlignCircle")
-        sizePolicy3.setHeightForWidth(self.PreciseAlignCircle.sizePolicy().hasHeightForWidth())
-        self.PreciseAlignCircle.setSizePolicy(sizePolicy3)
+        sizePolicy2.setHeightForWidth(self.PreciseAlignCircle.sizePolicy().hasHeightForWidth())
+        self.PreciseAlignCircle.setSizePolicy(sizePolicy2)
         self.PreciseAlignCircle.setPixmap(QPixmap(u":/icons/white/timeline-circle.svg"))
         self.PreciseAlignCircle.setScaledContents(True)
         self.PreciseAlignCircle.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -587,8 +520,8 @@ class Ui_MainWindow(object):
 
         self.PickCircle = QLabel(self.AutoPickWidget)
         self.PickCircle.setObjectName(u"PickCircle")
-        sizePolicy3.setHeightForWidth(self.PickCircle.sizePolicy().hasHeightForWidth())
-        self.PickCircle.setSizePolicy(sizePolicy3)
+        sizePolicy2.setHeightForWidth(self.PickCircle.sizePolicy().hasHeightForWidth())
+        self.PickCircle.setSizePolicy(sizePolicy2)
         self.PickCircle.setPixmap(QPixmap(u":/icons/white/timeline-circle.svg"))
         self.PickCircle.setScaledContents(True)
         self.PickCircle.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -611,8 +544,8 @@ class Ui_MainWindow(object):
 
         self.AssemblyCircle = QLabel(self.AssemblyWidget)
         self.AssemblyCircle.setObjectName(u"AssemblyCircle")
-        sizePolicy3.setHeightForWidth(self.AssemblyCircle.sizePolicy().hasHeightForWidth())
-        self.AssemblyCircle.setSizePolicy(sizePolicy3)
+        sizePolicy2.setHeightForWidth(self.AssemblyCircle.sizePolicy().hasHeightForWidth())
+        self.AssemblyCircle.setSizePolicy(sizePolicy2)
         self.AssemblyCircle.setPixmap(QPixmap(u":/icons/white/timeline-circle.svg"))
         self.AssemblyCircle.setScaledContents(True)
         self.AssemblyCircle.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -717,8 +650,8 @@ class Ui_MainWindow(object):
 
         self.C11 = QPushButton(self.widget)
         self.C11.setObjectName(u"C11")
-        sizePolicy2.setHeightForWidth(self.C11.sizePolicy().hasHeightForWidth())
-        self.C11.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.C11.sizePolicy().hasHeightForWidth())
+        self.C11.setSizePolicy(sizePolicy1)
         self.C11.setMinimumSize(QSize(65, 65))
 
         self.gridLayout_2.addWidget(self.C11, 0, 0, 1, 1)
@@ -883,8 +816,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_28.setObjectName(u"verticalLayout_28")
         self.ChooseListOptionsWidget = QWidget(self.BeforeComponentControl)
         self.ChooseListOptionsWidget.setObjectName(u"ChooseListOptionsWidget")
-        sizePolicy2.setHeightForWidth(self.ChooseListOptionsWidget.sizePolicy().hasHeightForWidth())
-        self.ChooseListOptionsWidget.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.ChooseListOptionsWidget.sizePolicy().hasHeightForWidth())
+        self.ChooseListOptionsWidget.setSizePolicy(sizePolicy1)
         self.verticalLayout_27 = QVBoxLayout(self.ChooseListOptionsWidget)
         self.verticalLayout_27.setObjectName(u"verticalLayout_27")
         self.ChooseMotor = QPushButton(self.ChooseListOptionsWidget)
@@ -942,8 +875,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_16.setContentsMargins(9, -1, -1, -1)
         self.MotorStartedButton = QPushButton(self.ComponentControlOptionsWidget)
         self.MotorStartedButton.setObjectName(u"MotorStartedButton")
-        sizePolicy2.setHeightForWidth(self.MotorStartedButton.sizePolicy().hasHeightForWidth())
-        self.MotorStartedButton.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.MotorStartedButton.sizePolicy().hasHeightForWidth())
+        self.MotorStartedButton.setSizePolicy(sizePolicy1)
         self.MotorStartedButton.setStyleSheet(u"background-color: #0B76A0;")
         self.MotorStartedButton.setCheckable(False)
         self.MotorStartedButton.setChecked(False)
@@ -955,9 +888,9 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.HamburgerMenu.sizePolicy().hasHeightForWidth())
         self.HamburgerMenu.setSizePolicy(sizePolicy)
         self.HamburgerMenu.setStyleSheet(u"")
-        icon5 = QIcon()
-        icon5.addFile(u":/icons/white/menu.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.HamburgerMenu.setIcon(icon5)
+        icon4 = QIcon()
+        icon4.addFile(u":/icons/white/menu.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.HamburgerMenu.setIcon(icon4)
         self.HamburgerMenu.setIconSize(QSize(30, 30))
 
         self.horizontalLayout_16.addWidget(self.HamburgerMenu)
@@ -1109,65 +1042,65 @@ class Ui_MainWindow(object):
         self.YawPlusCP = QPushButton(self.JogPage)
         self.YawPlusCP.setObjectName(u"YawPlusCP")
         self.YawPlusCP.setGeometry(QRect(200, 20, 101, 91))
-        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.YawPlusCP.sizePolicy().hasHeightForWidth())
-        self.YawPlusCP.setSizePolicy(sizePolicy4)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.YawPlusCP.sizePolicy().hasHeightForWidth())
+        self.YawPlusCP.setSizePolicy(sizePolicy3)
         self.YawPlusCP.setStyleSheet(u"background-color: transparent;\n"
 "border: none;")
-        icon6 = QIcon()
-        icon6.addFile(u":/controlArrows/cartesian/yawPlus.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.YawPlusCP.setIcon(icon6)
+        icon5 = QIcon()
+        icon5.addFile(u":/controlArrows/cartesian/yawPlus.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.YawPlusCP.setIcon(icon5)
         self.YawPlusCP.setIconSize(QSize(80, 80))
         self.ControlUpCP = QPushButton(self.JogPage)
         self.ControlUpCP.setObjectName(u"ControlUpCP")
         self.ControlUpCP.setGeometry(QRect(100, 50, 101, 91))
-        sizePolicy4.setHeightForWidth(self.ControlUpCP.sizePolicy().hasHeightForWidth())
-        self.ControlUpCP.setSizePolicy(sizePolicy4)
+        sizePolicy3.setHeightForWidth(self.ControlUpCP.sizePolicy().hasHeightForWidth())
+        self.ControlUpCP.setSizePolicy(sizePolicy3)
         self.ControlUpCP.setStyleSheet(u"background-color: transparent;\n"
 "border: none;")
-        icon7 = QIcon()
-        icon7.addFile(u":/controlArrows/cartesian/up.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.ControlUpCP.setIcon(icon7)
+        icon6 = QIcon()
+        icon6.addFile(u":/controlArrows/cartesian/up.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.ControlUpCP.setIcon(icon6)
         self.ControlUpCP.setIconSize(QSize(80, 80))
         self.ControlLeftCP = QPushButton(self.JogPage)
         self.ControlLeftCP.setObjectName(u"ControlLeftCP")
         self.ControlLeftCP.setGeometry(QRect(0, 140, 101, 91))
         self.ControlLeftCP.setStyleSheet(u"background-color: transparent;\n"
 "border: none;")
-        icon8 = QIcon()
-        icon8.addFile(u":/controlArrows/cartesian/left.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.ControlLeftCP.setIcon(icon8)
+        icon7 = QIcon()
+        icon7.addFile(u":/controlArrows/cartesian/left.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.ControlLeftCP.setIcon(icon7)
         self.ControlLeftCP.setIconSize(QSize(80, 80))
         self.ControlDownCP = QPushButton(self.JogPage)
         self.ControlDownCP.setObjectName(u"ControlDownCP")
         self.ControlDownCP.setGeometry(QRect(100, 230, 101, 91))
         self.ControlDownCP.setStyleSheet(u"background-color: transparent;\n"
 "border: none;")
-        icon9 = QIcon()
-        icon9.addFile(u":/controlArrows/cartesian/down.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.ControlDownCP.setIcon(icon9)
+        icon8 = QIcon()
+        icon8.addFile(u":/controlArrows/cartesian/down.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.ControlDownCP.setIcon(icon8)
         self.ControlDownCP.setIconSize(QSize(80, 80))
         self.ControlRightCP = QPushButton(self.JogPage)
         self.ControlRightCP.setObjectName(u"ControlRightCP")
         self.ControlRightCP.setGeometry(QRect(200, 140, 101, 91))
         self.ControlRightCP.setStyleSheet(u"background-color: transparent;\n"
 "border: none;")
-        icon10 = QIcon()
-        icon10.addFile(u":/controlArrows/cartesian/right.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.ControlRightCP.setIcon(icon10)
+        icon9 = QIcon()
+        icon9.addFile(u":/controlArrows/cartesian/right.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.ControlRightCP.setIcon(icon9)
         self.ControlRightCP.setIconSize(QSize(80, 80))
         self.YawMinusCP = QPushButton(self.JogPage)
         self.YawMinusCP.setObjectName(u"YawMinusCP")
         self.YawMinusCP.setGeometry(QRect(0, 270, 101, 91))
-        sizePolicy4.setHeightForWidth(self.YawMinusCP.sizePolicy().hasHeightForWidth())
-        self.YawMinusCP.setSizePolicy(sizePolicy4)
+        sizePolicy3.setHeightForWidth(self.YawMinusCP.sizePolicy().hasHeightForWidth())
+        self.YawMinusCP.setSizePolicy(sizePolicy3)
         self.YawMinusCP.setStyleSheet(u"background-color: transparent;\n"
 "border: none;")
-        icon11 = QIcon()
-        icon11.addFile(u":/controlArrows/cartesian/yawMinus.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.YawMinusCP.setIcon(icon11)
+        icon10 = QIcon()
+        icon10.addFile(u":/controlArrows/cartesian/yawMinus.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.YawMinusCP.setIcon(icon10)
         self.YawMinusCP.setIconSize(QSize(80, 80))
         self.YawMinusCP.setCheckable(False)
         self.ClipperAndResetWidget_3 = QWidget(self.JogPage)
@@ -1630,26 +1563,26 @@ class Ui_MainWindow(object):
         self.buttonGroup_2.addButton(self.LiftUp)
         self.LiftUp.setObjectName(u"LiftUp")
         self.LiftUp.setGeometry(QRect(30, 480, 101, 91))
-        sizePolicy4.setHeightForWidth(self.LiftUp.sizePolicy().hasHeightForWidth())
-        self.LiftUp.setSizePolicy(sizePolicy4)
+        sizePolicy3.setHeightForWidth(self.LiftUp.sizePolicy().hasHeightForWidth())
+        self.LiftUp.setSizePolicy(sizePolicy3)
         self.LiftUp.setStyleSheet(u"background-color: transparent;\n"
 "border: none;")
-        icon12 = QIcon()
-        icon12.addFile(u":/controlArrows/lift.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.LiftUp.setIcon(icon12)
+        icon11 = QIcon()
+        icon11.addFile(u":/controlArrows/lift.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.LiftUp.setIcon(icon11)
         self.LiftUp.setIconSize(QSize(80, 80))
         self.LiftUp.setCheckable(False)
         self.LowerDown = QPushButton(self.ForkliftPage)
         self.buttonGroup_2.addButton(self.LowerDown)
         self.LowerDown.setObjectName(u"LowerDown")
         self.LowerDown.setGeometry(QRect(190, 480, 101, 91))
-        sizePolicy4.setHeightForWidth(self.LowerDown.sizePolicy().hasHeightForWidth())
-        self.LowerDown.setSizePolicy(sizePolicy4)
+        sizePolicy3.setHeightForWidth(self.LowerDown.sizePolicy().hasHeightForWidth())
+        self.LowerDown.setSizePolicy(sizePolicy3)
         self.LowerDown.setStyleSheet(u"background-color: transparent;\n"
 "border: none;")
-        icon13 = QIcon()
-        icon13.addFile(u":/controlArrows/lower.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.LowerDown.setIcon(icon13)
+        icon12 = QIcon()
+        icon12.addFile(u":/controlArrows/lower.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.LowerDown.setIcon(icon12)
         self.LowerDown.setIconSize(QSize(80, 80))
         self.LowerDown.setCheckable(False)
         self.FastForktLiftButton = QPushButton(self.ForkliftPage)
@@ -1704,8 +1637,8 @@ class Ui_MainWindow(object):
         self.ListOptionsWidget = QWidget(self.ComponentControlMain)
         self.ListOptionsWidget.setObjectName(u"ListOptionsWidget")
         self.ListOptionsWidget.setGeometry(QRect(10, 100, 291, 571))
-        sizePolicy2.setHeightForWidth(self.ListOptionsWidget.sizePolicy().hasHeightForWidth())
-        self.ListOptionsWidget.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.ListOptionsWidget.sizePolicy().hasHeightForWidth())
+        self.ListOptionsWidget.setSizePolicy(sizePolicy1)
         self.verticalLayout_5 = QVBoxLayout(self.ListOptionsWidget)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.MotorOption = QPushButton(self.ListOptionsWidget)
@@ -1778,8 +1711,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_19.setContentsMargins(-1, 9, -1, 9)
         self.CartesianPoseWidget_2 = QWidget(self.Info_2)
         self.CartesianPoseWidget_2.setObjectName(u"CartesianPoseWidget_2")
-        sizePolicy2.setHeightForWidth(self.CartesianPoseWidget_2.sizePolicy().hasHeightForWidth())
-        self.CartesianPoseWidget_2.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.CartesianPoseWidget_2.sizePolicy().hasHeightForWidth())
+        self.CartesianPoseWidget_2.setSizePolicy(sizePolicy1)
         self.CartesianPoseWidget_2.setMinimumSize(QSize(0, 0))
         self.CartesianPoseWidget_2.setStyleSheet(u"QWidget#CartesianPoseWidget_2 {\n"
 "	border: 2px solid #FFFFFF;  /* white solid border */\n"
@@ -2116,8 +2049,8 @@ class Ui_MainWindow(object):
         self.gridLayout_7.setContentsMargins(0, 0, 0, 0)
         self.DO23 = QPushButton(self.widget_2)
         self.DO23.setObjectName(u"DO23")
-        sizePolicy2.setHeightForWidth(self.DO23.sizePolicy().hasHeightForWidth())
-        self.DO23.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO23.sizePolicy().hasHeightForWidth())
+        self.DO23.setSizePolicy(sizePolicy1)
         self.DO23.setMinimumSize(QSize(95, 70))
         self.DO23.setMaximumSize(QSize(100, 100))
         self.DO23.setStyleSheet(u"    border: none;\n"
@@ -2130,8 +2063,8 @@ class Ui_MainWindow(object):
 
         self.DO5 = QPushButton(self.widget_2)
         self.DO5.setObjectName(u"DO5")
-        sizePolicy2.setHeightForWidth(self.DO5.sizePolicy().hasHeightForWidth())
-        self.DO5.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO5.sizePolicy().hasHeightForWidth())
+        self.DO5.setSizePolicy(sizePolicy1)
         self.DO5.setMinimumSize(QSize(95, 70))
         self.DO5.setMaximumSize(QSize(100, 100))
         self.DO5.setStyleSheet(u"    border: none;\n"
@@ -2144,8 +2077,8 @@ class Ui_MainWindow(object):
 
         self.DO14 = QPushButton(self.widget_2)
         self.DO14.setObjectName(u"DO14")
-        sizePolicy2.setHeightForWidth(self.DO14.sizePolicy().hasHeightForWidth())
-        self.DO14.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO14.sizePolicy().hasHeightForWidth())
+        self.DO14.setSizePolicy(sizePolicy1)
         self.DO14.setMinimumSize(QSize(95, 70))
         self.DO14.setMaximumSize(QSize(100, 100))
         self.DO14.setStyleSheet(u"    border: none;\n"
@@ -2158,8 +2091,8 @@ class Ui_MainWindow(object):
 
         self.DO9 = QPushButton(self.widget_2)
         self.DO9.setObjectName(u"DO9")
-        sizePolicy2.setHeightForWidth(self.DO9.sizePolicy().hasHeightForWidth())
-        self.DO9.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO9.sizePolicy().hasHeightForWidth())
+        self.DO9.setSizePolicy(sizePolicy1)
         self.DO9.setMinimumSize(QSize(95, 70))
         self.DO9.setMaximumSize(QSize(100, 100))
         self.DO9.setStyleSheet(u"    border: none;\n"
@@ -2172,8 +2105,8 @@ class Ui_MainWindow(object):
 
         self.DO38 = QPushButton(self.widget_2)
         self.DO38.setObjectName(u"DO38")
-        sizePolicy2.setHeightForWidth(self.DO38.sizePolicy().hasHeightForWidth())
-        self.DO38.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO38.sizePolicy().hasHeightForWidth())
+        self.DO38.setSizePolicy(sizePolicy1)
         self.DO38.setMinimumSize(QSize(95, 70))
         self.DO38.setMaximumSize(QSize(100, 100))
         self.DO38.setStyleSheet(u"    border: none;\n"
@@ -2186,8 +2119,8 @@ class Ui_MainWindow(object):
 
         self.DO22 = QPushButton(self.widget_2)
         self.DO22.setObjectName(u"DO22")
-        sizePolicy2.setHeightForWidth(self.DO22.sizePolicy().hasHeightForWidth())
-        self.DO22.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO22.sizePolicy().hasHeightForWidth())
+        self.DO22.setSizePolicy(sizePolicy1)
         self.DO22.setMinimumSize(QSize(95, 70))
         self.DO22.setMaximumSize(QSize(100, 100))
         self.DO22.setStyleSheet(u"    border: none;\n"
@@ -2200,8 +2133,8 @@ class Ui_MainWindow(object):
 
         self.DO48 = QPushButton(self.widget_2)
         self.DO48.setObjectName(u"DO48")
-        sizePolicy2.setHeightForWidth(self.DO48.sizePolicy().hasHeightForWidth())
-        self.DO48.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO48.sizePolicy().hasHeightForWidth())
+        self.DO48.setSizePolicy(sizePolicy1)
         self.DO48.setMinimumSize(QSize(95, 70))
         self.DO48.setMaximumSize(QSize(100, 100))
         self.DO48.setStyleSheet(u"    border: none;\n"
@@ -2214,8 +2147,8 @@ class Ui_MainWindow(object):
 
         self.DO46 = QPushButton(self.widget_2)
         self.DO46.setObjectName(u"DO46")
-        sizePolicy2.setHeightForWidth(self.DO46.sizePolicy().hasHeightForWidth())
-        self.DO46.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO46.sizePolicy().hasHeightForWidth())
+        self.DO46.setSizePolicy(sizePolicy1)
         self.DO46.setMinimumSize(QSize(95, 70))
         self.DO46.setMaximumSize(QSize(100, 100))
         self.DO46.setStyleSheet(u"    border: none;\n"
@@ -2228,8 +2161,8 @@ class Ui_MainWindow(object):
 
         self.DO28 = QPushButton(self.widget_2)
         self.DO28.setObjectName(u"DO28")
-        sizePolicy2.setHeightForWidth(self.DO28.sizePolicy().hasHeightForWidth())
-        self.DO28.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO28.sizePolicy().hasHeightForWidth())
+        self.DO28.setSizePolicy(sizePolicy1)
         self.DO28.setMinimumSize(QSize(95, 70))
         self.DO28.setMaximumSize(QSize(100, 100))
         self.DO28.setStyleSheet(u"    border: none;\n"
@@ -2242,8 +2175,8 @@ class Ui_MainWindow(object):
 
         self.DO2 = QPushButton(self.widget_2)
         self.DO2.setObjectName(u"DO2")
-        sizePolicy2.setHeightForWidth(self.DO2.sizePolicy().hasHeightForWidth())
-        self.DO2.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO2.sizePolicy().hasHeightForWidth())
+        self.DO2.setSizePolicy(sizePolicy1)
         self.DO2.setMinimumSize(QSize(95, 70))
         self.DO2.setMaximumSize(QSize(100, 100))
         self.DO2.setStyleSheet(u"    border: none;\n"
@@ -2256,8 +2189,8 @@ class Ui_MainWindow(object):
 
         self.DO41 = QPushButton(self.widget_2)
         self.DO41.setObjectName(u"DO41")
-        sizePolicy2.setHeightForWidth(self.DO41.sizePolicy().hasHeightForWidth())
-        self.DO41.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO41.sizePolicy().hasHeightForWidth())
+        self.DO41.setSizePolicy(sizePolicy1)
         self.DO41.setMinimumSize(QSize(95, 70))
         self.DO41.setMaximumSize(QSize(100, 100))
         self.DO41.setStyleSheet(u"    border: none;\n"
@@ -2270,8 +2203,8 @@ class Ui_MainWindow(object):
 
         self.DO31 = QPushButton(self.widget_2)
         self.DO31.setObjectName(u"DO31")
-        sizePolicy2.setHeightForWidth(self.DO31.sizePolicy().hasHeightForWidth())
-        self.DO31.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO31.sizePolicy().hasHeightForWidth())
+        self.DO31.setSizePolicy(sizePolicy1)
         self.DO31.setMinimumSize(QSize(95, 70))
         self.DO31.setMaximumSize(QSize(100, 100))
         self.DO31.setStyleSheet(u"    border: none;\n"
@@ -2284,8 +2217,8 @@ class Ui_MainWindow(object):
 
         self.DO11 = QPushButton(self.widget_2)
         self.DO11.setObjectName(u"DO11")
-        sizePolicy2.setHeightForWidth(self.DO11.sizePolicy().hasHeightForWidth())
-        self.DO11.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO11.sizePolicy().hasHeightForWidth())
+        self.DO11.setSizePolicy(sizePolicy1)
         self.DO11.setMinimumSize(QSize(95, 70))
         self.DO11.setMaximumSize(QSize(100, 100))
         self.DO11.setStyleSheet(u"    border: none;\n"
@@ -2298,8 +2231,8 @@ class Ui_MainWindow(object):
 
         self.DO17 = QPushButton(self.widget_2)
         self.DO17.setObjectName(u"DO17")
-        sizePolicy2.setHeightForWidth(self.DO17.sizePolicy().hasHeightForWidth())
-        self.DO17.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO17.sizePolicy().hasHeightForWidth())
+        self.DO17.setSizePolicy(sizePolicy1)
         self.DO17.setMinimumSize(QSize(95, 70))
         self.DO17.setMaximumSize(QSize(100, 100))
         self.DO17.setStyleSheet(u"    border: none;\n"
@@ -2312,8 +2245,8 @@ class Ui_MainWindow(object):
 
         self.DO4 = QPushButton(self.widget_2)
         self.DO4.setObjectName(u"DO4")
-        sizePolicy2.setHeightForWidth(self.DO4.sizePolicy().hasHeightForWidth())
-        self.DO4.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO4.sizePolicy().hasHeightForWidth())
+        self.DO4.setSizePolicy(sizePolicy1)
         self.DO4.setMinimumSize(QSize(95, 70))
         self.DO4.setMaximumSize(QSize(100, 100))
         self.DO4.setStyleSheet(u"    border: none;\n"
@@ -2326,8 +2259,8 @@ class Ui_MainWindow(object):
 
         self.DO20 = QPushButton(self.widget_2)
         self.DO20.setObjectName(u"DO20")
-        sizePolicy2.setHeightForWidth(self.DO20.sizePolicy().hasHeightForWidth())
-        self.DO20.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO20.sizePolicy().hasHeightForWidth())
+        self.DO20.setSizePolicy(sizePolicy1)
         self.DO20.setMinimumSize(QSize(95, 70))
         self.DO20.setMaximumSize(QSize(100, 100))
         self.DO20.setStyleSheet(u"    border: none;\n"
@@ -2340,8 +2273,8 @@ class Ui_MainWindow(object):
 
         self.DO15 = QPushButton(self.widget_2)
         self.DO15.setObjectName(u"DO15")
-        sizePolicy2.setHeightForWidth(self.DO15.sizePolicy().hasHeightForWidth())
-        self.DO15.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO15.sizePolicy().hasHeightForWidth())
+        self.DO15.setSizePolicy(sizePolicy1)
         self.DO15.setMinimumSize(QSize(95, 70))
         self.DO15.setMaximumSize(QSize(100, 100))
         self.DO15.setStyleSheet(u"    border: none;\n"
@@ -2354,8 +2287,8 @@ class Ui_MainWindow(object):
 
         self.DO19 = QPushButton(self.widget_2)
         self.DO19.setObjectName(u"DO19")
-        sizePolicy2.setHeightForWidth(self.DO19.sizePolicy().hasHeightForWidth())
-        self.DO19.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO19.sizePolicy().hasHeightForWidth())
+        self.DO19.setSizePolicy(sizePolicy1)
         self.DO19.setMinimumSize(QSize(95, 70))
         self.DO19.setMaximumSize(QSize(100, 100))
         self.DO19.setStyleSheet(u"    border: none;\n"
@@ -2368,8 +2301,8 @@ class Ui_MainWindow(object):
 
         self.DO21 = QPushButton(self.widget_2)
         self.DO21.setObjectName(u"DO21")
-        sizePolicy2.setHeightForWidth(self.DO21.sizePolicy().hasHeightForWidth())
-        self.DO21.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO21.sizePolicy().hasHeightForWidth())
+        self.DO21.setSizePolicy(sizePolicy1)
         self.DO21.setMinimumSize(QSize(95, 70))
         self.DO21.setMaximumSize(QSize(100, 100))
         self.DO21.setStyleSheet(u"    border: none;\n"
@@ -2382,8 +2315,8 @@ class Ui_MainWindow(object):
 
         self.DO18 = QPushButton(self.widget_2)
         self.DO18.setObjectName(u"DO18")
-        sizePolicy2.setHeightForWidth(self.DO18.sizePolicy().hasHeightForWidth())
-        self.DO18.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO18.sizePolicy().hasHeightForWidth())
+        self.DO18.setSizePolicy(sizePolicy1)
         self.DO18.setMinimumSize(QSize(95, 70))
         self.DO18.setMaximumSize(QSize(100, 100))
         self.DO18.setStyleSheet(u"    border: none;\n"
@@ -2396,8 +2329,8 @@ class Ui_MainWindow(object):
 
         self.DO36 = QPushButton(self.widget_2)
         self.DO36.setObjectName(u"DO36")
-        sizePolicy2.setHeightForWidth(self.DO36.sizePolicy().hasHeightForWidth())
-        self.DO36.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO36.sizePolicy().hasHeightForWidth())
+        self.DO36.setSizePolicy(sizePolicy1)
         self.DO36.setMinimumSize(QSize(95, 70))
         self.DO36.setMaximumSize(QSize(100, 100))
         self.DO36.setStyleSheet(u"    border: none;\n"
@@ -2410,8 +2343,8 @@ class Ui_MainWindow(object):
 
         self.DO8 = QPushButton(self.widget_2)
         self.DO8.setObjectName(u"DO8")
-        sizePolicy2.setHeightForWidth(self.DO8.sizePolicy().hasHeightForWidth())
-        self.DO8.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO8.sizePolicy().hasHeightForWidth())
+        self.DO8.setSizePolicy(sizePolicy1)
         self.DO8.setMinimumSize(QSize(95, 70))
         self.DO8.setMaximumSize(QSize(100, 100))
         self.DO8.setStyleSheet(u"    border: none;\n"
@@ -2424,8 +2357,8 @@ class Ui_MainWindow(object):
 
         self.DO42 = QPushButton(self.widget_2)
         self.DO42.setObjectName(u"DO42")
-        sizePolicy2.setHeightForWidth(self.DO42.sizePolicy().hasHeightForWidth())
-        self.DO42.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO42.sizePolicy().hasHeightForWidth())
+        self.DO42.setSizePolicy(sizePolicy1)
         self.DO42.setMinimumSize(QSize(95, 70))
         self.DO42.setMaximumSize(QSize(100, 100))
         self.DO42.setStyleSheet(u"    border: none;\n"
@@ -2438,8 +2371,8 @@ class Ui_MainWindow(object):
 
         self.DO26 = QPushButton(self.widget_2)
         self.DO26.setObjectName(u"DO26")
-        sizePolicy2.setHeightForWidth(self.DO26.sizePolicy().hasHeightForWidth())
-        self.DO26.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO26.sizePolicy().hasHeightForWidth())
+        self.DO26.setSizePolicy(sizePolicy1)
         self.DO26.setMinimumSize(QSize(95, 70))
         self.DO26.setMaximumSize(QSize(100, 100))
         self.DO26.setStyleSheet(u"    border: none;\n"
@@ -2452,8 +2385,8 @@ class Ui_MainWindow(object):
 
         self.DO1 = QPushButton(self.widget_2)
         self.DO1.setObjectName(u"DO1")
-        sizePolicy2.setHeightForWidth(self.DO1.sizePolicy().hasHeightForWidth())
-        self.DO1.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO1.sizePolicy().hasHeightForWidth())
+        self.DO1.setSizePolicy(sizePolicy1)
         self.DO1.setMinimumSize(QSize(95, 70))
         self.DO1.setMaximumSize(QSize(100, 100))
         self.DO1.setStyleSheet(u"    border: none;\n"
@@ -2466,8 +2399,8 @@ class Ui_MainWindow(object):
 
         self.DO44 = QPushButton(self.widget_2)
         self.DO44.setObjectName(u"DO44")
-        sizePolicy2.setHeightForWidth(self.DO44.sizePolicy().hasHeightForWidth())
-        self.DO44.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO44.sizePolicy().hasHeightForWidth())
+        self.DO44.setSizePolicy(sizePolicy1)
         self.DO44.setMinimumSize(QSize(95, 70))
         self.DO44.setMaximumSize(QSize(100, 100))
         self.DO44.setStyleSheet(u"    border: none;\n"
@@ -2480,8 +2413,8 @@ class Ui_MainWindow(object):
 
         self.DO16 = QPushButton(self.widget_2)
         self.DO16.setObjectName(u"DO16")
-        sizePolicy2.setHeightForWidth(self.DO16.sizePolicy().hasHeightForWidth())
-        self.DO16.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO16.sizePolicy().hasHeightForWidth())
+        self.DO16.setSizePolicy(sizePolicy1)
         self.DO16.setMinimumSize(QSize(95, 70))
         self.DO16.setMaximumSize(QSize(100, 100))
         self.DO16.setStyleSheet(u"    border: none;\n"
@@ -2494,8 +2427,8 @@ class Ui_MainWindow(object):
 
         self.DO32 = QPushButton(self.widget_2)
         self.DO32.setObjectName(u"DO32")
-        sizePolicy2.setHeightForWidth(self.DO32.sizePolicy().hasHeightForWidth())
-        self.DO32.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO32.sizePolicy().hasHeightForWidth())
+        self.DO32.setSizePolicy(sizePolicy1)
         self.DO32.setMinimumSize(QSize(95, 70))
         self.DO32.setMaximumSize(QSize(100, 100))
         self.DO32.setStyleSheet(u"    border: none;\n"
@@ -2508,8 +2441,8 @@ class Ui_MainWindow(object):
 
         self.DO34 = QPushButton(self.widget_2)
         self.DO34.setObjectName(u"DO34")
-        sizePolicy2.setHeightForWidth(self.DO34.sizePolicy().hasHeightForWidth())
-        self.DO34.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO34.sizePolicy().hasHeightForWidth())
+        self.DO34.setSizePolicy(sizePolicy1)
         self.DO34.setMinimumSize(QSize(95, 70))
         self.DO34.setMaximumSize(QSize(100, 100))
         self.DO34.setStyleSheet(u"    border: none;\n"
@@ -2522,8 +2455,8 @@ class Ui_MainWindow(object):
 
         self.DO10 = QPushButton(self.widget_2)
         self.DO10.setObjectName(u"DO10")
-        sizePolicy2.setHeightForWidth(self.DO10.sizePolicy().hasHeightForWidth())
-        self.DO10.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO10.sizePolicy().hasHeightForWidth())
+        self.DO10.setSizePolicy(sizePolicy1)
         self.DO10.setMinimumSize(QSize(95, 70))
         self.DO10.setMaximumSize(QSize(100, 100))
         self.DO10.setStyleSheet(u"    border: none;\n"
@@ -2536,8 +2469,8 @@ class Ui_MainWindow(object):
 
         self.DO29 = QPushButton(self.widget_2)
         self.DO29.setObjectName(u"DO29")
-        sizePolicy2.setHeightForWidth(self.DO29.sizePolicy().hasHeightForWidth())
-        self.DO29.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO29.sizePolicy().hasHeightForWidth())
+        self.DO29.setSizePolicy(sizePolicy1)
         self.DO29.setMinimumSize(QSize(95, 70))
         self.DO29.setMaximumSize(QSize(100, 100))
         self.DO29.setStyleSheet(u"    border: none;\n"
@@ -2550,8 +2483,8 @@ class Ui_MainWindow(object):
 
         self.DO35 = QPushButton(self.widget_2)
         self.DO35.setObjectName(u"DO35")
-        sizePolicy2.setHeightForWidth(self.DO35.sizePolicy().hasHeightForWidth())
-        self.DO35.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO35.sizePolicy().hasHeightForWidth())
+        self.DO35.setSizePolicy(sizePolicy1)
         self.DO35.setMinimumSize(QSize(95, 70))
         self.DO35.setMaximumSize(QSize(100, 100))
         self.DO35.setStyleSheet(u"    border: none;\n"
@@ -2564,8 +2497,8 @@ class Ui_MainWindow(object):
 
         self.DO37 = QPushButton(self.widget_2)
         self.DO37.setObjectName(u"DO37")
-        sizePolicy2.setHeightForWidth(self.DO37.sizePolicy().hasHeightForWidth())
-        self.DO37.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO37.sizePolicy().hasHeightForWidth())
+        self.DO37.setSizePolicy(sizePolicy1)
         self.DO37.setMinimumSize(QSize(95, 70))
         self.DO37.setMaximumSize(QSize(100, 100))
         self.DO37.setStyleSheet(u"    border: none;\n"
@@ -2578,8 +2511,8 @@ class Ui_MainWindow(object):
 
         self.DO12 = QPushButton(self.widget_2)
         self.DO12.setObjectName(u"DO12")
-        sizePolicy2.setHeightForWidth(self.DO12.sizePolicy().hasHeightForWidth())
-        self.DO12.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO12.sizePolicy().hasHeightForWidth())
+        self.DO12.setSizePolicy(sizePolicy1)
         self.DO12.setMinimumSize(QSize(95, 70))
         self.DO12.setMaximumSize(QSize(100, 100))
         self.DO12.setStyleSheet(u"    border: none;\n"
@@ -2592,8 +2525,8 @@ class Ui_MainWindow(object):
 
         self.DO43 = QPushButton(self.widget_2)
         self.DO43.setObjectName(u"DO43")
-        sizePolicy2.setHeightForWidth(self.DO43.sizePolicy().hasHeightForWidth())
-        self.DO43.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO43.sizePolicy().hasHeightForWidth())
+        self.DO43.setSizePolicy(sizePolicy1)
         self.DO43.setMinimumSize(QSize(95, 70))
         self.DO43.setMaximumSize(QSize(100, 100))
         self.DO43.setStyleSheet(u"    border: none;\n"
@@ -2606,8 +2539,8 @@ class Ui_MainWindow(object):
 
         self.DO47 = QPushButton(self.widget_2)
         self.DO47.setObjectName(u"DO47")
-        sizePolicy2.setHeightForWidth(self.DO47.sizePolicy().hasHeightForWidth())
-        self.DO47.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO47.sizePolicy().hasHeightForWidth())
+        self.DO47.setSizePolicy(sizePolicy1)
         self.DO47.setMinimumSize(QSize(95, 70))
         self.DO47.setMaximumSize(QSize(100, 100))
         self.DO47.setStyleSheet(u"    border: none;\n"
@@ -2620,8 +2553,8 @@ class Ui_MainWindow(object):
 
         self.DO30 = QPushButton(self.widget_2)
         self.DO30.setObjectName(u"DO30")
-        sizePolicy2.setHeightForWidth(self.DO30.sizePolicy().hasHeightForWidth())
-        self.DO30.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO30.sizePolicy().hasHeightForWidth())
+        self.DO30.setSizePolicy(sizePolicy1)
         self.DO30.setMinimumSize(QSize(95, 70))
         self.DO30.setMaximumSize(QSize(100, 100))
         self.DO30.setStyleSheet(u"    border: none;\n"
@@ -2634,8 +2567,8 @@ class Ui_MainWindow(object):
 
         self.DO24 = QPushButton(self.widget_2)
         self.DO24.setObjectName(u"DO24")
-        sizePolicy2.setHeightForWidth(self.DO24.sizePolicy().hasHeightForWidth())
-        self.DO24.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO24.sizePolicy().hasHeightForWidth())
+        self.DO24.setSizePolicy(sizePolicy1)
         self.DO24.setMinimumSize(QSize(95, 70))
         self.DO24.setMaximumSize(QSize(100, 100))
         self.DO24.setStyleSheet(u"    border: none;\n"
@@ -2648,8 +2581,8 @@ class Ui_MainWindow(object):
 
         self.DO25 = QPushButton(self.widget_2)
         self.DO25.setObjectName(u"DO25")
-        sizePolicy2.setHeightForWidth(self.DO25.sizePolicy().hasHeightForWidth())
-        self.DO25.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO25.sizePolicy().hasHeightForWidth())
+        self.DO25.setSizePolicy(sizePolicy1)
         self.DO25.setMinimumSize(QSize(95, 70))
         self.DO25.setMaximumSize(QSize(100, 100))
         self.DO25.setStyleSheet(u"    border: none;\n"
@@ -2662,8 +2595,8 @@ class Ui_MainWindow(object):
 
         self.DO6 = QPushButton(self.widget_2)
         self.DO6.setObjectName(u"DO6")
-        sizePolicy2.setHeightForWidth(self.DO6.sizePolicy().hasHeightForWidth())
-        self.DO6.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO6.sizePolicy().hasHeightForWidth())
+        self.DO6.setSizePolicy(sizePolicy1)
         self.DO6.setMinimumSize(QSize(95, 70))
         self.DO6.setMaximumSize(QSize(100, 100))
         self.DO6.setStyleSheet(u"    border: none;\n"
@@ -2676,8 +2609,8 @@ class Ui_MainWindow(object):
 
         self.DO13 = QPushButton(self.widget_2)
         self.DO13.setObjectName(u"DO13")
-        sizePolicy2.setHeightForWidth(self.DO13.sizePolicy().hasHeightForWidth())
-        self.DO13.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO13.sizePolicy().hasHeightForWidth())
+        self.DO13.setSizePolicy(sizePolicy1)
         self.DO13.setMinimumSize(QSize(95, 70))
         self.DO13.setMaximumSize(QSize(100, 100))
         self.DO13.setStyleSheet(u"    border: none;\n"
@@ -2690,8 +2623,8 @@ class Ui_MainWindow(object):
 
         self.DO7 = QPushButton(self.widget_2)
         self.DO7.setObjectName(u"DO7")
-        sizePolicy2.setHeightForWidth(self.DO7.sizePolicy().hasHeightForWidth())
-        self.DO7.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO7.sizePolicy().hasHeightForWidth())
+        self.DO7.setSizePolicy(sizePolicy1)
         self.DO7.setMinimumSize(QSize(95, 70))
         self.DO7.setMaximumSize(QSize(100, 100))
         self.DO7.setStyleSheet(u"    border: none;\n"
@@ -2704,8 +2637,8 @@ class Ui_MainWindow(object):
 
         self.DO33 = QPushButton(self.widget_2)
         self.DO33.setObjectName(u"DO33")
-        sizePolicy2.setHeightForWidth(self.DO33.sizePolicy().hasHeightForWidth())
-        self.DO33.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO33.sizePolicy().hasHeightForWidth())
+        self.DO33.setSizePolicy(sizePolicy1)
         self.DO33.setMinimumSize(QSize(95, 70))
         self.DO33.setMaximumSize(QSize(100, 100))
         self.DO33.setStyleSheet(u"    border: none;\n"
@@ -2718,8 +2651,8 @@ class Ui_MainWindow(object):
 
         self.DO3 = QPushButton(self.widget_2)
         self.DO3.setObjectName(u"DO3")
-        sizePolicy2.setHeightForWidth(self.DO3.sizePolicy().hasHeightForWidth())
-        self.DO3.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO3.sizePolicy().hasHeightForWidth())
+        self.DO3.setSizePolicy(sizePolicy1)
         self.DO3.setMinimumSize(QSize(95, 70))
         self.DO3.setMaximumSize(QSize(100, 100))
         self.DO3.setStyleSheet(u"    border: none;\n"
@@ -2732,8 +2665,8 @@ class Ui_MainWindow(object):
 
         self.DO27 = QPushButton(self.widget_2)
         self.DO27.setObjectName(u"DO27")
-        sizePolicy2.setHeightForWidth(self.DO27.sizePolicy().hasHeightForWidth())
-        self.DO27.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO27.sizePolicy().hasHeightForWidth())
+        self.DO27.setSizePolicy(sizePolicy1)
         self.DO27.setMinimumSize(QSize(95, 70))
         self.DO27.setMaximumSize(QSize(100, 100))
         self.DO27.setStyleSheet(u"    border: none;\n"
@@ -2746,8 +2679,8 @@ class Ui_MainWindow(object):
 
         self.DO40 = QPushButton(self.widget_2)
         self.DO40.setObjectName(u"DO40")
-        sizePolicy2.setHeightForWidth(self.DO40.sizePolicy().hasHeightForWidth())
-        self.DO40.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO40.sizePolicy().hasHeightForWidth())
+        self.DO40.setSizePolicy(sizePolicy1)
         self.DO40.setMinimumSize(QSize(95, 70))
         self.DO40.setMaximumSize(QSize(100, 100))
         self.DO40.setStyleSheet(u"    border: none;\n"
@@ -2760,8 +2693,8 @@ class Ui_MainWindow(object):
 
         self.DO39 = QPushButton(self.widget_2)
         self.DO39.setObjectName(u"DO39")
-        sizePolicy2.setHeightForWidth(self.DO39.sizePolicy().hasHeightForWidth())
-        self.DO39.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO39.sizePolicy().hasHeightForWidth())
+        self.DO39.setSizePolicy(sizePolicy1)
         self.DO39.setMinimumSize(QSize(95, 70))
         self.DO39.setMaximumSize(QSize(100, 100))
         self.DO39.setStyleSheet(u"    border: none;\n"
@@ -2774,8 +2707,8 @@ class Ui_MainWindow(object):
 
         self.DO45 = QPushButton(self.widget_2)
         self.DO45.setObjectName(u"DO45")
-        sizePolicy2.setHeightForWidth(self.DO45.sizePolicy().hasHeightForWidth())
-        self.DO45.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DO45.sizePolicy().hasHeightForWidth())
+        self.DO45.setSizePolicy(sizePolicy1)
         self.DO45.setMinimumSize(QSize(95, 70))
         self.DO45.setMaximumSize(QSize(100, 100))
         self.DO45.setStyleSheet(u"    border: none;\n"
@@ -2799,8 +2732,8 @@ class Ui_MainWindow(object):
         self.DI8 = QPushButton(self.gridLayoutWidget)
         self.DI8.setObjectName(u"DI8")
         self.DI8.setEnabled(False)
-        sizePolicy2.setHeightForWidth(self.DI8.sizePolicy().hasHeightForWidth())
-        self.DI8.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DI8.sizePolicy().hasHeightForWidth())
+        self.DI8.setSizePolicy(sizePolicy1)
         self.DI8.setMinimumSize(QSize(95, 70))
         self.DI8.setMaximumSize(QSize(100, 100))
         self.DI8.setStyleSheet(u"    border: none;\n"
@@ -2814,8 +2747,8 @@ class Ui_MainWindow(object):
         self.DI3 = QPushButton(self.gridLayoutWidget)
         self.DI3.setObjectName(u"DI3")
         self.DI3.setEnabled(False)
-        sizePolicy2.setHeightForWidth(self.DI3.sizePolicy().hasHeightForWidth())
-        self.DI3.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DI3.sizePolicy().hasHeightForWidth())
+        self.DI3.setSizePolicy(sizePolicy1)
         self.DI3.setMinimumSize(QSize(95, 70))
         self.DI3.setMaximumSize(QSize(100, 100))
         self.DI3.setStyleSheet(u"    border: none;\n"
@@ -2829,8 +2762,8 @@ class Ui_MainWindow(object):
         self.DI12 = QPushButton(self.gridLayoutWidget)
         self.DI12.setObjectName(u"DI12")
         self.DI12.setEnabled(False)
-        sizePolicy2.setHeightForWidth(self.DI12.sizePolicy().hasHeightForWidth())
-        self.DI12.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DI12.sizePolicy().hasHeightForWidth())
+        self.DI12.setSizePolicy(sizePolicy1)
         self.DI12.setMinimumSize(QSize(95, 70))
         self.DI12.setMaximumSize(QSize(100, 100))
         self.DI12.setStyleSheet(u"    border: none;\n"
@@ -2844,8 +2777,8 @@ class Ui_MainWindow(object):
         self.DI7 = QPushButton(self.gridLayoutWidget)
         self.DI7.setObjectName(u"DI7")
         self.DI7.setEnabled(False)
-        sizePolicy2.setHeightForWidth(self.DI7.sizePolicy().hasHeightForWidth())
-        self.DI7.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DI7.sizePolicy().hasHeightForWidth())
+        self.DI7.setSizePolicy(sizePolicy1)
         self.DI7.setMinimumSize(QSize(95, 70))
         self.DI7.setMaximumSize(QSize(100, 100))
         self.DI7.setStyleSheet(u"    border: none;\n"
@@ -2859,8 +2792,8 @@ class Ui_MainWindow(object):
         self.DI11 = QPushButton(self.gridLayoutWidget)
         self.DI11.setObjectName(u"DI11")
         self.DI11.setEnabled(False)
-        sizePolicy2.setHeightForWidth(self.DI11.sizePolicy().hasHeightForWidth())
-        self.DI11.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DI11.sizePolicy().hasHeightForWidth())
+        self.DI11.setSizePolicy(sizePolicy1)
         self.DI11.setMinimumSize(QSize(95, 70))
         self.DI11.setMaximumSize(QSize(100, 100))
         self.DI11.setStyleSheet(u"    border: none;\n"
@@ -2874,8 +2807,8 @@ class Ui_MainWindow(object):
         self.DI16 = QPushButton(self.gridLayoutWidget)
         self.DI16.setObjectName(u"DI16")
         self.DI16.setEnabled(False)
-        sizePolicy2.setHeightForWidth(self.DI16.sizePolicy().hasHeightForWidth())
-        self.DI16.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DI16.sizePolicy().hasHeightForWidth())
+        self.DI16.setSizePolicy(sizePolicy1)
         self.DI16.setMinimumSize(QSize(95, 70))
         self.DI16.setMaximumSize(QSize(100, 100))
         self.DI16.setStyleSheet(u"    border: none;\n"
@@ -2889,8 +2822,8 @@ class Ui_MainWindow(object):
         self.DI9 = QPushButton(self.gridLayoutWidget)
         self.DI9.setObjectName(u"DI9")
         self.DI9.setEnabled(False)
-        sizePolicy2.setHeightForWidth(self.DI9.sizePolicy().hasHeightForWidth())
-        self.DI9.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DI9.sizePolicy().hasHeightForWidth())
+        self.DI9.setSizePolicy(sizePolicy1)
         self.DI9.setMinimumSize(QSize(95, 70))
         self.DI9.setMaximumSize(QSize(100, 100))
         self.DI9.setStyleSheet(u"    border: none;\n"
@@ -2904,8 +2837,8 @@ class Ui_MainWindow(object):
         self.DI4 = QPushButton(self.gridLayoutWidget)
         self.DI4.setObjectName(u"DI4")
         self.DI4.setEnabled(False)
-        sizePolicy2.setHeightForWidth(self.DI4.sizePolicy().hasHeightForWidth())
-        self.DI4.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DI4.sizePolicy().hasHeightForWidth())
+        self.DI4.setSizePolicy(sizePolicy1)
         self.DI4.setMinimumSize(QSize(95, 70))
         self.DI4.setMaximumSize(QSize(100, 100))
         self.DI4.setStyleSheet(u"    border: none;\n"
@@ -2919,8 +2852,8 @@ class Ui_MainWindow(object):
         self.DI2 = QPushButton(self.gridLayoutWidget)
         self.DI2.setObjectName(u"DI2")
         self.DI2.setEnabled(False)
-        sizePolicy2.setHeightForWidth(self.DI2.sizePolicy().hasHeightForWidth())
-        self.DI2.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DI2.sizePolicy().hasHeightForWidth())
+        self.DI2.setSizePolicy(sizePolicy1)
         self.DI2.setMinimumSize(QSize(95, 70))
         self.DI2.setMaximumSize(QSize(100, 100))
         self.DI2.setStyleSheet(u"    border: none;\n"
@@ -2934,8 +2867,8 @@ class Ui_MainWindow(object):
         self.DI14 = QPushButton(self.gridLayoutWidget)
         self.DI14.setObjectName(u"DI14")
         self.DI14.setEnabled(False)
-        sizePolicy2.setHeightForWidth(self.DI14.sizePolicy().hasHeightForWidth())
-        self.DI14.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DI14.sizePolicy().hasHeightForWidth())
+        self.DI14.setSizePolicy(sizePolicy1)
         self.DI14.setMinimumSize(QSize(95, 70))
         self.DI14.setMaximumSize(QSize(100, 100))
         self.DI14.setStyleSheet(u"    border: none;\n"
@@ -2949,8 +2882,8 @@ class Ui_MainWindow(object):
         self.DI15 = QPushButton(self.gridLayoutWidget)
         self.DI15.setObjectName(u"DI15")
         self.DI15.setEnabled(False)
-        sizePolicy2.setHeightForWidth(self.DI15.sizePolicy().hasHeightForWidth())
-        self.DI15.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DI15.sizePolicy().hasHeightForWidth())
+        self.DI15.setSizePolicy(sizePolicy1)
         self.DI15.setMinimumSize(QSize(95, 70))
         self.DI15.setMaximumSize(QSize(100, 100))
         self.DI15.setStyleSheet(u"    border: none;\n"
@@ -2964,8 +2897,8 @@ class Ui_MainWindow(object):
         self.DI6 = QPushButton(self.gridLayoutWidget)
         self.DI6.setObjectName(u"DI6")
         self.DI6.setEnabled(False)
-        sizePolicy2.setHeightForWidth(self.DI6.sizePolicy().hasHeightForWidth())
-        self.DI6.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DI6.sizePolicy().hasHeightForWidth())
+        self.DI6.setSizePolicy(sizePolicy1)
         self.DI6.setMinimumSize(QSize(95, 70))
         self.DI6.setMaximumSize(QSize(100, 100))
         self.DI6.setStyleSheet(u"    border: none;\n"
@@ -2979,8 +2912,8 @@ class Ui_MainWindow(object):
         self.DI1 = QPushButton(self.gridLayoutWidget)
         self.DI1.setObjectName(u"DI1")
         self.DI1.setEnabled(False)
-        sizePolicy2.setHeightForWidth(self.DI1.sizePolicy().hasHeightForWidth())
-        self.DI1.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DI1.sizePolicy().hasHeightForWidth())
+        self.DI1.setSizePolicy(sizePolicy1)
         self.DI1.setMinimumSize(QSize(95, 70))
         self.DI1.setMaximumSize(QSize(100, 100))
         self.DI1.setStyleSheet(u"    border: none;\n"
@@ -2994,8 +2927,8 @@ class Ui_MainWindow(object):
         self.DI10 = QPushButton(self.gridLayoutWidget)
         self.DI10.setObjectName(u"DI10")
         self.DI10.setEnabled(False)
-        sizePolicy2.setHeightForWidth(self.DI10.sizePolicy().hasHeightForWidth())
-        self.DI10.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DI10.sizePolicy().hasHeightForWidth())
+        self.DI10.setSizePolicy(sizePolicy1)
         self.DI10.setMinimumSize(QSize(95, 70))
         self.DI10.setMaximumSize(QSize(100, 100))
         self.DI10.setStyleSheet(u"    border: none;\n"
@@ -3009,8 +2942,8 @@ class Ui_MainWindow(object):
         self.DI13 = QPushButton(self.gridLayoutWidget)
         self.DI13.setObjectName(u"DI13")
         self.DI13.setEnabled(False)
-        sizePolicy2.setHeightForWidth(self.DI13.sizePolicy().hasHeightForWidth())
-        self.DI13.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DI13.sizePolicy().hasHeightForWidth())
+        self.DI13.setSizePolicy(sizePolicy1)
         self.DI13.setMinimumSize(QSize(95, 70))
         self.DI13.setMaximumSize(QSize(100, 100))
         self.DI13.setStyleSheet(u"    border: none;\n"
@@ -3024,8 +2957,8 @@ class Ui_MainWindow(object):
         self.DI5 = QPushButton(self.gridLayoutWidget)
         self.DI5.setObjectName(u"DI5")
         self.DI5.setEnabled(False)
-        sizePolicy2.setHeightForWidth(self.DI5.sizePolicy().hasHeightForWidth())
-        self.DI5.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.DI5.sizePolicy().hasHeightForWidth())
+        self.DI5.setSizePolicy(sizePolicy1)
         self.DI5.setMinimumSize(QSize(95, 70))
         self.DI5.setMaximumSize(QSize(100, 100))
         self.DI5.setStyleSheet(u"    border: none;\n"
@@ -3179,8 +3112,8 @@ class Ui_MainWindow(object):
         self.gridLayout_9.setContentsMargins(0, 3, 0, 3)
         self.QuantityWidget = QWidget(self.widget_3)
         self.QuantityWidget.setObjectName(u"QuantityWidget")
-        sizePolicy2.setHeightForWidth(self.QuantityWidget.sizePolicy().hasHeightForWidth())
-        self.QuantityWidget.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.QuantityWidget.sizePolicy().hasHeightForWidth())
+        self.QuantityWidget.setSizePolicy(sizePolicy1)
         self.QuantityWidget.setStyleSheet(u"color: white;")
         self.horizontalLayout_22 = QHBoxLayout(self.QuantityWidget)
         self.horizontalLayout_22.setObjectName(u"horizontalLayout_22")
@@ -3203,11 +3136,11 @@ class Ui_MainWindow(object):
 
         self.DateWidget = QWidget(self.widget_3)
         self.DateWidget.setObjectName(u"DateWidget")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Preferred)
-        sizePolicy5.setHorizontalStretch(0)
-        sizePolicy5.setVerticalStretch(0)
-        sizePolicy5.setHeightForWidth(self.DateWidget.sizePolicy().hasHeightForWidth())
-        self.DateWidget.setSizePolicy(sizePolicy5)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Preferred)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.DateWidget.sizePolicy().hasHeightForWidth())
+        self.DateWidget.setSizePolicy(sizePolicy4)
         self.DateWidget.setStyleSheet(u"color: white;")
         self.horizontalLayout_26 = QHBoxLayout(self.DateWidget)
         self.horizontalLayout_26.setObjectName(u"horizontalLayout_26")
@@ -3228,8 +3161,8 @@ class Ui_MainWindow(object):
 
         self.CartHeightWidget = QWidget(self.widget_3)
         self.CartHeightWidget.setObjectName(u"CartHeightWidget")
-        sizePolicy2.setHeightForWidth(self.CartHeightWidget.sizePolicy().hasHeightForWidth())
-        self.CartHeightWidget.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.CartHeightWidget.sizePolicy().hasHeightForWidth())
+        self.CartHeightWidget.setSizePolicy(sizePolicy1)
         self.CartHeightWidget.setStyleSheet(u"color: white;")
         self.horizontalLayout_23 = QHBoxLayout(self.CartHeightWidget)
         self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
@@ -3250,8 +3183,8 @@ class Ui_MainWindow(object):
 
         self.CartDepthWidget = QWidget(self.widget_3)
         self.CartDepthWidget.setObjectName(u"CartDepthWidget")
-        sizePolicy2.setHeightForWidth(self.CartDepthWidget.sizePolicy().hasHeightForWidth())
-        self.CartDepthWidget.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.CartDepthWidget.sizePolicy().hasHeightForWidth())
+        self.CartDepthWidget.setSizePolicy(sizePolicy1)
         self.CartDepthWidget.setStyleSheet(u"color: white;")
         self.horizontalLayout_24 = QHBoxLayout(self.CartDepthWidget)
         self.horizontalLayout_24.setObjectName(u"horizontalLayout_24")
@@ -3272,8 +3205,8 @@ class Ui_MainWindow(object):
 
         self.WorkerNameWidget = QWidget(self.widget_3)
         self.WorkerNameWidget.setObjectName(u"WorkerNameWidget")
-        sizePolicy2.setHeightForWidth(self.WorkerNameWidget.sizePolicy().hasHeightForWidth())
-        self.WorkerNameWidget.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.WorkerNameWidget.sizePolicy().hasHeightForWidth())
+        self.WorkerNameWidget.setSizePolicy(sizePolicy1)
         self.WorkerNameWidget.setStyleSheet(u"color: white;")
         self.horizontalLayout_25 = QHBoxLayout(self.WorkerNameWidget)
         self.horizontalLayout_25.setObjectName(u"horizontalLayout_25")
@@ -3294,8 +3227,8 @@ class Ui_MainWindow(object):
 
         self.WorkOrderWidget = QWidget(self.widget_3)
         self.WorkOrderWidget.setObjectName(u"WorkOrderWidget")
-        sizePolicy2.setHeightForWidth(self.WorkOrderWidget.sizePolicy().hasHeightForWidth())
-        self.WorkOrderWidget.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.WorkOrderWidget.sizePolicy().hasHeightForWidth())
+        self.WorkOrderWidget.setSizePolicy(sizePolicy1)
         self.WorkOrderWidget.setStyleSheet(u"color: white;")
         self.horizontalLayout_17 = QHBoxLayout(self.WorkOrderWidget)
         self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
@@ -3339,8 +3272,41 @@ class Ui_MainWindow(object):
 
         self.gridLayout_9.addWidget(self.RecipeWidget, 3, 1, 1, 1)
 
+        self.verticalLayoutWidget = QWidget(self.BackgroundWidget)
+        self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
+        self.verticalLayoutWidget.setGeometry(QRect(20, 640, 191, 121))
+        self.verticalLayout_21 = QVBoxLayout(self.verticalLayoutWidget)
+        self.verticalLayout_21.setObjectName(u"verticalLayout_21")
+        self.verticalLayout_21.setContentsMargins(0, 0, 0, 0)
+        self.INITButton = QPushButton(self.verticalLayoutWidget)
+        self.INITButton.setObjectName(u"INITButton")
+        sizePolicy.setHeightForWidth(self.INITButton.sizePolicy().hasHeightForWidth())
+        self.INITButton.setSizePolicy(sizePolicy)
+        self.INITButton.setFont(font)
+        self.INITButton.setStyleSheet(u"\n"
+"\n"
+"QPushButton#INITButton:pressed {\n"
+"    background-color: #FFB300;     /* darker pressed */\n"
+"}")
+
+        self.verticalLayout_21.addWidget(self.INITButton)
+
+        self.RunButton = QPushButton(self.verticalLayoutWidget)
+        self.RunButton.setObjectName(u"RunButton")
+        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Ignored)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.RunButton.sizePolicy().hasHeightForWidth())
+        self.RunButton.setSizePolicy(sizePolicy5)
+        self.RunButton.setFont(font)
+        self.RunButton.setStyleSheet(u"\n"
+"QPushButton#RunButton:pressed {\n"
+"    background-color: #1E7E34;\n"
+"}")
+
+        self.verticalLayout_21.addWidget(self.RunButton)
+
         self.Line.raise_()
-        self.SystemSettingsButton.raise_()
         self.SignalLightsWidget.raise_()
         self.MenuButtons.raise_()
         self.DeltaLogo.raise_()
@@ -3349,6 +3315,7 @@ class Ui_MainWindow(object):
         self.ResetButton.raise_()
         self.ParentStackedWidgetToChangeMenuOptions.raise_()
         self.widget_3.raise_()
+        self.verticalLayoutWidget.raise_()
 
         self.horizontalLayout_4.addWidget(self.BackgroundWidget)
 
@@ -3370,8 +3337,6 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.SystemSettingsButton.setText(QCoreApplication.translate("MainWindow", u"System\n"
-"Settings", None))
         self.RedSignal.setText("")
         self.YellowSignal.setText("")
         self.GreenSignal.setText("")
@@ -3379,20 +3344,15 @@ class Ui_MainWindow(object):
         self.MainPageButton.setText(QCoreApplication.translate("MainWindow", u"Main Page", None))
         self.ComponentControlButton.setText(QCoreApplication.translate("MainWindow", u"Component\n"
 "Control", None))
-        self.ProductionRecordButton.setText(QCoreApplication.translate("MainWindow", u"Production\n"
-"Record", None))
-        self.LogsButton.setText(QCoreApplication.translate("MainWindow", u"Logs", None))
+        self.RecordsButton.setText(QCoreApplication.translate("MainWindow", u"Records", None))
+        self.SystemSettingsButton.setText(QCoreApplication.translate("MainWindow", u"System\n"
+"Settings", None))
         self.AutoButton.setText(QCoreApplication.translate("MainWindow", u"Auto", None))
         self.ManualButton.setText(QCoreApplication.translate("MainWindow", u"Manual", None))
-        self.INITButton.setText(QCoreApplication.translate("MainWindow", u"INIT", None))
-        self.RunButton.setText(QCoreApplication.translate("MainWindow", u"RUN", None))
         self.RoughAlignButton.setText(QCoreApplication.translate("MainWindow", u"Rough Align", None))
         self.PreciseAlignButton.setText(QCoreApplication.translate("MainWindow", u"Precise Align", None))
         self.PickButton.setText(QCoreApplication.translate("MainWindow", u"Pick", None))
         self.AssemblyButton.setText(QCoreApplication.translate("MainWindow", u"Assembly", None))
-        self.PickRecipeButton.setText(QCoreApplication.translate("MainWindow", u"Pick", None))
-        self.AssemblyRecipeButton.setText(QCoreApplication.translate("MainWindow", u"Assembly", None))
-        self.SaveRecipeButton.setText(QCoreApplication.translate("MainWindow", u"Save", None))
         self.AutoPauseButton.setText(QCoreApplication.translate("MainWindow", u"Pause", None))
         self.AutoStopButton.setText(QCoreApplication.translate("MainWindow", u"STOP", None))
         self.VisionText.setText(QCoreApplication.translate("MainWindow", u"Vision", None))
@@ -3636,4 +3596,6 @@ class Ui_MainWindow(object):
         self.WorkOrderNumberInput.setText(QCoreApplication.translate("MainWindow", u"12345678", None))
         self.RecipeText_3.setText(QCoreApplication.translate("MainWindow", u"Recipe:", None))
         self.RecipeNameInput_3.setText(QCoreApplication.translate("MainWindow", u"Battery ASSY (C1-1)", None))
+        self.INITButton.setText(QCoreApplication.translate("MainWindow", u"INIT", None))
+        self.RunButton.setText(QCoreApplication.translate("MainWindow", u"RUN", None))
     # retranslateUi

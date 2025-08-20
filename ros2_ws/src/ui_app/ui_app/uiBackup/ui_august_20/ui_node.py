@@ -26,7 +26,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int32, Float32MultiArray
 
-from common_msgs.msg import StateCmd, ForkCmd, JogCmd, ComponentCmd, TaskCmd, TaskState, DIDOCmd, RunCmd, MotionCmd, MotionState, ClipperCmd, MultipleM, MH2State, CurrentPose, Recipe
+from common_msgs.msg import StateCmd, ForkCmd, JogCmd, ComponentCmd, TaskCmd, TaskState, DIDOCmd, RunCmd, MotionCmd, MotionState, ClipperCmd, MultipleM, MH2State, CurrentPose
 
 from uros_interface.srv import ESMCmd
 
@@ -105,8 +105,6 @@ class ROSNode(Node):
         self.y_motor_cmd_publisher = self.create_publisher(String, '/test_y_motor_cmd', 10)
 
         self.clipper_cmd_publisher = self.create_publisher(ClipperCmd, '/clipper_cmd', 10)
-
-        self.recipe_publisher = self.create_publisher(Recipe, '/recipe', 10)
 
 
         # subscriber
@@ -392,9 +390,6 @@ class MainWindow(QMainWindow):
         formatted_date = today.strftime("%m/%d/%Y")
         self.ui.DateInput.setText(formatted_date)
         
-        self._recipe_mode: str | None = None     # "pick" or "assembly"
-        self._recipe_height: float | None = None # mm (from HeightRecipeInput)
-
 
         # Connect Qt signal to UI handler
         self.ros_msg_received.connect(self.handle_ros_message)
@@ -451,13 +446,6 @@ class MainWindow(QMainWindow):
         self.ui.LogsButton.clicked.connect(self.change_to_logs_page)
         self.ui.SystemSettingsButton.clicked.connect(self.change_to_system_settings_page)
 
-        #recipe
-        self.ui.HeightRecipeInput.textChanged.connect(self.on_height_recipe_input_changed)
-        self.ui.PickRecipeButton.toggled.connect(self.on_height_recipe_mode)
-        self.ui.AssemblyRecipeButton.toggled.connect(self.on_height_recipe_mode)
-
-        self.ui.SaveRecipeButton.clicked.connect(self.send_recipe)
-
         # Main Page - Auto and Manual options
         self.ui.AutoButton.clicked.connect(self.change_to_auto_page)
         self.ui.ManualButton.clicked.connect(self.change_to_manual_page)
@@ -503,103 +491,6 @@ class MainWindow(QMainWindow):
         self.ui.MotorConfigNextButton.clicked.connect(lambda: self.go_to_next_page_motor(1))
         self.ui.MotorJogNextButton.clicked.connect(lambda: self.go_to_next_page_motor(2))
         self.ui.MotorYAxisNextButton.clicked.connect(lambda: self.go_to_next_page_motor(0))
-
-    def on_height_recipe_input_changed(self, value: str):
-        """
-        Called whenever the user types in the height line edit.
-        Accepts blank (clears) or numeric. Stores into self._recipe_height.
-        """
-        text = (value or "").strip()
-        if text == "":
-            self._recipe_height = None
-            print("[Recipe] Height cleared")
-            return
-
-        try:
-            num = float(text)
-            # (Optional) basic sanity: reject NaN/inf
-            if math.isnan(num) or math.isinf(num):
-                raise ValueError("Invalid float")
-            self._recipe_height = num
-            print(f"[Recipe] Height set → {self._recipe_height} mm")
-        except ValueError:
-            # Keep previous valid value but warn; you could also color the field red in UI if desired
-            print(f"[Recipe] WARNING: Non-numeric height input: {text!r}")
-            # Optionally: self.ui.HeightRecipeInput.setText("")  # to force correction
-            # Leave self._recipe_height unchanged
-
-        
-
-    def on_height_recipe_mode(self, checked: bool):
-        """
-        Hooked to toggled() of mode buttons.
-        Uses sender() to figure out which button fired.
-        Only sets mode when the sender is checked.
-        """
-        btn = self.sender()
-        if not btn or not checked:
-            return
-
-        name = getattr(btn, "objectName", lambda: "")()
-        # Map button identity → mode string expected by Recipe.msg
-        if name == "PickRecipeButton":
-            self._recipe_mode = "pick"
-        elif "AssemblyRecipeButton" in name:  # supports "AssemblyButton" or "AssemblyRecipeButton"
-            self._recipe_mode = "assembly"
-        else:
-            # If some other button wired by accident, ignore
-            return
-
-        print(f"[Recipe] Mode set → {self._recipe_mode}")
-
-    # def on_recipe_saved(self, checked: bool):
-    #     """
-    #     Triggered by SaveRecipeButton.toggled. We act only on the 'pressed/checked' edge.
-    #     (If you later change to clicked.connect(...), you can ignore the 'checked' arg.)
-    #     """
-    #     if isinstance(checked, bool) and not checked:
-    #         return
-
-    #     ok = self.send_recipe()
-    #     # Give tactile feedback: uncheck the save toggle if it is checkable
-    #     try:
-    #         self.ui.SaveRecipeButton.setChecked(False)
-    #     except Exception:
-    #         pass
-
-    #     if ok:
-    #         print("[Recipe] Save OK")
-    #     else:
-    #         print("[Recipe] Save FAILED (see warnings above)")
-
-    def send_recipe(self) -> bool:
-        """
-        Collects current recipe mode + height, validates, and publishes /recipe.
-        Returns True if published, False otherwise.
-        """
-        # Prefer the cached value; if missing, try to parse current text box contents
-        if self._recipe_height is None:
-            self.on_height_recipe_input_changed(self.ui.HeightRecipeInput.text())
-
-        # Validate
-        if not self._recipe_mode:
-            print("[Recipe] ERROR: Mode not selected (pick/assembly).")
-            return False
-
-        if self._recipe_height is None:
-            print("[Recipe] ERROR: Height is empty or invalid.")
-            return False
-
-        # Build and publish
-        msg = Recipe()
-        msg.mode = self._recipe_mode
-        msg.height = float(self._recipe_height)
-
-        print(f"[DEBUG] Publishing Recipe → mode:{msg.mode} height:{msg.height}")
-        self.ros_node.recipe_publisher.publish(msg)
-        print("[UI] Sent Recipe to /recipe")
-
-        return True
 
     def on_cabinet_click(self):
         self.ui.C11.setStyleSheet("""

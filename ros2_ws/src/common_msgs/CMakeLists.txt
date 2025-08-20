@@ -29,6 +29,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
     "msg/ClipperCmd.msg"
     "msg/MH2State.msg"
     "msg/CurrentPose.msg"
+    "msg/Recipe.msg"
 )
 
 if(BUILD_TESTING)
