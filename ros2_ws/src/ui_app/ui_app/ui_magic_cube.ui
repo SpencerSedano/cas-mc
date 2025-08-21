@@ -558,6 +558,70 @@ QPushButton#RunButton:pressed {
                 </property>
                </widget>
               </item>
+              <item>
+               <widget class="QLabel" name="label_11">
+                <property name="text">
+                 <string>Height</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="HeightRecipeInput">
+                <property name="styleSheet">
+                 <string notr="true">color: white;</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_12">
+                <property name="text">
+                 <string>Depth</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="DepthRecipeInput">
+                <property name="styleSheet">
+                 <string notr="true">color: white;</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="PickRecipeButton">
+                <property name="text">
+                 <string>Pick</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <attribute name="buttonGroup">
+                 <string notr="true">RecipeModeGroup</string>
+                </attribute>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="AssemblyRecipeButton">
+                <property name="text">
+                 <string>Assembly</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <attribute name="buttonGroup">
+                 <string notr="true">RecipeModeGroup</string>
+                </attribute>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="SaveRecipeButton">
+                <property name="text">
+                 <string>Publish Recipe</string>
+                </property>
+                <property name="checkable">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
              </layout>
             </widget>
             <widget class="QWidget" name="ManualButtonsPage">
@@ -695,49 +759,6 @@ QPushButton#RunButton:pressed {
                 <attribute name="buttonGroup">
                  <string notr="true">ManualButtons</string>
                 </attribute>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="HeightRecipeInput">
-                <property name="styleSheet">
-                 <string notr="true">color: white;</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="PickRecipeButton">
-                <property name="text">
-                 <string>Pick</string>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-                <attribute name="buttonGroup">
-                 <string notr="true">RecipeModeGroup</string>
-                </attribute>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="AssemblyRecipeButton">
-                <property name="text">
-                 <string>Assembly</string>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-                <attribute name="buttonGroup">
-                 <string notr="true">RecipeModeGroup</string>
-                </attribute>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="SaveRecipeButton">
-                <property name="text">
-                 <string>Save</string>
-                </property>
-                <property name="checkable">
-                 <bool>false</bool>
-                </property>
                </widget>
               </item>
              </layout>
@@ -1989,7 +2010,7 @@ QPushButton#AutoStopButton:pressed {
             <string notr="true"/>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>2</number>
            </property>
            <widget class="QWidget" name="MotorPage">
             <widget class="QStackedWidget" name="MotorStackedWidget">
@@ -7466,23 +7487,23 @@ border: none;</string>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="FontSizeButtonGroup"/>
   <buttongroup name="ManualButtons">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
-  <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="AutoAndManualButtonGroup"/>
   <buttongroup name="VisionButtonGroup">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
-  <buttongroup name="MenuButtonGroup"/>
-  <buttongroup name="LanguageButtonGroup"/>
-  <buttongroup name="buttonGroup"/>
   <buttongroup name="ThemeButtonGroup"/>
+  <buttongroup name="FontSizeButtonGroup"/>
+  <buttongroup name="LanguageButtonGroup"/>
+  <buttongroup name="MenuButtonGroup"/>
+  <buttongroup name="AutoAndManualButtonGroup"/>
+  <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="RecipeModeGroup"/>
  </buttongroups>
 </ui>

@@ -311,7 +311,6 @@ class MainWindow(QMainWindow):
         self.ros_node = ros_node
 
         QScroller.grabGesture(self.ui.ScrollAreaDIDO.viewport(), QScroller.LeftMouseButtonGesture)
-        QScroller.grabGesture(self.ui.MenuScrollArea.viewport(), QScroller.LeftMouseButtonGesture)
 
         self._vision_comp = {"x": float('nan'), "y": float('nan'), "yaw": float('nan')}
 
@@ -411,16 +410,16 @@ class MainWindow(QMainWindow):
         self.ui.ServoONOFFButton.clicked.connect(lambda checked: self.on_servo_click(checked))
 
         # auto
-        self.ui.AutoButton.toggled.connect(self.on_auto_toggled)
+        # self.ui.AutoButton.toggled.connect(self.on_auto_toggled)
 
         self.ui.INITButton.clicked.connect(lambda: self.send_state_cmd("init"))
         self.ui.RunButton.clicked.connect(lambda: self.send_state_cmd("run"))
 
-        self.ui.AutoPauseButton.toggled.connect(self.on_pause_toggled)
+        # self.ui.AutoPauseButton.toggled.connect(self.on_pause_toggled)
         self.ui.AutoStopButton.clicked.connect(lambda: self.send_state_cmd("stop"))
 
         # manual
-        self.ui.ManualButton.toggled.connect(self.on_manual_toggled)
+        # self.ui.ManualButton.toggled.connect(self.on_manual_toggled)
 
         self.ui.RoughAlignButton.toggled.connect(lambda checked: self.on_task_toggled("rough_align", checked))
         self.ui.PreciseAlignButton.toggled.connect(lambda checked: self.on_task_toggled("precise_align", checked))
@@ -436,20 +435,20 @@ class MainWindow(QMainWindow):
         self.ui.ListOptionsWidget.setVisible(False)
 
         # Touchscreen style in Main Page - Auto
-        self.ui.INITButton.clicked.connect(lambda: self.on_touch_different_color(self.ui.INITButton, "#FFB300"))
-        self.ui.RunButton.clicked.connect(lambda: self.on_touch_different_color(self.ui.RunButton, "#1E7E34"))
-        self.ui.AutoStopButton.clicked.connect(lambda: self.on_touch_different_color(self.ui.AutoStopButton, "#990000"))
+        # self.ui.INITButton.clicked.connect(lambda: self.on_touch_different_color(self.ui.INITButton, "#FFB300"))
+        # self.ui.RunButton.clicked.connect(lambda: self.on_touch_different_color(self.ui.RunButton, "#1E7E34"))
+        # self.ui.AutoStopButton.clicked.connect(lambda: self.on_touch_different_color(self.ui.AutoStopButton, "#990000"))
 
         # menu
         self.ui.MainPageButton.toggled.connect(self.change_to_main_page)
         self.ui.ComponentControlButton.toggled.connect(self.change_to_component_control_page)
         # self.ui.ProductionRecordButton.clicked.connect(self.change_to_production_record_page)
         # self.ui.LogsButton.clicked.connect(self.change_to_logs_page)
-        self.ui.SystemSettingsButton.clicked.connect(self.change_to_system_settings_page)
+        # self.ui.SystemSettingsButton.clicked.connect(self.change_to_system_settings_page)
 
         # Main Page - Auto and Manual options
-        self.ui.AutoButton.clicked.connect(self.change_to_auto_page)
-        self.ui.ManualButton.clicked.connect(self.change_to_manual_page)
+        # self.ui.AutoButton.clicked.connect(self.change_to_auto_page)
+        # self.ui.ManualButton.clicked.connect(self.change_to_manual_page)
 
         #Component Control Choose Page
         self.ui.ChooseMotor.clicked.connect(lambda: self.component_control_choose_page("Motor", 0))
@@ -617,7 +616,6 @@ class MainWindow(QMainWindow):
     def update_image(self, cv_img):
         qt_img = convert_cv_to_qt(cv_img)
         pixmap = QPixmap.fromImage(qt_img)
-
 
         current_index = self.ui.ParentStackedWidgetToChangeMenuOptions.currentIndex()
 
@@ -813,7 +811,7 @@ class MainWindow(QMainWindow):
         if checked:
             # Buttons for Main Page reset
             main_page_buttons = [
-                self.ui.AutoPauseButton,
+                # self.ui.AutoPauseButton,
 
                 self.ui.RoughAlignButton,
                 self.ui.PreciseAlignButton,
@@ -826,9 +824,9 @@ class MainWindow(QMainWindow):
             self.ui.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(0)
 
         
-        self.ui.AutoButton.setChecked(True)
-        self.change_to_auto_page()
-        self.send_run_cmd("auto")
+        # self.ui.AutoButton.setChecked(True)
+        # self.change_to_auto_page()
+        # self.send_run_cmd("auto")
 
     def change_to_component_control_page(self, checked):
         if checked:

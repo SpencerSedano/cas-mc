@@ -273,6 +273,50 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_12.addWidget(self.RunButton)
 
+        self.label_11 = QLabel(self.ActionButtonsPage)
+        self.label_11.setObjectName(u"label_11")
+
+        self.verticalLayout_12.addWidget(self.label_11)
+
+        self.HeightRecipeInput = QLineEdit(self.ActionButtonsPage)
+        self.HeightRecipeInput.setObjectName(u"HeightRecipeInput")
+        self.HeightRecipeInput.setStyleSheet(u"color: white;")
+
+        self.verticalLayout_12.addWidget(self.HeightRecipeInput)
+
+        self.label_12 = QLabel(self.ActionButtonsPage)
+        self.label_12.setObjectName(u"label_12")
+
+        self.verticalLayout_12.addWidget(self.label_12)
+
+        self.DepthRecipeInput = QLineEdit(self.ActionButtonsPage)
+        self.DepthRecipeInput.setObjectName(u"DepthRecipeInput")
+        self.DepthRecipeInput.setStyleSheet(u"color: white;")
+
+        self.verticalLayout_12.addWidget(self.DepthRecipeInput)
+
+        self.PickRecipeButton = QPushButton(self.ActionButtonsPage)
+        self.RecipeModeGroup = QButtonGroup(MainWindow)
+        self.RecipeModeGroup.setObjectName(u"RecipeModeGroup")
+        self.RecipeModeGroup.addButton(self.PickRecipeButton)
+        self.PickRecipeButton.setObjectName(u"PickRecipeButton")
+        self.PickRecipeButton.setCheckable(True)
+
+        self.verticalLayout_12.addWidget(self.PickRecipeButton)
+
+        self.AssemblyRecipeButton = QPushButton(self.ActionButtonsPage)
+        self.RecipeModeGroup.addButton(self.AssemblyRecipeButton)
+        self.AssemblyRecipeButton.setObjectName(u"AssemblyRecipeButton")
+        self.AssemblyRecipeButton.setCheckable(True)
+
+        self.verticalLayout_12.addWidget(self.AssemblyRecipeButton)
+
+        self.SaveRecipeButton = QPushButton(self.ActionButtonsPage)
+        self.SaveRecipeButton.setObjectName(u"SaveRecipeButton")
+        self.SaveRecipeButton.setCheckable(False)
+
+        self.verticalLayout_12.addWidget(self.SaveRecipeButton)
+
         self.ActionButtons.addWidget(self.ActionButtonsPage)
         self.ManualButtonsPage = QWidget()
         self.ManualButtonsPage.setObjectName(u"ManualButtonsPage")
@@ -331,34 +375,6 @@ class Ui_MainWindow(object):
         self.AssemblyButton.setCheckable(True)
 
         self.verticalLayout_20.addWidget(self.AssemblyButton)
-
-        self.HeightRecipeInput = QLineEdit(self.ManualButtonsPage)
-        self.HeightRecipeInput.setObjectName(u"HeightRecipeInput")
-        self.HeightRecipeInput.setStyleSheet(u"color: white;")
-
-        self.verticalLayout_20.addWidget(self.HeightRecipeInput)
-
-        self.PickRecipeButton = QPushButton(self.ManualButtonsPage)
-        self.RecipeModeGroup = QButtonGroup(MainWindow)
-        self.RecipeModeGroup.setObjectName(u"RecipeModeGroup")
-        self.RecipeModeGroup.addButton(self.PickRecipeButton)
-        self.PickRecipeButton.setObjectName(u"PickRecipeButton")
-        self.PickRecipeButton.setCheckable(True)
-
-        self.verticalLayout_20.addWidget(self.PickRecipeButton)
-
-        self.AssemblyRecipeButton = QPushButton(self.ManualButtonsPage)
-        self.RecipeModeGroup.addButton(self.AssemblyRecipeButton)
-        self.AssemblyRecipeButton.setObjectName(u"AssemblyRecipeButton")
-        self.AssemblyRecipeButton.setCheckable(True)
-
-        self.verticalLayout_20.addWidget(self.AssemblyRecipeButton)
-
-        self.SaveRecipeButton = QPushButton(self.ManualButtonsPage)
-        self.SaveRecipeButton.setObjectName(u"SaveRecipeButton")
-        self.SaveRecipeButton.setCheckable(False)
-
-        self.verticalLayout_20.addWidget(self.SaveRecipeButton)
 
         self.ActionButtons.addWidget(self.ManualButtonsPage)
 
@@ -3386,13 +3402,15 @@ class Ui_MainWindow(object):
         self.ManualButton.setText(QCoreApplication.translate("MainWindow", u"Manual", None))
         self.INITButton.setText(QCoreApplication.translate("MainWindow", u"INIT", None))
         self.RunButton.setText(QCoreApplication.translate("MainWindow", u"RUN", None))
+        self.label_11.setText(QCoreApplication.translate("MainWindow", u"Height", None))
+        self.label_12.setText(QCoreApplication.translate("MainWindow", u"Depth", None))
+        self.PickRecipeButton.setText(QCoreApplication.translate("MainWindow", u"Pick", None))
+        self.AssemblyRecipeButton.setText(QCoreApplication.translate("MainWindow", u"Assembly", None))
+        self.SaveRecipeButton.setText(QCoreApplication.translate("MainWindow", u"Publish Recipe", None))
         self.RoughAlignButton.setText(QCoreApplication.translate("MainWindow", u"Rough Align", None))
         self.PreciseAlignButton.setText(QCoreApplication.translate("MainWindow", u"Precise Align", None))
         self.PickButton.setText(QCoreApplication.translate("MainWindow", u"Pick", None))
         self.AssemblyButton.setText(QCoreApplication.translate("MainWindow", u"Assembly", None))
-        self.PickRecipeButton.setText(QCoreApplication.translate("MainWindow", u"Pick", None))
-        self.AssemblyRecipeButton.setText(QCoreApplication.translate("MainWindow", u"Assembly", None))
-        self.SaveRecipeButton.setText(QCoreApplication.translate("MainWindow", u"Save", None))
         self.AutoPauseButton.setText(QCoreApplication.translate("MainWindow", u"Pause", None))
         self.AutoStopButton.setText(QCoreApplication.translate("MainWindow", u"STOP", None))
         self.VisionText.setText(QCoreApplication.translate("MainWindow", u"Vision", None))
