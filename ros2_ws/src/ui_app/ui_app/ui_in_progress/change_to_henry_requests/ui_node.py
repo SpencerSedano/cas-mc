@@ -453,6 +453,7 @@ class MainWindow(QMainWindow):
 
         #recipe
         self.ui.HeightRecipeInput.textChanged.connect(self.on_height_recipe_input_changed)
+        self.ui.DepthRecipeInput.textChanged.connect(self.on_depth_recipe_input_changed)
         self.ui.PickRecipeButton.toggled.connect(self.on_height_recipe_mode)
         self.ui.AssemblyRecipeButton.toggled.connect(self.on_height_recipe_mode)
 
@@ -528,6 +529,30 @@ class MainWindow(QMainWindow):
             # Optionally: self.ui.HeightRecipeInput.setText("")  # to force correction
             # Leave self._recipe_height unchanged
 
+    def on_depth_recipe_input_changed(self, value: str):
+        """
+        Called whenever the user types in the height line edit.
+        Accepts blank (clears) or numeric. Stores into self._recipe_depth.
+        """
+        text = (value or "").strip()
+        if text == "":
+            self._recipe_depth = None
+            print("[Recipe] Height cleared")
+            return
+
+        try:
+            num = float(text)
+            # (Optional) basic sanity: reject NaN/inf
+            if math.isnan(num) or math.isinf(num):
+                raise ValueError("Invalid float")
+            self._recipe_depth = num
+            print(f"[Recipe] Depth set → {self._recipe_depth} mm")
+        except ValueError:
+            # Keep previous valid value but warn; you could also color the field red in UI if desired
+            print(f"[Recipe] WARNING: Non-numeric depth input: {text!r}")
+            # Optionally: self.ui.HeightRecipeInput.setText("")  # to force correction
+            # Leave self._recipe_depth unchanged
+
         
 
     def on_height_recipe_mode(self, checked: bool):
@@ -580,6 +605,9 @@ class MainWindow(QMainWindow):
         # Prefer the cached value; if missing, try to parse current text box contents
         if self._recipe_height is None:
             self.on_height_recipe_input_changed(self.ui.HeightRecipeInput.text())
+    
+        if self._recipe_depth is None:
+            self.on_depth_recipe_input_changed(self.ui.DepthRecipeInput.text())
 
         # Validate
         if not self._recipe_mode:
@@ -589,13 +617,18 @@ class MainWindow(QMainWindow):
         if self._recipe_height is None:
             print("[Recipe] ERROR: Height is empty or invalid.")
             return False
+        
+        if self._recipe_depth is None:
+            print("[Recipe] ERROR: Depth is empty or invalid.")
+            return False
 
         # Build and publish
         msg = Recipe()
         msg.mode = self._recipe_mode
         msg.height = float(self._recipe_height)
+        msg.depth = float(self._recipe_depth)
 
-        print(f"[DEBUG] Publishing Recipe → mode:{msg.mode} height:{msg.height}")
+        print(f"[DEBUG] Publishing Recipe → mode:{msg.mode} height:{msg.height} depth:{msg.depth}")
         self.ros_node.recipe_publisher.publish(msg)
         print("[UI] Sent Recipe to /recipe")
 
@@ -1127,10 +1160,10 @@ class MainWindow(QMainWindow):
             second_screen = screens[1]  # Use the actual second screen
             second_geom = second_screen.geometry()
             self.setGeometry(second_geom)  # Move and resize in one step
-            # self.setMaximumWidth(1280)
-            # self.setMaximumHeight(800)
-            # print("Fixed size: 1280 x 800")
-            self.showFullScreen()
+            self.setMaximumWidth(1280)
+            self.setMaximumHeight(800)
+            print("Fixed size: 1280 x 800")
+            # self.showFullScreen()
         else:
             self.showMaximized()
             print("Only one screen, screen fullscreen anyways")

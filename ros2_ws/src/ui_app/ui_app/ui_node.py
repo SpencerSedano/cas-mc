@@ -79,6 +79,9 @@ class ROSNode(Node):
         self.motor_info_update_callback_ui = None
 
         self.current_motor_len = [10.0, 0.0, 0.0]
+        
+        self.task_state_callback_ui = None
+
 
         
         # publisher
@@ -193,6 +196,13 @@ class ROSNode(Node):
         #     10
         # )
 
+        self.task_state_subscriber = self.create_subscription(
+            TaskState,
+            '/task_state',
+            self.task_state_callback,
+            10
+        )
+
 
         self.bridge = CvBridge()
 
@@ -211,6 +221,17 @@ class ROSNode(Node):
         
         if self.mh2_state_callback_ui:
             self.mh2_state_callback_ui(msg)  # hand off to UI layer
+
+    def task_state_callback(self, msg: TaskState):
+        # msg.mode in {"rough_align","precise_align","pick","assembly","idle", ...}
+        # msg.state in {"idle","done","fail", else->running}
+        self.get_logger().info(f"[TaskState] mode={msg.mode} state={msg.state}")
+        if self.task_state_callback_ui:
+            # Push clean strings to UI layer
+            try:
+                self.task_state_callback_ui(str(msg.mode).strip(), str(msg.state).strip())
+            except Exception as e:
+                self.get_logger().error(f"TaskState → UI error: {e}")        
 
 
     def current_pose_callback(self, msg: CurrentPose):
@@ -283,6 +304,8 @@ class MainWindow(QMainWindow):
     #GUI Threads
     ros_msg_received = Signal(str)
 
+    task_state_update = Signal(str, str)
+
     depth_data_update = Signal(float, float)
 
     compensate_pose_update = Signal(float, float, float)
@@ -306,6 +329,27 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        # Build circle map once
+        self._circles = {
+            "start":         self.ui.StartCircle,
+            "connect":       self.ui.ConnectCircle,
+            "init":          self.ui.INITCircle,
+            "idle":          self.ui.IdleCircle,
+            "rough_align":   self.ui.RoughAlignCircle,
+            "precise_align": self.ui.PreciseAlignCircle,
+            "pick":          self.ui.PickCircle,
+            "assembly":      self.ui.AssemblyCircle,
+        }
+
+        # Theme colors (match your palette if you like)
+        self._COLORS = {
+            "blue":   "#0B76A0",  # idle
+            "yellow": "#FFB300",  # running
+            "green":  "#2E7D32",  # done
+            "red":    "#C62828",  # fail
+            "off":    "rgba(255,255,255,0.25)",  # dim/neutral
+        }
+
         # shortcut keys
         QShortcut(QKeySequence(Qt.Key_Escape), self, activated=self.close)
 
@@ -315,6 +359,12 @@ class MainWindow(QMainWindow):
         QScroller.grabGesture(self.ui.ScrollAreaDIDO.viewport(), QScroller.LeftMouseButtonGesture)
 
         self._vision_comp = {"x": float('nan'), "y": float('nan'), "yaw": float('nan')}
+
+
+        #Circles
+         # Map ROS -> Qt thread-safe signal
+        self.task_state_update.connect(self.apply_task_state)
+        self.ros_node.task_state_callback_ui = self.task_state_update.emit
 
 
         #vision ui
@@ -387,6 +437,7 @@ class MainWindow(QMainWindow):
         # self.ros_node.do_update_callback = lambda name, state: self.do_update.emit(name, state)
 
 
+
         # Get Today's date
         today = date.today()
         formatted_date = today.strftime("%m/%d/%Y")
@@ -394,7 +445,10 @@ class MainWindow(QMainWindow):
         
         self._recipe_mode: str | None = None     # "pick" or "assembly"
         self._recipe_height: float | None = None # mm (from HeightRecipeInput)
+        self._recipe_depth: float | None = None
 
+
+        self._all_off()
 
         # Connect Qt signal to UI handler
         self.ros_msg_received.connect(self.handle_ros_message)
@@ -413,6 +467,8 @@ class MainWindow(QMainWindow):
 
         #servo, alarm, reset
         self.ui.ServoONOFFButton.clicked.connect(lambda checked: self.on_servo_click(checked))
+
+
 
         # auto
         self.ui.AutoButton.toggled.connect(self.on_auto_toggled)
@@ -648,71 +704,118 @@ class MainWindow(QMainWindow):
     def go_to_next_page_motor(self, index):
         self.ui.MotorStackedWidget.setCurrentIndex(index)
 
-    def update_circle_off_style(self):
-        self.ui.OneCircleOff.setStyleSheet("""
-            QPushButton {
-                background-color: #0B76A0;
+    # def update_circle_off_style(self):
+    #     self.ui.OneCircleOff.setStyleSheet("""
+    #         QPushButton {
+    #             background-color: #0B76A0;
+    #             border: none;
+    #             border-radius: 15px;
+    #             max-width: 30px;
+    #             min-height: 30px;
+    #             max-height: 30px;
+    #             padding: 0;
+    #         }
+    #     """)
+
+    #     self.ui.OneCircleOn.setStyleSheet("""
+    #         QPushButton {
+    #             background-color: white;
+    #             border: none;
+    #             border-radius: 15px;
+    #             max-width: 30px;
+    #             min-height: 30px;
+    #             max-height: 30px;
+    #             padding: 0;
+    #         }
+    #     """)
+
+    #     self.ui.DO1Widget.setStyleSheet("""
+    #         QWidget {
+    #             background-color: #0B76A0;
+    #             border: none;
+    #             border-radius: 24px;
+    #         }
+    #     """)
+
+    # def update_circle_on_style(self):
+    #     self.ui.OneCircleOff.setStyleSheet("""
+    #         QPushButton {
+    #             background-color: white;
+    #             border: none;
+    #             border-radius: 15px;
+    #             max-width: 30px;
+    #             min-height: 30px;
+    #             max-height: 30px;
+    #             padding: 0;
+    #         }
+    #     """)
+
+    #     self.ui.OneCircleOn.setStyleSheet("""
+    #         QPushButton {
+    #             background-color: #000000;
+    #             border: none;
+    #             border-radius: 15px;
+    #             max-width: 30px;
+    #             min-height: 30px;
+    #             max-height: 30px;
+    #             padding: 0;
+    #         }
+    #     """)
+
+    #     self.ui.DO1Widget.setStyleSheet("""
+    #         QWidget {
+    #             background-color: #000000;
+    #             border: none;
+    #             border-radius: 24px;
+    #         }
+    #     """)
+
+    def _paint_circle(self, label, color_css: str):
+        """Set background color; keep it round by using current size."""
+        if not label:
+            return
+        radius = max(10, min(label.width(), label.height()) // 2)
+        label.setStyleSheet(f"""
+            QLabel {{
+                background-color: {color_css};
                 border: none;
-                border-radius: 15px;
-                max-width: 30px;
-                min-height: 30px;
-                max-height: 30px;
-                padding: 0;
-            }
+                border-radius: {radius}px;
+            }}
         """)
 
-        self.ui.OneCircleOn.setStyleSheet("""
-            QPushButton {
-                background-color: white;
-                border: none;
-                border-radius: 15px;
-                max-width: 30px;
-                min-height: 30px;
-                max-height: 30px;
-                padding: 0;
-            }
-        """)
+    def _all_off(self):
+        for lbl in self._circles.values():
+            self._paint_circle(lbl, self._COLORS["off"])
 
-        self.ui.DO1Widget.setStyleSheet("""
-            QWidget {
-                background-color: #0B76A0;
-                border: none;
-                border-radius: 24px;
-            }
-        """)
+    def apply_task_state(self, mode: str, state: str):
+        """
+        Slot connected to task_state_update(mode, state).
+        Chooses which circle to light based on 'mode', and picks color by 'state'.
+        """
+        mode_l = (mode or "").strip().lower()
+        state_l = (state or "").strip().lower()
 
-    def update_circle_on_style(self):
-        self.ui.OneCircleOff.setStyleSheet("""
-            QPushButton {
-                background-color: white;
-                border: none;
-                border-radius: 15px;
-                max-width: 30px;
-                min-height: 30px;
-                max-height: 30px;
-                padding: 0;
-            }
-        """)
+        # Pick which circle to light
+        target = self._circles.get(mode_l, None)
 
-        self.ui.OneCircleOn.setStyleSheet("""
-            QPushButton {
-                background-color: #000000;
-                border: none;
-                border-radius: 15px;
-                max-width: 30px;
-                min-height: 30px;
-                max-height: 30px;
-                padding: 0;
-            }
-        """)
+        # Decide color by state
+        if state_l == "idle":
+            color = self._COLORS["blue"]
+        elif state_l == "done":
+            color = self._COLORS["green"]
+        elif state_l == "fail":
+            color = self._COLORS["red"]
+        else:
+            # Any other value (including "running"/else) = running
+            color = self._COLORS["yellow"]
 
-        self.ui.DO1Widget.setStyleSheet("""
-            QWidget {
-                background-color: #000000;
-                border: none;
-                border-radius: 24px;
-            }
-        """)
+        # Reset all, then light the target (if any)
+        self._all_off()
+        if target:
+            self._paint_circle(target, color)
+        else:
+            # If mode is unknown, do nothing else; you can also log it:
+            print(f"[TaskState/UI] Unknown mode '{mode_l}', lit none; state={state_l}")
 
     def on_servo_click(self, checked: bool):
         btn = self.ui.ServoONOFFButton

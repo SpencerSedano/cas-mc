@@ -908,6 +908,12 @@ QPushButton#AutoStopButton:pressed {
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item alignment="Qt::AlignmentFlag::AlignVCenter">
              <widget class="QWidget" name="StartWidget" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
               <layout class="QVBoxLayout" name="verticalLayout_2">
                <item>
                 <widget class="QLabel" name="StartProcessText">
@@ -932,11 +938,17 @@ QPushButton#AutoStopButton:pressed {
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color:gray; border-radius:15px;</string>
+                 </property>
                  <property name="text">
                   <string/>
-                 </property>
-                 <property name="pixmap">
-                  <pixmap>icons/white/timeline-circle.svg</pixmap>
                  </property>
                  <property name="scaledContents">
                   <bool>true</bool>
@@ -975,11 +987,17 @@ QPushButton#AutoStopButton:pressed {
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color:gray; border-radius:15px;</string>
+                 </property>
                  <property name="text">
                   <string/>
-                 </property>
-                 <property name="pixmap">
-                  <pixmap>icons/white/timeline-circle.svg</pixmap>
                  </property>
                  <property name="scaledContents">
                   <bool>true</bool>
@@ -1018,11 +1036,17 @@ QPushButton#AutoStopButton:pressed {
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color:gray; border-radius:15px;</string>
+                 </property>
                  <property name="text">
                   <string/>
-                 </property>
-                 <property name="pixmap">
-                  <pixmap>icons/white/timeline-circle.svg</pixmap>
                  </property>
                  <property name="scaledContents">
                   <bool>true</bool>
@@ -1061,11 +1085,17 @@ QPushButton#AutoStopButton:pressed {
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color:gray; border-radius:15px;</string>
+                 </property>
                  <property name="text">
                   <string/>
-                 </property>
-                 <property name="pixmap">
-                  <pixmap>icons/white/timeline-circle.svg</pixmap>
                  </property>
                  <property name="scaledContents">
                   <bool>true</bool>
@@ -1104,11 +1134,17 @@ QPushButton#AutoStopButton:pressed {
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color:gray; border-radius:15px;</string>
+                 </property>
                  <property name="text">
                   <string/>
-                 </property>
-                 <property name="pixmap">
-                  <pixmap>icons/white/timeline-circle.svg</pixmap>
                  </property>
                  <property name="scaledContents">
                   <bool>true</bool>
@@ -1147,11 +1183,17 @@ QPushButton#AutoStopButton:pressed {
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color:gray; border-radius:15px;</string>
+                 </property>
                  <property name="text">
                   <string/>
-                 </property>
-                 <property name="pixmap">
-                  <pixmap>icons/white/timeline-circle.svg</pixmap>
                  </property>
                  <property name="scaledContents">
                   <bool>true</bool>
@@ -1190,11 +1232,17 @@ QPushButton#AutoStopButton:pressed {
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color:gray; border-radius:15px;</string>
+                 </property>
                  <property name="text">
                   <string/>
-                 </property>
-                 <property name="pixmap">
-                  <pixmap>icons/white/timeline-circle.svg</pixmap>
                  </property>
                  <property name="scaledContents">
                   <bool>true</bool>
@@ -1233,11 +1281,17 @@ QPushButton#AutoStopButton:pressed {
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color:gray; border-radius:15px;</string>
+                 </property>
                  <property name="text">
                   <string/>
-                 </property>
-                 <property name="pixmap">
-                  <pixmap>icons/white/timeline-circle.svg</pixmap>
                  </property>
                  <property name="scaledContents">
                   <bool>true</bool>
@@ -4327,7 +4381,7 @@ border: none;</string>
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>685</width>
+              <width>588</width>
               <height>648</height>
              </rect>
             </property>
@@ -7487,23 +7541,23 @@ border: none;</string>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="ManualButtons">
-   <property name="exclusive">
-    <bool>false</bool>
-   </property>
-  </buttongroup>
   <buttongroup name="VisionButtonGroup">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
   <buttongroup name="ThemeButtonGroup"/>
-  <buttongroup name="FontSizeButtonGroup"/>
-  <buttongroup name="LanguageButtonGroup"/>
   <buttongroup name="MenuButtonGroup"/>
-  <buttongroup name="AutoAndManualButtonGroup"/>
-  <buttongroup name="buttonGroup"/>
-  <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="FontSizeButtonGroup"/>
   <buttongroup name="RecipeModeGroup"/>
+  <buttongroup name="ManualButtons">
+   <property name="exclusive">
+    <bool>false</bool>
+   </property>
+  </buttongroup>
+  <buttongroup name="AutoAndManualButtonGroup"/>
+  <buttongroup name="LanguageButtonGroup"/>
+  <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="buttonGroup"/>
  </buttongroups>
 </ui>
