@@ -56,12 +56,6 @@ class Ui_MainWindow(object):
 "    border: 1px solid #0B76A0;\n"
 "}\n"
 "\n"
-"QPushButton:disabled {\n"
-"    background-color: #BDBDBD;       /* Gray when disabled */\n"
-"    border: 2px solid #9E9E9E;\n"
-"    color: #616161;\n"
-"}\n"
-"\n"
 "QLabel {\n"
 "	color:white;\n"
 "}")
@@ -253,7 +247,6 @@ class Ui_MainWindow(object):
         self.verticalLayout_12.setObjectName(u"verticalLayout_12")
         self.INITButton = QPushButton(self.ActionButtonsPage)
         self.INITButton.setObjectName(u"INITButton")
-        self.INITButton.setEnabled(True)
         sizePolicy.setHeightForWidth(self.INITButton.sizePolicy().hasHeightForWidth())
         self.INITButton.setSizePolicy(sizePolicy)
         self.INITButton.setFont(font)
@@ -415,9 +408,9 @@ class Ui_MainWindow(object):
         self.AutoStopButton.setStyleSheet(u"QPushButton {\n"
 "    background-color: #D32F2F;       /* Material Red 700 */\n"
 "    color: white;\n"
+"\n"
 "    border: 2px solid #9A0007;       /* Darker red border */\n"
 "}\n"
-"\n"
 "QPushButton:hover {\n"
 "    background-color: #E53935;       /* Slightly brighter red */\n"
 "}\n"

@@ -409,7 +409,7 @@ class MainWindow(QMainWindow):
         self.current_pose_update.connect(self.motor_controller.current_pose)
         self.ros_node.current_pose_callback_ui = self.current_pose_update.emit
 
-        # Motor → UI notifier for INIT
+                # Motor → UI notifier for INIT
         self.motor_controller.init_visual_cb = self._handle_init_visual
 
 
@@ -443,7 +443,7 @@ class MainWindow(QMainWindow):
         self._recipe_depth: float | None = None
 
 
-        # self._all_off()
+        self._all_off()
 
         # Connect Qt signal to UI handler
         self.ros_msg_received.connect(self.handle_ros_message)
@@ -570,17 +570,6 @@ class MainWindow(QMainWindow):
         self.ui.MotorConfigNextButton.clicked.connect(lambda: self.go_to_next_page_motor(1))
         self.ui.MotorJogNextButton.clicked.connect(lambda: self.go_to_next_page_motor(2))
         self.ui.MotorYAxisNextButton.clicked.connect(lambda: self.go_to_next_page_motor(0))
-
-        QTimer.singleShot(5000, lambda: self.add_style(self.ui.StartCircle, "background-color: green;"))
-        QTimer.singleShot(10000, lambda: self.add_style(self.ui.ConnectCircle, "background-color: green;"))
-
-
-
-    def add_style(self, widget, style):
-        current = widget.styleSheet()
-        widget.setStyleSheet(current + style)
-
-
 
     def on_height_recipe_input_changed(self, value: str):
         """
@@ -742,35 +731,28 @@ class MainWindow(QMainWindow):
     def _paint_only(self, stage: str, color_css: str):
         # Clear all
         for lbl in self._circles.values():
-            if lbl is self._circles["init"]:
-                continue
-
             self._paint_circle(lbl, self._COLORS["off"])
-
             # reset opacity for all
             effect = lbl.graphicsEffect()
             if isinstance(effect, QGraphicsOpacityEffect):
                 effect.setOpacity(1.0)
 
         target = self._circles.get(stage)
-        self.stop_opacity_animation(target)
-
         if target:
             self._paint_circle(target, color_css)
 
             if color_css == self._COLORS["yellow"]:
                 self.opacity_animation(target)
-            # else:
-            #     self.stop_opacity_animation(target)
+            else:
+                self.stop_opacity_animation(target)
         
 
     def _handle_init_visual(self, phase: str):
         # phase ∈ {"running","done","fail","off"}
         if phase == "off":
-            self._paint_circle(self.ui.INITCircle, self._COLORS["off"])
+            self._paint_only("init", self._COLORS["off"])
         elif phase == "done":
-            # self._paint_only("init", self._COLORS["green"])
-            self._paint_circle(self.ui.INITCircle, self._COLORS["green"])
+            self._paint_only("init", self._COLORS["green"])
         elif phase == "fail":
             self._paint_only("init", self._COLORS["red"])
         else:  # "running"
@@ -781,15 +763,6 @@ class MainWindow(QMainWindow):
         """Set background color; keep it round by using current size."""
         if not label:
             return
-        
-        if label == self.ui.INITCircle:
-            effect = label.graphicsEffect()
-            if isinstance(effect, QGraphicsOpacityEffect):
-                effect.setOpacity(1.0)
-
-        target = self._circles.get(label)
-        self.stop_opacity_animation(target)
-
         radius = max(10, min(label.width(), label.height()) // 2)
         label.setStyleSheet(f"""
             QLabel {{
@@ -799,9 +772,9 @@ class MainWindow(QMainWindow):
             }}
         """)
 
-    # def _all_off(self):
-    #     for lbl in self._circles.values():
-    #         self._paint_circle(lbl, self._COLORS["off"])
+    def _all_off(self):
+        for lbl in self._circles.values():
+            self._paint_circle(lbl, self._COLORS["off"])
 
     def apply_task_state(self, mode: str, state: str):
         mode_l = (mode or "").strip().lower()
@@ -911,6 +884,13 @@ class MainWindow(QMainWindow):
         self.ui.RightDepthText.setText(result_right)
 
 
+
+        # self.ui.CartDepthLeftInput.setText("-" if math.isnan(left) else f"L: {left:.2f}")
+        # self.ui.CartDepthRightInput.setText("-" if math.isnan(right) else f"R: {right:.2f}")
+
+        # self.ui.LeftDepthText.setText("—" if math.isnan(left) else f"{left:.2f}")
+        # self.ui.RightDepthText.setText("—" if math.isnan(right) else f"{right:.2f}")
+
     def update_compensate_pose_label(self, x: float, y: float, yaw: float):
         self._vision_comp["x"] = x
         self._vision_comp["y"] = y
@@ -1016,6 +996,11 @@ class MainWindow(QMainWindow):
         self.ros_node.jog_cmd_publisher.publish(msg)
         print(f"[UI] Sent JogCmd: axis={axis}, direction={direction}")
 
+    def update_clipper_state(self, button):
+        if button.isChecked():
+            button.setText("Clipper ON")
+        else:
+            button.setText("Clipper OFF")
 
     def _on_vision_clicked(self, btn, checked):
         if checked:
@@ -1271,6 +1256,9 @@ class MainWindow(QMainWindow):
         # Optionally send a ROS signal to start detection (if needed)
         # self.send_detection_task("start")  # <-- if you want to publish to /detection_task
 
+    def on_ros_message(self, text):
+        self.ros_msg_received.emit(text)
+
     def handle_ros_message(self, text):
         print("ROS message:", text)
         # Update UI labels here if needed
@@ -1286,14 +1274,26 @@ class MainWindow(QMainWindow):
             second_screen = screens[1]  # Use the actual second screen
             second_geom = second_screen.geometry()
             self.setGeometry(second_geom)  # Move and resize in one step
-            self.setMaximumWidth(1280)
-            self.setMaximumHeight(800)
-            print("Fixed size: 1280 x 800")
-            # self.showFullScreen()
+            # self.setMaximumWidth(1280)
+            # self.setMaximumHeight(800)
+            # print("Fixed size: 1280 x 800")
+            self.showFullScreen()
         else:
             self.showMaximized()
             print("Only one screen, screen fullscreen anyways")
 
+    # def opacity_animation(self, target):
+    #     effect = QGraphicsOpacityEffect(target)
+    #     target.setGraphicsEffect(effect)
+    #     self.anim = QPropertyAnimation(effect, b"opacity")
+    #     self.anim.setEasingCurve(QEasingCurve.InOutCubic)
+
+    #     self.anim.setStartValue(1)
+    #     self.anim.setEndValue(0.5)
+    #     self.anim.setDuration(3000)
+
+    #     self.anim.setLoopCount(-1)
+    #     self.anim.start()
 
     def opacity_animation(self, target):
         # create effect only once per target
@@ -1328,13 +1328,15 @@ class MainWindow(QMainWindow):
 
 
     def stop_opacity_animation(self, target):
-        if hasattr(self, "opacity_group") and self.opacity_group.state() == QAbstractAnimation.Running:
-            self.opacity_group.stop()
+        if hasattr(self, "anim") and self.anim.state() == QAbstractAnimation.Running:
+            self.anim.stop()
         
         # effect = target.graphicsEffect()
         # if isinstance(effect, QGraphicsOpacityEffect):
         #     effect.setOpacity(1.0)
         #     target.update()
+
+
 
 
     def on_touch_controls(self, button):
@@ -1371,32 +1373,26 @@ class MainWindow(QMainWindow):
             color: white;
         }
         """))
-        
+    
     def on_touch_different_color(self, button, color, border, colorPressed, borderPressed):
-        # 1. Apply pressed style immediately
         button.setStyleSheet(f"""
         QPushButton {{
             background-color: {color};
             color: white;
-            border: 2px solid {border};
+            border: 2px solid {border};       /* Darker red border */
         }}
         """)
-
-        # 2. Reset back to normal style after 300ms (with :disabled included)
+        
+        # 2. Reset after 200ms
         QTimer.singleShot(300, lambda: button.setStyleSheet(f"""
         QPushButton {{
             background-color: {colorPressed};       /* Darker pressed red */
-            border: 2px inset {borderPressed};      /* Inset border for "sunken" effect */
+            border: 2px inset {borderPressed};       /* Inset border for "sunken" effect */
             color: white;
- 
-        }}
-
-        QPushButton:disabled {{
-            background-color: #BDBDBD;
-            border: 2px solid #9E9E9E;
-            color: #616161;
+                                                    
         }}
         """))
+
 
 def convert_cv_to_qt(cv_img):
     rgb_image = cv2.cvtColor(cv_img, cv2.COLOR_BGR2RGB)
@@ -1404,10 +1400,8 @@ def convert_cv_to_qt(cv_img):
     bytes_per_line = ch * w
     return QImage(rgb_image.data, w, h, bytes_per_line, QImage.Format_RGB888)
 
-
 def ros_spin(node):
     rclpy.spin(node)
-
 
 def main():
     rclpy.init()

@@ -55,6 +55,12 @@ QPushButton:checked {
     border: 1px solid #0B76A0;
 }
 
+QPushButton:disabled {
+    background-color: #BDBDBD;       /* Gray when disabled */
+    border: 2px solid #9E9E9E;
+    color: #616161;
+}
+
 QLabel {
 	color:white;
 }</string>
@@ -511,6 +517,9 @@ Record</string>
              <layout class="QVBoxLayout" name="verticalLayout_12">
               <item>
                <widget class="QPushButton" name="INITButton">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                   <horstretch>0</horstretch>
@@ -805,6 +814,9 @@ QPushButton#RunButton:pressed {
             </item>
             <item>
              <widget class="QPushButton" name="AutoStopButton">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -820,13 +832,35 @@ QPushButton#RunButton:pressed {
               <property name="font">
                <font>
                 <pointsize>16</pointsize>
+                <bold>true</bold>
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">
+               <string notr="true">QPushButton {
+    background-color: #D32F2F;       /* Material Red 700 */
+    color: white;
+    border: 2px solid #9A0007;       /* Darker red border */
+}
+
+QPushButton:hover {
+    background-color: #E53935;       /* Slightly brighter red */
+}
+QPushButton:pressed {
+    background-color: #B71C1C;       /* Darker pressed red */
+    border: 2px inset #7F0000;       /* Inset border for &quot;sunken&quot; effect */
+}
+QPushButton:disabled {
+    background-color: #BDBDBD;       /* Gray when disabled */
+    border: 2px solid #9E9E9E;
+    color: #616161;
+}
+
+/*
 QPushButton#AutoStopButton:pressed {
-    background-color: #990000;       /* darker red when pressed */
-}</string>
+    background-color: #990000; 
+}
+*/
+</string>
               </property>
               <property name="text">
                <string>STOP</string>
@@ -945,7 +979,7 @@ QPushButton#AutoStopButton:pressed {
                   </size>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">background-color:gray; border-radius:15px;</string>
+                  <string notr="true">background-color:#FFFFFF; border-radius:15px;</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -994,7 +1028,7 @@ QPushButton#AutoStopButton:pressed {
                   </size>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">background-color:gray; border-radius:15px;</string>
+                  <string notr="true">background-color:#FFFFFF; border-radius:15px;</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -1043,7 +1077,7 @@ QPushButton#AutoStopButton:pressed {
                   </size>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">background-color:gray; border-radius:15px;</string>
+                  <string notr="true">background-color:#FFFFFF; border-radius:15px;</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -1092,7 +1126,7 @@ QPushButton#AutoStopButton:pressed {
                   </size>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">background-color:gray; border-radius:15px;</string>
+                  <string notr="true">background-color:#FFFFFF; border-radius:15px;</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -1141,7 +1175,7 @@ QPushButton#AutoStopButton:pressed {
                   </size>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">background-color:gray; border-radius:15px;</string>
+                  <string notr="true">background-color:#FFFFFF; border-radius:15px;</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -1190,7 +1224,7 @@ QPushButton#AutoStopButton:pressed {
                   </size>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">background-color:gray; border-radius:15px;</string>
+                  <string notr="true">background-color:#FFFFFF; border-radius:15px;</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -1239,7 +1273,7 @@ QPushButton#AutoStopButton:pressed {
                   </size>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">background-color:gray; border-radius:15px;</string>
+                  <string notr="true">background-color:#FFFFFF; border-radius:15px;</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -1288,7 +1322,7 @@ QPushButton#AutoStopButton:pressed {
                   </size>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">background-color:gray; border-radius:15px;</string>
+                  <string notr="true">background-color:#FFFFFF; border-radius:15px;</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -4381,7 +4415,7 @@ border: none;</string>
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>588</width>
+              <width>685</width>
               <height>648</height>
              </rect>
             </property>
@@ -7246,6 +7280,12 @@ border: none;</string>
            </property>
            <item>
             <widget class="QLabel" name="QuantityText">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="font">
               <font>
                <bold>true</bold>
@@ -7326,20 +7366,26 @@ border: none;</string>
            </property>
            <item>
             <widget class="QLabel" name="CartHeightText">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="font">
               <font>
                <bold>true</bold>
               </font>
              </property>
              <property name="text">
-              <string>Cart Height:</string>
+              <string>Cart Height (mm):</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="CartHeightInput">
              <property name="text">
-              <string>153.3 mm</string>
+              <string>153.3</string>
              </property>
             </widget>
            </item>
@@ -7366,20 +7412,33 @@ border: none;</string>
            </property>
            <item>
             <widget class="QLabel" name="CartDepthText">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="font">
               <font>
                <bold>true</bold>
               </font>
              </property>
              <property name="text">
-              <string>Cart Depth:</string>
+              <string>Cart Depth (mm):</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="CartDepthInput">
+            <widget class="QLabel" name="CartDepthLeftInput">
              <property name="text">
-              <string>200.1 mm</string>
+              <string>L: 0</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="CartDepthRightInput">
+             <property name="text">
+              <string>R: 0</string>
              </property>
             </widget>
            </item>
@@ -7541,23 +7600,23 @@ border: none;</string>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="VisionButtonGroup">
-   <property name="exclusive">
-    <bool>false</bool>
-   </property>
-  </buttongroup>
-  <buttongroup name="ThemeButtonGroup"/>
-  <buttongroup name="MenuButtonGroup"/>
-  <buttongroup name="FontSizeButtonGroup"/>
-  <buttongroup name="RecipeModeGroup"/>
   <buttongroup name="ManualButtons">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
+  <buttongroup name="VisionButtonGroup">
+   <property name="exclusive">
+    <bool>false</bool>
+   </property>
+  </buttongroup>
   <buttongroup name="AutoAndManualButtonGroup"/>
-  <buttongroup name="LanguageButtonGroup"/>
-  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup"/>
+  <buttongroup name="LanguageButtonGroup"/>
+  <buttongroup name="FontSizeButtonGroup"/>
+  <buttongroup name="ThemeButtonGroup"/>
+  <buttongroup name="RecipeModeGroup"/>
+  <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="MenuButtonGroup"/>
  </buttongroups>
 </ui>
