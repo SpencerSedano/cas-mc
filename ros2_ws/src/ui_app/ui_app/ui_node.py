@@ -10,6 +10,7 @@ from ui_app.ui_magic_cube import Ui_MainWindow # Import my design made in Qt Des
 import ui_app.resources_rc  # this includes the images and icons
 
 #ui components
+from ui_app.ui_components.ui_cabinets import CabinetsController
 from ui_app.ui_components.ui_forklift import ForkliftController
 from ui_app.ui_components.ui_motor import MotorController
 from ui_app.ui_components.ui_gripper import GripperController
@@ -30,7 +31,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int32, Float32MultiArray
 
-from common_msgs.msg import StateCmd, ForkCmd, JogCmd, ComponentCmd, TaskCmd, TaskState, DIDOCmd, RunCmd, MotionCmd, MotionState, GripperCmd, MultipleM, MH2State, CurrentPose, Recipe, LimitCmd
+from common_msgs.msg import StateCmd, ForkCmd, JogCmd, ComponentCmd, TaskCmd, TaskState, DIDOCmd, RunCmd, MotionCmd, MotionState, GripperCmd, MultipleM, MH2State, CurrentPose, Recipe, LimitCmd, StorageHeight
 
 from uros_interface.srv import ESMCmd
 
@@ -120,6 +121,7 @@ class ROSNode(Node):
 
         self.limit_cmd_publisher = self.create_publisher(LimitCmd, "/limit_cmd", 10)  
 
+        self.storage_height_publisher = self.create_publisher(StorageHeight, "/storage_height", 10)
 
         self.recipe_publisher = self.create_publisher(Recipe, '/recipe', 10)
 
@@ -322,7 +324,7 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.setWindowTitle("No External VisionController")
+        self.setWindowTitle("Magic Cube UI")
         print("No extermal vision controller")
 
         # Build circle map once
@@ -356,6 +358,9 @@ class MainWindow(QMainWindow):
 
         self._vision_comp = {"x": float('nan'), "y": float('nan'), "yaw": float('nan')}
 
+
+        #cabinets
+        self.cabinets_controller = CabinetsController(self.ui, self.ros_node)
 
         #Circles
          # Map ROS -> Qt thread-safe signal
@@ -504,7 +509,7 @@ class MainWindow(QMainWindow):
         self.ui.AssemblyButton.toggled.connect(lambda checked: self.on_task_toggled("assembly", checked))
 
         # cabinets
-        self.ui.C11.clicked.connect(self.on_cabinet_click)
+        # self.ui.C11.clicked.connect(self.on_cabinet_click)
 
         self.ui.SaveCabinet.clicked.connect(self.on_save_cabinet)
 
@@ -719,12 +724,12 @@ class MainWindow(QMainWindow):
 
         return True
 
-    def on_cabinet_click(self):
-        self.ui.C11.setStyleSheet("""
-            QPushButton {
-                background-color: blue;
-            }
-        """)
+    # def on_cabinet_click(self):
+    #     self.ui.C11.setStyleSheet("""
+    #         QPushButton {
+    #             background-color: blue;
+    #         }
+    #     """)
         
     def on_save_cabinet(self):
         self.ui.MainPageAutoAndManualStackedWidget.setCurrentIndex(0)
@@ -968,6 +973,9 @@ class MainWindow(QMainWindow):
             msg.init_button = True
         elif flag == "run":
             msg.run_button = True
+
+            self.ui.MainPageAutoAndManualStackedWidget.setCurrentIndex(1)
+
         elif flag == "pause":
             msg.pause_button = True
         elif flag == "stop":
@@ -1278,10 +1286,10 @@ class MainWindow(QMainWindow):
             second_screen = screens[1]  # Use the actual second screen
             second_geom = second_screen.geometry()
             self.setGeometry(second_geom)  # Move and resize in one step
-            # self.setMaximumWidth(1280)
-            # self.setMaximumHeight(800)
-            # print("Fixed size: 1280 x 800")
-            self.showFullScreen()
+            self.setMaximumWidth(1280)
+            self.setMaximumHeight(800)
+            print("Fixed size: 1280 x 800")
+            # self.showFullScreen()
         else:
             self.showMaximized()
             print("Only one screen, screen fullscreen anyways")
