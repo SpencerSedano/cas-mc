@@ -1,5 +1,6 @@
 import sys
 import math
+import time
 from datetime import date
 import cv2
 from PySide6.QtCore import Qt, QEvent, QTimer, Signal, QPropertyAnimation, QEasingCurve, QSequentialAnimationGroup, QAbstractAnimation
@@ -12,12 +13,11 @@ import ui_app.resources_rc  # this includes the images and icons
 #ui components
 from ui_app.ui_components.ui_forklift import ForkliftController
 from ui_app.ui_components.ui_motor import MotorController
-from ui_app.ui_components.ui_gripper import GripperController
-from ui_app.ui_components.ui_limit import LimitController
+from ui_app.ui_components.ui_clipper import ClipperController
 from ui_app.ui_components.ui_dido import DIDOController
-# from ui_app.ui_components.ui_vision import VisionController
+from ui_app.ui_components.ui_vision import VisionController
 
-#lib
+#libraries
 from ui_app.libraries.fps import FPSCounter
 
 #Vision
@@ -30,7 +30,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int32, Float32MultiArray
 
-from common_msgs.msg import StateCmd, ForkCmd, JogCmd, ComponentCmd, TaskCmd, TaskState, DIDOCmd, RunCmd, MotionCmd, MotionState, GripperCmd, MultipleM, MH2State, CurrentPose, Recipe, LimitCmd
+from common_msgs.msg import StateCmd, ForkCmd, JogCmd, ComponentCmd, TaskCmd, TaskState, DIDOCmd, RunCmd, MotionCmd, MotionState, ClipperCmd, MultipleM, MH2State, CurrentPose, Recipe
 
 from uros_interface.srv import ESMCmd
 
@@ -39,15 +39,18 @@ class ROSNode(Node):
     def __init__(self):
         super().__init__('ui_node')
 
+        self.fps_counter = FPSCounter()
+
+        self.latest_qt_img = None  # initialize here
+
+        self.latest_ros_msg = None
+        self.image_lock = threading.Lock()
 
         # self.mode_cmd = {
         #     'auto': True,
         #     'manual': False,
         #     'component_control': False,  
         # }
-
-        self.fps_counter = FPSCounter()
-
 
         self.task_cmd = {
             'connect': False,
@@ -79,8 +82,6 @@ class ROSNode(Node):
 
         self.current_pose_callback_ui = None
 
-        # self.current_motor_len = [0.0, 0.0, 0.0]
-
         self.motion_state_callback_ui = None
         
         self.motor_info_update_callback_ui = None
@@ -88,6 +89,8 @@ class ROSNode(Node):
         self.current_motor_len = [10.0, 0.0, 0.0]
         
         self.task_state_callback_ui = None
+
+        self.latest_cv_img = None
 
         #vision
         
@@ -116,10 +119,7 @@ class ROSNode(Node):
 
         self.y_motor_cmd_publisher = self.create_publisher(String, '/test_y_motor_cmd', 10)
 
-        self.gripper_cmd_publisher = self.create_publisher(GripperCmd, '/gripper_cmd', 10)
-
-        self.limit_cmd_publisher = self.create_publisher(LimitCmd, "/limit_cmd", 10)  
-
+        self.clipper_cmd_publisher = self.create_publisher(ClipperCmd, '/clipper_cmd', 10)
 
         self.recipe_publisher = self.create_publisher(Recipe, '/recipe', 10)
 
@@ -205,7 +205,6 @@ class ROSNode(Node):
         if self.depth_data_callback_ui:
             self.depth_data_callback_ui(list(msg.data))  # hand off to UI
 
-        
 
     def mh2_state_callback(self, msg: MH2State):
         self.get_logger().info(f"Received MH2State: \n servo_state: {msg.servo_state} \n alarm_code: {msg.alarm_code}")
@@ -234,7 +233,6 @@ class ROSNode(Node):
             self.current_pose_callback_ui(float(data[0]), float(data[1]), float(data[2]))
 
 
-
     def height_info_callback(self, msg: Int32):
         self.get_logger().info(f"Received height info: {msg.data} mm")
 
@@ -242,18 +240,33 @@ class ROSNode(Node):
             self.height_update_callback(msg.data)
 
     #vision
-    def image_callback(self, msg):
-        self.fps_counter.update() 
-
-        try:
-            cv_img = self.bridge.imgmsg_to_cv2(msg, desired_encoding="bgr8")
-        except Exception as e:
-            self.get_logger().error(f"Failed to convert image: {e}")
-            return
+    # def image_callback(self, msg):
+    #     self.fps_counter.update() 
         
-        # Pass to Qt
+    #     try:
+    #         cv_img = self.bridge.imgmsg_to_cv2(msg, desired_encoding="bgr8")
+    #     except Exception as e:
+    #         self.get_logger().error(f"Failed to convert image: {e}")
+    #         return
+
+    #     h, w, ch = cv_img.shape
+    #     bytes_per_line = ch * w
+    #     qt_img = QImage(cv_img.data, w, h, bytes_per_line, QImage.Format_BGR888)
+
+    #     # Store in ROS node
+    #     self.latest_qt_img = qt_img
+
+
+    def image_callback(self, msg):
+        self.fps_counter.update()
+        
+        # Just store the raw message - very fast
+        with self.image_lock:
+            self.latest_ros_msg = msg
+        
+        # Optional: notify UI that new data is available
         if self.image_update_callback:
-            self.image_update_callback(cv_img)
+            self.image_update_callback(None)  # Just signal, no heavy data
 
     def compensate_pose_callback(self, msg: Float32MultiArray):
         self.get_logger().info(f"Received compensate_pose: {msg.data}")
@@ -292,6 +305,9 @@ class ROSNode(Node):
         if self.motion_state_callback_ui:
             self.motion_state_callback_ui(bool(msg.init_finish), bool(msg.motion_finish))
 
+""""FINISH ROS NODE"""
+
+
 
 class MainWindow(QMainWindow):
 
@@ -310,8 +326,12 @@ class MainWindow(QMainWindow):
     di_update = Signal(str, bool)
     do_update = Signal(str, bool)
 
-    image_update = Signal(object)   # carries numpy image
+    image_update = Signal(QImage)
+    process_latest_frame = Signal(QImage)
     vision_mode_update = Signal(str)
+
+    image_ready = Signal(QPixmap) 
+
 
     motion_state_update = Signal(bool, bool)
     current_pose_update = Signal(float, float, float)
@@ -322,8 +342,6 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.setWindowTitle("No External VisionController")
-        print("No extermal vision controller")
 
         # Build circle map once
         self._circles = {
@@ -362,10 +380,19 @@ class MainWindow(QMainWindow):
         self.task_state_update.connect(self.apply_task_state)
         self.ros_node.task_state_callback_ui = self.task_state_update.emit
 
-
         #vision ui
-        self.ros_node.image_update_callback = self.update_image
-        self.ros_node.detection_task_callback_ui = self.update_detection_mode
+        self.vision_controller = VisionController(self.ui, self.ros_node)
+
+        # self.image_update.connect(self.vision_controller.update_image)
+        self.vision_mode_update.connect(self.vision_controller.update_detection_mode)
+
+        # self.ros_node.image_update_callback = self.image_update.emit
+        self.ros_node.image_update_callback = self.process_latest_frame.emit
+        
+        self.ros_node.detection_task_callback_ui = self.vision_mode_update.emit
+
+
+
         # self.vision_controller = VisionController(self.ui, self.ros_node)
 
         # # Bridge ROS → GUI via signals (thread-safe)
@@ -423,11 +450,8 @@ class MainWindow(QMainWindow):
         self.height_update.connect(self.forklift_controller.update_height_display)
         self.ros_node.height_update_callback = lambda v: self.height_update.emit(v)
 
-        #gripper ui
-        self.gripper_controller = GripperController(self.ui, self.ros_node)
-
-        #limit ui
-        self.limit_controller = LimitController(self.ui, self.ros_node)
+        #clipper ui
+        self.clipper_controller = ClipperController(self.ui, self.ros_node)
 
         # DI/DO UI Controller
         self.dido_controller = DIDOController(self.ui, self.ros_node)
@@ -540,7 +564,7 @@ class MainWindow(QMainWindow):
         #Component Control Choose Page
         self.ui.ChooseMotor.clicked.connect(lambda: self.component_control_choose_page("Motor", 0))
         self.ui.ChooseVision.clicked.connect(lambda: self.component_control_choose_page("Vision", 1))
-        self.ui.ChooseGripper.clicked.connect(lambda: self.component_control_choose_page("Gripper", 2))
+        self.ui.ChooseClipper.clicked.connect(lambda: self.component_control_choose_page("Gripper", 2))
         self.ui.ChooseForklift.clicked.connect(lambda: self.component_control_choose_page("Forklift", 3))
         self.ui.ChooseDIDO.clicked.connect(lambda: self.component_control_choose_page("DI/DO", 4))
 
@@ -859,26 +883,27 @@ class MainWindow(QMainWindow):
     #         self.ui.ServoONOFFButton.setText("Servo OFF")
     #         self.motor_controller.call_servo(True if checked else False)
 
-    def update_image(self, cv_img):
-        qt_img = convert_cv_to_qt(cv_img)
-        pixmap = QPixmap.fromImage(qt_img)
+    
+    # def update_image(self, cv_img):
+    #     qt_img = convert_cv_to_qt(cv_img)
+    #     pixmap = QPixmap.fromImage(qt_img)
 
-        current_index = self.ui.ParentStackedWidgetToChangeMenuOptions.currentIndex()
+    #     current_index = self.ui.ParentStackedWidgetToChangeMenuOptions.currentIndex()
 
-        if current_index == 0:  # Main Page
-            self.ui.VisionText.setPixmap(pixmap)
-            self.ui.VisionTextInComponentControl.clear()
-        elif current_index == 1:  # Component Control
-            self.ui.VisionTextInComponentControl.setPixmap(pixmap)
-            self.ui.VisionText.clear()
-        else:
-            self.ui.VisionText.clear()
-            self.ui.VisionTextInComponentControl.clear()
+    #     if current_index == 0:  # Main Page
+    #         self.ui.VisionText.setPixmap(pixmap)
+    #         self.ui.VisionTextInComponentControl.clear()
+    #     elif current_index == 1:  # Component Control
+    #         self.ui.VisionTextInComponentControl.setPixmap(pixmap)
+    #         self.ui.VisionText.clear()
+    #     else:
+    #         self.ui.VisionText.clear()
+    #         self.ui.VisionTextInComponentControl.clear()
             
 
-    def update_detection_mode(self, mode):
-        print(f"[UI] Detection mode is now: {mode}")
-        # Optionally update label or status bar  
+    # def update_detection_mode(self, mode):
+    #     print(f"[UI] Detection mode is now: {mode}")
+    #     # Optionally update label or status bar  
     
 
     def update_depth_label(self, left: float, right: float):
@@ -1149,10 +1174,10 @@ class MainWindow(QMainWindow):
         self.ui.ChangeComponentControlStackedWidget.setCurrentIndex(1)
         self.ui.MotorStartedButton.setText("Vision")
 
-    def choose_gripper(self):
+    def choose_clipper(self):
         self.ui.ComponentControlStackedWidget.setCurrentIndex(1)
         self.ui.ChangeComponentControlStackedWidget.setCurrentIndex(2)
-        self.ui.MotorStartedButton.setText("Gripper")
+        self.ui.MotorStartedButton.setText("Clipper")
 
     def choose_forklift(self):
         self.ui.ComponentControlStackedWidget.setCurrentIndex(1)
@@ -1221,7 +1246,7 @@ class MainWindow(QMainWindow):
         elif name == "Vision":
             self.send_component_cmd("vision_control")
             self.ui.MiddleStackedWidget.setCurrentIndex(0)
-        elif name == "Gripper":
+        elif name == "Clipper":
             self.send_component_cmd("cliper_control")
             self.ui.MiddleStackedWidget.setCurrentIndex(0)
         elif name == "Forklift":
@@ -1242,7 +1267,7 @@ class MainWindow(QMainWindow):
         elif name == "Vision":
             self.send_component_cmd("vision_control")
             self.ui.MiddleStackedWidget.setCurrentIndex(0)
-        elif name == "Gripper":
+        elif name == "Clipper":
             self.send_component_cmd("cliper_control")
             self.ui.MiddleStackedWidget.setCurrentIndex(0)
         elif name == "Forklift":
@@ -1317,8 +1342,6 @@ class MainWindow(QMainWindow):
         self.opacity_group.start()
 
 
-
-
     def stop_opacity_animation(self, target):
         if hasattr(self, "opacity_group") and self.opacity_group.state() == QAbstractAnimation.Running:
             self.opacity_group.stop()
@@ -1390,11 +1413,11 @@ class MainWindow(QMainWindow):
         }}
         """))
 
-def convert_cv_to_qt(cv_img):
-    rgb_image = cv2.cvtColor(cv_img, cv2.COLOR_BGR2RGB)
-    h, w, ch = rgb_image.shape
-    bytes_per_line = ch * w
-    return QImage(rgb_image.data, w, h, bytes_per_line, QImage.Format_RGB888)
+# def convert_cv_to_qt(cv_img):
+#     rgb_image = cv2.cvtColor(cv_img, cv2.COLOR_BGR2RGB)
+#     h, w, ch = rgb_image.shape
+#     bytes_per_line = ch * w
+#     return QImage(rgb_image.data, w, h, bytes_per_line, QImage.Format_RGB888)
 
 
 def ros_spin(node):

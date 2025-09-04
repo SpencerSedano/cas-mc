@@ -12,8 +12,7 @@ import ui_app.resources_rc  # this includes the images and icons
 #ui components
 from ui_app.ui_components.ui_forklift import ForkliftController
 from ui_app.ui_components.ui_motor import MotorController
-from ui_app.ui_components.ui_gripper import GripperController
-from ui_app.ui_components.ui_limit import LimitController
+from ui_app.ui_components.ui_clipper import ClipperController
 from ui_app.ui_components.ui_dido import DIDOController
 # from ui_app.ui_components.ui_vision import VisionController
 
@@ -30,7 +29,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int32, Float32MultiArray
 
-from common_msgs.msg import StateCmd, ForkCmd, JogCmd, ComponentCmd, TaskCmd, TaskState, DIDOCmd, RunCmd, MotionCmd, MotionState, GripperCmd, MultipleM, MH2State, CurrentPose, Recipe, LimitCmd
+from common_msgs.msg import StateCmd, ForkCmd, JogCmd, ComponentCmd, TaskCmd, TaskState, DIDOCmd, RunCmd, MotionCmd, MotionState, ClipperCmd, MultipleM, MH2State, CurrentPose, Recipe
 
 from uros_interface.srv import ESMCmd
 
@@ -116,10 +115,7 @@ class ROSNode(Node):
 
         self.y_motor_cmd_publisher = self.create_publisher(String, '/test_y_motor_cmd', 10)
 
-        self.gripper_cmd_publisher = self.create_publisher(GripperCmd, '/gripper_cmd', 10)
-
-        self.limit_cmd_publisher = self.create_publisher(LimitCmd, "/limit_cmd", 10)  
-
+        self.clipper_cmd_publisher = self.create_publisher(ClipperCmd, '/clipper_cmd', 10)
 
         self.recipe_publisher = self.create_publisher(Recipe, '/recipe', 10)
 
@@ -423,11 +419,8 @@ class MainWindow(QMainWindow):
         self.height_update.connect(self.forklift_controller.update_height_display)
         self.ros_node.height_update_callback = lambda v: self.height_update.emit(v)
 
-        #gripper ui
-        self.gripper_controller = GripperController(self.ui, self.ros_node)
-
-        #limit ui
-        self.limit_controller = LimitController(self.ui, self.ros_node)
+        #clipper ui
+        self.clipper_controller = ClipperController(self.ui, self.ros_node)
 
         # DI/DO UI Controller
         self.dido_controller = DIDOController(self.ui, self.ros_node)
@@ -540,7 +533,7 @@ class MainWindow(QMainWindow):
         #Component Control Choose Page
         self.ui.ChooseMotor.clicked.connect(lambda: self.component_control_choose_page("Motor", 0))
         self.ui.ChooseVision.clicked.connect(lambda: self.component_control_choose_page("Vision", 1))
-        self.ui.ChooseGripper.clicked.connect(lambda: self.component_control_choose_page("Gripper", 2))
+        self.ui.ChooseClipper.clicked.connect(lambda: self.component_control_choose_page("Clipper", 2))
         self.ui.ChooseForklift.clicked.connect(lambda: self.component_control_choose_page("Forklift", 3))
         self.ui.ChooseDIDO.clicked.connect(lambda: self.component_control_choose_page("DI/DO", 4))
 
@@ -549,7 +542,7 @@ class MainWindow(QMainWindow):
 
         self.ui.MotorOption.clicked.connect(lambda: self.component_control_switch_page("Motor", 0))
         self.ui.VisionOption.clicked.connect(lambda: self.component_control_switch_page("Vision", 1))
-        self.ui.GripperOption.clicked.connect(lambda: self.component_control_switch_page("Gripper", 2))
+        self.ui.ClipperOption.clicked.connect(lambda: self.component_control_switch_page("Clipper", 2))
         self.ui.ForkliftOption.clicked.connect(lambda: self.component_control_switch_page("Forklift", 3))
         self.ui.DIDOOption.clicked.connect(lambda: self.component_control_switch_page("DI/DO", 4))
 
@@ -1149,10 +1142,10 @@ class MainWindow(QMainWindow):
         self.ui.ChangeComponentControlStackedWidget.setCurrentIndex(1)
         self.ui.MotorStartedButton.setText("Vision")
 
-    def choose_gripper(self):
+    def choose_clipper(self):
         self.ui.ComponentControlStackedWidget.setCurrentIndex(1)
         self.ui.ChangeComponentControlStackedWidget.setCurrentIndex(2)
-        self.ui.MotorStartedButton.setText("Gripper")
+        self.ui.MotorStartedButton.setText("Clipper")
 
     def choose_forklift(self):
         self.ui.ComponentControlStackedWidget.setCurrentIndex(1)
@@ -1221,7 +1214,7 @@ class MainWindow(QMainWindow):
         elif name == "Vision":
             self.send_component_cmd("vision_control")
             self.ui.MiddleStackedWidget.setCurrentIndex(0)
-        elif name == "Gripper":
+        elif name == "Clipper":
             self.send_component_cmd("cliper_control")
             self.ui.MiddleStackedWidget.setCurrentIndex(0)
         elif name == "Forklift":
@@ -1242,7 +1235,7 @@ class MainWindow(QMainWindow):
         elif name == "Vision":
             self.send_component_cmd("vision_control")
             self.ui.MiddleStackedWidget.setCurrentIndex(0)
-        elif name == "Gripper":
+        elif name == "Clipper":
             self.send_component_cmd("cliper_control")
             self.ui.MiddleStackedWidget.setCurrentIndex(0)
         elif name == "Forklift":

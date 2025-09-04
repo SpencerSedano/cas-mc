@@ -377,7 +377,6 @@ class MotorController:
             phase = "off"
             
 
-
         if self.init_visual_cb:
             self.init_visual_cb(phase)
 

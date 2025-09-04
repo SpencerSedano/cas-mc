@@ -1,25 +1,25 @@
 # ui_forklift.py
 from PySide6.QtWidgets import QWidget
 from PySide6.QtCore import QTimer
-from common_msgs.msg import ClipperCmd
+from common_msgs.msg import GripperCmd
 from std_msgs.msg import Int32
 
-class ClipperController:
+class GripperController:
     def __init__(self, ui, ros_node):
         self.ui = ui
         self.ros_node = ros_node
 
-        self.ui.OpenClipper.clicked.connect(lambda: self.send_clipper_cmd("open_clipper"))
-        self.ui.CloseClipper.clicked.connect(lambda: self.send_clipper_cmd("close_clipper"))
-        self.ui.StopClipper.clicked.connect(lambda: self.send_clipper_cmd("stop_clipper"))
-        self.ui.ResetClipper.clicked.connect(lambda: self.send_clipper_cmd("reset_clipper"))
+        self.ui.OpenGripper.clicked.connect(lambda: self.send_clipper_cmd("open_gripper"))
+        self.ui.CloseGripper.clicked.connect(lambda: self.send_clipper_cmd("close_gripper"))
+        self.ui.StopGripper.clicked.connect(lambda: self.send_clipper_cmd("stop_gripper"))
+        self.ui.ResetGripper.clicked.connect(lambda: self.send_clipper_cmd("reset_gripper"))
 
-    def send_clipper_cmd(self, mode):
-        msg = ClipperCmd()
+    def send_gripper_cmd(self, mode):
+        msg = GripperCmd()
         msg.mode = mode
 
-        self.ros_node.clipper_cmd_publisher.publish(msg)
-        print(f"[Clipper] Published: {mode}")
+        self.ros_node.gripper_cmd_publisher.publish(msg)
+        print(f"[Gripper] Published: {mode}")
     
 
     def on_touch_buttons(self, button):
