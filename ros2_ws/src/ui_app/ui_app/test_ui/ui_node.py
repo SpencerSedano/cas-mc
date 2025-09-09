@@ -1,11 +1,10 @@
 import sys
 import math
-import re
 from datetime import date
 import cv2
 from PySide6.QtCore import Qt, QEvent, QTimer, Signal, QPropertyAnimation, QEasingCurve, QSequentialAnimationGroup, QAbstractAnimation
 from PySide6.QtGui import QIcon, QImage, QPixmap, QKeySequence, QShortcut
-from PySide6.QtWidgets import QApplication, QMainWindow, QButtonGroup, QScroller, QLabel, QGraphicsOpacityEffect, QPushButton
+from PySide6.QtWidgets import QApplication, QMainWindow, QButtonGroup, QScroller, QLabel, QGraphicsOpacityEffect
 
 from ui_app.ui_magic_cube import Ui_MainWindow # Import my design made in Qt Designer (already in .py)
 import ui_app.resources_rc  # this includes the images and icons
@@ -37,19 +36,6 @@ from common_msgs.msg import StateCmd, ForkCmd, JogCmd, ComponentCmd, TaskCmd, Ta
 
 from uros_interface.srv import ESMCmd
 
-
-pick_heights = {
-    "C1": [944.0, 824.0, 704.0, 586.0, 465.0, 344.0, 226.0, 113.0, 113.0],
-    "C2": [944.0, 824.0, 704.0, 586.0, 465.0, 344.0, 226.0, 113.0, 113.0],
-}
-
-# Assembly (4x9，高度獨立)
-assembly_heights = {
-    "C1": [944.0, 824.0, 704.0, 586.0, 465.0, 344.0, 226.0, 113.0, 113.0],
-    "C2": [944.0, 824.0, 704.0, 586.0, 465.0, 344.0, 226.0, 113.0, 113.0],
-    "C3": [944.0, 824.0, 704.0, 586.0, 465.0, 344.0, 226.0, 113.0, 113.0],
-    "C4": [944.0, 824.0, 704.0, 586.0, 465.0, 344.0, 226.0, 113.0, 113.0],
-}
 
 class ROSNode(Node):
     def __init__(self):
@@ -375,7 +361,7 @@ class MainWindow(QMainWindow):
 
 
         #cabinets
-        self.cabinets_controller = CabinetsController(self.ui, self.ros_node)
+        # self.cabinets_controller = CabinetsController(self.ui, self.ros_node)
 
         #Circles
          # Map ROS -> Qt thread-safe signal
@@ -502,7 +488,7 @@ class MainWindow(QMainWindow):
         # self.anim.start()
 
 
-        # self.ui.SaveCabinet.clicked.connect(self.on_save_cabinet)
+        self.ui.SaveCabinet.clicked.connect(self.on_save_cabinet)
 
 
         # auto
@@ -547,12 +533,12 @@ class MainWindow(QMainWindow):
         self.ui.SystemSettingsButton.clicked.connect(self.change_to_system_settings_page)
 
         #recipe
-        # self.ui.HeightRecipeInput.textChanged.connect(self.on_height_recipe_input_changed)
-        # self.ui.DepthRecipeInput.textChanged.connect(self.on_depth_recipe_input_changed)
-        # self.ui.PickRecipeButton.toggled.connect(self.on_recipe_mode)
-        # self.ui.AssemblyRecipeButton.toggled.connect(self.on_recipe_mode)
+        self.ui.HeightRecipeInput.textChanged.connect(self.on_height_recipe_input_changed)
+        self.ui.DepthRecipeInput.textChanged.connect(self.on_depth_recipe_input_changed)
+        self.ui.PickRecipeButton.toggled.connect(self.on_height_recipe_mode)
+        self.ui.AssemblyRecipeButton.toggled.connect(self.on_height_recipe_mode)
 
-        # self.ui.SaveCabinet.clicked.connect(self.send_recipe)
+        self.ui.SaveRecipeButton.clicked.connect(self.send_recipe)
 
         # Main Page - Auto and Manual options
         self.ui.AutoButton.clicked.connect(self.change_to_auto_page)
@@ -610,89 +596,85 @@ class MainWindow(QMainWindow):
         widget.setStyleSheet(current + style)
 
     
-    # def on_save_cabinet(self):
-    #     self.ui.MainPageAutoAndManualStackedWidget.setCurrentIndex(0)
+    def on_save_cabinet(self):
+        self.ui.MainPageAutoAndManualStackedWidget.setCurrentIndex(0)
 
     def on_run_button(self):
         self.ui.MainPageAutoAndManualStackedWidget.setCurrentIndex(1)
 
 
 
-    # def on_height_recipe_input_changed(self, value: str):
-    #     """
-    #     Called whenever the user types in the height line edit.
-    #     Accepts blank (clears) or numeric. Stores into self._recipe_height.
-    #     """
-    #     text = (value or "").strip()
-    #     if text == "":
-    #         self._recipe_height = None
-    #         print("[Recipe] Height cleared")
-    #         return
+    def on_height_recipe_input_changed(self, value: str):
+        """
+        Called whenever the user types in the height line edit.
+        Accepts blank (clears) or numeric. Stores into self._recipe_height.
+        """
+        text = (value or "").strip()
+        if text == "":
+            self._recipe_height = None
+            print("[Recipe] Height cleared")
+            return
 
-    #     try:
-    #         num = float(text)
-    #         # (Optional) basic sanity: reject NaN/inf
-    #         if math.isnan(num) or math.isinf(num):
-    #             raise ValueError("Invalid float")
-    #         self._recipe_height = num
-    #         print(f"[Recipe] Height set → {self._recipe_height} mm")
-    #     except ValueError:
-    #         # Keep previous valid value but warn; you could also color the field red in UI if desired
-    #         print(f"[Recipe] WARNING: Non-numeric height input: {text!r}")
-    #         # Optionally: self.ui.HeightRecipeInput.setText("")  # to force correction
-    #         # Leave self._recipe_height unchanged
+        try:
+            num = float(text)
+            # (Optional) basic sanity: reject NaN/inf
+            if math.isnan(num) or math.isinf(num):
+                raise ValueError("Invalid float")
+            self._recipe_height = num
+            print(f"[Recipe] Height set → {self._recipe_height} mm")
+        except ValueError:
+            # Keep previous valid value but warn; you could also color the field red in UI if desired
+            print(f"[Recipe] WARNING: Non-numeric height input: {text!r}")
+            # Optionally: self.ui.HeightRecipeInput.setText("")  # to force correction
+            # Leave self._recipe_height unchanged
 
-    # def on_depth_recipe_input_changed(self, value: str):
-    #     """
-    #     Called whenever the user types in the height line edit.
-    #     Accepts blank (clears) or numeric. Stores into self._recipe_depth.
-    #     """
-    #     text = (value or "").strip()
-    #     if text == "":
-    #         self._recipe_depth = None
-    #         print("[Recipe] Height cleared")
-    #         return
+    def on_depth_recipe_input_changed(self, value: str):
+        """
+        Called whenever the user types in the height line edit.
+        Accepts blank (clears) or numeric. Stores into self._recipe_depth.
+        """
+        text = (value or "").strip()
+        if text == "":
+            self._recipe_depth = None
+            print("[Recipe] Height cleared")
+            return
 
-    #     try:
-    #         num = float(text)
-    #         # (Optional) basic sanity: reject NaN/inf
-    #         if math.isnan(num) or math.isinf(num):
-    #             raise ValueError("Invalid float")
-    #         self._recipe_depth = num
-    #         print(f"[Recipe] Depth set → {self._recipe_depth} mm")
-    #     except ValueError:
-    #         # Keep previous valid value but warn; you could also color the field red in UI if desired
-    #         print(f"[Recipe] WARNING: Non-numeric depth input: {text!r}")
-    #         # Optionally: self.ui.HeightRecipeInput.setText("")  # to force correction
-    #         # Leave self._recipe_depth unchanged
+        try:
+            num = float(text)
+            # (Optional) basic sanity: reject NaN/inf
+            if math.isnan(num) or math.isinf(num):
+                raise ValueError("Invalid float")
+            self._recipe_depth = num
+            print(f"[Recipe] Depth set → {self._recipe_depth} mm")
+        except ValueError:
+            # Keep previous valid value but warn; you could also color the field red in UI if desired
+            print(f"[Recipe] WARNING: Non-numeric depth input: {text!r}")
+            # Optionally: self.ui.HeightRecipeInput.setText("")  # to force correction
+            # Leave self._recipe_depth unchanged
 
         
 
-    # def on_recipe_mode(self, checked: bool):
-    #     """
-    #     Hooked to toggled() of mode buttons.
-    #     Uses sender() to figure out which button fired.
-    #     Only sets mode when the sender is checked.
-    #     """
-    #     btn = self.sender()
-    #     if not btn or not checked:
-    #         return
+    def on_height_recipe_mode(self, checked: bool):
+        """
+        Hooked to toggled() of mode buttons.
+        Uses sender() to figure out which button fired.
+        Only sets mode when the sender is checked.
+        """
+        btn = self.sender()
+        if not btn or not checked:
+            return
 
-    #     name = getattr(btn, "objectName", lambda: "")()
-    #     # Map button identity → mode string expected by Recipe.msg
-    #     if name == "PickRecipeButton":
-    #         self._recipe_mode = "pick"
+        name = getattr(btn, "objectName", lambda: "")()
+        # Map button identity → mode string expected by Recipe.msg
+        if name == "PickRecipeButton":
+            self._recipe_mode = "pick"
+        elif "AssemblyRecipeButton" in name:  # supports "AssemblyButton" or "AssemblyRecipeButton"
+            self._recipe_mode = "assembly"
+        else:
+            # If some other button wired by accident, ignore
+            return
 
-    #         self.ui.MainPageAutoAndManualStackedWidget.setCurrentIndex(1)
-    #     elif "AssemblyRecipeButton" in name:  # supports "AssemblyButton" or "AssemblyRecipeButton"
-    #         self._recipe_mode = "assembly"
-
-    #         self.ui.MainPageAutoAndManualStackedWidget.setCurrentIndex(2)
-    #     else:
-    #         # If some other button wired by accident, ignore
-    #         return
-
-    #     print(f"[Recipe] Mode set → {self._recipe_mode}")
+        print(f"[Recipe] Mode set → {self._recipe_mode}")
 
     # def on_recipe_saved(self, checked: bool):
     #     """
@@ -714,42 +696,17 @@ class MainWindow(QMainWindow):
     #     else:
     #         print("[Recipe] Save FAILED (see warnings above)")
 
-
-
-    def parse_height_depth(text: str):
-        """
-        Extracts height and depth from a button text like:
-        'C1R1\nH=944.0, D=600.0'
-        Returns (height, depth) as floats, or (None, None) if not found.
-        """
-        match = re.search(r"H\s*=\s*([\d.]+).*D\s*=\s*([\d.]+)", text)
-        if match:
-            height = float(match.group(1))
-            depth = float(match.group(2))
-            return height, depth
-        return None, None
-
-    def on_recipe_button_clicked(self):
-        btn = self.sender()
-        if not isinstance(btn, QPushButton):
-            return
-
-        btn_text = btn.text()
-        self._recipe_height, self._recipe_depth = self.parse_height_depth(btn_text)
-
-        print(f"[UI] Selected Recipe → Height={self._recipe_height}, Depth={self._recipe_depth}")
-
     def send_recipe(self) -> bool:
         """
         Collects current recipe mode + height, validates, and publishes /recipe.
         Returns True if published, False otherwise.
         """
         # Prefer the cached value; if missing, try to parse current text box contents
-        # if self._recipe_height is None:
-        #     self.on_height_recipe_input_changed(self.ui.HeightRecipeInput.text())
+        if self._recipe_height is None:
+            self.on_height_recipe_input_changed(self.ui.HeightRecipeInput.text())
     
-        # if self._recipe_depth is None:
-        #     self.on_depth_recipe_input_changed(self.ui.DepthRecipeInput.text())
+        if self._recipe_depth is None:
+            self.on_depth_recipe_input_changed(self.ui.DepthRecipeInput.text())
 
         # Validate
         if not self._recipe_mode:
@@ -1333,10 +1290,10 @@ class MainWindow(QMainWindow):
             second_screen = screens[1]  # Use the actual second screen
             second_geom = second_screen.geometry()
             self.setGeometry(second_geom)  # Move and resize in one step
-            # self.setMaximumWidth(1280)
-            # self.setMaximumHeight(800)
-            # print("Fixed size: 1280 x 800")
-            self.showFullScreen()
+            self.setMaximumWidth(1280)
+            self.setMaximumHeight(800)
+            print("Fixed size: 1280 x 800")
+            # self.showFullScreen()
         else:
             self.showMaximized()
             print("Only one screen, screen fullscreen anyways")

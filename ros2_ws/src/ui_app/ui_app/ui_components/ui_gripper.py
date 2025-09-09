@@ -9,10 +9,10 @@ class GripperController:
         self.ui = ui
         self.ros_node = ros_node
 
-        self.ui.OpenGripper.clicked.connect(lambda: self.send_clipper_cmd("open_gripper"))
-        self.ui.CloseGripper.clicked.connect(lambda: self.send_clipper_cmd("close_gripper"))
-        self.ui.StopGripper.clicked.connect(lambda: self.send_clipper_cmd("stop_gripper"))
-        self.ui.ResetGripper.clicked.connect(lambda: self.send_clipper_cmd("reset_gripper"))
+        self.ui.OpenGripper.clicked.connect(lambda: self.send_gripper_cmd("open_gripper"))
+        self.ui.CloseGripper.clicked.connect(lambda: self.send_gripper_cmd("close_gripper"))
+        self.ui.StopGripper.clicked.connect(lambda: self.send_gripper_cmd("stop_gripper"))
+        self.ui.ResetGripper.clicked.connect(lambda: self.send_gripper_cmd("reset_gripper"))
 
     def send_gripper_cmd(self, mode):
         msg = GripperCmd()
