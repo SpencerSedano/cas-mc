@@ -31,7 +31,6 @@ rosidl_generate_interfaces(${PROJECT_NAME}
     "msg/CurrentPose.msg"
     "msg/Recipe.msg"
     "msg/LimitCmd.msg"
-    "msg/StorageHeight.msg"
 )
 
 if(BUILD_TESTING)

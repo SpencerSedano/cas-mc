@@ -31,15 +31,27 @@ class CabinetsController(QObject):
         self.ui.PickRecipeButton.toggled.connect(self.on_recipe_mode)
         self.ui.AssemblyRecipeButton.toggled.connect(self.on_recipe_mode)
 
+        self.ui.PickRecipeButton.clicked.connect(self.on_press_while_checked)
+        self.ui.AssemblyRecipeButton.clicked.connect(self.on_press_while_checked)
+
         self.ui.SavePickCabinet.clicked.connect(self.on_save_cabinet)
         self.ui.SaveAssemblyCabinet.clicked.connect(self.on_save_cabinet)
 
         self.ui.CancelPickCabinet.clicked.connect(self.on_cancel_cabinet)
-        self.ui.CancelAssemblyCabinet.clicked.connect(self.on_cancel_cabinet)
+        self.ui.CancelAssemblyCabinet.clicked.connect(self.on_cancel_cabinet) 
 
         # Connect all buttons in Pick and Assembly grids
         self._connect_buttons(self.ui.GridLayoutPick)
         self._connect_buttons(self.ui.GridLayoutAssembly)
+
+
+    def on_press_while_checked(self):
+        if self.ui.PickRecipeButton.isChecked():
+            self.ui.MainPageAutoAndManualStackedWidget.setCurrentIndex(1)
+        elif self.ui.AssemblyRecipeButton.isChecked():
+            self.ui.MainPageAutoAndManualStackedWidget.setCurrentIndex(2)
+
+
 
     def _connect_buttons(self, grid_layout):
         """Helper to connect every QPushButton in a grid layout."""
@@ -133,6 +145,6 @@ class CabinetsController(QObject):
 
         print(f"[DEBUG] Publishing Recipe → mode:{msg.mode} height:{msg.height} depth:{msg.depth}")
         self.ros_node.recipe_publisher.publish(msg)
-        print("[UI] Sent Recipe to /recipe")
+        print("[UI] Sent Recipe to /recipe_cmd")
 
         return True

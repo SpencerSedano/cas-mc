@@ -33,37 +33,28 @@ from rclpy.node import Node
 from std_msgs.msg import String, Int32, Float32MultiArray
 
 from common_msgs.msg import StateCmd, ForkCmd, JogCmd, ComponentCmd, TaskCmd, TaskState, DIDOCmd, RunCmd, MotionCmd, MotionState, GripperCmd, MultipleM, MH2State, CurrentPose, Recipe, LimitCmd
-#StorageHeight
 
 from uros_interface.srv import ESMCmd
 
 
-pick_heights = {
-    "C1": [944.0, 824.0, 704.0, 586.0, 465.0, 344.0, 226.0, 113.0, 113.0],
-    "C2": [944.0, 824.0, 704.0, 586.0, 465.0, 344.0, 226.0, 113.0, 113.0],
-}
+# pick_heights = {
+#     "C1": [944.0, 824.0, 704.0, 586.0, 465.0, 344.0, 226.0, 113.0, 113.0],
+#     "C2": [944.0, 824.0, 704.0, 586.0, 465.0, 344.0, 226.0, 113.0, 113.0],
+# }
 
-# Assembly (4x9，高度獨立)
-assembly_heights = {
-    "C1": [944.0, 824.0, 704.0, 586.0, 465.0, 344.0, 226.0, 113.0, 113.0],
-    "C2": [944.0, 824.0, 704.0, 586.0, 465.0, 344.0, 226.0, 113.0, 113.0],
-    "C3": [944.0, 824.0, 704.0, 586.0, 465.0, 344.0, 226.0, 113.0, 113.0],
-    "C4": [944.0, 824.0, 704.0, 586.0, 465.0, 344.0, 226.0, 113.0, 113.0],
-}
+# # Assembly (4x9，高度獨立)
+# assembly_heights = {
+#     "C1": [944.0, 824.0, 704.0, 586.0, 465.0, 344.0, 226.0, 113.0, 113.0],
+#     "C2": [944.0, 824.0, 704.0, 586.0, 465.0, 344.0, 226.0, 113.0, 113.0],
+#     "C3": [944.0, 824.0, 704.0, 586.0, 465.0, 344.0, 226.0, 113.0, 113.0],
+#     "C4": [944.0, 824.0, 704.0, 586.0, 465.0, 344.0, 226.0, 113.0, 113.0],
+# }
 
 class ROSNode(Node):
     def __init__(self):
         super().__init__('ui_node')
 
-
-        # self.mode_cmd = {
-        #     'auto': True,
-        #     'manual': False,
-        #     'component_control': False,  
-        # }
-
         self.fps_counter = FPSCounter()
-
 
         self.task_cmd = {
             'connect': False,
@@ -74,13 +65,7 @@ class ROSNode(Node):
             'assem': False,
         }
 
-        # self.menu_cmd = {
-        #     'main_page': True,
-        #     'component_control': False
-        # }
-
-
-        self.depth_data_callback_ui = None   # <-- add this
+        self.depth_data_callback_ui = None 
 
         self.compensate_update_callback = None
 
@@ -104,6 +89,12 @@ class ROSNode(Node):
         self.current_motor_len = [10.0, 0.0, 0.0]
         
         self.task_state_callback_ui = None
+
+        self.task_state_rough_align_ui = None
+        self.task_state_precise_align_ui = None
+        self.task_state_pick_ui = None
+        self.task_state_assembly_ui = None
+        self.task_state_run_ui = None
 
         #vision
         
@@ -136,9 +127,8 @@ class ROSNode(Node):
 
         self.limit_cmd_publisher = self.create_publisher(LimitCmd, "/limit_cmd", 10)  
 
-        # self.storage_height_publisher = self.create_publisher(StorageHeight, "/storage_height", 10)
+        self.recipe_publisher = self.create_publisher(Recipe, '/recipe_cmd', 10)
 
-        self.recipe_publisher = self.create_publisher(Recipe, '/recipe', 10)
 
 
         # subscriber
@@ -205,10 +195,45 @@ class ROSNode(Node):
             10
         )
 
-        self.task_state_subscriber = self.create_subscription(
+        # self.task_state_subscriber = self.create_subscription(
+        #     TaskState,
+        #     '/task_state',
+        #     self.task_state_callback,
+        #     10
+        # )
+
+        self.task_state_rough_align = self.create_subscription(
             TaskState,
-            '/task_state',
-            self.task_state_callback,
+            '/task_state_rough_align',
+            self.task_state_rough_align_callback,
+            10
+        )
+
+        self.task_state_precise_align = self.create_subscription(
+            TaskState,
+            '/task_state_precise_align',
+            self.task_state_precise_align_callback,
+            10
+        )
+
+        self.task_state_pick = self.create_subscription(
+            TaskState,
+            '/task_state_pick',
+            self.task_state_pick_callback,
+            10
+        )
+
+        self.task_state_assembly = self.create_subscription(
+            TaskState,
+            '/task_state_assembly',
+            self.task_state_assembly_callback,
+            10
+        )
+
+        self.task_state_run = self.create_subscription(
+            TaskState,
+            '/task_state_run',
+            self.task_state_run_callback,
             10
         )
 
@@ -230,16 +255,72 @@ class ROSNode(Node):
         if self.mh2_state_callback_ui:
             self.mh2_state_callback_ui(msg)  # hand off to UI layer
 
-    def task_state_callback(self, msg: TaskState):
+    # def task_state_callback(self, msg: TaskState):
+    #     # msg.mode in {"rough_align","precise_align","pick","assembly","idle", ...}
+    #     # msg.state in {"idle","done","fail", else->running}
+    #     self.get_logger().info(f"[TaskState] mode={msg.mode} state={msg.state}")
+    #     if self.task_state_callback_ui:
+    #         # Push clean strings to UI layer
+    #         try:
+    #             self.task_state_callback_ui(str(msg.mode).strip(), str(msg.state).strip())
+    #         except Exception as e:
+    #             self.get_logger().error(f"TaskState → UI error: {e}")        
+
+    def task_state_rough_align_callback(self, msg: TaskState):
         # msg.mode in {"rough_align","precise_align","pick","assembly","idle", ...}
         # msg.state in {"idle","done","fail", else->running}
-        self.get_logger().info(f"[TaskState] mode={msg.mode} state={msg.state}")
-        if self.task_state_callback_ui:
+        self.get_logger().info(f"[TaskStateRoughAlign] mode={msg.mode} state={msg.state}")
+        if self.task_state_rough_align_ui:
             # Push clean strings to UI layer
             try:
-                self.task_state_callback_ui(str(msg.mode).strip(), str(msg.state).strip())
+                self.task_state_rough_align_ui(str(msg.mode).strip(), str(msg.state).strip())
             except Exception as e:
-                self.get_logger().error(f"TaskState → UI error: {e}")        
+                self.get_logger().error(f"TaskStateRoughAlign → UI error: {e}")  
+
+    def task_state_precise_align_callback(self, msg: TaskState):
+        # msg.mode in {"rough_align","precise_align","pick","assembly","idle", ...}
+        # msg.state in {"idle","done","fail", else->running}
+        self.get_logger().info(f"[TaskStatePreciseAlign] mode={msg.mode} state={msg.state}")
+        if self.task_state_precise_align_ui:
+            # Push clean strings to UI layer
+            try:
+                self.task_state_precise_align_ui(str(msg.mode).strip(), str(msg.state).strip())
+            except Exception as e:
+                self.get_logger().error(f"TaskStatePreciseAlign → UI error: {e}")        
+      
+    def task_state_pick_callback(self, msg: TaskState):
+        # msg.mode in {"rough_align","precise_align","pick","assembly","idle", ...}
+        # msg.state in {"idle","done","fail", else->running}
+        self.get_logger().info(f"[TaskStatePick] mode={msg.mode} state={msg.state}")
+        if self.task_state_pick_ui:
+            # Push clean strings to UI layer
+            try:
+                self.task_state_pick_ui(str(msg.mode).strip(), str(msg.state).strip())
+            except Exception as e:
+                self.get_logger().error(f"TaskStatePick → UI error: {e}")    
+
+    def task_state_assembly_callback(self, msg: TaskState):
+        # msg.mode in {"rough_align","precise_align","pick","assembly","idle", ...}
+        # msg.state in {"idle","done","fail", else->running}
+        self.get_logger().info(f"[TaskStateAssembly] mode={msg.mode} state={msg.state}")
+        if self.task_state_assembly_ui:
+            # Push clean strings to UI layer
+            try:
+                self.task_state_assembly_ui(str(msg.mode).strip(), str(msg.state).strip())
+            except Exception as e:
+                self.get_logger().error(f"TaskStateAssembly → UI error: {e}")      
+    
+    def task_state_run_callback(self, msg: TaskState):
+        # msg.mode in {"rough_align","precise_align","pick","assembly","idle", ...}
+        # msg.state in {"idle","done","fail", else->running}
+        self.get_logger().info(f"[TaskStateRun] mode={msg.mode} state={msg.state}")
+        if self.task_state_run_ui:
+            # Push clean strings to UI layer
+            try:
+                self.task_state_run_ui(str(msg.mode).strip(), str(msg.state).strip())
+            except Exception as e:
+                self.get_logger().error(f"TaskStateRun → UI error: {e}")    
+
 
 
     def current_pose_callback(self, msg: CurrentPose):
@@ -380,7 +461,18 @@ class MainWindow(QMainWindow):
         #Circles
          # Map ROS -> Qt thread-safe signal
         self.task_state_update.connect(self.apply_task_state)
-        self.ros_node.task_state_callback_ui = self.task_state_update.emit
+
+        # self.ros_node.task_state_callback_ui = self.task_state_update.emit
+
+        self.ros_node.task_state_rough_align_ui = self.task_state_update.emit
+
+        self.ros_node.task_state_precise_align_ui = self.task_state_update.emit
+
+        self.ros_node.task_state_pick_ui = self.task_state_update.emit
+
+        self.ros_node.task_state_assembly_ui = self.task_state_update.emit
+
+        self.ros_node.task_state_run_ui = self.task_state_update.emit
 
 
         #vision ui
@@ -1031,13 +1123,6 @@ class MainWindow(QMainWindow):
         # print(f"[DEBUG] Publishing StateCmd: {msg}")
         self.ros_node.state_cmd_publisher.publish(msg)
         print(f"[UI] Sent StateCmd: {flag}")
-
-    def send_mode_cmd(self, flag):
-        msg = String()
-        msg.data = flag
-
-        self.ros_node.mode_cmd_publisher.publish(msg)
-        print(f"[UI] Sent ModeCmd: {msg.data}")
 
     def send_component_cmd(self, flag):
         msg = ComponentCmd()

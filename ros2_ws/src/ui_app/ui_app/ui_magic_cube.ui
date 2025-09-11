@@ -446,7 +446,7 @@ Record</string>
                </property>
                <property name="font">
                 <font>
-                 <pointsize>14</pointsize>
+                 <pointsize>16</pointsize>
                 </font>
                </property>
                <property name="styleSheet">
@@ -482,7 +482,7 @@ Record</string>
                </property>
                <property name="font">
                 <font>
-                 <pointsize>14</pointsize>
+                 <pointsize>16</pointsize>
                 </font>
                </property>
                <property name="styleSheet">
@@ -2768,6 +2768,11 @@ H=113.0, D=600.0</string>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="font">
+                 <font>
+                  <pointsize>16</pointsize>
+                 </font>
+                </property>
                 <property name="styleSheet">
                  <string notr="true"/>
                 </property>
@@ -2783,6 +2788,11 @@ H=113.0, D=600.0</string>
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>16</pointsize>
+                 </font>
                 </property>
                 <property name="styleSheet">
                  <string notr="true">background-color: #000000;</string>
@@ -2800,6 +2810,11 @@ H=113.0, D=600.0</string>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="font">
+                 <font>
+                  <pointsize>16</pointsize>
+                 </font>
+                </property>
                 <property name="styleSheet">
                  <string notr="true"/>
                 </property>
@@ -2816,6 +2831,11 @@ H=113.0, D=600.0</string>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="font">
+                 <font>
+                  <pointsize>16</pointsize>
+                 </font>
+                </property>
                 <property name="styleSheet">
                  <string notr="true"/>
                 </property>
@@ -2831,6 +2851,11 @@ H=113.0, D=600.0</string>
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>16</pointsize>
+                 </font>
                 </property>
                 <property name="styleSheet">
                  <string notr="true"/>
@@ -2925,7 +2950,7 @@ H=113.0, D=600.0</string>
             <string notr="true"/>
            </property>
            <property name="currentIndex">
-            <number>2</number>
+            <number>4</number>
            </property>
            <widget class="QWidget" name="MotorPage">
             <widget class="QStackedWidget" name="MotorStackedWidget">
@@ -3301,6 +3326,11 @@ border: none;</string>
                  <width>101</width>
                  <height>91</height>
                 </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <bold>false</bold>
+                </font>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color: transparent;
@@ -4635,7 +4665,7 @@ border: none;</string>
              <x>10</x>
              <y>100</y>
              <width>291</width>
-             <height>581</height>
+             <height>571</height>
             </rect>
            </property>
            <property name="sizePolicy">
@@ -4653,6 +4683,11 @@ border: none;</string>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="font">
+               <font>
+                <pointsize>16</pointsize>
+               </font>
+              </property>
               <property name="styleSheet">
                <string notr="true"/>
               </property>
@@ -4668,6 +4703,11 @@ border: none;</string>
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>16</pointsize>
+               </font>
               </property>
               <property name="styleSheet">
                <string notr="true">background-color: #000000;</string>
@@ -4685,6 +4725,11 @@ border: none;</string>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="font">
+               <font>
+                <pointsize>16</pointsize>
+               </font>
+              </property>
               <property name="styleSheet">
                <string notr="true"/>
               </property>
@@ -4701,6 +4746,11 @@ border: none;</string>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="font">
+               <font>
+                <pointsize>16</pointsize>
+               </font>
+              </property>
               <property name="styleSheet">
                <string notr="true"/>
               </property>
@@ -4716,6 +4766,11 @@ border: none;</string>
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>16</pointsize>
+               </font>
               </property>
               <property name="styleSheet">
                <string notr="true"/>
@@ -8540,25 +8595,25 @@ border: none;</string>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="AutoAndManualButtonGroup"/>
-  <buttongroup name="ThemeButtonGroup"/>
   <buttongroup name="FontSizeButtonGroup"/>
+  <buttongroup name="MenuButtonGroup"/>
+  <buttongroup name="ThemeButtonGroup"/>
+  <buttongroup name="PickRecipeButtonGroup"/>
+  <buttongroup name="LanguageButtonGroup"/>
+  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="ManualButtons">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
-  <buttongroup name="LanguageButtonGroup"/>
   <buttongroup name="VisionButtonGroup">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
-  <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="buttonGroup"/>
-  <buttongroup name="MenuButtonGroup"/>
-  <buttongroup name="RecipeModeGroup"/>
-  <buttongroup name="PickRecipeButtonGroup"/>
   <buttongroup name="buttonGroup_3"/>
+  <buttongroup name="AutoAndManualButtonGroup"/>
+  <buttongroup name="RecipeModeGroup"/>
+  <buttongroup name="buttonGroup"/>
  </buttongroups>
 </ui>
