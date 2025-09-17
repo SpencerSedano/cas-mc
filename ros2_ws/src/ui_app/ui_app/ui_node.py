@@ -1,9 +1,8 @@
 import sys
 import math
-import re
 from datetime import date
 import cv2
-from PySide6.QtCore import Qt, QEvent, QTimer, Signal, QPropertyAnimation, QEasingCurve, QSequentialAnimationGroup, QAbstractAnimation
+from PySide6.QtCore import Qt, QEvent, QTimer, Signal, QPropertyAnimation, QSequentialAnimationGroup, QAbstractAnimation
 from PySide6.QtGui import QIcon, QImage, QPixmap, QKeySequence, QShortcut
 from PySide6.QtWidgets import QApplication, QMainWindow, QButtonGroup, QScroller, QLabel, QGraphicsOpacityEffect, QPushButton
 
@@ -18,6 +17,9 @@ from ui_app.ui_components.ui_gripper import GripperController
 from ui_app.ui_components.ui_limit import LimitController
 from ui_app.ui_components.ui_dido import DIDOController
 # from ui_app.ui_components.ui_vision import VisionController
+from ui_app.ui_components.ui_pages import PagesControl
+from ui_app.ui_components.ui_style import StyleUI
+
 
 #lib
 from ui_app.libraries.fps import FPSCounter
@@ -56,15 +58,6 @@ class ROSNode(Node):
 
         self.fps_counter = FPSCounter()
 
-        self.task_cmd = {
-            'connect': False,
-            'init': False,            
-            'rough_align': False,
-            'precise_align': False,
-            'pick': False,
-            'assem': False,
-        }
-
         self.depth_data_callback_ui = None 
 
         self.compensate_update_callback = None
@@ -80,8 +73,6 @@ class ROSNode(Node):
 
         self.current_pose_callback_ui = None
 
-        # self.current_motor_len = [0.0, 0.0, 0.0]
-
         self.motion_state_callback_ui = None
         
         self.motor_info_update_callback_ui = None
@@ -95,9 +86,6 @@ class ROSNode(Node):
         self.task_state_pick_ui = None
         self.task_state_assembly_ui = None
         self.task_state_run_ui = None
-
-        #vision
-        
 
 
         # publisher
@@ -195,13 +183,6 @@ class ROSNode(Node):
             10
         )
 
-        # self.task_state_subscriber = self.create_subscription(
-        #     TaskState,
-        #     '/task_state',
-        #     self.task_state_callback,
-        #     10
-        # )
-
         self.task_state_rough_align = self.create_subscription(
             TaskState,
             '/task_state_rough_align',
@@ -242,29 +223,18 @@ class ROSNode(Node):
         self.detection_task_callback_ui = None
         self.image_update_callback = None
 
+
+    #callbacks
     def depth_data_callback(self, msg: Float32MultiArray):
         self.get_logger().info(f"Received Depth data: {msg.data}")
         if self.depth_data_callback_ui:
             self.depth_data_callback_ui(list(msg.data))  # hand off to UI
-
-        
 
     def mh2_state_callback(self, msg: MH2State):
         self.get_logger().info(f"Received MH2State: \n servo_state: {msg.servo_state} \n alarm_code: {msg.alarm_code}")
         
         if self.mh2_state_callback_ui:
             self.mh2_state_callback_ui(msg)  # hand off to UI layer
-
-    # def task_state_callback(self, msg: TaskState):
-    #     # msg.mode in {"rough_align","precise_align","pick","assembly","idle", ...}
-    #     # msg.state in {"idle","done","fail", else->running}
-    #     self.get_logger().info(f"[TaskState] mode={msg.mode} state={msg.state}")
-    #     if self.task_state_callback_ui:
-    #         # Push clean strings to UI layer
-    #         try:
-    #             self.task_state_callback_ui(str(msg.mode).strip(), str(msg.state).strip())
-    #         except Exception as e:
-    #             self.get_logger().error(f"TaskState → UI error: {e}")        
 
     def task_state_rough_align_callback(self, msg: TaskState):
         # msg.mode in {"rough_align","precise_align","pick","assembly","idle", ...}
@@ -321,8 +291,6 @@ class ROSNode(Node):
             except Exception as e:
                 self.get_logger().error(f"TaskStateRun → UI error: {e}")    
 
-
-
     def current_pose_callback(self, msg: CurrentPose):
         self.get_logger().info(f"Received CurrentPose: \n pose_data: {msg.pose_data}")
         if self.current_pose_callback_ui:
@@ -330,8 +298,6 @@ class ROSNode(Node):
             while len(data) < 3:
                 data.append(0.0)
             self.current_pose_callback_ui(float(data[0]), float(data[1]), float(data[2]))
-
-
 
     def height_info_callback(self, msg: Int32):
         self.get_logger().info(f"Received height info: {msg.data} mm")
@@ -394,8 +360,6 @@ class ROSNode(Node):
 class MainWindow(QMainWindow):
 
     #GUI Threads
-    ros_msg_received = Signal(str)
-
     task_state_update = Signal(str, str)
 
     depth_data_update = Signal(float, float)
@@ -403,17 +367,21 @@ class MainWindow(QMainWindow):
     compensate_pose_update = Signal(float, float, float)
 
     mh2_state_update = Signal(bool, int)
+
     height_update = Signal(int)
 
     di_update = Signal(str, bool)
     do_update = Signal(str, bool)
 
-    image_update = Signal(object)   # carries numpy image
+    image_update = Signal(object)
     vision_mode_update = Signal(str)
 
     motion_state_update = Signal(bool, bool)
+
     current_pose_update = Signal(float, float, float)
+
     motor_info_update = Signal(float, float, float)
+
 
     def __init__(self, ros_node):
         super().__init__()
@@ -447,22 +415,34 @@ class MainWindow(QMainWindow):
         # shortcut keys
         QShortcut(QKeySequence(Qt.Key_Escape), self, activated=self.close)
 
+        #Scroll
+        QScroller.grabGesture(self.ui.ScrollAreaDIDO.viewport(), QScroller.LeftMouseButtonGesture)
+
+   
+
         #Start ROS2 Node
         self.ros_node = ros_node
-
-        QScroller.grabGesture(self.ui.ScrollAreaDIDO.viewport(), QScroller.LeftMouseButtonGesture)
 
         self._vision_comp = {"x": float('nan'), "y": float('nan'), "yaw": float('nan')}
 
 
-        #cabinets
+        #ui_pages.py
+        self.ui_pages = PagesControl(self.ui, self.ros_node)
+
+        self.ui_pages.component_cmd_requested.connect(self.send_component_cmd)
+
+        self.ui_pages.run_cmd_requested.connect(self.send_run_cmd)
+
+        #ui_style.py
+        self.ui_style = StyleUI(self.ui, self.ros_node)
+
+
+
+        #ui_cabinets.py
         self.cabinets_controller = CabinetsController(self.ui, self.ros_node)
 
         #Circles
-         # Map ROS -> Qt thread-safe signal
         self.task_state_update.connect(self.apply_task_state)
-
-        # self.ros_node.task_state_callback_ui = self.task_state_update.emit
 
         self.ros_node.task_state_rough_align_ui = self.task_state_update.emit
 
@@ -473,7 +453,6 @@ class MainWindow(QMainWindow):
         self.ros_node.task_state_assembly_ui = self.task_state_update.emit
 
         self.ros_node.task_state_run_ui = self.task_state_update.emit
-
 
         #vision ui
         self.ros_node.image_update_callback = self.update_image
@@ -487,7 +466,6 @@ class MainWindow(QMainWindow):
         # self.ros_node.image_update_callback = lambda cv: self.image_update.emit(cv)
         # self.ros_node.detection_task_callback_ui = lambda s: self.vision_mode_update.emit(s)
 
-
         #depth data
         self.depth_data_update.connect(self.update_depth_label)
 
@@ -496,6 +474,7 @@ class MainWindow(QMainWindow):
                 float(arr[0]) if len(arr) > 0 else float('nan'),
                 float(arr[1]) if len(arr) > 1 else float('nan'),
             ))
+        
         
         #vision compensate pose
         self.compensate_pose_update.connect(self.update_compensate_pose_label)
@@ -507,14 +486,13 @@ class MainWindow(QMainWindow):
                 float(arr[2] if len(arr) > 2 else float('nan')),
                 # float(arr[3] if len(arr) > 3 else float('nan'))
             ))
-        
+    
 
         #motor ui
         self.motor_controller = MotorController(self.ui, self.ros_node)
         self.motor_info_update.connect(self.motor_controller.on_motor_info)
         self.ros_node.motor_info_update_callback_ui = \
             lambda m1, m2, m3: self.motor_info_update.emit(m1, m2, m3)
-
 
         self.motion_state_update.connect(self.motor_controller.apply_motion_state)
         self.ros_node.motion_state_callback_ui = self.motion_state_update.emit
@@ -552,7 +530,6 @@ class MainWindow(QMainWindow):
         # self.ros_node.do_update_callback = lambda name, state: self.do_update.emit(name, state)
 
 
-
         # Get Today's date
         today = date.today()
         formatted_date = today.strftime("%m/%d/%Y")
@@ -563,11 +540,7 @@ class MainWindow(QMainWindow):
         self._recipe_depth: float | None = None
 
 
-        # self._all_off()
-
-        # Connect Qt signal to UI handler
-        self.ros_msg_received.connect(self.handle_ros_message)
-
+        #Servo Button
         self.ui.ServoONOFFButton.setStyleSheet("""
         QPushButton#ServoONOFFButton {
             color: black;
@@ -578,24 +551,10 @@ class MainWindow(QMainWindow):
             background-color: #4CAF50; /* ON */
         }
         """)
+
         self.ui.ServoONOFFButton.setCheckable(True)
 
-        #servo, alarm, reset
         self.ui.ServoONOFFButton.clicked.connect(lambda checked: self.on_servo_click(checked))
-
-        #test animation
-
-        # effect = QGraphicsOpacityEffect(self.ui.INITCircle)
-        # self.ui.INITCircle.setGraphicsEffect(effect)
-        # self.anim = QPropertyAnimation(effect, b"opacity")
-        # self.anim.setStartValue(0)
-        # self.anim.setEndValue(1)
-        # self.anim.setDuration(7000)
-        # self.anim.start()
-
-
-        # self.ui.SaveCabinet.clicked.connect(self.on_save_cabinet)
-
 
         # auto
         self.ui.AutoButton.toggled.connect(self.on_auto_toggled)
@@ -614,57 +573,48 @@ class MainWindow(QMainWindow):
         self.ui.RoughAlignButton.toggled.connect(lambda checked: self.on_task_toggled("rough_align", checked))
         self.ui.PreciseAlignButton.toggled.connect(lambda checked: self.on_task_toggled("precise_align", checked))
         self.ui.PickButton.toggled.connect(lambda checked: self.on_task_toggled("pick", checked))
-        self.ui.AssemblyButton.toggled.connect(lambda checked: self.on_task_toggled("assembly", checked))
-
-        # cabinets
-        # self.ui.C11.clicked.connect(self.on_cabinet_click)
-
-        
+        self.ui.AssemblyButton.toggled.connect(lambda checked: self.on_task_toggled("assembly", checked))  
 
         # by default
         self.ui.ListOptionsWidget.setVisible(False)
 
         # Touchscreen style in Main Page - Auto
-        # self.ui.INITButton.clicked.connect(lambda: self.on_touch_different_color(self.ui.INITButton, "#FFB300","#FF8F00", "#FFA000","#FF6F00"))
-        # self.ui.RunButton.clicked.connect(lambda: self.on_touch_different_color(self.ui.RunButton, "#1E7E34","#145A24","#155D27","#0B3D14"))
-        self.ui.INITButton.clicked.connect(lambda: self.on_touch_different_color(self.ui.INITButton, "#FFB300","#000000", "#000000","#000000"))
-        self.ui.RunButton.clicked.connect(lambda: self.on_touch_different_color(self.ui.RunButton, "#1E7E34","#000000","#000000","#000000"))
-        self.ui.AutoStopButton.clicked.connect(lambda: self.on_touch_different_color(self.ui.AutoStopButton, "#990000", "#9A0007", "#D32F2F", "#7F0000"))
+        self.ui.INITButton.clicked.connect(lambda: self.ui_style.on_touch_different_color(self.ui.INITButton, "#FFB300","#000000", "#000000","#000000"))
+        self.ui.RunButton.clicked.connect(lambda: self.ui_style.on_touch_different_color(self.ui.RunButton, "#1E7E34","#000000","#000000","#000000"))
+        self.ui.AutoStopButton.clicked.connect(lambda: self.ui_style.on_touch_different_color(self.ui.AutoStopButton, "#990000", "#9A0007", "#D32F2F", "#7F0000"))
 
-        # menu
-        self.ui.MainPageButton.toggled.connect(self.change_to_main_page)
-        self.ui.ComponentControlButton.toggled.connect(self.change_to_component_control_page)
-        self.ui.ProductionRecordButton.clicked.connect(self.change_to_production_record_page)
-        self.ui.LogsButton.clicked.connect(self.change_to_logs_page)
-        self.ui.SystemSettingsButton.clicked.connect(self.change_to_system_settings_page)
+        # Menu
+        self.ui.MainPageButton.toggled.connect(self.ui_pages.change_to_main_page)
+        self.ui.ComponentControlButton.toggled.connect(self.ui_pages.change_to_component_control_page)
 
-        #recipe
-        # self.ui.HeightRecipeInput.textChanged.connect(self.on_height_recipe_input_changed)
-        # self.ui.DepthRecipeInput.textChanged.connect(self.on_depth_recipe_input_changed)
-        # self.ui.PickRecipeButton.toggled.connect(self.on_recipe_mode)
-        # self.ui.AssemblyRecipeButton.toggled.connect(self.on_recipe_mode)
-
-        # self.ui.SaveCabinet.clicked.connect(self.send_recipe)
+        self.ui.ProductionRecordButton.clicked.connect(self.ui_pages.change_to_production_record_page)
+        self.ui.LogsButton.clicked.connect(self.ui_pages.change_to_logs_page)
+        self.ui.SystemSettingsButton.clicked.connect(self.ui_pages.change_to_system_settings_page)
 
         # Main Page - Auto and Manual options
-        self.ui.AutoButton.clicked.connect(self.change_to_auto_page)
-        self.ui.ManualButton.clicked.connect(self.change_to_manual_page)
+        self.ui.AutoButton.clicked.connect(lambda: self.ui_pages.change_auto_or_manual("Auto", 0))
+        self.ui.ManualButton.clicked.connect(lambda: self.ui_pages.change_auto_or_manual("Manual", 1))
 
         #Component Control Choose Page
-        self.ui.ChooseMotor.clicked.connect(lambda: self.component_control_choose_page("Motor", 0))
-        self.ui.ChooseVision.clicked.connect(lambda: self.component_control_choose_page("Vision", 1))
-        self.ui.ChooseGripper.clicked.connect(lambda: self.component_control_choose_page("Gripper", 2))
-        self.ui.ChooseForklift.clicked.connect(lambda: self.component_control_choose_page("Forklift", 3))
-        self.ui.ChooseDIDO.clicked.connect(lambda: self.component_control_choose_page("DI/DO", 4))
+        self.ui.ChooseMotor.clicked.connect(lambda: self.ui_pages.component_control_choose_page("Motor", 0))
+        self.ui.ChooseVision.clicked.connect(lambda: self.ui_pages.component_control_choose_page("Vision", 1))
+        self.ui.ChooseGripper.clicked.connect(lambda: self.ui_pages.component_control_choose_page("Gripper", 2))
+        self.ui.ChooseForklift.clicked.connect(lambda: self.ui_pages.component_control_choose_page("Forklift", 3))
+        self.ui.ChooseDIDO.clicked.connect(lambda: self.ui_pages.component_control_choose_page("DI/DO", 4))
 
         #Component Control, List Menu
-        self.ui.HamburgerMenu.clicked.connect(self.toggle_menu)
+        self.ui.HamburgerMenu.clicked.connect(self.ui_pages.toggle_menu)
 
-        self.ui.MotorOption.clicked.connect(lambda: self.component_control_switch_page("Motor", 0))
-        self.ui.VisionOption.clicked.connect(lambda: self.component_control_switch_page("Vision", 1))
-        self.ui.GripperOption.clicked.connect(lambda: self.component_control_switch_page("Gripper", 2))
-        self.ui.ForkliftOption.clicked.connect(lambda: self.component_control_switch_page("Forklift", 3))
-        self.ui.DIDOOption.clicked.connect(lambda: self.component_control_switch_page("DI/DO", 4))
+        self.ui.MotorOption.clicked.connect(lambda: self.ui_pages.component_control_switch_page("Motor", 0))
+        self.ui.VisionOption.clicked.connect(lambda: self.ui_pages.component_control_switch_page("Vision", 1))
+        self.ui.GripperOption.clicked.connect(lambda: self.ui_pages.component_control_switch_page("Gripper", 2))
+        self.ui.ForkliftOption.clicked.connect(lambda: self.ui_pages.component_control_switch_page("Forklift", 3))
+        self.ui.DIDOOption.clicked.connect(lambda: self.ui_pages.component_control_switch_page("DI/DO", 4))
+
+        #Motor component next
+        self.ui.MotorConfigNextButton.clicked.connect(lambda: self.ui_pages.go_to_next_page_motor(1))
+        self.ui.MotorJogNextButton.clicked.connect(lambda: self.ui_pages.go_to_next_page_motor(2))
+        self.ui.MotorYAxisNextButton.clicked.connect(lambda: self.ui_pages.go_to_next_page_motor(0))
 
         self.ui.VisionSendButton.clicked.connect(self.send_vision_compensate_pose)
 
@@ -687,197 +637,18 @@ class MainWindow(QMainWindow):
             btn.clicked.connect(lambda checked, b=btn: self._on_vision_clicked(b, checked))
 
 
-        #try
-        self.ui.MotorConfigNextButton.clicked.connect(lambda: self.go_to_next_page_motor(1))
-        self.ui.MotorJogNextButton.clicked.connect(lambda: self.go_to_next_page_motor(2))
-        self.ui.MotorYAxisNextButton.clicked.connect(lambda: self.go_to_next_page_motor(0))
+
 
         QTimer.singleShot(5000, lambda: self.add_style(self.ui.StartCircle, "background-color: green;"))
         QTimer.singleShot(10000, lambda: self.add_style(self.ui.ConnectCircle, "background-color: green;"))
 
 
-
     def add_style(self, widget, style):
         current = widget.styleSheet()
         widget.setStyleSheet(current + style)
-
     
-    # def on_save_cabinet(self):
-    #     self.ui.MainPageAutoAndManualStackedWidget.setCurrentIndex(0)
-
-    def on_run_button(self):
-        self.ui.MainPageAutoAndManualStackedWidget.setCurrentIndex(1)
-
-
-
-    # def on_height_recipe_input_changed(self, value: str):
-    #     """
-    #     Called whenever the user types in the height line edit.
-    #     Accepts blank (clears) or numeric. Stores into self._recipe_height.
-    #     """
-    #     text = (value or "").strip()
-    #     if text == "":
-    #         self._recipe_height = None
-    #         print("[Recipe] Height cleared")
-    #         return
-
-    #     try:
-    #         num = float(text)
-    #         # (Optional) basic sanity: reject NaN/inf
-    #         if math.isnan(num) or math.isinf(num):
-    #             raise ValueError("Invalid float")
-    #         self._recipe_height = num
-    #         print(f"[Recipe] Height set → {self._recipe_height} mm")
-    #     except ValueError:
-    #         # Keep previous valid value but warn; you could also color the field red in UI if desired
-    #         print(f"[Recipe] WARNING: Non-numeric height input: {text!r}")
-    #         # Optionally: self.ui.HeightRecipeInput.setText("")  # to force correction
-    #         # Leave self._recipe_height unchanged
-
-    # def on_depth_recipe_input_changed(self, value: str):
-    #     """
-    #     Called whenever the user types in the height line edit.
-    #     Accepts blank (clears) or numeric. Stores into self._recipe_depth.
-    #     """
-    #     text = (value or "").strip()
-    #     if text == "":
-    #         self._recipe_depth = None
-    #         print("[Recipe] Height cleared")
-    #         return
-
-    #     try:
-    #         num = float(text)
-    #         # (Optional) basic sanity: reject NaN/inf
-    #         if math.isnan(num) or math.isinf(num):
-    #             raise ValueError("Invalid float")
-    #         self._recipe_depth = num
-    #         print(f"[Recipe] Depth set → {self._recipe_depth} mm")
-    #     except ValueError:
-    #         # Keep previous valid value but warn; you could also color the field red in UI if desired
-    #         print(f"[Recipe] WARNING: Non-numeric depth input: {text!r}")
-    #         # Optionally: self.ui.HeightRecipeInput.setText("")  # to force correction
-    #         # Leave self._recipe_depth unchanged
-
-        
-
-    # def on_recipe_mode(self, checked: bool):
-    #     """
-    #     Hooked to toggled() of mode buttons.
-    #     Uses sender() to figure out which button fired.
-    #     Only sets mode when the sender is checked.
-    #     """
-    #     btn = self.sender()
-    #     if not btn or not checked:
-    #         return
-
-    #     name = getattr(btn, "objectName", lambda: "")()
-    #     # Map button identity → mode string expected by Recipe.msg
-    #     if name == "PickRecipeButton":
-    #         self._recipe_mode = "pick"
-
-    #         self.ui.MainPageAutoAndManualStackedWidget.setCurrentIndex(1)
-    #     elif "AssemblyRecipeButton" in name:  # supports "AssemblyButton" or "AssemblyRecipeButton"
-    #         self._recipe_mode = "assembly"
-
-    #         self.ui.MainPageAutoAndManualStackedWidget.setCurrentIndex(2)
-    #     else:
-    #         # If some other button wired by accident, ignore
-    #         return
-
-    #     print(f"[Recipe] Mode set → {self._recipe_mode}")
-
-    # def on_recipe_saved(self, checked: bool):
-    #     """
-    #     Triggered by SaveRecipeButton.toggled. We act only on the 'pressed/checked' edge.
-    #     (If you later change to clicked.connect(...), you can ignore the 'checked' arg.)
-    #     """
-    #     if isinstance(checked, bool) and not checked:
-    #         return
-
-    #     ok = self.send_recipe()
-    #     # Give tactile feedback: uncheck the save toggle if it is checkable
-    #     try:
-    #         self.ui.SaveRecipeButton.setChecked(False)
-    #     except Exception:
-    #         pass
-
-    #     if ok:
-    #         print("[Recipe] Save OK")
-    #     else:
-    #         print("[Recipe] Save FAILED (see warnings above)")
-
-
-
-    def parse_height_depth(text: str):
-        """
-        Extracts height and depth from a button text like:
-        'C1R1\nH=944.0, D=600.0'
-        Returns (height, depth) as floats, or (None, None) if not found.
-        """
-        match = re.search(r"H\s*=\s*([\d.]+).*D\s*=\s*([\d.]+)", text)
-        if match:
-            height = float(match.group(1))
-            depth = float(match.group(2))
-            return height, depth
-        return None, None
-
-    def on_recipe_button_clicked(self):
-        btn = self.sender()
-        if not isinstance(btn, QPushButton):
-            return
-
-        btn_text = btn.text()
-        self._recipe_height, self._recipe_depth = self.parse_height_depth(btn_text)
-
-        print(f"[UI] Selected Recipe → Height={self._recipe_height}, Depth={self._recipe_depth}")
-
-    def send_recipe(self) -> bool:
-        """
-        Collects current recipe mode + height, validates, and publishes /recipe.
-        Returns True if published, False otherwise.
-        """
-        # Prefer the cached value; if missing, try to parse current text box contents
-        # if self._recipe_height is None:
-        #     self.on_height_recipe_input_changed(self.ui.HeightRecipeInput.text())
-    
-        # if self._recipe_depth is None:
-        #     self.on_depth_recipe_input_changed(self.ui.DepthRecipeInput.text())
-
-        # Validate
-        if not self._recipe_mode:
-            print("[Recipe] ERROR: Mode not selected (pick/assembly).")
-            return False
-
-        if self._recipe_height is None:
-            print("[Recipe] ERROR: Height is empty or invalid.")
-            return False
-        
-        if self._recipe_depth is None:
-            print("[Recipe] ERROR: Depth is empty or invalid.")
-            return False
-
-        # Build and publish
-        msg = Recipe()
-        msg.mode = self._recipe_mode
-        msg.height = float(self._recipe_height)
-        msg.depth = float(self._recipe_depth)
-
-        print(f"[DEBUG] Publishing Recipe → mode:{msg.mode} height:{msg.height} depth:{msg.depth}")
-        self.ros_node.recipe_publisher.publish(msg)
-        print("[UI] Sent Recipe to /recipe")
-
-        return True
-
-    # def on_cabinet_click(self):
-    #     self.ui.C11.setStyleSheet("""
-    #         QPushButton {
-    #             background-color: blue;
-    #         }
-    #     """)
-        
-
-    def go_to_next_page_motor(self, index):
-        self.ui.MotorStackedWidget.setCurrentIndex(index)
+    # def go_to_next_page_motor(self, index):
+    #     self.ui.MotorStackedWidget.setCurrentIndex(index)
 
     def _paint_only(self, stage: str, color_css: str):
         # Clear all
@@ -902,7 +673,6 @@ class MainWindow(QMainWindow):
                 self.opacity_animation(target)
             # else:
             #     self.stop_opacity_animation(target)
-        
 
     def _handle_init_visual(self, phase: str):
         # phase ∈ {"running","done","fail","off"}
@@ -939,9 +709,6 @@ class MainWindow(QMainWindow):
             }}
         """)
 
-    # def _all_off(self):
-    #     for lbl in self._circles.values():
-    #         self._paint_circle(lbl, self._COLORS["off"])
 
     def apply_task_state(self, mode: str, state: str):
         mode_l = (mode or "").strip().lower()
@@ -963,7 +730,6 @@ class MainWindow(QMainWindow):
         self._paint_only(mode_l, color)
 
 
-
     def on_servo_click(self, checked: bool):
         btn = self.ui.ServoONOFFButton
         prev = not checked            # this was the state before the click
@@ -977,33 +743,6 @@ class MainWindow(QMainWindow):
         # btn.setEnabled(False)         # avoid double clicks
         self.motor_controller.call_servo(desired)
 
-    # def on_servo_on_off_toggled(self, checked: bool):
-
-        
-
-    #     if checked:
-    #         # ON: green
-    #         self.ui.ServoONOFFButton.setStyleSheet("""
-    #             QPushButton {
-    #                 background-color: #4CAF50;  /* Green */
-    #                 color: white;
-    #                 border-radius: 8px;
-    #             }
-    #         """)
-    #         self.ui.ServoONOFFButton.setText("Servo ON")
-    #         # Optionally call your service
-    #         self.motor_controller.call_servo(True if checked else False)
-    #     else:
-    #         # OFF: gray
-    #         self.ui.ServoONOFFButton.setStyleSheet("""
-    #             QPushButton {
-    #                 background-color: #A0A0A0;  /* Gray */
-    #                 color: white;
-    #                 border-radius: 8px;
-    #             }
-    #         """)
-    #         self.ui.ServoONOFFButton.setText("Servo OFF")
-    #         self.motor_controller.call_servo(True if checked else False)
 
     def update_image(self, cv_img):
         qt_img = convert_cv_to_qt(cv_img)
@@ -1024,7 +763,38 @@ class MainWindow(QMainWindow):
 
     def update_detection_mode(self, mode):
         print(f"[UI] Detection mode is now: {mode}")
-        # Optionally update label or status bar  
+
+
+    def _on_vision_clicked(self, btn, checked):
+        if checked:
+            # Turn others off (this will trigger their toggled(False) → publish "<mode>_off")
+            for other, _ in self._vision_buttons:
+                if other is not btn and other.isChecked():
+                    other.setChecked(False)
+        else:
+            # User clicked the same button to turn it off → no mode selected; nothing else to do
+            pass
+
+    # vision fix
+    def on_vision_toggled(self, vision_name, checked):
+        if checked:
+            self.send_vision_cmd(f"{vision_name}")
+            print(f"[UI] {vision_name} started")
+        else:
+            self.send_vision_cmd(f"{vision_name}_off")
+            print(f"[UI] {vision_name} stopped")
+            
+
+    def send_vision_cmd(self, mode):
+        print(f"[DEBUG] Trying to publish: {mode}")  
+
+        if hasattr(self, 'last_vision_mode') and self.last_vision_mode == mode:
+            return
+        self.last_vision_mode = mode
+        msg = String()
+        msg.data = mode
+        self.ros_node.vision_control_publisher.publish(msg)
+        print(f"[UI] Sent VisionCmd: {mode}")
     
 
     def update_depth_label(self, left: float, right: float):
@@ -1124,13 +894,6 @@ class MainWindow(QMainWindow):
         self.ros_node.state_cmd_publisher.publish(msg)
         print(f"[UI] Sent StateCmd: {flag}")
 
-    def send_component_cmd(self, flag):
-        msg = ComponentCmd()
-        msg.mode = flag
-
-        self.ros_node.component_cmd_publisher.publish(msg)
-        print(f"[UI] Sent ComponentCmd: {msg.mode}")
-
 
     def send_task_cmd(self, flag):
         msg = TaskCmd()
@@ -1138,6 +901,15 @@ class MainWindow(QMainWindow):
         
         self.ros_node.task_cmd_publisher.publish(msg)
         print(f"[UI] Sent TaskCmd: {msg.mode}")
+
+
+    def send_component_cmd(self, flag):
+        msg = ComponentCmd()
+        msg.mode = flag
+
+        self.ros_node.component_cmd_publisher.publish(msg)
+        print(f"[UI] Sent ComponentCmd: {msg.mode}")
+
 
     def send_jog_cmd(self, axis, direction):
         msg = JogCmd()
@@ -1148,37 +920,6 @@ class MainWindow(QMainWindow):
         self.ros_node.jog_cmd_publisher.publish(msg)
         print(f"[UI] Sent JogCmd: axis={axis}, direction={direction}")
 
-
-    def _on_vision_clicked(self, btn, checked):
-        if checked:
-            # Turn others off (this will trigger their toggled(False) → publish "<mode>_off")
-            for other, _ in self._vision_buttons:
-                if other is not btn and other.isChecked():
-                    other.setChecked(False)
-        else:
-            # User clicked the same button to turn it off → no mode selected; nothing else to do
-            pass
-
-    # vision fix
-    def on_vision_toggled(self, vision_name, checked):
-        if checked:
-            self.send_vision_cmd(f"{vision_name}")
-            print(f"[UI] {vision_name} started")
-        else:
-            self.send_vision_cmd(f"{vision_name}_off")
-            print(f"[UI] {vision_name} stopped")
-            
-
-    def send_vision_cmd(self, mode):
-        print(f"[DEBUG] Trying to publish: {mode}")  
-
-        if hasattr(self, 'last_vision_mode') and self.last_vision_mode == mode:
-            return
-        self.last_vision_mode = mode
-        msg = String()
-        msg.data = mode
-        self.ros_node.vision_control_publisher.publish(msg)
-        print(f"[UI] Sent VisionCmd: {mode}")
 
     def send_vision_compensate_pose(self):
         x = self._vision_comp["x"]
@@ -1198,12 +939,6 @@ class MainWindow(QMainWindow):
         self.ros_node.motion_cmd_publisher.publish(msg)
         print(f"[Vision] Sent MotionCmd → pose:{msg.pose_data} speed:{msg.speed}")
 
-
-
-    # def send_vision_cmd(self, mode):
-    #     # simplest: no dedupe
-    #     msg = String(); msg.data = mode
-    #     self.ros_node.vision_control_publisher.publish(msg)
     
     def on_manual_button_toggled(self, button, checked):
         if checked:
@@ -1211,43 +946,6 @@ class MainWindow(QMainWindow):
                 if other != button:
                     other.setChecked(False)
 
-    #Principal Menu - StackedWidget
-    def change_to_main_page(self, checked):
-        if checked:
-            # Buttons for Main Page reset
-            main_page_buttons = [
-                self.ui.AutoPauseButton,
-
-                self.ui.RoughAlignButton,
-                self.ui.PreciseAlignButton,
-                self.ui.PickButton,
-                self.ui.AssemblyButton,
-                # self.ui.ManualPauseButton
-            ]
-            self.reset_buttons_and_machine(main_page_buttons, send_pause=False)
-
-            self.ui.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(0)
-
-        
-        self.ui.AutoButton.setChecked(True)
-        self.change_to_auto_page()
-        self.send_run_cmd("auto")
-
-    def change_to_component_control_page(self, checked):
-        if checked:
-            component_control_buttons = [
-                 self.ui.VisionOne,
-                 self.ui.VisionTwo,
-                 self.ui.VisionThree,
-
-                 self.ui.buttonGroup
-            ]
-            self.reset_buttons_and_machine(component_control_buttons, send_pause=False)
-
-            self.ui.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(1)
-            self.ui.ComponentControlStackedWidget.setCurrentIndex(0)
-            self.ui.MiddleStackedWidget.setCurrentIndex(0)
-            self.send_run_cmd("component_control")
 
     def reset_buttons_and_machine(self, buttons_or_groups, send_pause=False):
         for item in buttons_or_groups:
@@ -1269,49 +967,6 @@ class MainWindow(QMainWindow):
             msg.stop_button = False
             self.ros_node.state_cmd_publisher.publish(msg)
 
-    def change_to_production_record_page(self):
-        self.ui.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(2)
-
-    def change_to_logs_page(self):
-        self.ui.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(3)
-
-    def change_to_system_settings_page(self):
-        self.ui.ParentStackedWidgetToChangeMenuOptions.setCurrentIndex(4)
-
-    #choose your component control
-    def choose_motor(self):
-        self.ui.ComponentControlStackedWidget.setCurrentIndex(1)
-        self.ui.ChangeComponentControlStackedWidget.setCurrentIndex(0)
-        self.ui.MotorStartedButton.setText("Motor")
-
-    def choose_vision(self):
-        self.ui.ComponentControlStackedWidget.setCurrentIndex(1)
-        self.ui.ChangeComponentControlStackedWidget.setCurrentIndex(1)
-        self.ui.MotorStartedButton.setText("Vision")
-
-    def choose_gripper(self):
-        self.ui.ComponentControlStackedWidget.setCurrentIndex(1)
-        self.ui.ChangeComponentControlStackedWidget.setCurrentIndex(2)
-        self.ui.MotorStartedButton.setText("Gripper")
-
-    def choose_forklift(self):
-        self.ui.ComponentControlStackedWidget.setCurrentIndex(1)
-        self.ui.ChangeComponentControlStackedWidget.setCurrentIndex(3)
-        self.ui.MotorStartedButton.setText("Forklift")
-
-    def choose_DIDO(self):
-        self.ui.ComponentControlStackedWidget.setCurrentIndex(1)
-        self.ui.ChangeComponentControlStackedWidget.setCurrentIndex(4)
-        self.ui.MiddleStackedWidget.setCurrentIndex(1)
-        self.ui.MotorStartedButton.setText("DI/DO")
-
-
-    # Auto or Manual Buttons
-    def change_to_auto_page(self):
-        self.ui.ActionButtons.setCurrentIndex(0)
-    
-    def change_to_manual_page(self):
-        self.ui.ActionButtons.setCurrentIndex(1)
     
     def on_auto_toggled(self, checked):
         if checked:
@@ -1341,76 +996,11 @@ class MainWindow(QMainWindow):
         else:
             self.send_task_cmd("idle")
 
-            
 
     #Component Control - Motor
     def toggle_menu(self):
         self.ui.ListOptionsWidget.setVisible(not self.ui.ListOptionsWidget.isVisible())
 
-    def component_control_choose_page(self, name, index):
-        self.ui.ComponentControlStackedWidget.setCurrentIndex(1)
-        self.ui.MotorStartedButton.setText(name)
-        self.ui.ChangeComponentControlStackedWidget.setCurrentIndex(index)
-
-        if name == "DI/DO":
-            self.send_component_cmd("dido_control")
-            self.ui.MiddleStackedWidget.setCurrentIndex(1)
-        elif name == "Motor":
-            self.send_component_cmd("pose_control")
-            self.ui.MiddleStackedWidget.setCurrentIndex(0)
-        elif name == "Vision":
-            self.send_component_cmd("vision_control")
-            self.ui.MiddleStackedWidget.setCurrentIndex(0)
-        elif name == "Gripper":
-            self.send_component_cmd("cliper_control")
-            self.ui.MiddleStackedWidget.setCurrentIndex(0)
-        elif name == "Forklift":
-            self.send_component_cmd("forklift_control")
-            self.ui.MiddleStackedWidget.setCurrentIndex(0)
-
-    def component_control_switch_page(self, name, index):
-        self.ui.MotorStartedButton.setText(name)
-        self.ui.ChangeComponentControlStackedWidget.setCurrentIndex(index)
-        self.ui.ListOptionsWidget.setVisible(False)
-
-        if name == "DI/DO":
-            self.send_component_cmd("dido_control")
-            self.ui.MiddleStackedWidget.setCurrentIndex(1)
-        elif name == "Motor":
-            self.send_component_cmd("pose_control")
-            self.ui.MiddleStackedWidget.setCurrentIndex(0)
-        elif name == "Vision":
-            self.send_component_cmd("vision_control")
-            self.ui.MiddleStackedWidget.setCurrentIndex(0)
-        elif name == "Gripper":
-            self.send_component_cmd("cliper_control")
-            self.ui.MiddleStackedWidget.setCurrentIndex(0)
-        elif name == "Forklift":
-            self.send_component_cmd("forklift_control")
-            self.ui.MiddleStackedWidget.setCurrentIndex(0)
-
-
-    #Vision
-
-
-    # def activate_vision_view(self):
-        # Switch to Vision page
-        # self.choose_vision()
-
-        # Optional: Manually refresh or send trigger to vision system
-        # print("[UI] Vision page activated — ready to receive image")
-
-        # Optionally send a ROS signal to start detection (if needed)
-        # self.send_detection_task("start")  # <-- if you want to publish to /detection_task
-
-    def handle_ros_message(self, text):
-        print("ROS message:", text)
-        # Update UI labels here if needed
-
-    def closeEvent(self, event):
-        self.ros_node.destroy_node()
-        rclpy.shutdown()
-        event.accept()
 
     def move_to_second_screen_and_fullscreen(self):
         screens = QApplication.screens()
@@ -1439,9 +1029,6 @@ class MainWindow(QMainWindow):
         self.fade_in.setStartValue(1.0)
         self.fade_in.setEndValue(0.2)
         self.fade_in.setDuration(1500)
-
-        # self.fade_in.setEasingCurve(QEasingCurve.InOutCubic)
-        # self.fade_in.setLoopCount(-1)
         
         self.fade_out = QPropertyAnimation(effect, b"opacity")
         self.fade_out.setStartValue(0.2)
@@ -1460,73 +1047,12 @@ class MainWindow(QMainWindow):
     def stop_opacity_animation(self, target):
         if hasattr(self, "opacity_group") and self.opacity_group.state() == QAbstractAnimation.Running:
             self.opacity_group.stop()
-        
-        # effect = target.graphicsEffect()
-        # if isinstance(effect, QGraphicsOpacityEffect):
-        #     effect.setOpacity(1.0)
-        #     target.update()
 
 
-    def on_touch_controls(self, button):
-        # 1. Visual press feedback
-        button.setStyleSheet("""
-        QPushButton {
-            background-color: rgba(11, 118, 160, 0.3); /* soft blue overlay */
-            border: 1px solid #0B76A0;
-            color: white;
-        }
-        """)
-        
-        # 2. Reset after 200ms
-        QTimer.singleShot(200, lambda: button.setStyleSheet("""
-        QPushButton {
-            background-color: transparent;
-            border: none;
-            color: white;
-        }
-        """))
-
-    def on_touch_buttons(self, button):
-        button.setStyleSheet("""
-        QPushButton {
-            background-color: rgba(11, 118, 160, 0.3); /* soft blue overlay */
-            border: 1px solid #0B76A0;
-            color: white;
-        }
-        """)
-        
-        # 2. Reset after 200ms
-        QTimer.singleShot(200, lambda: button.setStyleSheet("""
-        QPushButton {
-            color: white;
-        }
-        """))
-        
-    def on_touch_different_color(self, button, color, border, colorPressed, borderPressed):
-        # 1. Apply pressed style immediately
-        button.setStyleSheet(f"""
-        QPushButton {{
-            background-color: {color};
-            color: white;
-            border: 2px solid {border};
-        }}
-        """)
-
-        # 2. Reset back to normal style after 300ms (with :disabled included)
-        QTimer.singleShot(300, lambda: button.setStyleSheet(f"""
-        QPushButton {{
-            background-color: {colorPressed};       /* Darker pressed red */
-            border: 2px inset {borderPressed};      /* Inset border for "sunken" effect */
-            color: white;
- 
-        }}
-
-        QPushButton:disabled {{
-            background-color: #BDBDBD;
-            border: 2px solid #9E9E9E;
-            color: #616161;
-        }}
-        """))
+    def closeEvent(self, event):
+        self.ros_node.destroy_node()
+        rclpy.shutdown()
+        event.accept()
 
 def convert_cv_to_qt(cv_img):
     rgb_image = cv2.cvtColor(cv_img, cv2.COLOR_BGR2RGB)

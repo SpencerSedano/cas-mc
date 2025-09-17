@@ -411,7 +411,7 @@ Record</string>
         <string notr="true"/>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="MainPagePage">
         <widget class="QWidget" name="AutoAndManualWidget" native="true">
@@ -2747,7 +2747,7 @@ H=113.0, D=600.0</string>
           <enum>QFrame::Shadow::Raised</enum>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="BeforeComponentControl">
           <layout class="QVBoxLayout" name="verticalLayout_28">
@@ -2950,7 +2950,7 @@ H=113.0, D=600.0</string>
             <string notr="true"/>
            </property>
            <property name="currentIndex">
-            <number>4</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="MotorPage">
             <widget class="QStackedWidget" name="MotorStackedWidget">
@@ -2963,7 +2963,7 @@ H=113.0, D=600.0</string>
               </rect>
              </property>
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="MotorConfigPage">
               <widget class="QPushButton" name="ServoON">
@@ -8595,25 +8595,25 @@ border: none;</string>
  <resources/>
  <connections/>
  <buttongroups>
+  <buttongroup name="buttonGroup_3"/>
+  <buttongroup name="AutoAndManualButtonGroup"/>
   <buttongroup name="FontSizeButtonGroup"/>
-  <buttongroup name="MenuButtonGroup"/>
-  <buttongroup name="ThemeButtonGroup"/>
-  <buttongroup name="PickRecipeButtonGroup"/>
-  <buttongroup name="LanguageButtonGroup"/>
-  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="ManualButtons">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
+  <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="RecipeModeGroup"/>
+  <buttongroup name="MenuButtonGroup"/>
+  <buttongroup name="ThemeButtonGroup"/>
+  <buttongroup name="buttonGroup"/>
   <buttongroup name="VisionButtonGroup">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
-  <buttongroup name="buttonGroup_3"/>
-  <buttongroup name="AutoAndManualButtonGroup"/>
-  <buttongroup name="RecipeModeGroup"/>
-  <buttongroup name="buttonGroup"/>
+  <buttongroup name="LanguageButtonGroup"/>
+  <buttongroup name="PickRecipeButtonGroup"/>
  </buttongroups>
 </ui>
