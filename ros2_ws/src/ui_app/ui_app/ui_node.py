@@ -88,7 +88,8 @@ class ROSNode(Node):
         self.task_state_run_ui = None
 
 
-        # publisher
+        '''Publishers 發布'''
+
         self.mode_cmd_publisher = self.create_publisher(String, '/mode_cmd', 10)
 
         self.state_cmd_publisher = self.create_publisher(StateCmd, '/state_cmd', 10)
@@ -119,7 +120,8 @@ class ROSNode(Node):
 
 
 
-        # subscriber
+        '''Subscribers 訂閱'''
+
         self.depth_data_subscriber = self.create_subscription(
             Float32MultiArray,
             "depth_data",
@@ -224,7 +226,8 @@ class ROSNode(Node):
         self.image_update_callback = None
 
 
-    #callbacks
+    '''Callbacks 回調'''
+
     def depth_data_callback(self, msg: Float32MultiArray):
         self.get_logger().info(f"Received Depth data: {msg.data}")
         if self.depth_data_callback_ui:
@@ -305,7 +308,20 @@ class ROSNode(Node):
         if self.height_update_callback:
             self.height_update_callback(msg.data)
 
-    #vision
+    def compensate_pose_callback(self, msg: Float32MultiArray):
+        self.get_logger().info(f"Received compensate_pose: {msg.data}")
+
+        if self.compensate_update_callback:
+            self.compensate_update_callback(list(msg.data))
+
+    def motion_state_callback(self, msg: MotionState):
+        print(f"[ROS] /motion_state -> init={msg.init_finish}, motion={msg.motion_finish}")
+        if self.motion_state_callback_ui:
+            self.motion_state_callback_ui(bool(msg.init_finish), bool(msg.motion_finish))
+
+    
+    '''Vision 視覺'''
+
     def image_callback(self, msg):
         self.fps_counter.update() 
 
@@ -319,15 +335,12 @@ class ROSNode(Node):
         if self.image_update_callback:
             self.image_update_callback(cv_img)
 
-    def compensate_pose_callback(self, msg: Float32MultiArray):
-        self.get_logger().info(f"Received compensate_pose: {msg.data}")
-
-        if self.compensate_update_callback:
-            self.compensate_update_callback(list(msg.data))
-
     def detection_task_callback(self, msg: String):
         if self.detection_task_callback_ui:
             self.detection_task_callback_ui(msg.data)
+
+    
+    '''Motor 馬達'''
 
     def motors_info_callback(self, msg: MultipleM):
             m1 = msg.motor_info[0].fb_position
@@ -338,6 +351,9 @@ class ROSNode(Node):
                 # This runs in the ROS thread; it's fine to emit a Qt Signal from here
                 # because Qt will queue delivery to the UI thread.
                 self.motor_info_update_callback_ui(m1, m2, m3)
+
+    
+    '''DI/DO'''
 
     def dido_callback(self, msg: DIDOCmd):
         name = msg.name.strip().upper()
@@ -351,15 +367,11 @@ class ROSNode(Node):
                 self.do_update_callback(name, state)
 
 
-    def motion_state_callback(self, msg: MotionState):
-        print(f"[ROS] /motion_state -> init={msg.init_finish}, motion={msg.motion_finish}")
-        if self.motion_state_callback_ui:
-            self.motion_state_callback_ui(bool(msg.init_finish), bool(msg.motion_finish))
-
 
 class MainWindow(QMainWindow):
 
-    #GUI Threads
+    '''GUI Threads'''
+
     task_state_update = Signal(str, str)
 
     depth_data_update = Signal(float, float)
@@ -391,34 +403,12 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Magic Cube UI")
         print("No extermal vision controller")
 
-        # Build circle map once
-        self._circles = {
-            # "start":         self.ui.StartCircle,
-            # "connect":       self.ui.ConnectCircle,
-            "init":          self.ui.INITCircle,
-            "idle":          self.ui.IdleCircle,
-            "rough_align":   self.ui.RoughAlignCircle,
-            "precise_align": self.ui.PreciseAlignCircle,
-            "pick":          self.ui.PickCircle,
-            "assembly":      self.ui.AssemblyCircle,
-        }
-
-        # Theme colors (match your palette if you like)
-        self._COLORS = {
-            "blue":   "#0B76A0",  # idle
-            "yellow": "#FFB300",  # running
-            "green":  "#2E7D32",  # done
-            "red":    "#C62828",  # fail
-            "off":    "#FFFFFF",  # dim/neutral
-        }
-
         # shortcut keys
         QShortcut(QKeySequence(Qt.Key_Escape), self, activated=self.close)
 
         #Scroll
         QScroller.grabGesture(self.ui.ScrollAreaDIDO.viewport(), QScroller.LeftMouseButtonGesture)
 
-   
 
         #Start ROS2 Node
         self.ros_node = ros_node
@@ -441,8 +431,9 @@ class MainWindow(QMainWindow):
         #ui_cabinets.py
         self.cabinets_controller = CabinetsController(self.ui, self.ros_node)
 
+
         #Circles
-        self.task_state_update.connect(self.apply_task_state)
+        self.task_state_update.connect(self.ui_style.apply_task_state)
 
         self.ros_node.task_state_rough_align_ui = self.task_state_update.emit
 
@@ -505,7 +496,7 @@ class MainWindow(QMainWindow):
         self.ros_node.current_pose_callback_ui = self.current_pose_update.emit
 
         # Motor → UI notifier for INIT
-        self.motor_controller.init_visual_cb = self._handle_init_visual
+        self.motor_controller.init_visual_cb = self.ui_style._handle_init_visual
 
         #forklift ui
         self.forklift_controller = ForkliftController(self.ui, self.ros_node)
@@ -534,10 +525,6 @@ class MainWindow(QMainWindow):
         formatted_date = today.strftime("%m/%d/%Y")
         self.ui.DateInput.setText(formatted_date)
         
-        self._recipe_mode: str | None = None     # "pick" or "assembly"
-        self._recipe_height: float | None = None # mm (from HeightRecipeInput)
-        self._recipe_depth: float | None = None
-
 
         #Servo Button
         self.ui.ServoONOFFButton.setStyleSheet("""
@@ -581,6 +568,9 @@ class MainWindow(QMainWindow):
         self.ui.INITButton.clicked.connect(lambda: self.ui_style.on_touch_different_color(self.ui.INITButton, "#FFB300","#000000", "#000000","#000000"))
         self.ui.RunButton.clicked.connect(lambda: self.ui_style.on_touch_different_color(self.ui.RunButton, "#1E7E34","#000000","#000000","#000000"))
         self.ui.AutoStopButton.clicked.connect(lambda: self.ui_style.on_touch_different_color(self.ui.AutoStopButton, "#990000", "#9A0007", "#D32F2F", "#7F0000"))
+
+
+        '''Change Pages 切畫面'''
 
         # Menu
         self.ui.MainPageButton.toggled.connect(self.ui_pages.change_to_main_page)
@@ -640,86 +630,6 @@ class MainWindow(QMainWindow):
         QTimer.singleShot(10000, lambda: self.ui_style.add_style(self.ui.ConnectCircle, "background-color: green;"))
 
 
-    def _paint_only(self, stage: str, color_css: str):
-        # Clear all
-        for lbl in self._circles.values():
-            if lbl is self._circles["init"]:
-                continue
-
-            self._paint_circle(lbl, self._COLORS["off"])
-
-            # reset opacity for all
-            effect = lbl.graphicsEffect()
-            if isinstance(effect, QGraphicsOpacityEffect):
-                effect.setOpacity(1.0)
-
-        target = self._circles.get(stage)
-        self.stop_opacity_animation(target)
-
-        if target:
-            self._paint_circle(target, color_css)
-
-            if color_css == self._COLORS["yellow"]:
-                self.opacity_animation(target)
-            # else:
-            #     self.stop_opacity_animation(target)
-
-    def _handle_init_visual(self, phase: str):
-        # phase ∈ {"running","done","fail","off"}
-        if phase == "off":
-            self._paint_circle(self.ui.INITCircle, self._COLORS["off"])
-        elif phase == "done":
-            # self._paint_only("init", self._COLORS["green"])
-            self._paint_circle(self.ui.INITCircle, self._COLORS["green"])
-        elif phase == "fail":
-            self._paint_only("init", self._COLORS["red"])
-        else:  # "running"
-            self._paint_only("init", self._COLORS["yellow"])
-
-
-    def _paint_circle(self, label, color_css: str):
-        """Set background color; keep it round by using current size."""
-        if not label:
-            return
-        
-        if label == self.ui.INITCircle:
-            effect = label.graphicsEffect()
-            if isinstance(effect, QGraphicsOpacityEffect):
-                effect.setOpacity(1.0)
-
-        target = self._circles.get(label)
-        self.stop_opacity_animation(target)
-
-        radius = max(10, min(label.width(), label.height()) // 2)
-        label.setStyleSheet(f"""
-            QLabel {{
-                background-color: {color_css};
-                border: none;
-                border-radius: {radius}px;
-            }}
-        """)
-
-
-    def apply_task_state(self, mode: str, state: str):
-        mode_l = (mode or "").strip().lower()
-        state_l = (state or "").strip().lower()
-
-        if mode_l not in self._circles:
-            print(f"[TaskState/UI] Unknown mode '{mode_l}', state={state_l}")
-            return
-
-        if state_l == "idle":
-            color = self._COLORS["blue"]
-        elif state_l == "done":
-            color = self._COLORS["green"]
-        elif state_l == "fail":
-            color = self._COLORS["red"]
-        else:
-            color = self._COLORS["yellow"]
-
-        self._paint_only(mode_l, color)
-
-
     def on_servo_click(self, checked: bool):
         btn = self.ui.ServoONOFFButton
         prev = not checked            # this was the state before the click
@@ -733,6 +643,8 @@ class MainWindow(QMainWindow):
         # btn.setEnabled(False)         # avoid double clicks
         self.motor_controller.call_servo(desired)
 
+
+    '''Vision 視覺'''
 
     def update_image(self, cv_img):
         qt_img = convert_cv_to_qt(cv_img)
@@ -765,7 +677,7 @@ class MainWindow(QMainWindow):
             # User clicked the same button to turn it off → no mode selected; nothing else to do
             pass
 
-    # vision fix
+
     def on_vision_toggled(self, vision_name, checked):
         if checked:
             self.send_vision_cmd(f"{vision_name}")
@@ -773,20 +685,10 @@ class MainWindow(QMainWindow):
         else:
             self.send_vision_cmd(f"{vision_name}_off")
             print(f"[UI] {vision_name} stopped")
-            
 
-    def send_vision_cmd(self, mode):
-        print(f"[DEBUG] Trying to publish: {mode}")  
-
-        if hasattr(self, 'last_vision_mode') and self.last_vision_mode == mode:
-            return
-        self.last_vision_mode = mode
-        msg = String()
-        msg.data = mode
-        self.ros_node.vision_control_publisher.publish(msg)
-        print(f"[UI] Sent VisionCmd: {mode}")
     
-
+    '''Calculate and Update 計算和更新'''
+    
     def update_depth_label(self, left: float, right: float):
         if math.isnan(left):
             result_left = "-"
@@ -821,7 +723,7 @@ class MainWindow(QMainWindow):
         # self.ui.zVisionLabel.setText("-" if z != z else f"{z:.2f}")
 
 
-    '''Send publishers'''
+    '''Send publishers 發送發布'''
 
     def send_run_cmd(self, flag):
         msg = RunCmd()
@@ -928,6 +830,16 @@ class MainWindow(QMainWindow):
         self.ros_node.jog_cmd_publisher.publish(msg)
         print(f"[UI] Sent JogCmd: axis={axis}, direction={direction}")
 
+    def send_vision_cmd(self, mode):
+        print(f"[DEBUG] Trying to publish: {mode}")  
+
+        if hasattr(self, 'last_vision_mode') and self.last_vision_mode == mode:
+            return
+        self.last_vision_mode = mode
+        msg = String()
+        msg.data = mode
+        self.ros_node.vision_control_publisher.publish(msg)
+        print(f"[UI] Sent VisionCmd: {mode}")
 
     def send_vision_compensate_pose(self):
         x = self._vision_comp["x"]
@@ -949,7 +861,7 @@ class MainWindow(QMainWindow):
 
 
 
-    '''Config button states'''
+    '''Config button states 按鈕設定狀態'''
     
     def on_manual_button_toggled(self, button, checked):
         if checked:
@@ -957,6 +869,7 @@ class MainWindow(QMainWindow):
                 if other != button:
                     other.setChecked(False)
 
+  
     def _manual_task_buttons(self):
     # Add any other manual-task buttons here
         return [
@@ -970,12 +883,12 @@ class MainWindow(QMainWindow):
         return any(btn.isChecked() for btn in self._manual_task_buttons())
 
 
-
-
     #Component Control - Motor
     def toggle_menu(self):
         self.ui.ListOptionsWidget.setVisible(not self.ui.ListOptionsWidget.isVisible())
 
+
+    '''Helper functions 輔助函數'''
 
     def move_to_second_screen_and_fullscreen(self):
         screens = QApplication.screens()
@@ -991,43 +904,13 @@ class MainWindow(QMainWindow):
             self.showMaximized()
             print("Only one screen, screen fullscreen anyways")
 
-
-    def opacity_animation(self, target):
-        # create effect only once per target
-        if not isinstance(target.graphicsEffect(), QGraphicsOpacityEffect):
-            effect = QGraphicsOpacityEffect(target)
-            target.setGraphicsEffect(effect)
-        else:
-            effect = target.graphicsEffect()
-
-        self.fade_in = QPropertyAnimation(effect, b"opacity")
-        self.fade_in.setStartValue(1.0)
-        self.fade_in.setEndValue(0.2)
-        self.fade_in.setDuration(1500)
-        
-        self.fade_out = QPropertyAnimation(effect, b"opacity")
-        self.fade_out.setStartValue(0.2)
-        self.fade_out.setEndValue(1.0)
-        self.fade_out.setDuration(1500)
-
-        self.opacity_group = QSequentialAnimationGroup()
-        self.opacity_group.addAnimation(self.fade_in)
-        self.opacity_group.addAnimation(self.fade_out)
-
-        self.opacity_group.setLoopCount(-1)
-
-        self.opacity_group.start()
-
-
-    def stop_opacity_animation(self, target):
-        if hasattr(self, "opacity_group") and self.opacity_group.state() == QAbstractAnimation.Running:
-            self.opacity_group.stop()
-
-
     def closeEvent(self, event):
         self.ros_node.destroy_node()
         rclpy.shutdown()
         event.accept()
+
+
+'''Helper functions 輔助函數'''
 
 def convert_cv_to_qt(cv_img):
     rgb_image = cv2.cvtColor(cv_img, cv2.COLOR_BGR2RGB)

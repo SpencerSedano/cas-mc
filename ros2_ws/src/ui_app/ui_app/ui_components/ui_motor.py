@@ -6,7 +6,7 @@ from rclpy.client import Client
 from std_msgs.msg import String
 
 
-'''Use this if needs to be scaled down'''
+'''Use this if need to be scaled down'''
 
 # import os
 # os.environ["QT_SCALE_FACTOR"] = "0.95"
