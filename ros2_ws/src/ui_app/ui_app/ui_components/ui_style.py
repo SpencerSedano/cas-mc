@@ -37,3 +37,7 @@ class StyleUI(QObject):
             color: #616161;
         }}
         """))
+
+    def add_style(self, widget, style):
+        current = widget.styleSheet()
+        widget.setStyleSheet(current + style)

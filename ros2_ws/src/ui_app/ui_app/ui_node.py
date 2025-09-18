@@ -507,7 +507,6 @@ class MainWindow(QMainWindow):
         # Motor → UI notifier for INIT
         self.motor_controller.init_visual_cb = self._handle_init_visual
 
-
         #forklift ui
         self.forklift_controller = ForkliftController(self.ui, self.ros_node)
         self.height_update.connect(self.forklift_controller.update_height_display)
@@ -637,18 +636,9 @@ class MainWindow(QMainWindow):
             btn.clicked.connect(lambda checked, b=btn: self._on_vision_clicked(b, checked))
 
 
+        QTimer.singleShot(5000, lambda: self.ui_style.add_style(self.ui.StartCircle, "background-color: green;"))
+        QTimer.singleShot(10000, lambda: self.ui_style.add_style(self.ui.ConnectCircle, "background-color: green;"))
 
-
-        QTimer.singleShot(5000, lambda: self.add_style(self.ui.StartCircle, "background-color: green;"))
-        QTimer.singleShot(10000, lambda: self.add_style(self.ui.ConnectCircle, "background-color: green;"))
-
-
-    def add_style(self, widget, style):
-        current = widget.styleSheet()
-        widget.setStyleSheet(current + style)
-    
-    # def go_to_next_page_motor(self, index):
-    #     self.ui.MotorStackedWidget.setCurrentIndex(index)
 
     def _paint_only(self, stage: str, color_css: str):
         # Clear all
@@ -831,7 +821,8 @@ class MainWindow(QMainWindow):
         # self.ui.zVisionLabel.setText("-" if z != z else f"{z:.2f}")
 
 
-    #ROS2 Menu
+    '''Send publishers'''
+
     def send_run_cmd(self, flag):
         msg = RunCmd()
 
@@ -841,6 +832,23 @@ class MainWindow(QMainWindow):
         print(f"[DEBUG] Publishing RunCmd: {msg}")
         self.ros_node.component_control_publisher.publish(msg)
         print(f"[UI] Sent RunCmd: {flag}")
+
+
+    def on_manual_toggled(self, checked: bool):
+        if checked:
+            self.send_run_cmd("manual")
+            # if not self._any_manual_task_active():
+            #     self.ui.MainPageAutoAndManualStackedWidget.setCurrentIndex(0)
+        else:
+            self.send_task_cmd("idle")
+
+
+    def on_auto_toggled(self, checked):
+        if checked:
+            self.send_run_cmd("auto")
+            # self.ui.MainPageAutoAndManualStackedWidget.setCurrentIndex(1)
+        else:
+            self.send_task_cmd("idle")
 
 
     def on_pause_toggled(self, checked):
@@ -859,6 +867,7 @@ class MainWindow(QMainWindow):
 
             print("[UI] Pause released, resuming run")
 
+
     def on_task_toggled(self, task_name, checked):
         if checked:
             self.send_task_cmd(task_name)
@@ -870,7 +879,6 @@ class MainWindow(QMainWindow):
             print(f"[UI] {task_name} stopped")
 
 
-    #ROS2 Flag
     def send_state_cmd(self, flag):
         msg = StateCmd()
 
@@ -939,41 +947,15 @@ class MainWindow(QMainWindow):
         self.ros_node.motion_cmd_publisher.publish(msg)
         print(f"[Vision] Sent MotionCmd → pose:{msg.pose_data} speed:{msg.speed}")
 
+
+
+    '''Config button states'''
     
     def on_manual_button_toggled(self, button, checked):
         if checked:
             for other in self.ui.ManualButtons.buttons():
                 if other != button:
                     other.setChecked(False)
-
-
-    def reset_buttons_and_machine(self, buttons_or_groups, send_pause=False):
-        for item in buttons_or_groups:
-            if isinstance(item, QButtonGroup):
-                # Temporarily disable exclusivity to allow all buttons to uncheck
-                item.setExclusive(False)
-                for btn in item.buttons():
-                    btn.setChecked(False)
-                item.setExclusive(True)
-            else:
-                # Normal single button
-                item.setChecked(False)
-
-        if send_pause:
-            msg = StateCmd()
-            msg.init_button = False
-            msg.run_button = False
-            msg.pause_button = True
-            msg.stop_button = False
-            self.ros_node.state_cmd_publisher.publish(msg)
-
-    
-    def on_auto_toggled(self, checked):
-        if checked:
-            self.send_run_cmd("auto")
-            # self.ui.MainPageAutoAndManualStackedWidget.setCurrentIndex(1)
-        else:
-            self.send_task_cmd("idle")
 
     def _manual_task_buttons(self):
     # Add any other manual-task buttons here
@@ -988,13 +970,6 @@ class MainWindow(QMainWindow):
         return any(btn.isChecked() for btn in self._manual_task_buttons())
 
 
-    def on_manual_toggled(self, checked: bool):
-        if checked:
-            self.send_run_cmd("manual")
-            # if not self._any_manual_task_active():
-            #     self.ui.MainPageAutoAndManualStackedWidget.setCurrentIndex(0)
-        else:
-            self.send_task_cmd("idle")
 
 
     #Component Control - Motor
