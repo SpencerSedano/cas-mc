@@ -403,36 +403,47 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Magic Cube UI")
         print("No extermal vision controller")
 
-        # shortcut keys
+
+        '''Keyboard related'''
         QShortcut(QKeySequence(Qt.Key_Escape), self, activated=self.close)
 
-        #Scroll
+        
+        '''Touchscreen related'''
         QScroller.grabGesture(self.ui.ScrollAreaDIDO.viewport(), QScroller.LeftMouseButtonGesture)
 
 
-        #Start ROS2 Node
+        '''Start ROS2 node'''
         self.ros_node = ros_node
+
+
+        '''Global variables'''
+
+        self._vision_buttons = [
+            (self.ui.VisionOne,   "screw"),
+            (self.ui.VisionTwo,   "l_shape"),
+            (self.ui.VisionThree, "icp_fit"),
+        ]
 
         self._vision_comp = {"x": float('nan'), "y": float('nan'), "yaw": float('nan')}
 
 
-        #ui_pages.py
+        '''ui_pages.py'''
         self.ui_pages = PagesControl(self.ui, self.ros_node)
 
         self.ui_pages.component_cmd_requested.connect(self.send_component_cmd)
 
         self.ui_pages.run_cmd_requested.connect(self.send_run_cmd)
 
-        #ui_style.py
+
+        '''ui_style.py'''
         self.ui_style = StyleUI(self.ui, self.ros_node)
 
 
-
-        #ui_cabinets.py
+        '''ui_cabinets.py'''
         self.cabinets_controller = CabinetsController(self.ui, self.ros_node)
 
 
-        #Circles
+        '''Circles'''
         self.task_state_update.connect(self.ui_style.apply_task_state)
 
         self.ros_node.task_state_rough_align_ui = self.task_state_update.emit
@@ -445,7 +456,8 @@ class MainWindow(QMainWindow):
 
         self.ros_node.task_state_run_ui = self.task_state_update.emit
 
-        #vision ui
+
+        '''Vision'''
         self.ros_node.image_update_callback = self.update_image
         self.ros_node.detection_task_callback_ui = self.update_detection_mode
         # self.vision_controller = VisionController(self.ui, self.ros_node)
@@ -457,7 +469,8 @@ class MainWindow(QMainWindow):
         # self.ros_node.image_update_callback = lambda cv: self.image_update.emit(cv)
         # self.ros_node.detection_task_callback_ui = lambda s: self.vision_mode_update.emit(s)
 
-        #depth data
+        
+        '''Depth data'''
         self.depth_data_update.connect(self.update_depth_label)
 
         self.ros_node.depth_data_callback_ui = \
@@ -467,7 +480,7 @@ class MainWindow(QMainWindow):
             ))
         
         
-        #vision compensate pose
+        '''Vision compensate pose'''
         self.compensate_pose_update.connect(self.update_compensate_pose_label)
 
         self.ros_node.compensate_update_callback = \
@@ -479,7 +492,7 @@ class MainWindow(QMainWindow):
             ))
     
 
-        #motor ui
+        '''Motor Controller 馬達'''
         self.motor_controller = MotorController(self.ui, self.ros_node)
         self.motor_info_update.connect(self.motor_controller.on_motor_info)
         self.ros_node.motor_info_update_callback_ui = \
@@ -498,18 +511,20 @@ class MainWindow(QMainWindow):
         # Motor → UI notifier for INIT
         self.motor_controller.init_visual_cb = self.ui_style._handle_init_visual
 
-        #forklift ui
+        
+        '''Forklift Controller 叉車'''
         self.forklift_controller = ForkliftController(self.ui, self.ros_node)
         self.height_update.connect(self.forklift_controller.update_height_display)
         self.ros_node.height_update_callback = lambda v: self.height_update.emit(v)
 
-        #gripper ui
+
+        '''Gripper Controller 夹持'''
         self.gripper_controller = GripperController(self.ui, self.ros_node)
 
         #limit ui
         self.limit_controller = LimitController(self.ui, self.ros_node)
 
-        # DI/DO UI Controller
+        ''''''
         self.dido_controller = DIDOController(self.ui, self.ros_node)
         
         self.di_update.connect(self.dido_controller.update_di)
@@ -542,8 +557,8 @@ class MainWindow(QMainWindow):
 
         self.ui.ServoONOFFButton.clicked.connect(lambda checked: self.on_servo_click(checked))
 
-        # auto
-        self.ui.AutoButton.toggled.connect(self.on_auto_toggled)
+
+        '''Main Page Buttons 主頁按鈕'''
 
         self.ui.INITButton.clicked.connect(lambda: self.send_state_cmd("init"))
         self.ui.INITButton.clicked.connect(self.motor_controller.on_init_commanded)
@@ -553,7 +568,7 @@ class MainWindow(QMainWindow):
         self.ui.AutoPauseButton.toggled.connect(self.on_pause_toggled)
         self.ui.AutoStopButton.clicked.connect(lambda: self.send_state_cmd("stop"))
 
-        # manual
+        self.ui.AutoButton.toggled.connect(self.on_auto_toggled)
         self.ui.ManualButton.toggled.connect(self.on_manual_toggled)
 
         self.ui.RoughAlignButton.toggled.connect(lambda checked: self.on_task_toggled("rough_align", checked))
@@ -561,10 +576,14 @@ class MainWindow(QMainWindow):
         self.ui.PickButton.toggled.connect(lambda checked: self.on_task_toggled("pick", checked))
         self.ui.AssemblyButton.toggled.connect(lambda checked: self.on_task_toggled("assembly", checked))  
 
-        # by default
+
+        '''By default 預設'''
+
         self.ui.ListOptionsWidget.setVisible(False)
 
-        # Touchscreen style in Main Page - Auto
+
+        '''Touchscreen style 觸控螢幕的風格 '''
+
         self.ui.INITButton.clicked.connect(lambda: self.ui_style.on_touch_different_color(self.ui.INITButton, "#FFB300","#000000", "#000000","#000000"))
         self.ui.RunButton.clicked.connect(lambda: self.ui_style.on_touch_different_color(self.ui.RunButton, "#1E7E34","#000000","#000000","#000000"))
         self.ui.AutoStopButton.clicked.connect(lambda: self.ui_style.on_touch_different_color(self.ui.AutoStopButton, "#990000", "#9A0007", "#D32F2F", "#7F0000"))
@@ -610,12 +629,6 @@ class MainWindow(QMainWindow):
         for btn in self.ui.ManualButtons.buttons():
             btn.toggled.connect(lambda checked, b=btn: self.on_manual_button_toggled(b, checked))
 
-        # after setupUi(...)
-        self._vision_buttons = [
-            (self.ui.VisionOne,   "screw"),
-            (self.ui.VisionTwo,   "l_shape"),
-            (self.ui.VisionThree, "icp_fit"),
-        ]
 
         # Make sure they’re checkable and not in an exclusive QButtonGroup
         for btn, mode in self._vision_buttons:
@@ -629,6 +642,8 @@ class MainWindow(QMainWindow):
         QTimer.singleShot(5000, lambda: self.ui_style.add_style(self.ui.StartCircle, "background-color: green;"))
         QTimer.singleShot(10000, lambda: self.ui_style.add_style(self.ui.ConnectCircle, "background-color: green;"))
 
+    
+    '''All Functions 所有函式'''
 
     def on_servo_click(self, checked: bool):
         btn = self.ui.ServoONOFFButton
