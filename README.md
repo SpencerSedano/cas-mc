@@ -63,6 +63,9 @@ Remember to run these commands again.
 
     ```bash
     colcon build
+    ```
+
+    ```bash
     ros2 run ui_app ui_node
     ```
 
