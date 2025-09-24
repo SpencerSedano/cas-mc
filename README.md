@@ -30,7 +30,13 @@
 
     ```bash
     colcon build
+    ```
+
+     ```bash
     source install/setup.bash
+    ```
+
+    ```bash
     ros2 run ui_app ui_node
     ```
 
