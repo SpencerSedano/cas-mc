@@ -100,7 +100,7 @@ Remember to run these commands.
 2. Run patch_icons.py. It will make sure all icons appear in the UI.
 
     ```bash
-        python3 patch_icons.py ui_magic_cube.py
+    python3 patch_icons.py ui_magic_cube.py
     ```
 
 ### About resources.qrc
